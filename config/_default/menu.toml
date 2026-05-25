@@ -1,0 +1,15 @@
+[[social]]
+    identifier = "github"
+    name       = "GitHub"
+    url        = "https://github.com/CaiJimmy/hugo-theme-stack"
+
+    [social.params]
+        icon = "brand-github"
+
+[[social]]
+    identifier = "bilibili"
+    name       = "Bilibili"
+    url        = "https://space.bilibili.com/178958911?spm_id_from=333.788.0.0"
+
+    [social.params]
+        icon = "brand-bilibili"

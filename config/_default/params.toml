@@ -1,0 +1,58 @@
+mainSections   = ["post"]
+rssFullContent = true
+favicon        = "/img/avatar.ico"  # 网页左上角ico小图标
+
+# 页脚修改
+[footer]
+    since = 2026
+	customText = '测试中...'
+
+# 文章日期格式化 go语言格式
+[dateFormat]
+	published = '2006-01-02'
+	lastUpdated = '2006-01-02'
+
+# 头像旁边emoji的修改
+[sidebar]
+    emoji    = "😎"
+    subtitle = "学习中"
+    avatar   = "/img/avatar.jpg"  # 头像
+
+[article]
+	math = false	# 展示数学公式
+	toc = true	# 展示目录
+	readingTime = false	# 展示阅读时间
+	lastmod = true
+    [article.license]	# 文章页末一行
+        enabled = true	
+        default = "[bilibili](https://www.bilibili.com/)"  # 超链接
+
+# 右边侧边栏装饰
+[widgets]
+    homepage = [
+        { type = "search" },
+        { type = "archives", params = { limit = 5 } },
+        { type = "categories", params = { limit = 10 } },
+        #{ type = "tag-cloud", params = { limit = 10 } },
+    ]
+    page     = [{ type = "toc" }] # 文章目录
+
+# 评论区是否打开
+[comments]
+    # See complete configuration in config/_default/params.toml
+    enabled  = true
+    provider = "disqus"
+
+# GDPR Cookie Consent Configuration
+# When enabled, analytics and functional cookies require user consent
+[cookies]
+    enabled = false
+
+    [cookies.categories]
+        analytics  = true
+        functional = true
+
+[author]
+    name = "Wuwei1"
+    # 如果你想让侧边栏头像点击后跳转到某个页面
+    home = "/"
