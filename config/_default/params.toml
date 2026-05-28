@@ -41,7 +41,22 @@ favicon        = "/img/avatar.ico"  # 网页左上角ico小图标
 [comments]
     # See complete configuration in config/_default/params.toml
     enabled  = true
-    provider = "disqus"
+    provider = "giscus"
+	
+    [comments.giscus]
+        repo             = "wyww7/wyww7.github.io"
+        repoID           = "R_kgDOSnUB8Q"
+        category         = "Announcements"
+        categoryID       = "DIC_kwDOSnUB8c4C-Ay_"
+        mapping          = "pathname"
+        lightTheme       = "light"
+        darkTheme        = "dark_dimmed"
+        reactionsEnabled = 1
+        emitMetadata     = 0
+        inputPosition    = "bottom"
+        lang             = "zh-CN"
+        strict           = 0
+        loading          = "lazy"
 
 # GDPR Cookie Consent Configuration
 # When enabled, analytics and functional cookies require user consent
