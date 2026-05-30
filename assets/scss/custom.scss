@@ -1,0 +1,239 @@
+/* ===== 自定义样式优化 ===== */
+
+/* ---- 文章卡片阴影和悬停效果 ---- */
+.article-wrapper {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+    }
+}
+
+/* ---- 文章详情页顶部标题样式 ---- */
+.article-page .article-details {
+    background: linear-gradient(135deg, var(--card-background), var(--body-background));
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 16px;
+}
+
+/* ---- 标签和分类彩色徽章 ---- */
+.article-category a,
+.widget-categories .category-list a {
+    padding: 4px 14px;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+
+    &:hover {
+        opacity: 0.85;
+        transform: scale(1.05);
+    }
+}
+
+/* 文章列表标签 */
+.article-tags a {
+    display: inline-block;
+    padding: 4px 14px;
+    margin: 3px 5px;
+    border-radius: 20px;
+    font-size: 0.95rem;
+    background-color: var(--button-background);
+    color: var(--button-text-color);
+    transition: all 0.2s ease;
+    text-decoration: none;
+
+    &:hover {
+        background-color: var(--link-color);
+        color: #fff;
+    }
+}
+
+/* 标签云侧边栏 */
+.widget-tag-cloud .tag-cloud-tags a {
+    font-size: 0.95rem !important;
+    padding: 3px 10px;
+    margin: 2px 4px;
+}
+
+/* ---- 侧边栏美化 ---- */
+.sidebar {
+    .site-avatar {
+        position: relative;
+
+        .emoji {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            font-size: 1.8rem;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+            transition: transform 0.3s ease;
+
+            &:hover {
+                transform: rotate(20deg) scale(1.2);
+            }
+        }
+    }
+
+    .site-name a {
+        background: linear-gradient(135deg, var(--link-color), #e91e63);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+}
+
+/* ---- 文章内容优化 ---- */
+.article-content {
+    line-height: 1.8;
+
+    h2 {
+        margin-top: 2em;
+        padding-bottom: 8px;
+        border-bottom: 2px solid var(--body-background);
+        position: relative;
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: var(--link-color);
+        }
+    }
+
+    h3 {
+        margin-top: 1.5em;
+        color: var(--card-text-color-secondary);
+    }
+
+    /* 表格美化 */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1em 0;
+
+        th {
+            background-color: var(--button-background);
+            font-weight: 600;
+            padding: 10px 14px;
+            text-align: left;
+        }
+
+        td {
+            padding: 8px 14px;
+            border-bottom: 1px solid var(--body-background);
+        }
+
+        tr:hover td {
+            background-color: var(--body-background);
+        }
+    }
+
+    /* 引用块美化 */
+    blockquote {
+        border-left: 4px solid var(--link-color);
+        background-color: var(--body-background);
+        padding: 12px 20px;
+        margin: 1em 0;
+        border-radius: 0 8px 8px 0;
+        color: var(--card-text-color-secondary);
+
+        p {
+            margin: 0;
+        }
+    }
+
+    /* 代码块优化 */
+    pre {
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* 内联代码 */
+    code {
+        font-size: 1.5rem;
+    }
+
+    /* 代码行号内联显示（不启用表格，避免分割线） */
+}
+
+/* ---- 页脚美化 ---- */
+.footer {
+    .footer-inner {
+        padding: 20px 0;
+        border-top: 1px solid var(--body-background);
+    }
+}
+
+/* ---- 亮/暗模式切换按钮样式 ---- */
+#dark-mode-toggle {
+    transition: transform 0.5s ease;
+
+    &:hover {
+        transform: rotate(360deg);
+    }
+}
+
+/* ---- 返回顶部按钮 ---- */
+#table-of-contents {
+    max-height: 70vh;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--button-background);
+        border-radius: 2px;
+    }
+}
+
+/* ---- 搜索框优化 ---- */
+.search-form {
+    .search-input {
+        border-radius: 20px;
+        padding: 8px 16px;
+        transition: all 0.3s ease;
+
+        &:focus {
+            box-shadow: 0 0 0 2px var(--link-color);
+        }
+    }
+}
+
+/* ---- 归档页面美化 ---- */
+.archives-year {
+    .archives-year-title {
+        position: relative;
+        padding-left: 16px;
+        margin-bottom: 12px;
+
+        &::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 24px;
+            background: var(--link-color);
+            border-radius: 3px;
+        }
+    }
+}
+
+/* ---- 分类页面彩色图标 ---- */
+.category-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+}

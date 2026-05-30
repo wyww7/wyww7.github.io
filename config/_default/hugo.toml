@@ -1,23 +1,21 @@
-# 这里的地址改成本地预览地址，或者你的未来域名
-baseURL = "http://wyww7.github.io"
-locale = "zh"  # 建议改为中文
-title = "Wuwei" # 改成你喜欢的名字
+# 博客基础配置
+baseURL = "https://wyww7.github.io"
+locale = "zh"
+title = "Wuwei"
 
-# 设置为 true，这样中文文章的字数统计才准确
 hasCJKLanguage = true
-
-# 核心修改：直接指定本地主题文件夹名称
 theme = "hugo-theme-stack"
-
-# 以下保持原样或按需修改
 defaultContentLanguage = "zh"
 
+# SEO
+enableRobotsTXT = true
+summaryLength = 120
+
 [frontmatter]
-    # 告诉 Hugo 依次从以下四个渠道获取最后修改时间
     showLastmod = [":frontmatter", "lastmod", ":fileModTime", ":default"]
 
 [pagination]
-    pagerSize = 5
+    pagerSize = 6
 
 [permalinks]
     post = "/p/:slug/"

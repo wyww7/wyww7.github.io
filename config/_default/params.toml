@@ -1,48 +1,66 @@
 mainSections   = ["post"]
 rssFullContent = true
-favicon        = "/img/avatar.ico"  # 网页左上角ico小图标
+favicon        = "/img/avatar.ico"
 
-# 页脚修改
+# 页脚
 [footer]
     since = 2026
-	customText = '测试中...'
+    customText = '记录技术与生活'
 
-# 文章日期格式化 go语言格式
+# 文章日期格式化
 [dateFormat]
-	published = '2006-01-02'
-	lastUpdated = '2006-01-02'
+    published = '2006-01-02'
+    lastUpdated = '2006-01-02'
 
-# 头像旁边emoji的修改
+# 侧边栏
 [sidebar]
     emoji    = "😎"
-    subtitle = "学习中"
-    avatar   = "/img/avatar.jpg"  # 头像
+    subtitle = "持续学习中"
+    avatar   = "/img/avatar.jpg"
 
 [article]
-	math = false	# 展示数学公式
-	toc = true	# 展示目录
-	readingTime = false	# 展示阅读时间
-	lastmod = true
-    [article.license]	# 文章页末一行
-        enabled = true	
-        default = "[bilibili](https://www.bilibili.com/)"  # 超链接
+    headingAnchor = true
+    math          = false
+    toc           = true
+    readingTime   = false
+    lastmod       = true
 
-# 右边侧边栏装饰
+    [article.list]
+        showTags = true
+
+    [article.license]
+        enabled = true
+        default = "[Wuwei's Blog](https://wyww7.github.io/)"
+
+    [article.mermaid]
+        look                  = "classic"
+        lightTheme            = "default"
+        darkTheme             = "dark"
+        securityLevel         = "strict"
+        htmlLabels            = true
+        transparentBackground = false
+
+    [article.alertIcon]
+        note      = "📝"
+        tip       = "💡"
+        important = "📌"
+        warning   = "⚠️"
+        caution   = "🚨"
+
+# 右侧侧边栏小部件
 [widgets]
     homepage = [
         { type = "search" },
         { type = "archives", params = { limit = 5 } },
         { type = "categories", params = { limit = 10 } },
-        #{ type = "tag-cloud", params = { limit = 10 } },
     ]
-    page     = [{ type = "toc" }] # 文章目录
+    page     = [{ type = "toc" }]
 
-# 评论区是否打开
+# 评论区
 [comments]
-    # See complete configuration in config/_default/params.toml
     enabled  = true
     provider = "giscus"
-	
+
     [comments.giscus]
         repo             = "wyww7/wyww7.github.io"
         repoID           = "R_kgDOSnUB8Q"
@@ -58,16 +76,24 @@ favicon        = "/img/avatar.ico"  # 网页左上角ico小图标
         strict           = 0
         loading          = "lazy"
 
-# GDPR Cookie Consent Configuration
-# When enabled, analytics and functional cookies require user consent
+# 颜色模式切换
+[colorScheme]
+    toggle  = true
+    default = "auto"
+
+# 图片处理优化
+[imageProcessing]
+    autoOrient = false
+    [imageProcessing.content]
+        widths  = [800, 1600, 2400]
+        enabled = true
+    [imageProcessing.thumbnail]
+        enabled = true
+
+# Cookie 同意
 [cookies]
     enabled = false
 
-    [cookies.categories]
-        analytics  = true
-        functional = true
-
 [author]
-    name = "Wuwei1"
-    # 如果你想让侧边栏头像点击后跳转到某个页面
+    name = "Wuwei"
     home = "/"
