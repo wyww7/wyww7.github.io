@@ -68,7 +68,7 @@ tags:
 
 ---
 
-## 一、准备工作：创建本地挂载目录
+## 准备工作：创建本地挂载目录
 
 在 **k8s-node01**（192.168.20.127）上执行：
 
@@ -79,7 +79,7 @@ chmod -R 777 /data/k8s/ruoyi/
 
 ---
 
-## 二、创建命名空间
+## 创建命名空间
 
 创建 `ruoyi-env.yaml`：
 
@@ -96,9 +96,9 @@ kubectl apply -f ruoyi-env.yaml
 
 ---
 
-## 三、部署基础设施
+## 部署基础设施
 
-### 3.1 MySQL
+### MySQL
 
 创建 `mysql.yaml`：
 
@@ -176,7 +176,7 @@ CREATE DATABASE ruoyi CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 导入若依项目 `sql/` 目录下的全部 4 个 SQL 文件。
 
-### 3.2 Redis
+### Redis
 
 创建 `redis.yaml`：
 
@@ -238,7 +238,7 @@ spec:
 kubectl apply -f redis.yaml
 ```
 
-### 3.3 Nacos（注册中心 + 配置中心）
+### Nacos（注册中心 + 配置中心）
 
 创建 `nacos.yaml`：
 
@@ -347,7 +347,7 @@ kubectl apply -f nacos.yaml
 
 > 注意：Nacos API 端口是 8848（映射为 NodePort 31884），配置管理及服务发现通过此端口通信。
 
-### 3.4 Minio（对象存储）
+### Minio（对象存储）
 
 创建 `minio.yaml`：
 
@@ -429,7 +429,7 @@ kubectl apply -f minio.yaml
 
 访问控制台：`http://192.168.20.127:30901`（账号：`minioadmin` / `minioadmin`）
 
-### 3.5 Sentinel Dashboard（流控）
+### Sentinel Dashboard（流控）
 
 创建 `sentinel.yaml`：
 
@@ -483,7 +483,7 @@ kubectl apply -f sentinel.yaml
 
 在所有微服务启动前，需要在 Nacos 中先创建好对应的配置。
 
-### 4.1 通用配置：`application-dev.yml`
+### 通用配置：`application-dev.yml`
 
 ```yaml
 spring:
@@ -522,7 +522,7 @@ management:
         enabled: false
 ```
 
-### 4.2 网关配置：`ruoyi-gateway-dev.yml`
+### 网关配置：`ruoyi-gateway-dev.yml`
 
 ```yaml
 spring:
@@ -607,7 +607,7 @@ security:
 > 1. **属性前缀**：新版本 Spring Cloud Gateway（5.x）使用 `spring.cloud.gateway.server.webflux` 前缀，而非旧版的 `spring.cloud.gateway`。如果不使用正确前缀，路由配置虽然能加载到 Spring 环境中，但无法被 `GatewayProperties` 绑定识别，所有路由将返回 404。
 > 2. **CacheRequestBody 参数**：`CacheRequestBody` 过滤器必须指定 `bodyClass: java.lang.String`，否则启动时会报 `bodyClass must not be null`。
 
-### 4.3 Auth 配置：`ruoyi-auth-dev.yml`
+### Auth 配置：`ruoyi-auth-dev.yml`
 
 ```yaml
 spring:
@@ -622,7 +622,7 @@ spring:
     password: ruoyi123
 ```
 
-### 4.4 System 配置：`ruoyi-system-dev.yml`
+### System 配置：`ruoyi-system-dev.yml`
 
 ```yaml
 spring:
@@ -633,7 +633,7 @@ spring:
       password: ruoyi123
 ```
 
-### 4.5 File 配置：`ruoyi-file-dev.yml`
+### File 配置：`ruoyi-file-dev.yml`
 
 ```yaml
 # Minio配置
@@ -646,11 +646,11 @@ minio:
 
 ---
 
-## 五、修改引导配置（源码级）
+## 修改引导配置（源码级）
 
 在 Docker 打包机上，修改各模块的 `bootstrap.yml`，使它们指向 K8s 集群内的 Nacos。
 
-### 5.1 Gateway
+### Gateway
 
 ```yaml
 server:
@@ -680,7 +680,7 @@ spring:
       - nacos:${spring.application.name}-${spring.profiles.active}.${spring.config.file-extension}
 ```
 
-### 5.2 Auth / System / Job / Gen / File
+### Auth / System / Job / Gen / File
 
 这些模块的 `bootstrap.yml` 结构相同，仅 `server.port` 和 `spring.application.name` 不同：
 
@@ -718,15 +718,15 @@ spring:
       - nacos:${spring.application.name}-${spring.profiles.active}.${spring.config.file-extension}
 ```
 
-### 5.3 File 模块额外修改
+### File 模块额外修改
 
 由于 file 模块同时依赖 Local 和 Minio 实现，需要将 Minio 设为默认实现，在类上添加 `@Primary` 注解。
 
 ---
 
-## 六、Docker 镜像构建与推送
+## Docker 镜像构建与推送
 
-### 6.1 Dockerfile
+### Dockerfile
 
 在每个微服务模块目录下创建 Dockerfile：
 
@@ -745,7 +745,7 @@ EXPOSE 8080
 ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "app.jar", "--spring.profiles.active=dev"]
 ```
 
-### 6.2 构建与推送脚本
+### 构建与推送脚本
 
 ```bash
 #!/bin/bash
@@ -789,9 +789,9 @@ echo "============ 全部完成 ============"
 
 ---
 
-## 七、K8s 部署编排
+## K8s 部署编排
 
-### 7.1 网关：`ruoyi-gateway.yaml`
+### 网关：`ruoyi-gateway.yaml`
 
 ```yaml
 apiVersion: apps/v1
@@ -848,7 +848,7 @@ spec:
     app: ruoyi-gateway
 ```
 
-### 7.2 认证模块：`ruoyi-auth.yaml`
+### 认证模块：`ruoyi-auth.yaml`
 
 ```yaml
 apiVersion: apps/v1
@@ -904,7 +904,7 @@ spec:
     app: ruoyi-auth
 ```
 
-### 7.3 系统核心模块：`ruoyi-system.yaml`
+### 系统核心模块：`ruoyi-system.yaml`
 
 ```yaml
 apiVersion: apps/v1
@@ -954,7 +954,7 @@ spec:
     app: ruoyi-system
 ```
 
-### 7.4 前端 UI：`ruoyi-ui.yaml`
+### 前端 UI：`ruoyi-ui.yaml`
 
 ```yaml
 apiVersion: apps/v1
@@ -1043,7 +1043,7 @@ data:
     }
 ```
 
-### 7.5 一键部署
+### 一键部署
 
 ```bash
 kubectl apply -f ruoyi-system.yaml
@@ -1057,7 +1057,7 @@ kubectl apply -f ruoyi-ui.yaml
 
 ---
 
-## 八、服务访问汇总
+## 服务访问汇总
 
 | 服务 | 访问地址 | 说明 |
 |------|---------|------|
@@ -1070,9 +1070,9 @@ kubectl apply -f ruoyi-ui.yaml
 
 ---
 
-## 九、常见问题排查
+## 常见问题排查
 
-### 9.1 登录时报 404 "No static resource auth/login"
+### 登录时报 404 "No static resource auth/login"
 
 **原因**：Gateway 的 `spring.cloud.gateway.*` 路由配置属性前缀不匹配。
 
@@ -1084,7 +1084,7 @@ kubectl apply -f ruoyi-ui.yaml
 kubectl rollout restart -n ruoyi deploy/ruoyi-gateway
 ```
 
-### 9.2 Gateway 报 "bodyClass must not be null"
+### Gateway 报 "bodyClass must not be null"
 
 **原因**：`CacheRequestBody` 过滤器缺少 `bodyClass` 参数。
 
@@ -1096,7 +1096,7 @@ filters:
       bodyClass: java.lang.String
 ```
 
-### 9.3 验证 Gateway 路由
+### 验证 Gateway 路由
 
 ```bash
 # 测试验证码接口
@@ -1108,7 +1108,7 @@ curl -X POST http://192.168.20.127:30080/auth/login \
   -d '{"username":"admin","password":"admin123"}'
 ```
 
-### 9.4 查看各服务日志
+### 查看各服务日志
 
 ```bash
 # 网关
@@ -1124,7 +1124,7 @@ kubectl exec -n ruoyi deploy/ruoyi-gateway -- \
 
 ---
 
-## 十、注意事项
+## 注意事项
 
 1. **镜像拉取密钥**：从私有 Harbor 拉取镜像需要创建 `harbor-secret`：
    ```bash
