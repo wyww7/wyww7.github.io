@@ -479,7 +479,7 @@ kubectl apply -f sentinel.yaml
 
 ---
 
-## 四、Nacos 配置中心设置
+## Nacos 配置中心设置
 
 在所有微服务启动前，需要在 Nacos 中先创建好对应的配置。
 
@@ -953,6 +953,12 @@ spec:
   selector:
     app: ruoyi-system
 ```
+
+### 其他模块：job / gen / file
+
+**ruoyi-job.yaml**（端口 9203）、**ruoyi-gen.yaml**（端口 9202）、**ruoyi-file.yaml**（端口 9300）
+
+模板参考 system 模块，调整端口和镜像名即可。
 
 ### 前端 UI：`ruoyi-ui.yaml`
 
