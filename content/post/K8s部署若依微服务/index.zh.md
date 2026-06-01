@@ -625,23 +625,211 @@ spring:
 ### System 配置：`ruoyi-system-dev.yml`
 
 ```yaml
+# spring配置
 spring:
+  data:
+    redis:
+      host: redis-svc.ruoyi.svc.cluster.local
+      port: 6379
+      password: ruoyi123
+  redis:
+    host: redis-svc.ruoyi.svc.cluster.local
+    port: 6379
+    password: ruoyi123
   datasource:
     druid:
-      url: jdbc:mysql://ry-db-svc.ruoyi.svc.cluster.local:3306/ruoyi?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
-      username: root
+      stat-view-servlet:
+        enabled: true
+        loginUsername: ruoyi
+        loginPassword: 123456
+    dynamic:
+      druid:
+        initial-size: 5
+        min-idle: 5
+        maxActive: 20
+        maxWait: 60000
+        connectTimeout: 30000
+        socketTimeout: 60000
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: SELECT 1 FROM DUAL
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 20
+        filters: stat,slf4j
+        connectionProperties: druid.stat.mergeSql\=true;druid.stat.slowSqlMillis\=5000
+      datasource:
+          # 主库数据源
+          master:
+            driver-class-name: com.mysql.cj.jdbc.Driver
+            url: jdbc:mysql://ry-db-svc.ruoyi.svc.cluster.local:3306/ruoyi?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
+            username: root
+            password: ruoyi123
+          # 从库数据源
+          # slave:
+            # username: 
+            # password: 
+            # url: 
+            # driver-class-name: 
+
+# mybatis配置
+mybatis:
+    # 搜索指定包别名
+    typeAliasesPackage: com.ruoyi.system
+    # 配置mapper的扫描，找到所有的mapper.xml映射文件
+    mapperLocations: classpath*:mapper/**/*.xml
+
+# springdoc配置
+springdoc:
+  gatewayUrl: http://192.168.20.127:30080/${spring.application.name}
+  api-docs:
+    # 是否开启接口文档
+    enabled: true
+  info:
+    # 标题
+    title: '系统模块接口文档'
+    # 描述
+    description: '系统模块接口描述'
+    # 作者信息
+    contact:
+      name: RuoYi
+      url: https://ruoyi.vip
+
+```
+
+### Gen配置：`ruoyi-gen-dev.yml`
+
+```yaml
+# spring配置
+spring:
+  data:
+    redis:
+      host: redis-svc.ruoyi.svc.cluster.local
+      port: 6379
       password: ruoyi123
+  redis:
+    host: redis-svc.ruoyi.svc.cluster.local
+    port: 6379
+    password: ruoyi123
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://ry-db-svc.ruoyi.svc.cluster.local:3306/ruoyi?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
+    username: root
+    password: ruoyi123
+
+# mybatis配置
+mybatis:
+    # 搜索指定包别名
+    typeAliasesPackage: com.ruoyi.gen.domain
+    # 配置mapper的扫描，找到所有的mapper.xml映射文件
+    mapperLocations: classpath*:mapper/**/*.xml
+
+# springdoc配置
+springdoc:
+  gatewayUrl: http://192.168.20.127:30080/${spring.application.name}
+  api-docs:
+    # 是否开启接口文档
+    enabled: true
+  info:
+    # 标题
+    title: '代码生成接口文档'
+    # 描述
+    description: '代码生成接口描述'
+    # 作者信息
+    contact:
+      name: RuoYi
+      url: https://ruoyi.vip
+
+# 代码生成
+gen:
+  # 作者
+  author: ruoyi
+  # 默认生成包路径 system 需改成自己的模块名称 如 system monitor tool
+  packageName: com.ruoyi.system
+  # 自动去除表前缀，默认是false
+  autoRemovePre: false
+  # 表前缀（生成类名不会包含表前缀，多个用逗号分隔）
+  tablePrefix: sys_
+  # 是否允许生成文件覆盖到本地（自定义路径），默认不允许
+  allowOverwrite: false
+```
+
+### Job配置：`ruoyi-job-dev.yml`
+
+```yaml
+# spring配置
+spring:
+  data:
+    redis:
+      host: redis-svc.ruoyi.svc.cluster.local
+      port: 6379
+      password: ruoyi123
+  redis:
+    host: redis-svc.ruoyi.svc.cluster.local
+    port: 6379
+    password: ruoyi123
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://ry-db-svc.ruoyi.svc.cluster.local:3306/ruoyi?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
+    username: root
+    password: ruoyi123
+
+# mybatis配置
+mybatis:
+    # 搜索指定包别名
+    typeAliasesPackage: com.ruoyi.job.domain
+    # 配置mapper的扫描，找到所有的mapper.xml映射文件
+    mapperLocations: classpath*:mapper/**/*.xml
+
+# springdoc配置
+springdoc:
+  gatewayUrl: http://192.168.20.127:30080/${spring.application.name}
+  api-docs:
+    # 是否开启接口文档
+    enabled: true
+  info:
+    # 标题
+    title: '定时任务接口文档'
+    # 描述
+    description: '定时任务接口描述'
+    # 作者信息
+    contact:
+      name: RuoYi
+      url: https://ruoyi.vip
+
 ```
 
 ### File 配置：`ruoyi-file-dev.yml`
 
 ```yaml
+# 本地文件上传    
+file:
+    domain: http://127.0.0.1:9300
+    path: D:/ruoyi/uploadPath
+    prefix: /statics
+
+# FastDFS配置
+fdfs:
+  domain: http://127.0.0.1
+  soTimeout: 3000
+  connectTimeout: 2000
+  trackerList: 127.0.0.1:22122
+
 # Minio配置
 minio:
   url: http://minio-svc.ruoyi.svc.cluster.local:9000
   accessKey: minioadmin
   secretKey: minioadmin
   bucketName: ruoyi
+
+  # 防盗链配置
+referer:
+  # 防盗链开关
+  enabled: false
+  # 允许的域名列表
+  allowed-domains: localhost,127.0.0.1,ruoyi.vip,www.ruoyi.vip
 ```
 
 ---
