@@ -1,0 +1,53 @@
+{{- $links := .Params.links -}}
+{{- $count := len $links -}}
+{{- $countLabel := "saved links" -}}
+{{- if eq .Language.Lang "zh" -}}
+    {{- $countLabel = "个常用入口" -}}
+{{- else if eq .Language.Lang "zh-hant-tw" -}}
+    {{- $countLabel = "個常用入口" -}}
+{{- else if eq .Language.Lang "ja" -}}
+    {{- $countLabel = "件のリンク" -}}
+{{- end -}}
+
+<section class="link-directory" aria-label="{{ .Title }}">
+    <div class="link-directory__summary">
+        <span class="link-directory__eyebrow">Link Board</span>
+        <strong>{{ $count }}</strong>
+        <span>{{ $countLabel }}</span>
+    </div>
+
+    <div class="link-directory__grid">
+        {{- range $link := $links -}}
+            {{- $url := urls.Parse $link.website -}}
+            {{- $host := default $link.website $url.Host -}}
+            {{- $image := partial "helper/image" (dict "Image" $link.image "Resources" $.Resources "Context" $) -}}
+            <article class="link-card">
+                <a href="{{ $link.website }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $link.title }}">
+                    <div class="link-card__icon" aria-hidden="true">
+                        {{- with $image -}}
+                            <img src="{{ .Permalink }}" alt="" loading="lazy">
+                        {{- else -}}
+                            <span>{{ substr $link.title 0 1 }}</span>
+                        {{- end -}}
+                    </div>
+
+                    <div class="link-card__body">
+                        <div class="link-card__head">
+                            <h2>{{ $link.title }}</h2>
+                            {{- with $link.category -}}
+                                <span class="link-card__tag">{{ . }}</span>
+                            {{- end -}}
+                        </div>
+
+                        <p>{{ default $host $link.description }}</p>
+
+                        <footer>
+                            <span>{{ $host }}</span>
+                            {{ partial "helper/icon" "chevron-right" }}
+                        </footer>
+                    </div>
+                </a>
+            </article>
+        {{- end -}}
+    </div>
+</section>

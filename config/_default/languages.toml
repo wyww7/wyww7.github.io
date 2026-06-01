@@ -14,14 +14,6 @@
     [zh.params.sidebar]
         subtitle = "学习中"
 
-[zh-hant-tw]
-    label  = "正體中文"
-    title  = "Hugo 主題 Stack"
-    weight = 3
-
-    [zh-hant-tw.params.sidebar]
-        subtitle = "為博客設計的卡片式 Hugo 主題"
-
 [ja]
     label  = "日本語"
     title  = "Hugo Theme Stack"
