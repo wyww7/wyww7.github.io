@@ -1,7 +1,7 @@
 ---
 title: "K8s中部署若依微服务"
 date: 2026-05-29
-lastmod: 2026-05-29
+lastmod: 2026-06-01
 description: "在 Kubernetes 集群中完整部署若依微服务（RuoYi-Cloud）的实践记录，包含基础设施部署、Nacos 配置、Docker 镜像构建及 K8s 编排的全流程"
 categories:
     - Kubernetes
@@ -287,7 +287,6 @@ spec:
           value: "ruoyi123"
         - name: MYSQL_SERVICE_DB_PARAM
           value: "characterEncoding=utf8&connectTimeout=5000&socketTimeout=5000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true"
-        # Nacos 3.x 鉴权配置
         - name: NACOS_AUTH_ENABLE
           value: "true"
         - name: NACOS_AUTH_IDENTITY_KEY
@@ -297,9 +296,9 @@ spec:
         - name: NACOS_AUTH_TOKEN
           value: "SecretKey01234567890123456789012345678901234567890123456789"
         ports:
-        - containerPort: 8080
+        - containerPort: 8080      # ======= 修改：容器内变成了 8080 =======
           name: nacosport
-        - containerPort: 9080
+        - containerPort: 9080      # ======= 修改：gRPC 随之顺延变成 9080 =======
           name: grpcport
         volumeMounts:
         - name: nacos-logs
@@ -316,26 +315,24 @@ metadata:
   name: nacos-svc
   namespace: ruoyi
 spec:
-  ports:
-  - port: 8080
-    name: http
-    targetPort: 8080
-    nodePort: 30848
-  - port: 8848
-    name: client-api
-    targetPort: 8848
-    nodePort: 31884
-  - port: 9848
-    name: grpc
-    targetPort: 9848
-    nodePort: 31848
-  - port: 9849
-    name: grpc-cluster
-    targetPort: 9849
-    nodePort: 31849
+  type: NodePort
   selector:
     app: ruoyi-nacos
-  type: NodePort
+  ports:
+    - name: http-console   # 1. 对应你改过的网页控制台
+      port: 8080           # 微服务在集群内找 Nacos 依然用 8080 端口
+      targetPort: 8080     # ======= 核心对齐：精准命中容器内 8080 Console =======
+      nodePort: 30848      # 宿主机外网暴露端口（方便你浏览器打开 Nacos 网页）
+
+    - name: grpc-core      # 2. 对应若依微服务的 gRPC 通信
+      port: 9080           # 微服务在集群内找 gRPC 依然默认找 9080 端口
+      targetPort: 9848     # ======= 核心对齐：K8s 底层悄悄转给容器内真正的 9848 gRPC =======
+      nodePort: 31848
+
+    - name: grpc-client    # 3. 对应若依微服务的 gRPC 特权/客户端重连端口
+      port: 9081           # 微服务在集群内寻找的 9081
+      targetPort: 9849     # ======= 核心对齐：K8s 底层悄悄转给容器内真正的 9849 =======
+      nodePort: 31849
 ```
 
 ```bash
@@ -375,10 +372,10 @@ spec:
               - key: kubernetes.io/hostname
                 operator: In
                 values:
-                - k8s-node01
+                - k8s-node01 # 依然锁死在 node01 节点，方便数据持久化
       containers:
       - name: minio
-        image: quay.io/minio/minio:RELEASE.2025-06-13T11-33-47Z
+        image: swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/quay.io/minio/minio:RELEASE.2025-06-13T11-33-47Z
         args:
         - server
         - /data
@@ -386,9 +383,9 @@ spec:
         - :9001
         env:
         - name: MINIO_ROOT_USER
-          value: "minioadmin"
+          value: "minioadmin"      # 默认账号
         - name: MINIO_ROOT_PASSWORD
-          value: "minioadmin"
+          value: "minioadmin"  # 默认密码（若依微服务默认连这个，先别改）
         ports:
         - containerPort: 9000
           name: api
@@ -400,7 +397,7 @@ spec:
       volumes:
       - name: minio-data
         hostPath:
-          path: /data/k8s/ruoyi/minio
+          path: /data/k8s/ruoyi/minio # 宿主机挂载路径
           type: DirectoryOrCreate
 ---
 apiVersion: v1
@@ -413,11 +410,11 @@ spec:
   - port: 9000
     name: api
     targetPort: 9000
-    nodePort: 30900
+    nodePort: 30900 # 若依微服务代码内部通信端口
   - port: 9001
     name: console
     targetPort: 9001
-    nodePort: 30901
+    nodePort: 30901 # 外部浏览器登录建桶的端口
   selector:
     app: ruoyi-minio
   type: NodePort
@@ -451,7 +448,7 @@ spec:
     spec:
       containers:
       - name: sentinel
-        image: bladex/sentinel-dashboard:latest
+        image: swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/bladex/sentinel-dashboard:latest
         ports:
         - containerPort: 8858
           name: authport
@@ -538,7 +535,7 @@ spring:
   cloud:
     gateway:
       server:
-        webflux:                            # ⚠️ 必须使用 server.webflux 前缀（Spring Cloud Gateway 5.x）
+        webflux:
           discovery:
             locator:
               lowerCaseServiceId: true
@@ -550,6 +547,7 @@ spring:
               predicates:
                 - Path=/auth/**
               filters:
+                # 验证码处理
                 - name: CacheRequestBody
                   args:
                     bodyClass: java.lang.String
@@ -601,6 +599,10 @@ security:
       - /*/v2/api-docs
       - /*/v3/api-docs
       - /csrf
+
+springdoc:
+  webjars:
+    prefix:
 ```
 
 > ⚠️ **注意事项**：
@@ -840,28 +842,56 @@ referer:
 
 ### Gateway
 
+```bash
+vi /data/ruoyi/RuoYi-Cloud-master/ruoyi-gateway/src/main/resources/bootstrap.yml
+```
+
 ```yaml
+# Tomcat
 server:
   port: 8080
 
+# Spring
 spring:
   application:
+    # 应用名称
     name: ruoyi-gateway
   profiles:
+    # 环境配置
     active: dev
   cloud:
     nacos:
+      # ====== 核心修改 1：补充 Nacos 3.x 鉴权账号密码 ======
       username: nacos
       password: nacos
       discovery:
+        # 服务注册地址
         server-addr: nacos-svc.ruoyi.svc.cluster.local:8848
       config:
+        # 配置中心地址
         server-addr: nacos-svc.ruoyi.svc.cluster.local:8848
     sentinel:
+      # 取消控制台懒加载
       eager: true
       transport:
+        # ====== 核心修改 2：指向未来你在 K8s 内部署的 Sentinel 服务域名与端口 ======
+        # 假设你后面为 Sentinel 控制台创建的 Service 叫 sentinel-svc
         dashboard: sentinel-svc.ruoyi.svc.cluster.local:8718
+      # nacos配置持久化
+      datasource:
+        ds1:
+          nacos:
+            # ====== 核心修改 3：对齐 K8s 内部的 Nacos 地址与端口 ======
+            server-addr: nacos-svc.ruoyi.svc.cluster.local:8848
+            # ====== 核心修改 4：Sentinel 访问 Nacos 也必须带上账号密码 ======
+            username: nacos
+            password: nacos
+            dataId: sentinel-ruoyi-gateway
+            groupId: DEFAULT_GROUP
+            data-type: json
+            rule-type: gw-flow
   config:
+    # 配置文件格式
     file-extension: yml
     import:
       - nacos:application-${spring.profiles.active}.${spring.config.file-extension}
@@ -883,23 +913,31 @@ spring:
 模板：
 
 ```yaml
+# Tomcat
 server:
   port: <对应端口>
 
+# Spring
 spring:
   application:
+    # 应用名称
     name: <对应模块名>
   profiles:
+    # 环境配置
     active: dev
   cloud:
     nacos:
+      # ====== 核心修改 1：补充 Nacos 3.x 鉴权账号密码 ======
       username: nacos
       password: nacos
       discovery:
+        # ====== 核心修改 2：服务注册地址对齐 K8s 内部域名与端口 ======
         server-addr: nacos-svc.ruoyi.svc.cluster.local:8848
       config:
+        # ====== 核心修改 3：配置中心地址对齐 K8s 内部域名与端口 ======
         server-addr: nacos-svc.ruoyi.svc.cluster.local:8848
   config:
+    # 配置文件格式
     file-extension: yml
     import:
       - nacos:application-${spring.profiles.active}.${spring.config.file-extension}
@@ -908,7 +946,37 @@ spring:
 
 ### File 模块额外修改
 
-由于 file 模块同时依赖 Local 和 Minio 实现，需要将 Minio 设为默认实现，在类上添加 `@Primary` 注解。
+由于 file 模块同时依赖 Local 和 Minio 实现，需要将 Minio 设为默认实现：
+
+```bash
+vi /data/ruoyi/RuoYi-Cloud-master/ruoyi-modules/ruoyi-file/src/main/java/com/ruoyi/file/service/MinioSysFileServiceImpl.java
+```
+
+在类上添加 `@Primary` 注解：
+
+```java
+import org.springframework.context.annotation.Primary;
+
+@Primary  // <-- 添加此行，优先使用 Minio
+@Service
+public class MinioSysFileServiceImpl implements ISysFileService {
+    ...
+}
+```
+
+关闭文件上传到本地
+
+```bash
+vim ruoyi-modules/ruoyi-file/src/main/java/com/ruoyi/file/service/LocalSysFileServiceImpl.java
+```
+
+```java
+// @Primary  // <-- 注释此行
+@Service
+public class LocalSysFileServiceImpl implements ISysFileService {
+    ...
+}
+```
 
 ---
 
@@ -1001,8 +1069,6 @@ spec:
     spec:
       imagePullSecrets:
         - name: harbor-secret
-      nodeSelector:
-        kubernetes.io/hostname: k8s-node01
       containers:
         - name: ruoyi-gateway
           image: www.chenyang-helloworld.top/ruoyi/ruoyi-gateway:v1.0.0
@@ -1011,13 +1077,8 @@ spec:
             - containerPort: 8080
           env:
             - name: JAVA_OPTS
-              value: "-Xms256m -Xmx512m"
-            - name: SPRING_DATA_REDIS_HOST
-              value: redis-svc.ruoyi.svc.cluster.local
-            - name: SPRING_DATA_REDIS_PORT
-              value: "6379"
-            - name: SPRING_DATA_REDIS_PASSWORD
-              value: ruoyi123
+              value: "-XX:-UseContainerSupport -Xms256m -Xmx512m"
+
 ---
 apiVersion: v1
 kind: Service
@@ -1027,11 +1088,10 @@ metadata:
   labels:
     app: ruoyi-gateway
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
     - port: 8080
       targetPort: 8080
-      nodePort: 30080
   selector:
     app: ruoyi-gateway
 ```
@@ -1058,23 +1118,15 @@ spec:
     spec:
       imagePullSecrets:
         - name: harbor-secret
-      nodeSelector:
-        kubernetes.io/hostname: k8s-node01
       containers:
         - name: ruoyi-auth
           image: www.chenyang-helloworld.top/ruoyi/ruoyi-auth:v1.0.0
           imagePullPolicy: Always
           ports:
-            - containerPort: 9200
+            - containerPort: 9218
           env:
             - name: JAVA_OPTS
-              value: "-Xms256m -Xmx512m"
-            - name: SPRING_DATA_REDIS_HOST
-              value: redis-svc.ruoyi.svc.cluster.local
-            - name: SPRING_DATA_REDIS_PORT
-              value: "6379"
-            - name: SPRING_DATA_REDIS_PASSWORD
-              value: ruoyi123
+              value: "-XX:-UseContainerSupport -Xms256m -Xmx512m"
 ---
 apiVersion: v1
 kind: Service
@@ -1086,8 +1138,8 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-    - port: 9200
-      targetPort: 9200
+    - port: 9218
+      targetPort: 9218
   selector:
     app: ruoyi-auth
 ```
@@ -1114,8 +1166,6 @@ spec:
     spec:
       imagePullSecrets:
         - name: harbor-secret
-      nodeSelector:
-        kubernetes.io/hostname: k8s-node01
       containers:
         - name: ruoyi-system
           image: www.chenyang-helloworld.top/ruoyi/ruoyi-system:v1.0.0
@@ -1124,7 +1174,7 @@ spec:
             - containerPort: 9201
           env:
             - name: JAVA_OPTS
-              value: "-Xms512m -Xmx1024m"
+              value: "-XX:-UseContainerSupport -Xms256m -Xmx512m"
 ---
 apiVersion: v1
 kind: Service
@@ -1146,7 +1196,7 @@ spec:
 
 **ruoyi-job.yaml**（端口 9203）、**ruoyi-gen.yaml**（端口 9202）、**ruoyi-file.yaml**（端口 9300）
 
-模板参考 system 模块，调整端口和镜像名即可。
+模板参考 system 模块，调整端口、服务名和镜像名即可。
 
 ### 前端 UI：`ruoyi-ui.yaml`
 
@@ -1154,7 +1204,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ruoyi-ui
+  name: ruoyi-ui	
   namespace: ruoyi
 spec:
   replicas: 1
@@ -1205,7 +1255,7 @@ spec:
     app: ruoyi-ui
 ```
 
-#### Nginx ConfigMap
+#### Nginx ConfigMap：`ruoyi-ui-nginx-conf`
 
 ```yaml
 apiVersion: v1
@@ -1236,6 +1286,8 @@ data:
       }
     }
 ```
+
+> 前端 `baseURL` 在 Vue 构建时配置为 `/prod-api`，Nginx 将匹配到的 `/prod-api/` 请求反向代理到网关服务。
 
 ### 一键部署
 
