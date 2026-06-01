@@ -1,15 +1,16 @@
 @echo off
 chcp 65001 >nul
 
-set HUGO_PATH=C:\software\other\hugo\hugo_extended_withdeploy_0.161.1_windows-amd64
+set "HUGO_PATH=C:\software\other\hugo\hugo_extended_withdeploy_0.161.1_windows-amd64"
 
 cd /d "%~dp0"
 
 echo =======================================
 echo   1. commit and push source to main
 echo =======================================
-git add .
-git diff --cached --quiet || git commit -m "site update: %date% %time%"
+git add -A
+git diff --cached --quiet >nul 2>nul
+if %errorlevel% neq 0 git commit -m "site update: %date% %time%"
 git push origin main
 
 echo =======================================
@@ -21,8 +22,9 @@ echo =======================================
 echo   3. push to gh-pages
 echo =======================================
 cd public
-git add .
-git diff --cached --quiet || git commit -m "deploy: %date% %time%"
+git add -A
+git diff --cached --quiet >nul 2>nul
+if %errorlevel% neq 0 git commit -m "deploy: %date% %time%"
 git push origin main:gh-pages --force
 cd ..
 
