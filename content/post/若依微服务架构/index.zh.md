@@ -5,11 +5,13 @@ lastmod: 2026-05-19
 description: linux中使用虚拟机搭建若依微服务架构
 image: ScreenShot_2026-05-19_200258_742.png
 categories:		# 文章外标签
-    - Documentation
+    - Kubernetes
     - 搭建
+    - 微服务
 tags:			# 文章内标签
-    - 隐私
-    - test
+    - 若依
+    - K8s
+    - RuoYi
 ---
 
 ## 若依微服务架构

@@ -5,10 +5,10 @@ lastmod: 2026-05-27
 description: k8s中的最小调度单元pod
 image: ScreenShot_2026-05-27_182923_991.png
 categories:		# 文章外标签
-    - Documentation
+    - Kubernetes
     - 笔记
 tags:			# 文章内标签
-    - 隐私
+    - k8s
     - test
 ---
 
@@ -16,11 +16,11 @@ tags:			# 文章内标签
 
 k8s架构
 
-![](06b8bc6773855ccc6e0dc5e82d9bc314.png)
+![](components-of-kubernetes.svg)
 
 在k8s集群中，节点分为：控制台节点master、一个是工作节 点node，
 
-- 其中master中包含apiserver、etcd、controllermanager、scheduler 
+- 其中master中包含apiserver、etcd、controllermanager、scheduler 、kubelet、kebue_proxy
 - node节点包含 kubelet、kebue_proxy 、Docker 
 
 控制平面组件

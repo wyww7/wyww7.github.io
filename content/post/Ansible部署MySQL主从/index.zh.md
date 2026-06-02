@@ -5,10 +5,10 @@ lastmod: 2026-05-19
 description: 使用ansible部署MySQL的主从复制
 image: 
 categories:		# 文章外标签
-    - Documentation
+    - Ansible
     - 部署
 tags:			# 文章内标签
-    - 隐私
+    - Ansible
     - test
 ---
 

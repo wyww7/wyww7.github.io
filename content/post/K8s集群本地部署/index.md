@@ -1,14 +1,14 @@
 ---
-title: k8s安装
+title: K8s集群本地部署
 date: 2026-05-25
-lastmod: 2026-05-25
-description: 使用虚拟机安装部署k8s
-image: ScreenShot_2026-05-25_183339_181.png
+lastmod: 2026-06-02
+description: 使用虚拟机本地部署k8s
+image: 
 categories:		# 文章外标签
-    - Documentation
+    - Kubernetes
     - 部署
 tags:			# 文章内标签
-    - 隐私
+    - k8s
     - test
 ---
 

@@ -5,11 +5,11 @@ lastmod: 2026-05-21
 description: Docker容器相关笔记内容
 image: ScreenShot_2026-05-21_185139_700.png
 categories:		# 文章外标签
-    - Documentation
+    - Docker
     - 笔记
 tags:			# 文章内标签
-    - 隐私
-    - test
+    - Docker
+    - 容器
 ---
 
 # **容器 - Docker容器**

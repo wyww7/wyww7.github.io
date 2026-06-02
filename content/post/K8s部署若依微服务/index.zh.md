@@ -174,7 +174,7 @@ kubectl apply -f mysql.yaml
 CREATE DATABASE ruoyi CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 
-导入若依项目 `sql/` 目录下的全部 4 个 SQL 文件。
+[导入若依项目 `sql/` 目录下的全部 4 个 SQL 文件。](https://gitee.com/y_project/RuoYi-Cloud/tree/master/sql)
 
 ### Redis
 

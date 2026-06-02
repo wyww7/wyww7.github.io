@@ -5,11 +5,12 @@ lastmod: 2026-05-19
 description: 介绍Ansible的各模块及使用方式
 image: ScreenShot_2026-05-19_201246_361.png
 categories:		# 文章外标签
-    - Documentation
+    - Ansible
     - 笔记
 tags:			# 文章内标签
-    - 隐私
+    - Ansible
     - test
+    - 自动化
 ---
 
 ansible是一种由Python开发的自动化运维工具，集合了众多运维工具（puppet、cfengine、chef、func、fabric）的优点，实现了批量系统配置、批量程序部署、批量运行命令等功能。**ansible是基于模块工作的，本身没有批量部署的能力**。**真正具有批量部署的是ansible所运行的模块，ansible只是提供一种框架**。主要包括：
