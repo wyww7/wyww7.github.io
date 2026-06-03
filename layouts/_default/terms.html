@@ -1,0 +1,82 @@
+{{ define "main" }}
+    <header>
+        <h3 class="section-title">
+            {{ if eq .Parent (.GetPage "/") }}
+                {{ T "list.section" }}
+            {{ else }}
+                {{ .Parent.Title }}
+            {{ end }}
+        </h3>
+
+        <div class="section-card">
+            <div class="section-details">
+                <h3 class="section-count">{{ T "list.page" (len .Pages) }}</h3>
+                <h1 class="section-term">{{ .Title }}</h1>
+                {{ with .Params.description }}
+                    <h2 class="section-description">{{ . }}</h2>
+                {{ end }}
+            </div>
+
+            {{- $image := partial "helper/image" (dict "Image" .Params.image "Resources" .Resources "Context" .) -}}
+            {{ if $image }}
+                <div class="section-image">
+                    {{ partial "helper/thumbnail-image" (dict
+                        "Resource" $image.Resource
+                        "Width" 60
+                        "Height" 60
+                        "Resize" .Site.Params.ImageProcessing.Thumbnail.Enabled
+                        "Attributes" (dict
+                            "src" $image.Permalink
+                            "alt" .Title
+                            "loading" "lazy"
+                            "width" $image.Width
+                            "height" $image.Height
+                        )
+                    ) }}
+                </div>
+            {{ end }}
+        </div>
+    </header>
+
+    <section class="article-list--tile">
+        {{ range .Pages }}
+            <article class="has-image">
+                <a href="{{ .RelPermalink }}">
+                    {{- $image := partial "helper/image" (dict "Image" .Params.image "Resources" .Resources "Context" .) -}}
+                    {{ if $image }}
+                        <div class="article-image">
+                            {{ partial "helper/thumbnail-image" (dict
+                                "Resource" $image.Resource
+                                "Width" 800
+                                "Height" 400
+                                "Resize" .Site.Params.ImageProcessing.Thumbnail.Enabled
+                                "Attributes" (dict
+                                    "src" $image.Permalink
+                                    "alt" .Title
+                                    "loading" "lazy"
+                                    "width" $image.Width
+                                    "height" $image.Height
+                                )
+                            ) }}
+                        </div>
+                    {{ end }}
+                    <div class="article-details">
+                        <h2 class="article-title">{{ .Title }}</h2>
+                        {{ with .Params.description }}
+                            <p class="article-subtitle">{{ . }}</p>
+                        {{ end }}
+                        <footer class="article-meta">
+                            <span class="article-description">{{ T "list.page" (len .Pages) }}</span>
+                        </footer>
+                    </div>
+                </a>
+            </article>
+        {{ end }}
+    </section>
+
+    {{ partialCached "footer/footer" . }}
+{{ end }}
+
+{{ define "right-sidebar" }}
+    {{ partial "sidebar/right.html" (dict "Context" . "Scope" "homepage") }}
+{{ end }}

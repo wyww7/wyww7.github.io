@@ -1,0 +1,49 @@
+{{ define "body-class" }}template-archives{{ end }}
+{{ define "main" }}
+    {{ $pages := partial "helper/pages.html" .Site.Home }}
+
+    {{ range $pages.GroupByDate "2006" }}
+    {{ $id := lower (replace .Key " " "-") }}
+    <div class="archives-group" id="{{ $id }}">
+        <h2 class="archives-date section-title">
+            <a href="{{ $.RelPermalink }}#{{ $id }}">{{ .Key }}</a>
+        </h2>
+        <div class="archives-grid">
+            {{ range .Pages }}
+                {{ $image := partial "helper/image" (dict "Image" .Params.image "Resources" .Resources "Context" .) }}
+                <article class="archives-item{{ if $image }} has-image{{ end }}">
+                    <a href="{{ .RelPermalink }}">
+                        <div class="article-details">
+                            <h2 class="article-title">{{ .Title }}</h2>
+                            <footer class="article-meta">
+                                <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+                                    {{ .Date | time.Format .Site.Params.dateFormat.published }}
+                                </time>
+                            </footer>
+                        </div>
+                        {{ if $image }}
+                        <div class="article-image">
+                            {{ partial "helper/thumbnail-image" (dict
+                                "Resource" $image.Resource
+                                "Width" 200
+                                "Height" 120
+                                "Resize" .Site.Params.ImageProcessing.Thumbnail.Enabled
+                                "Attributes" (dict
+                                    "src" $image.Permalink
+                                    "alt" (printf "Featured image of post %s" .Title)
+                                    "loading" "lazy"
+                                    "width" $image.Width
+                                    "height" $image.Height
+                                )
+                            ) }}
+                        </div>
+                        {{ end }}
+                    </a>
+                </article>
+            {{ end }}
+        </div>
+    </div>
+    {{ end }}
+
+    {{ partialCached "footer/footer" . }}
+{{ end }}

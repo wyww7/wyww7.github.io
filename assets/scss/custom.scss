@@ -24,6 +24,96 @@ input[type="reset"],
     cursor: var(--cursor-pointer);
 }
 
+/* ---- 归档页面：两列网格 + 图片 + 悬浮上浮动画 ---- */
+.archives-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-lg);
+
+    .archives-item {
+        border: 1px solid var(--card-separator-color);
+        border-radius: 10px;
+        background: var(--card-background);
+        box-shadow: var(--shadow-l1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        height: 100%;
+
+        &:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-l2);
+        }
+
+        a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+            padding: 16px 20px;
+            color: inherit;
+            text-decoration: none;
+            gap: 16px;
+            box-sizing: border-box;
+        }
+
+        .article-details {
+            flex: 1;
+            min-width: 0;
+
+            .article-title {
+                font-size: 1.5rem;
+                margin: 0 0 4px;
+                line-height: 1.3;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .article-meta time {
+                font-size: 1.2rem;
+                color: var(--card-text-color-tertiary);
+            }
+        }
+
+        .article-image {
+            flex-shrink: 0;
+            width: 110px;
+            height: 70px;
+            border-radius: 8px;
+            overflow: hidden;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .archives-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .archives-item {
+        a {
+            padding: 14px 16px;
+            min-height: 72px;
+        }
+
+        .article-image {
+            width: 90px;
+            height: 60px;
+            border-radius: 6px;
+        }
+
+        .article-details .article-title {
+            font-size: 1.35rem;
+        }
+    }
+}
+
 /* ---- 文章卡片阴影和悬停效果 ---- */
 .article-wrapper {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -319,11 +409,24 @@ input[type="reset"],
     }
 }
 
-/* ---- 代码块行号显示但不被复制 ---- */
+/* ---- 代码块行号样式：与代码内容有间距，且选中复制时不包含行号 ---- */
 .chroma {
     .lnt,
     .ln {
-        user-select: none;
+        user-select: none !important;
+        // 行号在列内居中，左右等距
+        display: inline-block !important;
+        min-width: 2em !important;
+        text-align: center !important;
+        margin-right: 0.8em !important;
+        padding-right: 0.8em !important;
+        border-right: 1px solid var(--card-separator-color) !important;
+        color: var(--card-text-color-tertiary) !important;
+    }
+
+    .line .cl {
+        user-select: text !important;
+        padding-left: 0.4em !important;
     }
 }
 
@@ -344,15 +447,32 @@ input[type="reset"],
 
 /* ---- 搜索框优化 ---- */
 .search-form {
-    .search-input {
+    label {
+        display: none;
+    }
+
+    input[name="keyword"] {
         border-radius: 20px;
         padding: 8px 16px;
         transition: all 0.3s ease;
+        background: var(--card-background);
+        color: var(--card-text-color-main);
+        border: 1px solid var(--card-separator-color);
 
         &:focus {
             box-shadow: 0 0 0 2px var(--link-color);
+            outline: none;
+        }
+
+        &::placeholder {
+            color: var(--card-text-color-tertiary);
         }
     }
+}
+
+/* ---- 搜索按钮暗色模式适配 ---- */
+.search-form button {
+    color: var(--card-text-color-main);
 }
 
 /* ---- 归档页面美化 ---- */
@@ -859,4 +979,24 @@ body {
         padding: 2px 12px;
         border-radius: 6px;
     }
+}
+
+/* === PJAX 加载进度条（顶部细线） === */
+html.pjax-loading::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--link-color), #e91e63);
+    animation: pjax-progress 1.5s ease-out forwards;
+}
+
+@keyframes pjax-progress {
+    0% { width: 0; }
+    30% { width: 40%; }
+    60% { width: 75%; }
+    100% { width: 90%; }
 }

@@ -13,6 +13,7 @@ git push origin main
 echo =======================================
 echo  2. Clean old cache and generate site...
 echo =======================================
+if exist "resources" rmdir /s /q "resources"
 "%HUGO_PATH%\hugo.exe" --gc --cleanDestinationDir
 
 echo =======================================

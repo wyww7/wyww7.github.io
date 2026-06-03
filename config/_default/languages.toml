@@ -1,11 +1,3 @@
-[en]
-    label  = "English"
-    title  = "Hugo Theme Stack"
-    weight = 1
-
-    [en.params.sidebar]
-        subtitle = "Card-style Hugo theme designed for bloggers"
-
 [zh]
     label  = "简体中文"
     title  = "Wuwei1"

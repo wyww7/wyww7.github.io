@@ -1,4 +1,147 @@
 <script>
+// ===== PJAX 无刷新导航：保持音乐播放器跨页面不中断 =====
+(function() {
+    'use strict';
+    var MAIN_SELECTOR = 'main.main';
+
+    // 判断是否应该拦截该链接
+    function shouldIntercept(link) {
+        var href = link.getAttribute('href');
+        if (!href) return false;
+        if (!href.startsWith('/') || href.startsWith('//')) return false;
+        if (href.startsWith('#')) return false;
+        if (link.target || link.hasAttribute('download')) return false;
+        if (link.getAttribute('rel') === 'external') return false;
+        // 不拦截 APlayer 内部链接
+        if (link.closest('.aplayer')) return false;
+        // 语言切换需要完整刷新（侧边栏翻译文本需更新）
+        if (link.closest('#i18n-switch')) return false;
+        return true;
+    }
+
+    // 执行新内容中的 <script> 标签（评论、数学公式等）
+    function executeScripts(container) {
+        var scripts = container.querySelectorAll('script');
+        scripts.forEach(function(oldScript) {
+            var s = document.createElement('script');
+            for (var i = 0; i < oldScript.attributes.length; i++) {
+                var attr = oldScript.attributes[i];
+                s.setAttribute(attr.name, attr.value);
+            }
+            s.textContent = oldScript.textContent;
+            oldScript.parentNode.replaceChild(s, oldScript);
+        });
+    }
+
+    function navigate(url, addToHistory) {
+        // 轻量进度条（顶部）
+        document.documentElement.classList.add('pjax-loading');
+
+        fetch(url)
+            .then(function(res) {
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                return res.text();
+            })
+            .then(function(html) {
+                var parser = new DOMParser();
+                var doc = parser.parseFromString(html, 'text/html');
+
+                var newMain = doc.querySelector(MAIN_SELECTOR);
+                var oldMain = document.querySelector(MAIN_SELECTOR);
+                if (!newMain || !oldMain) throw new Error('Missing main content');
+
+                // ① 替换主内容区
+                oldMain.innerHTML = newMain.innerHTML;
+
+                // ② 更新右侧边栏（TOC、小工具等，位于 main 外部）
+                var oldSidebar = document.querySelector('aside.right-sidebar');
+                var newSidebar = doc.querySelector('aside.right-sidebar');
+                if (newSidebar) {
+                    if (oldSidebar) {
+                        oldSidebar.innerHTML = newSidebar.innerHTML;
+                    } else {
+                        // 首页→文章页：需要插入右侧边栏
+                        var container = document.querySelector('.main-container');
+                        var refNode = container.querySelector('main.main');
+                        if (container && refNode) {
+                            var sidebar = document.createElement('aside');
+                            sidebar.className = newSidebar.className;
+                            sidebar.innerHTML = newSidebar.innerHTML;
+                            container.insertBefore(sidebar, refNode);
+                        }
+                    }
+                } else if (oldSidebar) {
+                    // 文章页→首页：移除右侧边栏
+                    oldSidebar.remove();
+                }
+
+                // ③ 更新 body 的 class（文章页有 article-page 等关键样式类）
+                document.body.className = doc.body.className;
+
+                // ③ 更新标题
+                document.title = doc.title;
+
+                // ④ 执行新内容中的内联脚本（Giscus 评论、KaTeX 等）
+                executeScripts(oldMain);
+
+                // ⑤ 重新初始化主题功能（延迟确保 DOM 完全就绪）
+                // 保存用户暗色模式偏好，防止被主题初始化重置
+                var savedScheme = document.documentElement.getAttribute('data-scheme');
+                if (window.Stack && typeof window.Stack.init === 'function') {
+                    setTimeout(function() {
+                        window.Stack.init();
+                        // 恢复用户的暗色模式偏好（不被新页面默认值覆盖）
+                        if (savedScheme) {
+                            document.documentElement.setAttribute('data-scheme', savedScheme);
+                        }
+                    }, 100);
+                }
+
+                // ⑦ 更新 URL
+                if (addToHistory !== false) {
+                    history.pushState({ url: url }, doc.title, url);
+                }
+                window.scrollTo({ top: 0, behavior: 'instant' });
+
+                // ⑧ 触发完成事件
+                document.dispatchEvent(new CustomEvent('pjax:complete', { detail: { url: url } }));
+            })
+            .catch(function() {
+                // 降级：完整页面跳转（localStorage 兜底）
+                window.location.href = url;
+            })
+            .finally(function() {
+                document.documentElement.classList.remove('pjax-loading');
+            });
+    }
+
+    function onReady() {
+        document.addEventListener('click', function(e) {
+            var link = e.target.closest('a');
+            if (!link || !shouldIntercept(link)) return;
+            if (e.ctrlKey || e.metaKey || e.shiftKey) return;
+            e.preventDefault();
+            navigate(link.getAttribute('href'));
+        });
+
+        // 记录初始页面 URL，确保后退时能恢复首页内容
+        history.replaceState({ url: window.location.href }, document.title, window.location.href);
+
+        window.addEventListener('popstate', function(e) {
+            var targetUrl = (e.state && e.state.url) ? e.state.url : window.location.href;
+            navigate(targetUrl, false);
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', onReady);
+    } else {
+        onReady();
+    }
+})();
+</script>
+
+<script>
 (function() {
     var dropdown = document.getElementById('i18n-dropdown');
     if (!dropdown) return;
