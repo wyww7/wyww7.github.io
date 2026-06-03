@@ -73,16 +73,23 @@
     // 这样 APlayer 永远不会看到 lrc 字段，也就不会显示 "Not available"
     var lrcMap = {};
     musicList = musicList.map(function(item) {
-        if (item.url && item.url.indexOf('http') !== 0) {
-            item.url = encodeURI(item.url);
+        if (item.url && item.url.trim() !== '') {
+            // OSS 远程 URL 已是百分号编码形态，本地路径才需要 encodeURI
+            if (item.url.indexOf('http') !== 0) {
+                item.url = encodeURI(item.url);
+            }
         }
-        if (item.cover && item.cover.indexOf('http') !== 0) {
-            item.cover = encodeURI(item.cover);
+        if (item.cover && item.cover.trim() !== '') {
+            if (item.cover.indexOf('http') !== 0) {
+                item.cover = encodeURI(item.cover);
+            }
         }
         if (item.lrc && typeof item.lrc === 'string' && item.lrc.trim() !== '') {
-            lrcMap[item.name] = item.lrc.indexOf('http') === 0
-                ? item.lrc
-                : encodeURI(item.lrc.trim());
+            if (item.lrc.indexOf('http') === 0) {
+                lrcMap[item.name] = item.lrc;
+            } else {
+                lrcMap[item.name] = encodeURI(item.lrc.trim());
+            }
         }
         // 总是删除 lrc，避免 APlayer 尝试渲染
         delete item.lrc;
@@ -184,7 +191,7 @@
         return { current: lyrics[idx], next: next };
     }
 
-    // 切歌时更新 LRC 数据引用
+    // 切歌时更新 LRC 数据引用（仅在音频真正播放时才显示歌词容器）
     function switchLrc() {
         var name = getCurrentSongName();
         if (!name) return;
@@ -193,7 +200,8 @@
         lastNextText = '';
         lrcLineEl.textContent = '';
         lrcNextEl.textContent = '';
-        if (!lrcManuallyHidden && currentLrc && currentLrc.length > 0) {
+        // 关键：只有音频真正在播放时才显示歌词，避免页面加载时歌词框闪现
+        if (!lrcManuallyHidden && currentLrc && currentLrc.length > 0 && ap.audio && !ap.audio.paused) {
             lrcContainer.style.display = 'block';
         } else {
             lrcContainer.style.display = 'none';
@@ -316,39 +324,58 @@
     // ===== 恢复上次播放状态（跨页面持久化） =====
     var saved = loadState();
     if (saved && saved.index >= 0 && saved.index < ap.list.audios.length) {
-        // 切到上次播放的歌曲
+        // 切到上次播放的歌曲，并设为自动预加载以加速恢复
         ap.list.switch(saved.index);
-        // 等待音频可播放后恢复进度
-        var restored = false;
-        function onCanplay() {
-            if (restored) return;
-            restored = true;
-            try {
-                if (saved.currentTime > 0) {
-                    ap.seek(saved.currentTime);
-                }
-                if (saved.isPlaying) {
-                    ap.play();
-                }
-            } catch(e) {}
+        if (ap.audio) {
+            ap.audio.preload = 'auto'; // 切换后主动预加载，减少缓冲时间
         }
-        ap.on('canplay', onCanplay);
-        // 兜底：如果 canplay 事件迟迟不触发，3秒后强制恢复
-        setTimeout(function() {
-            if (!restored) {
-                try {
-                    if (saved.currentTime > 0) ap.seek(saved.currentTime);
-                    if (saved.isPlaying) ap.play();
-                } catch(e) {}
+
+        if (saved.currentTime > 0 || saved.isPlaying) {
+            var restored = false;
+            function restorePlayback() {
+                if (restored) return;
                 restored = true;
+                try {
+                    if (saved.currentTime > 1) {
+                        ap.seek(saved.currentTime);
+                    }
+                    if (saved.isPlaying) {
+                        ap.play();
+                    }
+                } catch(e) {}
             }
-        }, 3000);
+            // 优先使用 loadedmetadata（比 canplay 更快触发）
+            if (ap.audio) {
+                ap.audio.addEventListener('loadedmetadata', restorePlayback, { once: true });
+            }
+            ap.on('canplay', restorePlayback);
+            // 兜底：1.5s 后强制恢复（比之前 3s 更短，降低卡顿感）
+            setTimeout(function() {
+                if (!restored) {
+                    try {
+                        if (saved.currentTime > 1) ap.seek(saved.currentTime);
+                        if (saved.isPlaying) ap.play();
+                    } catch(e) {}
+                    restored = true;
+                }
+            }, 1500);
+        }
     }
 
     // 页面离开前保存状态
     window.addEventListener('beforeunload', saveState);
-    // 定期保存（每 5 秒），防止意外关闭丢失进度
-    setInterval(saveState, 5000);
+    // 定期保存（每 3 秒），更精确保留进度
+    setInterval(saveState, 3000);
+    // 音频进度更新时也保存（比较轻量，仅在时间变化较大时）
+    var lastSavedTime = 0;
+    ap.on('timeupdate', function() {
+        try {
+            if (ap.audio && Math.abs(ap.audio.currentTime - lastSavedTime) > 5) {
+                lastSavedTime = ap.audio.currentTime;
+                saveState();
+            }
+        } catch(e) {}
+    });
 
     // 首次触发：加载当前歌曲歌词
     switchLrc();
