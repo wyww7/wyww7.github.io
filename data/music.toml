@@ -14,6 +14,24 @@
 # OSS 地址前缀：https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/
 
 [[music]]
+name = "三葉のテーマ"
+artist = "RADWIMPS"
+url = "https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/三葉のテーマ - RADWIMPS.mp3"
+cover = "/img/kiminonaha_jk_tsujo_tw-1.jpg"
+
+[[music]]
+name = "奥寺先輩のテーマ"
+artist = "RADWIMPS"
+url = "https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/奥寺先輩のテーマ - RADWIMPS.mp3"
+cover = "/img/kiminonaha_jk_tsujo_tw-1.jpg"
+
+[[music]]
+name = "かたわれ時"
+artist = "RADWIMPS"
+url = "https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/かたわれ時 - RADWIMPS.mp3"
+cover = "/img/kiminonaha_jk_tsujo_tw-1.jpg"
+
+[[music]]
 name = "卡农 (Canon)"
 artist = "dylanf"
 url = "https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/卡农（经典钢琴版） - dylanf.mp3"
@@ -22,7 +40,7 @@ cover = "/img/Canon.jpg"
 [[music]]
 name = "River Flows in You"
 artist = "Yiruma"
-url = "https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/River%20Flows%20in%20You%20%28%E4%BD%A0%E7%9A%84%E5%BF%83%E6%B2%B3%29%20-%20%E6%9D%8E%E9%97%B0%E7%8F%89.mp3"
+url = "https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/River Flows in You (你的心河) - 李闰珉.mp3"
 cover = "/img/River Flows in You.jpg"
 
 [[music]]
@@ -31,3 +49,35 @@ artist = "陈奕迅"
 url = "https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/K歌之王 - 陈奕迅.mp3"
 cover = "/img/K歌之王.jpg"
 lrc = "/music/K歌之王 - 陈奕迅.lrc"
+
+[[music]]
+name = "想い出は遠くの日々"
+artist = "天門"
+url = "https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/想い出は遠くの日々 - 天門.mp3"
+cover = "/img/想い出は遠くの日々.jpg"
+
+[[music]]
+name = "Merry Christmas Mr. Lawrence"
+artist = "坂本龍一"
+url = "https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/Merry Christmas Mr. Lawrence - 坂本龍一.mp3"
+cover = "/img/Merry Christmas Mr. Lawrence.jpg"
+
+[[music]]
+name = "Flower Dance"
+artist = "DJ OKAWARI"
+url = "https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/Flower Dance - DJ OKAWARI.mp3"
+cover = "/img/Flower Dance.jpg"
+
+
+[[music]]
+name = "流れ行く云"
+artist = "岸部眞明"
+url = "https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/流れ行く云 (Nagareyuku Kumo) - 岸部眞明.mp3"
+cover = "/img/流れ行く云.jpg"
+
+[[music]]
+name = "奇迹の山"
+artist = "岸部眞明"
+url = "https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/奇迹の山 (Kisekino Yama) - 岸部眞明.mp3"
+cover = "/img/流れ行く云.jpg"
+
