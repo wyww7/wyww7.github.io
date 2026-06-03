@@ -26,3 +26,333 @@
     });
 })();
 </script>
+
+{{/* APlayer 音乐播放器 */}}
+{{- with site.Data.music -}}
+{{- $songs := index . "music" -}}
+{{- if $songs -}}
+<div id="aplayer"></div>
+<!-- 自定义歌词容器：独立于 APlayer，双行显示，固定在页面底部居中 -->
+<div id="custom-lrc">
+    <p id="custom-lrc-line"></p>
+    <p id="custom-lrc-next"></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<script>
+(function() {
+    // ===== 持久化存储：页面切换时保留播放状态 =====
+    var STORAGE_KEY = 'aplayer_state_v2';
+    function saveState() {
+        try {
+            if (!ap || !ap.list || !ap.audio) return;
+            var state = {
+                index: ap.list.index,
+                currentTime: ap.audio ? ap.audio.currentTime : 0,
+                isPlaying: !!(ap.audio && !ap.audio.paused)
+            };
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } catch(e) {}
+    }
+    function loadState() {
+        try {
+            var raw = localStorage.getItem(STORAGE_KEY);
+            return raw ? JSON.parse(raw) : null;
+        } catch(e) { return null; }
+    }
+
+    // ===== Hugo 数据注入 =====
+    var musicList = {{ $songs | jsonify | safeJS }};
+
+    // 过滤没有有效音频 URL 的条目
+    musicList = musicList.filter(function(item) {
+        return item.url && item.url.trim() !== '';
+    });
+    if (musicList.length === 0) return;
+
+    // 提取 LRC 配置Map（song name -> lrc URL），同时从 audio 数组中移除 lrc 字段
+    // 这样 APlayer 永远不会看到 lrc 字段，也就不会显示 "Not available"
+    var lrcMap = {};
+    musicList = musicList.map(function(item) {
+        if (item.url && item.url.indexOf('http') !== 0) {
+            item.url = encodeURI(item.url);
+        }
+        if (item.cover && item.cover.indexOf('http') !== 0) {
+            item.cover = encodeURI(item.cover);
+        }
+        if (item.lrc && typeof item.lrc === 'string' && item.lrc.trim() !== '') {
+            lrcMap[item.name] = item.lrc.indexOf('http') === 0
+                ? item.lrc
+                : encodeURI(item.lrc.trim());
+        }
+        // 总是删除 lrc，避免 APlayer 尝试渲染
+        delete item.lrc;
+        return item;
+    });
+
+    // lrcType: 0 = APlayer 完全不处理歌词，不渲染 .aplayer-lrc 容器
+    var ap = new APlayer({
+        container: document.getElementById('aplayer'),
+        fixed: true,
+        autoplay: false,
+        preload: 'metadata',
+        theme: '#b7daff',
+        loop: 'all',
+        order: 'list',
+        listFolded: true,
+        lrcType: 0,
+        audio: musicList
+    });
+
+    // ===== 自定义歌词系统 =====
+    var lrcContainer = document.getElementById('custom-lrc');
+    var lrcLineEl = document.getElementById('custom-lrc-line');
+    var lrcNextEl = document.getElementById('custom-lrc-next');
+    if (!lrcContainer || !lrcLineEl || !lrcNextEl) return;
+
+    // 解析 LRC 文本为 [{time: seconds, text: string}, ...]
+    // 同一时间戳出现多行时，保留第一行（通常是中文原文，后续为拼音/翻译）
+    function parseLRC(lrcText) {
+        var lines = lrcText.split('\n');
+        var result = [];
+        var seenTimes = {};  // 去重：同一时间戳只保留第一条
+        var tagRe = /\[(\d{2}):(\d{2})(?:[.:](\d{2,3}))?\]/;
+        for (var i = 0; i < lines.length; i++) {
+            var match = tagRe.exec(lines[i]);
+            if (!match) continue;
+            var min = parseInt(match[1], 10);
+            var sec = parseInt(match[2], 10);
+            var ms = match[3] ? parseInt(match[3], 10) : 0;
+            if (match[3] && match[3].length === 2) ms = ms * 10;
+            var time = min * 60 + sec + ms / 1000;
+            var text = lines[i].replace(tagRe, '').replace(/^\s+/, '').trim();
+            if (text.length > 0 && !seenTimes[time.toFixed(3)]) {
+                seenTimes[time.toFixed(3)] = true;
+                result.push({time: time, text: text});
+            }
+        }
+        result.sort(function(a, b) { return a.time - b.time; });
+        return result;
+    }
+
+    // 获取当前播放歌曲的名称（安全取值）
+    function getCurrentSongName() {
+        try {
+            return ap.list.audios[ap.list.index].name;
+        } catch(e) { return null; }
+    }
+
+    // 当前歌词数据引用（不为 null 表示有歌词）
+    var currentLrc = null;
+    var lastCurrentText = '';
+    var lastNextText = '';
+
+    // 预加载所有 LRC 内容，加载完成后自动关联当前歌曲
+    var lrcData = {};
+    Object.keys(lrcMap).forEach(function(name) {
+        fetch(lrcMap[name])
+            .then(function(res) { return res.text(); })
+            .then(function(text) {
+                lrcData[name] = parseLRC(text);
+                // 如果当前正在播放这首歌，立即关联歌词
+                var curName = getCurrentSongName();
+                if (curName === name) {
+                    currentLrc = lrcData[name];
+                    lastCurrentText = '';
+                    lastNextText = '';
+                    lrcLineEl.textContent = '';
+                    lrcNextEl.textContent = '';
+                    if (!lrcManuallyHidden && ap.audio && !ap.audio.paused) {
+                        lrcContainer.style.display = 'block';
+                    }
+                }
+            })
+            .catch(function(){ /* 加载失败静默忽略 */ });
+    });
+
+    // 根据当前时间和歌词数组找到当前行和下一行
+    function findCurrentAndNext(lyrics, currentTime) {
+        if (!lyrics || lyrics.length === 0) return { current: null, next: null };
+        var idx = 0;
+        for (var i = 0; i < lyrics.length; i++) {
+            if (currentTime >= lyrics[i].time) {
+                idx = i;
+            } else {
+                break;
+            }
+        }
+        var next = (idx + 1 < lyrics.length) ? lyrics[idx + 1] : null;
+        return { current: lyrics[idx], next: next };
+    }
+
+    // 切歌时更新 LRC 数据引用
+    function switchLrc() {
+        var name = getCurrentSongName();
+        if (!name) return;
+        currentLrc = lrcData[name] || null;
+        lastCurrentText = '';
+        lastNextText = '';
+        lrcLineEl.textContent = '';
+        lrcNextEl.textContent = '';
+        if (!lrcManuallyHidden && currentLrc && currentLrc.length > 0) {
+            lrcContainer.style.display = 'block';
+        } else {
+            lrcContainer.style.display = 'none';
+        }
+    }
+
+    // 用户手动切换歌词显示状态（通过 APlayer 的歌词按钮）
+    var lrcManuallyHidden = false;
+
+    // 劫持 APlayer 歌词按钮，控制自定义歌词容器
+    function bindLrcButton() {
+        var lrcBtn = document.querySelector('.aplayer-icon-lrc');
+        if (!lrcBtn) {
+            // APlayer 按钮可能尚未渲染，延迟重试
+            setTimeout(bindLrcButton, 300);
+            return;
+        }
+        lrcBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            lrcManuallyHidden = !lrcManuallyHidden;
+            if (lrcManuallyHidden) {
+                lrcContainer.style.display = 'none';
+            } else {
+                // 恢复自动行为：如果当前歌曲有歌词且正在播放，则显示
+                var name = getCurrentSongName();
+                if (name && lrcData[name] && lrcData[name].length > 0 && ap.audio && !ap.audio.paused) {
+                    currentLrc = lrcData[name];
+                    lrcContainer.style.display = 'block';
+                }
+            }
+        });
+    }
+    bindLrcButton();
+
+    // 检查是否应该显示歌词（综合用户手动控制和自动逻辑）
+    function shouldShowLrc() {
+        if (lrcManuallyHidden) return false;
+        var name = getCurrentSongName();
+        return name && lrcData[name] && lrcData[name].length > 0;
+    }
+
+    // ===== APlayer 事件监听 =====
+    ap.on('play', function() {
+        if (shouldShowLrc()) {
+            var name = getCurrentSongName();
+            currentLrc = lrcData[name];
+            lrcContainer.style.display = 'block';
+        }
+        saveState();
+    });
+    ap.on('pause', function() {
+        lrcContainer.style.display = 'none';
+        saveState();
+    });
+    ap.on('ended', function() {
+        lrcContainer.style.display = 'none';
+        saveState();
+    });
+    // 用 setTimeout 延迟处理，等 APlayer 内部更新 index 后再读取
+    ap.on('listswitch', function() {
+        setTimeout(function() {
+            switchLrc();
+        }, 150);
+        saveState();
+    });
+    ap.on('seeked', function() {
+        saveState();
+    });
+
+    // 添加/移除淡入淡出动画 class
+    function flashFade(el) {
+        el.classList.add('fade');
+        clearTimeout(el._fadeTimer);
+        el._fadeTimer = setTimeout(function() {
+            el.classList.remove('fade');
+        }, 350);
+    }
+
+    // 使用 requestAnimationFrame 平滑轮询播放时间，每帧自愈查找歌词
+    function tick() {
+        try {
+            if (ap.audio) {
+                var audio = ap.audio;
+                if (!audio.paused && !lrcManuallyHidden) {
+                    // 每帧动态查找当前歌曲的歌词（自愈机制：即使 switchLrc 时序出错也能恢复）
+                    var songName = getCurrentSongName();
+                    if (songName && lrcData[songName] && lrcData[songName].length > 0) {
+                        if (currentLrc !== lrcData[songName]) {
+                            currentLrc = lrcData[songName];
+                            lastCurrentText = '';
+                            lastNextText = '';
+                        }
+                        var lines = findCurrentAndNext(currentLrc, audio.currentTime);
+                        if (lines.current && lines.current.text !== lastCurrentText) {
+                            lastCurrentText = lines.current.text;
+                            lrcLineEl.textContent = lines.current.text;
+                            flashFade(lrcLineEl);
+                        }
+                        var nextText = lines.next ? lines.next.text : '';
+                        if (nextText !== lastNextText) {
+                            lastNextText = nextText;
+                            lrcNextEl.textContent = nextText;
+                            if (nextText) flashFade(lrcNextEl);
+                        }
+                        if (lrcContainer.style.display !== 'block') {
+                            lrcContainer.style.display = 'block';
+                        }
+                    } else if (!songName || !lrcData[songName]) {
+                        if (lrcContainer.style.display !== 'none') {
+                            lrcContainer.style.display = 'none';
+                        }
+                    }
+                }
+            }
+        } catch(e) {}
+        requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+
+    // ===== 恢复上次播放状态（跨页面持久化） =====
+    var saved = loadState();
+    if (saved && saved.index >= 0 && saved.index < ap.list.audios.length) {
+        // 切到上次播放的歌曲
+        ap.list.switch(saved.index);
+        // 等待音频可播放后恢复进度
+        var restored = false;
+        function onCanplay() {
+            if (restored) return;
+            restored = true;
+            try {
+                if (saved.currentTime > 0) {
+                    ap.seek(saved.currentTime);
+                }
+                if (saved.isPlaying) {
+                    ap.play();
+                }
+            } catch(e) {}
+        }
+        ap.on('canplay', onCanplay);
+        // 兜底：如果 canplay 事件迟迟不触发，3秒后强制恢复
+        setTimeout(function() {
+            if (!restored) {
+                try {
+                    if (saved.currentTime > 0) ap.seek(saved.currentTime);
+                    if (saved.isPlaying) ap.play();
+                } catch(e) {}
+                restored = true;
+            }
+        }, 3000);
+    }
+
+    // 页面离开前保存状态
+    window.addEventListener('beforeunload', saveState);
+    // 定期保存（每 5 秒），防止意外关闭丢失进度
+    setInterval(saveState, 5000);
+
+    // 首次触发：加载当前歌曲歌词
+    switchLrc();
+})();
+</script>
+{{- end }}
+{{- end }}

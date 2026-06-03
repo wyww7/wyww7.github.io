@@ -1,0 +1,31 @@
+# APlayer 音乐播放器歌曲配置
+# ============================
+# 修改说明：
+#   1. name   - 歌曲名称
+#   2. artist - 艺术家/演唱者
+#   3. url    - 音频文件URL（支持相对路径如 /music/xxx.mp3 或远程URL）
+#   4. cover  - 封面图片URL
+#   5. lrc    - 歌词文件URL（可选，LRC格式）
+#
+# 添加歌曲：在下方按格式新增 [[music]] 块即可
+# 删除歌曲：删除对应的 [[music]] 块即可
+# 修改顺序：调整 [[music]] 块的排列顺序即可
+
+[[music]]
+name = "卡农 (Canon)"
+artist = "dylanf"
+url = "/music/卡农（经典钢琴版） - dylanf.mp3"
+cover = "/img/Canon.jpg"
+
+[[music]]
+name = "River Flows in You"
+artist = "Yiruma"
+url = "/music/River Flows in You (你的心河) - 李闰珉.mp3"
+cover = "/img/River Flows in You.jpg"
+
+[[music]]
+name = "K歌之王"
+artist = "陈奕迅"
+url = "/music/K歌之王 - 陈奕迅.mp3"
+cover = "/img/K歌之王.jpg"
+lrc = "/music/K歌之王 - 陈奕迅.lrc"

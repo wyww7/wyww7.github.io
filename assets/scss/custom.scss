@@ -579,3 +579,284 @@ input[type="reset"],
         gap: 6px;
     }
 }
+
+/* ========== APlayer 音乐播放器 ========== */
+
+/* 底部留空 */
+body {
+    padding-bottom: 66px;
+}
+
+.aplayer.aplayer-fixed {
+    z-index: 999;
+}
+
+/* === 浅色模式 === */
+
+/* 吸底栏 - 半透明毛玻璃 */
+.aplayer.aplayer-fixed {
+    background: rgba(255, 255, 255, 0.78) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(180%) !important;
+    backdrop-filter: blur(18px) saturate(180%) !important;
+    border-top: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+/* body 内部透明 —— 关键：覆盖 APlayer JS 设置的内联背景 */
+.aplayer.aplayer-fixed .aplayer-body,
+.aplayer.aplayer-fixed .aplayer-lrc {
+    background: transparent !important;
+}
+
+/* 歌名 */
+.aplayer .aplayer-info .aplayer-music {
+    color: #1a1a1a !important;
+    font-weight: 600;
+}
+.aplayer .aplayer-info .aplayer-music .aplayer-author {
+    color: #666 !important;
+    opacity: 1 !important;
+}
+
+/* 时间 */
+.aplayer .aplayer-info .aplayer-controller .aplayer-time {
+    color: #555 !important;
+}
+.aplayer .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon path {
+    fill: #555 !important;
+}
+.aplayer .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon {
+    color: #555 !important;
+}
+
+/* 音量、进度条等图标通过当前颜色继承 */
+.aplayer .aplayer-info .aplayer-controller .aplayer-icon {
+    color: #555 !important;
+}
+
+/* 列表外层 - 去除背景和边框 */
+.aplayer .aplayer-list {
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* 列表内层 - 高度半透明毛玻璃 + 优雅圆角 */
+.aplayer .aplayer-list ol {
+    background: rgba(255, 255, 255, 0.42) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
+    backdrop-filter: blur(28px) saturate(200%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.35) !important;
+    border-radius: 14px 14px 0 0 !important;
+    margin: 0 !important;
+    padding: 8px 0 !important;
+    box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.04), 0 -1px 0 rgba(255, 255, 255, 0.5) inset !important;
+}
+
+.aplayer .aplayer-list ol li {
+    background: transparent !important;
+    color: #2a2a2a !important;
+    margin: 1px 10px !important;
+    padding: 8px 12px !important;
+    border-radius: 10px !important;
+    border: none !important;
+    font-size: 13px !important;
+    transition: background 0.2s ease, padding-left 0.2s ease;
+}
+
+.aplayer .aplayer-list ol li:hover {
+    background: rgba(255, 255, 255, 0.55) !important;
+    padding-left: 16px !important;
+}
+
+.aplayer .aplayer-list ol li.aplayer-list-light {
+    background: rgba(0, 0, 0, 0.05) !important;
+    color: #111 !important;
+    font-weight: 600;
+}
+
+.aplayer .aplayer-list ol li .aplayer-list-index,
+.aplayer .aplayer-list ol li .aplayer-list-author {
+    color: #aaa !important;
+}
+
+.aplayer .aplayer-list ol li.aplayer-list-light .aplayer-list-index,
+.aplayer .aplayer-list ol li.aplayer-list-light .aplayer-list-author {
+    color: #888 !important;
+}
+
+/* === 深色模式 === */
+[data-scheme="dark"] {
+    .aplayer.aplayer-fixed {
+        background: rgba(18, 18, 24, 0.78) !important;
+        -webkit-backdrop-filter: blur(18px) saturate(180%) !important;
+        backdrop-filter: blur(18px) saturate(180%) !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .aplayer.aplayer-fixed .aplayer-body,
+    .aplayer.aplayer-fixed .aplayer-lrc {
+        background: transparent !important;
+    }
+
+    .aplayer .aplayer-info .aplayer-music {
+        color: #f4f4f4 !important;
+        font-weight: 600;
+    }
+    .aplayer .aplayer-info .aplayer-music .aplayer-author {
+        color: #b0b0b0 !important;
+        opacity: 1 !important;
+    }
+
+    .aplayer .aplayer-info .aplayer-controller .aplayer-time {
+        color: #c8c8c8 !important;
+    }
+    .aplayer .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon path {
+        fill: #c8c8c8 !important;
+    }
+    .aplayer .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon,
+    .aplayer .aplayer-info .aplayer-controller .aplayer-icon {
+        color: #c8c8c8 !important;
+    }
+
+    .aplayer .aplayer-list {
+        background: transparent !important;
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+    }
+
+    .aplayer .aplayer-list ol {
+        background: rgba(20, 20, 30, 0.45) !important;
+        -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
+        backdrop-filter: blur(28px) saturate(200%) !important;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        border-radius: 14px 14px 0 0 !important;
+        box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.3), 0 -1px 0 rgba(255, 255, 255, 0.04) inset !important;
+    }
+
+    .aplayer .aplayer-list ol li {
+        background: transparent !important;
+        color: #ddd !important;
+        font-size: 13px !important;
+        margin: 1px 10px !important;
+        padding: 8px 12px !important;
+        border-radius: 10px !important;
+        transition: background 0.2s ease, padding-left 0.2s ease;
+    }
+    .aplayer .aplayer-list ol li:hover {
+        background: rgba(255, 255, 255, 0.08) !important;
+        padding-left: 16px !important;
+    }
+    .aplayer .aplayer-list ol li.aplayer-list-light {
+        background: rgba(255, 255, 255, 0.12) !important;
+        color: #f8f8f8 !important;
+        font-weight: 600;
+    }
+    .aplayer .aplayer-list ol li .aplayer-list-index,
+    .aplayer .aplayer-list ol li .aplayer-list-author {
+        color: #777 !important;
+    }
+    .aplayer .aplayer-list ol li.aplayer-list-light .aplayer-list-index,
+    .aplayer .aplayer-list ol li.aplayer-list-light .aplayer-list-author {
+        color: #aaa !important;
+    }
+}
+
+/* === 自定义歌词：页面居中正下方，双行显示（独立于 APlayer） === */
+#custom-lrc {
+    position: fixed;
+    left: 50%;
+    bottom: 78px;
+    transform: translateX(-50%);
+    z-index: 998;
+    display: none;
+    pointer-events: none;
+    max-width: 70vw;
+    text-align: center;
+}
+
+#custom-lrc-line {
+    display: block;
+    margin: 0;
+    padding: 5px 18px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.5;
+    color: #1a1a1a;
+    background: rgba(255, 255, 255, 0.78);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+/* 下一行歌词：更淡、更小 */
+#custom-lrc-next {
+    display: block;
+    margin: 3px 0 0;
+    padding: 3px 18px;
+    font-size: 0.82rem;
+    font-weight: 400;
+    line-height: 1.4;
+    color: rgba(26, 26, 26, 0.5);
+    background: rgba(255, 255, 255, 0.5);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border-radius: 8px;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+/* 歌词切换动画 */
+#custom-lrc-line.fade,
+#custom-lrc-next.fade {
+    opacity: 0.4;
+    transform: translateY(-2px);
+}
+
+[data-scheme="dark"] #custom-lrc-line {
+    color: #f4f4f4;
+    background: rgba(28, 28, 40, 0.78);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 2px 14px rgba(0, 0, 0, 0.3);
+}
+
+[data-scheme="dark"] #custom-lrc-next {
+    color: rgba(220, 220, 220, 0.45);
+    background: rgba(28, 28, 40, 0.45);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-bottom: 60px;
+    }
+
+    #custom-lrc {
+        bottom: 68px;
+        max-width: 88vw;
+    }
+
+    #custom-lrc-line {
+        font-size: 0.82rem;
+        padding: 4px 12px;
+        border-radius: 8px;
+    }
+
+    #custom-lrc-next {
+        font-size: 0.72rem;
+        padding: 2px 12px;
+        border-radius: 6px;
+    }
+}
