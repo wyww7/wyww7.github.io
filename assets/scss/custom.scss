@@ -300,6 +300,17 @@ input[type="reset"],
     }
 }
 
+/* ---- 社交图标上浮动效 ---- */
+.menu-social {
+    li {
+        transition: transform 0.22s ease;
+    }
+
+    li:hover {
+        transform: translateY(-3px);
+    }
+}
+
 #i18n-switch:hover,
 #dark-mode-toggle:hover {
     transform: translateY(-3px);
@@ -307,6 +318,9 @@ input[type="reset"],
 
 /* ========== i18n 语言切换下拉菜单动画 ========== */
 #i18n-switch {
+    position: relative;
+    z-index: 10;
+
     .i18n-dropdown {
         position: relative;
         display: inline-flex;
@@ -458,6 +472,9 @@ input[type="reset"],
         background: var(--card-background);
         color: var(--card-text-color-main);
         border: 1px solid var(--card-separator-color);
+        /* 防止浏览器在暗色模式下覆盖输入框样式 */
+        -webkit-text-fill-color: var(--card-text-color-main);
+        caret-color: var(--card-text-color-main);
 
         &:focus {
             box-shadow: 0 0 0 2px var(--link-color);
@@ -466,6 +483,19 @@ input[type="reset"],
 
         &::placeholder {
             color: var(--card-text-color-tertiary);
+            -webkit-text-fill-color: var(--card-text-color-tertiary);
+            opacity: 1;
+        }
+
+        /* Chrome autofill 时强制保持暗色主题颜色 */
+        &:-webkit-autofill,
+        &:-webkit-autofill:hover,
+        &:-webkit-autofill:focus,
+        &:-webkit-autofill:active {
+            -webkit-text-fill-color: var(--card-text-color-main) !important;
+            -webkit-box-shadow: 0 0 0 1000px var(--card-background) inset !important;
+            transition: background-color 5000s ease-in-out 0s;
+            caret-color: var(--card-text-color-main);
         }
     }
 }
