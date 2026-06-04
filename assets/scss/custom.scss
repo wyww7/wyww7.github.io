@@ -139,11 +139,21 @@ input[type="reset"],
     border-radius: 4px;
     font-size: 1rem;
     font-weight: 500;
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 
     &:hover {
-        opacity: 0.85;
         transform: scale(1.05);
+        box-shadow: 0 0 0 2px rgba(0,0,0,0.15);
+    }
+}
+
+/* 文章底部标签按钮 */
+.article-tags a {
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+
+    &:hover {
+        transform: translateY(-2px);
+        filter: brightness(0.85);
     }
 }
 
@@ -154,14 +164,16 @@ input[type="reset"],
     margin: 3px 5px;
     border-radius: 20px;
     font-size: 0.95rem;
-    background-color: var(--button-background);
-    color: var(--button-text-color);
+    background: var(--body-background);
+    color: var(--card-text-color-secondary);
+    border: 1px solid var(--card-separator-color);
     transition: all 0.2s ease;
     text-decoration: none;
 
     &:hover {
-        background-color: var(--link-color);
-        color: #fff;
+        background: var(--accent-color);
+        color: var(--accent-color-text);
+        border-color: var(--accent-color);
     }
 }
 
@@ -177,6 +189,13 @@ input[type="reset"],
     .site-avatar {
         position: relative;
 
+        a {
+            display: block;
+            line-height: 0;
+            border-radius: 100%;
+            overflow: hidden;
+        }
+
         .emoji {
             position: absolute;
             bottom: 8px;
@@ -191,17 +210,27 @@ input[type="reset"],
         }
     }
 
+    .site-name, .site-description {
+        /* 仅 <a> 标签可点击，防止标题/描述空白区域响应点击 */
+        pointer-events: none;
+    }
+
     .site-name a {
         background: linear-gradient(135deg, var(--link-color), #e91e63);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
+        display: inline-block;
+        pointer-events: auto;
     }
 }
 
 /* ---- 文章内容优化 ---- */
 .article-content {
     line-height: 1.8;
+    overflow-x: hidden;
+    overflow-wrap: break-word;
+    word-break: break-word;
 
     h2 {
         margin-top: 2em;
@@ -256,6 +285,10 @@ input[type="reset"],
         margin: 1em 0;
         border-radius: 0 8px 8px 0;
         color: var(--card-text-color-secondary);
+        box-sizing: border-box;
+        max-width: 100%;
+        overflow-x: auto;
+        word-break: break-word;
 
         p {
             margin: 0;
@@ -439,18 +472,28 @@ input[type="reset"],
     }
 }
 
-/* ---- 返回顶部按钮 ---- */
-#table-of-contents {
+/* ---- TOC 目录滚动条 ---- */
+#TableOfContents {
     max-height: 70vh;
     overflow-y: auto;
+    padding-right: 6px;
 
     &::-webkit-scrollbar {
-        width: 4px;
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+        border-radius: 3px;
     }
 
     &::-webkit-scrollbar-thumb {
-        background-color: var(--button-background);
-        border-radius: 2px;
+        background-color: var(--card-separator-color);
+        border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: var(--card-text-color-tertiary);
     }
 }
 
@@ -723,6 +766,74 @@ input[type="reset"],
         align-items: flex-start;
         gap: 6px;
     }
+}
+
+/* ---- 文章分享按钮 ---- */
+.article-share {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 16px 0;
+
+    .share-label {
+        font-size: 1.3rem;
+        color: var(--card-text-color-secondary);
+        margin-right: 4px;
+    }
+
+    .share-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 12px;
+        border-radius: 6px;
+        font-size: 1.2rem;
+        min-width: 48px;
+        justify-content: center;
+        box-sizing: border-box;
+        background: var(--button-background);
+        color: var(--button-text-color);
+        text-decoration: none;
+        border: 1px solid var(--card-separator-color);
+        cursor: pointer;
+        transition: background 0.2s ease, transform 0.2s ease, color 0.2s ease;
+
+        &:hover {
+            transform: translateY(-1px);
+        }
+
+        svg { width: 14px; height: 14px; }
+    }
+
+    .twitter:hover { background: #1da1f2; color: #fff; }
+    .wechat:hover { background: #07c160; color: #fff; }
+    .qq:hover { background: #12b7f5; color: #fff; }
+    .copy-link:hover { background: var(--accent-color); color: #fff; }
+}
+
+[data-scheme="dark"] .article-share .share-btn {
+    background: rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.7);
+    border-color: rgba(255,255,255,0.1);
+}
+[data-scheme="dark"] .article-share .share-btn img {
+    filter: brightness(0) invert(1);
+    opacity: 0.7;
+}
+[data-scheme="dark"] .article-share .share-btn:hover { color: #fff; }
+[data-scheme="dark"] .article-share .share-btn:hover img { opacity: 1; }
+/* 暗色模式保留品牌色 */
+[data-scheme="dark"] .article-share .twitter:hover { background: #1da1f2; color: #fff; }
+[data-scheme="dark"] .article-share .wechat:hover { background: #07c160; color: #fff; }
+[data-scheme="dark"] .article-share .qq:hover { background: #12b7f5; color: #fff; }
+[data-scheme="dark"] .article-share .copy-link {
+    color: rgba(255,255,255,0.6);
+}
+[data-scheme="dark"] .article-share .copy-link:hover {
+    background: var(--accent-color);
+    color: #000;
+    font-weight: 500;
 }
 
 /* ========== APlayer 音乐播放器 ========== */

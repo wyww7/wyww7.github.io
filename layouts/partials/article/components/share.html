@@ -1,0 +1,55 @@
+{{/* 文章分享按钮 */}}
+<section class="article-share">
+    <span class="share-label">分享</span>
+    <a href="https://twitter.com/intent/tweet?url={{ .Permalink | safeURL }}&text={{ .Title | safeURL }}"
+       target="_blank" rel="noopener" title="分享到 Twitter" class="share-btn twitter">
+        {{ partial "helper/icon" "brand-twitter" }}
+    </a>
+    <button class="share-btn wechat" title="分享到微信" id="share-wechat">
+        <img src="/img/wechat.svg" width="14" height="14" alt="微信">
+    </button>
+    <a href="https://connect.qq.com/widget/shareqq/index.html?url={{ .Permalink | safeURL }}&title={{ .Title | safeURL }}"
+       target="_blank" rel="noopener" title="分享到 QQ" class="share-btn qq">
+        <img src="/img/qq.svg" width="14" height="14" alt="QQ">
+    </a>
+    <button class="share-btn copy-link" title="复制链接" id="share-copy-btn">链接</button>
+</section>
+
+<script>
+(function() {
+    var wechatBtn = document.getElementById('share-wechat');
+    if (wechatBtn) {
+        var wechatOrig = wechatBtn.innerHTML;
+        var wechatTxt = wechatBtn.textContent;
+        wechatBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(location.href).then(function() {
+                wechatBtn.textContent = '已复制';
+                wechatBtn.style.color = '#fff';
+                wechatBtn.style.background = '#07c160';
+                setTimeout(function() {
+                    wechatBtn.innerHTML = wechatOrig;
+                    wechatBtn.style.color = '';
+                    wechatBtn.style.background = '';
+                }, 2000);
+            });
+        });
+    }
+
+    var copyBtn = document.getElementById('share-copy-btn');
+    if (copyBtn) {
+        var origText = copyBtn.textContent;
+        copyBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(location.href).then(function() {
+                copyBtn.textContent = '已复制';
+                copyBtn.style.background = 'var(--accent-color)';
+                copyBtn.style.color = '#fff';
+                setTimeout(function() {
+                    copyBtn.textContent = origText;
+                    copyBtn.style.background = '';
+                    copyBtn.style.color = '';
+                }, 1500);
+            });
+        });
+    }
+})();
+</script>

@@ -58,11 +58,11 @@
                     </span>
                 {{ end }}
 
-                {{ if $showReadingTime }}
-                    {{ partial "helper/icon" "clock" }}
-                    <time class="article-time--reading">
-                        {{ T "article.readingTime" $Page.ReadingTime }}
-                    </time>
+                {{ if $showDate }}
+                    <span style="display: inline-flex; align-items: center; gap: 5px;">
+                        {{ partial "helper/icon" "hash" }}
+                        <span>{{ $Page.WordCount }} 字</span>
+                    </span>
                 {{ end }}
             </div>
         {{ end }}

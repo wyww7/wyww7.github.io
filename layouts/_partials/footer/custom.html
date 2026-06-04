@@ -27,7 +27,134 @@
     width: auto !important;
     align-self: flex-start !important;
   }
+
+  /* ===== 阅读进度条 ===== */
+  #reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    z-index: 10000;
+    background: linear-gradient(90deg, var(--link-color), #e91e63);
+    transition: width 0.1s linear;
+  }
+
+  /* ===== TOC 滚动跟随展开 ===== */
+  #TableOfContents ul ul,
+  #TableOfContents ol ol {
+    display: none;
+  }
+  #TableOfContents .open {
+    display: block;
+  }
+
+  /* ===== 回到顶部按钮 ===== */
+  #back-to-top {
+    position: fixed;
+    bottom: 90px;
+    right: 24px;
+    z-index: 997;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--card-background);
+    border: 1px solid var(--card-separator-color);
+    box-shadow: var(--shadow-l1);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+  }
+  #back-to-top.visible {
+    opacity: 0.85;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  #back-to-top:hover {
+    opacity: 1;
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+  }
+  #back-to-top::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-left: 2px solid var(--body-text-color);
+    border-top: 2px solid var(--body-text-color);
+    transform: rotate(45deg) translate(2px, 2px);
+  }
+  #back-to-top:hover::before {
+    border-color: #fff;
+  }
+
+  /* 代码复制按钮 */
+  .highlight .copyCodeButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    border: none !important;
+    border-radius: 0 4px 0 4px !important;
+    padding: 1px 8px !important;
+    min-width: 58px !important;
+    width: 58px !important;
+    max-width: 58px !important;
+    font-size: 1.05rem !important;
+    font-family: inherit !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.02em !important;
+    white-space: nowrap !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+    line-height: 1.8 !important;
+    cursor: pointer !important;
+    overflow: hidden !important;
+    background: rgba(128,128,128,0.08) !important;
+    color: rgba(0,0,0,0.35) !important;
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+    transition: all 0.25s ease !important;
+  }
+  .highlight .copyCodeButton:hover {
+    background: rgba(128,128,128,0.16) !important;
+    color: rgba(0,0,0,0.6) !important;
+  }
+  .highlight .copyCodeButton.copied {
+    background: var(--accent-color) !important;
+    color: #fff !important;
+  }
+  [data-scheme="dark"] .highlight .copyCodeButton {
+    background: rgba(255,255,255,0.06) !important;
+    color: rgba(255,255,255,0.35) !important;
+  }
+  [data-scheme="dark"] .highlight .copyCodeButton:hover {
+    background: rgba(255,255,255,0.12) !important;
+    color: rgba(255,255,255,0.7) !important;
+  }
+  [data-scheme="dark"] .highlight .copyCodeButton.copied {
+    background: var(--accent-color) !important;
+    color: #000 !important;
+    font-weight: 500 !important;
+  }
+
+  /* 回到顶部按钮暗色模式 */
+  [data-scheme="dark"] #back-to-top::before {
+    border-color: rgba(255,255,255,0.7);
+  }
+  [data-scheme="dark"] #back-to-top:hover {
+    background: rgba(255,255,255,0.15);
+  }
+  [data-scheme="dark"] #back-to-top:hover::before {
+    border-color: #fff;
+  }
 </style>
+
+<script src="/js/blog-extras.js"></script>
 
 <script>
 // ===== PJAX 无刷新导航：保持音乐播放器跨页面不中断 =====
@@ -553,5 +680,10 @@
     switchLrc();
 })();
 </script>
+
+
+
+
+
 {{- end }}
 {{- end }}
