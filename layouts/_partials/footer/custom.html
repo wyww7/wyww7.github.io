@@ -106,35 +106,31 @@
                     oldSidebar.remove();
                 }
 
-                // ③ 更新 body 的 class（文章页有 article-page 等关键样式类）
+                // ③ 更新 body class 和标题
                 document.body.className = doc.body.className;
-
-                // ③ 更新标题
                 document.title = doc.title;
 
                 // ④ 执行新内容中的内联脚本（Giscus 评论、KaTeX 等）
                 executeScripts(oldMain);
 
-                // ⑤ 重新初始化主题功能（延迟确保 DOM 完全就绪）
-                // 保存用户暗色模式偏好，防止被主题初始化重置
+                // ⑤ 重新初始化主题功能，恢复暗色模式偏好
                 var savedScheme = document.documentElement.getAttribute('data-scheme');
                 if (window.Stack && typeof window.Stack.init === 'function') {
                     setTimeout(function() {
                         window.Stack.init();
-                        // 恢复用户的暗色模式偏好（不被新页面默认值覆盖）
                         if (savedScheme) {
                             document.documentElement.setAttribute('data-scheme', savedScheme);
                         }
                     }, 100);
                 }
 
-                // ⑦ 更新 URL
+                // ⑥ 更新 URL 并滚动到顶部
                 if (addToHistory !== false) {
                     history.pushState({ url: url }, doc.title, url);
                 }
                 window.scrollTo({ top: 0, behavior: 'instant' });
 
-                // ⑧ 触发完成事件
+                // ⑦ 触发完成事件
                 document.dispatchEvent(new CustomEvent('pjax:complete', { detail: { url: url } }));
             })
             .catch(function() {
@@ -174,7 +170,7 @@
 
 <script>
 (function() {
-    var dropdown = document.getElementById('i18n-dropdown');
+    var dropdown = document.querySelector('.i18n-dropdown');
     if (!dropdown) return;
 
     var toggleBtn = dropdown.querySelector('[data-toggle]');
@@ -202,7 +198,7 @@
 </script>
 
 {{/* APlayer 音乐播放器 */}}
-{{- with site.Data.music -}}
+{{- with hugo.Data.music -}}
 {{- $songs := index . "music" -}}
 {{- if $songs -}}
 <div id="aplayer"></div>
@@ -316,6 +312,8 @@
     }
 
     // 获取当前播放歌曲的名称（安全取值）
+    // ap.audio 是 HTML5 Audio 元素，只有 src/currentTime 等属性；
+    // 歌曲元数据（name/artist/lrc）存在 ap.list.audios[] 中
     function getCurrentSongName() {
         try {
             return ap.list.audios[ap.list.index].name;

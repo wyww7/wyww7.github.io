@@ -120,7 +120,7 @@ input[type="reset"],
 
     &:hover {
         transform: translateY(-4px);
-        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+        box-shadow: var(--shadow-l2);
     }
 }
 
@@ -265,12 +265,12 @@ input[type="reset"],
     /* 代码块优化 */
     pre {
         border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: var(--shadow-l1);
     }
 
     /* 内联代码 */
     code {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
     }
 
     /* 代码行号内联显示（不启用表格，避免分割线） */
@@ -309,11 +309,6 @@ input[type="reset"],
     li:hover {
         transform: translateY(-3px);
     }
-}
-
-#i18n-switch:hover,
-#dark-mode-toggle:hover {
-    transform: translateY(-3px);
 }
 
 /* ========== i18n 语言切换下拉菜单动画 ========== */
@@ -532,7 +527,7 @@ input[type="reset"],
 
     &:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        box-shadow: var(--shadow-l2);
     }
 }
 
