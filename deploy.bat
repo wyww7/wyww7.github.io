@@ -7,20 +7,22 @@ echo =======================================
 echo  1. Backup source code to main branch...
 echo =======================================
 git add -A
-git commit -m "site update: %date% %time%"
+git diff --cached --quiet || git commit -m "site update: %date% %time%"
 git push origin main
 
 echo =======================================
 echo  2. Clean old cache and generate site...
 echo =======================================
 if exist "resources" rmdir /s /q "resources"
-"%HUGO_PATH%\hugo.exe" --gc --cleanDestinationDir
+if exist "public" rmdir /s /q "public"
+"%HUGO_PATH%\hugo.exe" --gc
 
 echo =======================================
 echo  3. Deploy to gh-pages branch...
 echo =======================================
 cd public
 git init
+git remote remove origin 2>nul
 git remote add origin %REPO_URL%
 git add -A
 git commit -m "deploy: %date% %time%"

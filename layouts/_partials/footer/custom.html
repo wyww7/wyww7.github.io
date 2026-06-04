@@ -1,3 +1,34 @@
+<div id="particles-js"></div>
+<script src="{{ (resources.Get "background/particles.min.js").RelPermalink }}"></script>
+<script>
+  particlesJS.load('particles-js', '{{ (resources.Get "background/particlesjs-config.json").RelPermalink }}', function() {
+    console.log('particles.js loaded - callback');
+  });
+</script>
+<style>
+  #particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+  }
+  /* body 半透明让下方粒子隐约可见，同时保留主题的明暗切换 */
+  body {
+    background: rgba(245, 245, 250, 0.85) !important;
+  }
+  [data-scheme="dark"] body {
+    background: rgba(48, 48, 48, 0.85) !important;
+  }
+  /* 暗色模式按钮只响应图标+文字区域 */
+  #dark-mode-toggle {
+    width: auto !important;
+    align-self: flex-start !important;
+  }
+</style>
+
 <script>
 // ===== PJAX 无刷新导航：保持音乐播放器跨页面不中断 =====
 (function() {
