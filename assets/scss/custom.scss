@@ -822,7 +822,10 @@ input[type="reset"],
     opacity: 0.7;
 }
 [data-scheme="dark"] .article-share .share-btn:hover { color: #fff; }
-[data-scheme="dark"] .article-share .share-btn:hover img { opacity: 1; }
+[data-scheme="dark"] .article-share .share-btn:hover img {
+    filter: brightness(0) invert(1);
+    opacity: 1;
+}
 /* 暗色模式保留品牌色 */
 [data-scheme="dark"] .article-share .twitter:hover { background: #1da1f2; color: #fff; }
 [data-scheme="dark"] .article-share .wechat:hover { background: #07c160; color: #fff; }
@@ -834,6 +837,35 @@ input[type="reset"],
     background: var(--accent-color);
     color: #000;
     font-weight: 500;
+}
+
+/* ---- 全局滚动条统一风格 ---- */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.15);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0,0,0,0.25);
+}
+
+[data-scheme="dark"] {
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: rgba(255,255,255,0.15);
+        border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background: rgba(255,255,255,0.25);
+    }
 }
 
 /* ========== APlayer 音乐播放器 ========== */

@@ -85,6 +85,16 @@
     update();
 })();
 
+// ===== 文章阅读量计数 =====
+(function() {
+    var el = document.getElementById('view-count');
+    if (!el) return;
+    var key = 'views_' + location.pathname;
+    var count = parseInt(localStorage.getItem(key) || '0') + 1;
+    localStorage.setItem(key, count);
+    el.textContent = count + ' 次阅读';
+})();
+
 // ===== 代码复制按钮移到代码框内部 + 反馈增强 =====
 (function() {
     function moveButtons() {
