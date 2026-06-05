@@ -8,7 +8,6 @@ echo  1. Backup source code to main branch...
 echo =======================================
 git add -A
 git diff --cached --quiet || git commit -m "site update: %date% %time%"
-git pull origin main --rebase
 git push origin main
 
 echo =======================================
