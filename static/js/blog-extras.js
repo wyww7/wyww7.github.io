@@ -1,52 +1,102 @@
 // ===== TOC 滚动跟随展开 =====
+// PJAX 兼容：init() 暴露在 window.__TOC__ 上，PJAX 导航后调用即可重新绑定新 DOM
+//
+// 修复说明：
+// scrollspy 只在 scroll/resize 事件时设置 active-class，页面首次加载时 scrollY=0，
+// 所有 heading 的 offsetTop 都大于 scrollY，所以 scrollspy 不会设置任何 active-class。
+// 嵌套 OL 默认 display:none，子目录不展开。
+//
+// 修复方案：
+// 1. 初始加载时展开根 OL 下所有顶层 li 的直接子 OL
+// 2. window.__TOC__ 必须在 init() 之前赋值（首页无 TOC 时 init() 会提前 return）
 (function() {
-    var toc = document.getElementById('TableOfContents');
-    if (!toc) return;
+    function init() {
+        var toc = document.getElementById('TableOfContents');
+        if (!toc) return;
 
-    function expandActive() {
-        toc.querySelectorAll('.open').forEach(function(el) {
-            el.classList.remove('open');
+        function expandActive() {
+            var currentLi = toc.querySelector('.active-class');
+            if (!currentLi) return;
+
+            var allOpen = toc.querySelectorAll('.open');
+            for (var j = 0; j < allOpen.length; j++) {
+                allOpen[j].classList.remove('open');
+            }
+
+            var children = currentLi.children;
+            for (var i = 0; i < children.length; i++) {
+                var child = children[i];
+                if (child.tagName === 'UL' || child.tagName === 'OL') {
+                    child.classList.add('open');
+                }
+            }
+
+            var el = currentLi.parentElement;
+            while (el && el !== toc) {
+                if (el.tagName === 'UL' || el.tagName === 'OL') {
+                    el.classList.add('open');
+                }
+                el = el.parentElement;
+            }
+        }
+
+        function expandInitial() {
+            var rootOl = toc.querySelector(':scope > ol');
+            if (!rootOl) return;
+
+            var topLis = rootOl.children;
+            for (var i = 0; i < topLis.length; i++) {
+                var li = topLis[i];
+                if (li.tagName !== 'LI') continue;
+                var liChildren = li.children;
+                for (var j = 0; j < liChildren.length; j++) {
+                    var child = liChildren[j];
+                    if (child.tagName === 'UL' || child.tagName === 'OL') {
+                        child.classList.add('open');
+                    }
+                }
+            }
+        }
+
+        var observer = new MutationObserver(function(mutations) {
+            for (var i = 0; i < mutations.length; i++) {
+                var m = mutations[i];
+                if (m.attributeName === 'class' && m.target.classList.contains('active-class')) {
+                    expandActive();
+                    break;
+                }
+            }
         });
 
-        var currentLi = toc.querySelector('.active-class');
-        if (!currentLi) return;
-
-        var children = currentLi.children;
-        for (var i = 1; i < children.length; i++) {
-            if (children[i].tagName === 'UL' || children[i].tagName === 'OL') {
-                children[i].classList.add('open');
-            }
+        var allLis = toc.querySelectorAll('li');
+        for (var k = 0; k < allLis.length; k++) {
+            observer.observe(allLis[k], { attributes: true, attributeFilter: ['class'] });
         }
 
-        var ul = currentLi.parentElement;
-        while (ul && (ul.tagName === 'UL' || ul.tagName === 'OL')) {
-            ul.classList.add('open');
-            ul = ul.parentElement.parentElement;
-        }
+        expandInitial();
     }
 
-    var observer = new MutationObserver(function(mutations) {
-        for (var i = 0; i < mutations.length; i++) {
-            var m = mutations[i];
-            if (m.attributeName === 'class' && m.target.classList.contains('active-class')) {
-                expandActive();
-                break;
-            }
-        }
-    });
+    window.__TOC__ = { init: init };
 
-    toc.querySelectorAll('li').forEach(function(li) {
-        observer.observe(li, { attributes: true, attributeFilter: ['class'] });
-    });
-
-    expandActive();
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() { init(); });
+    } else {
+        init();
+    }
 })();
 
 // ===== 阅读进度条 =====
+// 滚动时显示，停止后 1.5s 淡出。暗色模式使用蓝紫色渐变。
+// Width 使用 CSS transition + bar.style.width (不使用 !important，避免与 CSS transition 冲突)
 (function() {
-    var bar = document.createElement('div');
+    var bar = document.getElementById('reading-progress');
+    if (bar) return;
+
+    bar = document.createElement('div');
     bar.id = 'reading-progress';
     document.body.prepend(bar);
+
+    var hideTimer = null;
 
     function update() {
         var scrollTop = window.scrollY || document.documentElement.scrollTop;
@@ -56,7 +106,19 @@
         }
     }
 
-    window.addEventListener('scroll', update, { passive: true });
+    function show() {
+        bar.classList.add('visible');
+        if (hideTimer) clearTimeout(hideTimer);
+        hideTimer = setTimeout(function() {
+            bar.classList.remove('visible');
+        }, 1500);
+    }
+
+    window.addEventListener('scroll', function() {
+        update();
+        show();
+    }, { passive: true });
+
     update();
 })();
 
@@ -85,38 +147,25 @@
     update();
 })();
 
-// ===== 文章阅读量计数 =====
+// ===== 代码复制按钮保持在 .highlight 上（pre 的外面），避免水平滚动时被带走 =====
 (function() {
-    var el = document.getElementById('view-count');
-    if (!el) return;
-    var key = 'views_' + location.pathname;
-    var count = parseInt(localStorage.getItem(key) || '0') + 1;
-    localStorage.setItem(key, count);
-    el.textContent = count + ' 次阅读';
-})();
-
-// ===== 代码复制按钮移到代码框内部 + 反馈增强 =====
-(function() {
-    function moveButtons() {
+    function keepButtonOnHighlight() {
         document.querySelectorAll('.highlight .copyCodeButton').forEach(function(btn) {
-            var codeArea = btn.parentElement.querySelector('pre');
-            if (codeArea && btn.parentElement !== codeArea) {
-                codeArea.style.position = 'relative';
-                codeArea.appendChild(btn);
+            var highlight = btn.closest('.highlight');
+            if (highlight && btn.parentElement !== highlight) {
+                highlight.appendChild(btn);
             }
         });
     }
 
-    // Stack 主题在 window.load 才创建按钮，需要延迟和观察
     if (document.readyState === 'complete') {
-        setTimeout(moveButtons, 200);
+        setTimeout(keepButtonOnHighlight, 200);
     } else {
-        window.addEventListener('load', function() { setTimeout(moveButtons, 200); });
+        window.addEventListener('load', function() { setTimeout(keepButtonOnHighlight, 200); });
     }
 
-    // 观察后续 DOM 变化（PJAX 导航后按钮可能重新创建）
     new MutationObserver(function() {
-        setTimeout(moveButtons, 100);
+        setTimeout(keepButtonOnHighlight, 100);
     }).observe(document.body, { childList: true, subtree: true });
 
     document.addEventListener('click', function(e) {

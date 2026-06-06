@@ -1,0 +1,1455 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - figure [ref=e5]:
+          - link "Avatar" [ref=e6]:
+            - /url: /
+            - img "Avatar" [ref=e7]
+          - generic [ref=e8]: 😎
+        - generic [ref=e9]:
+          - heading "Wuwei1" [level=1]:
+            - link "Wuwei1" [ref=e10]:
+              - /url: /
+          - heading "学习中" [level=2]
+      - list [ref=e11]:
+        - listitem [ref=e12]:
+          - link "Bilibili" [ref=e13]:
+            - /url: https://space.bilibili.com/178958911?spm_id_from=333.788.0.0
+            - img [ref=e14]
+        - listitem [ref=e19]:
+          - link "GitHub" [ref=e20]:
+            - /url: https://github.com/wyww7
+            - img [ref=e21]
+      - list [ref=e24]:
+        - listitem [ref=e25]:
+          - link "主页" [ref=e26]:
+            - /url: /
+            - img [ref=e27]
+            - generic [ref=e32]: 主页
+        - listitem [ref=e33]:
+          - link "关于" [ref=e34]:
+            - /url: /%E5%85%B3%E4%BA%8E/
+            - img [ref=e35]
+            - generic [ref=e39]: 关于
+        - listitem [ref=e40]:
+          - link "归档" [ref=e41]:
+            - /url: /archives/
+            - img [ref=e42]
+            - generic [ref=e46]: 归档
+        - listitem [ref=e47]:
+          - link "搜索" [ref=e48]:
+            - /url: /search/
+            - img [ref=e49]
+            - generic [ref=e53]: 搜索
+        - listitem [ref=e54]:
+          - link "技术链接" [ref=e55]:
+            - /url: /%E9%93%BE%E6%8E%A5/
+            - img [ref=e56]
+            - generic [ref=e60]: 技术链接
+        - listitem [ref=e61]:
+          - list [ref=e62]:
+            - listitem [ref=e63]:
+              - img [ref=e64]
+              - button "简体中文 ▾" [ref=e70]:
+                - generic [ref=e71]: 简体中文
+                - generic [ref=e72]: ▾
+            - listitem [ref=e73]:
+              - img [ref=e74]
+              - generic [ref=e78]: 暗色模式
+    - main [ref=e79]:
+      - article [ref=e80]:
+        - generic [ref=e81]:
+          - link "Featured image of post 博客功能技术解析 — 从音乐播放器到动态背景" [ref=e83]:
+            - /url: /p/%E5%8D%9A%E5%AE%A2%E5%8A%9F%E8%83%BD%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90-%E4%BB%8E%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8%E5%88%B0%E5%8A%A8%E6%80%81%E8%83%8C%E6%99%AF/
+            - img "Featured image of post 博客功能技术解析 — 从音乐播放器到动态背景"
+          - generic [ref=e84]:
+            - generic [ref=e85]:
+              - link "笔记" [ref=e86]:
+                - /url: /categories/%E7%AC%94%E8%AE%B0/
+              - link "Themes" [ref=e87]:
+                - /url: /categories/themes/
+            - generic [ref=e88]:
+              - heading "博客功能技术解析 — 从音乐播放器到动态背景" [level=2] [ref=e89]:
+                - link "博客功能技术解析 — 从音乐播放器到动态背景" [ref=e90]:
+                  - /url: /p/%E5%8D%9A%E5%AE%A2%E5%8A%9F%E8%83%BD%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90-%E4%BB%8E%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8%E5%88%B0%E5%8A%A8%E6%80%81%E8%83%8C%E6%99%AF/
+              - heading "深度解析本博客的技术实现：APlayer 音乐播放器、PJAX 无刷新导航、particles.js 动态背景、自定义 LRC 歌词、暗色模式等功能的架构与修改指南，附完整代码片段和调试经验。" [level=3] [ref=e91]
+            - generic [ref=e93]:
+              - generic [ref=e94]:
+                - generic [ref=e95]:
+                  - img [ref=e96]
+                  - time [ref=e101]: 2026-06-04
+                - generic [ref=e102]:
+                  - img [ref=e103]
+                  - time [ref=e107]: 2026-06-04
+              - generic [ref=e108]:
+                - img [ref=e109]
+                - generic [ref=e113]: 3777 字
+              - generic [ref=e114]:
+                - img [ref=e115]
+                - generic [ref=e119]: 43 次阅读
+        - complementary [ref=e120]:
+          - group [ref=e121]:
+            - generic "目录" [ref=e122] [cursor=pointer]:
+              - generic [ref=e123]:
+                - img [ref=e124]
+                - generic [ref=e127]: 目录
+        - generic [ref=e128]:
+          - heading "# 概览" [level=2] [ref=e129]:
+            - link "#" [ref=e130]:
+              - /url: "#%e6%a6%82%e8%a7%88"
+            - text: 概览
+          - paragraph [ref=e131]: 本博客基于 Hugo 静态站点生成器 + Stack 主题构建，托管于 GitHub Pages。在主题基础上扩展了以下功能：
+          - table [ref=e133]:
+            - rowgroup [ref=e134]:
+              - row "功能 实现方式 核心文件" [ref=e135]:
+                - columnheader "功能" [ref=e136]
+                - columnheader "实现方式" [ref=e137]
+                - columnheader "核心文件" [ref=e138]
+            - rowgroup [ref=e139]:
+              - row "音乐播放器 APlayer + Hugo Data 模板 layouts/_partials/footer/custom.html" [ref=e140]:
+                - cell "音乐播放器" [ref=e141]
+                - cell "APlayer + Hugo Data 模板" [ref=e142]
+                - cell "layouts/_partials/footer/custom.html" [ref=e143]:
+                  - code [ref=e144]: layouts/_partials/footer/custom.html
+              - row "无刷新导航 自实现 PJAX (fetch + DOMParser) layouts/_partials/footer/custom.html" [ref=e145]:
+                - cell "无刷新导航" [ref=e146]
+                - cell "自实现 PJAX (fetch + DOMParser)" [ref=e147]
+                - cell "layouts/_partials/footer/custom.html" [ref=e148]:
+                  - code [ref=e149]: layouts/_partials/footer/custom.html
+              - row "双重歌词 自定义 LRC 解析 + CSS 毛玻璃 layouts/_partials/footer/custom.html + assets/scss/custom.scss" [ref=e150]:
+                - cell "双重歌词" [ref=e151]
+                - cell "自定义 LRC 解析 + CSS 毛玻璃" [ref=e152]
+                - cell "layouts/_partials/footer/custom.html + assets/scss/custom.scss" [ref=e153]:
+                  - code [ref=e154]: layouts/_partials/footer/custom.html
+                  - text: +
+                  - code [ref=e155]: assets/scss/custom.scss
+              - row "动态粒子背景 particles.js + 半透明 body 层 layouts/_partials/footer/custom.html + assets/background/particlesjs-config.json" [ref=e156]:
+                - cell "动态粒子背景" [ref=e157]
+                - cell "particles.js + 半透明 body 层" [ref=e158]
+                - cell "layouts/_partials/footer/custom.html + assets/background/particlesjs-config.json" [ref=e159]:
+                  - code [ref=e160]: layouts/_partials/footer/custom.html
+                  - text: +
+                  - code [ref=e161]: assets/background/particlesjs-config.json
+              - row "暗色模式 Stack 主题原生 + PJAX 持久化 + autofill 修复 layouts/_partials/footer/custom.html + assets/scss/custom.scss" [ref=e162]:
+                - cell "暗色模式" [ref=e163]
+                - cell "Stack 主题原生 + PJAX 持久化 + autofill 修复" [ref=e164]
+                - cell "layouts/_partials/footer/custom.html + assets/scss/custom.scss" [ref=e165]:
+                  - code [ref=e166]: layouts/_partials/footer/custom.html
+                  - text: +
+                  - code [ref=e167]: assets/scss/custom.scss
+              - row "语言切换 i18n 下拉菜单 + Hugo 多语言 layouts/_partials/footer/custom.html + assets/scss/custom.scss" [ref=e168]:
+                - cell "语言切换" [ref=e169]
+                - cell "i18n 下拉菜单 + Hugo 多语言" [ref=e170]
+                - cell "layouts/_partials/footer/custom.html + assets/scss/custom.scss" [ref=e171]:
+                  - code [ref=e172]: layouts/_partials/footer/custom.html
+                  - text: +
+                  - code [ref=e173]: assets/scss/custom.scss
+              - row "搜索框暗色适配 CSS autofill 防护 assets/scss/custom.scss" [ref=e174]:
+                - cell "搜索框暗色适配" [ref=e175]
+                - cell "CSS autofill 防护" [ref=e176]
+                - cell "assets/scss/custom.scss" [ref=e177]:
+                  - code [ref=e178]: assets/scss/custom.scss
+              - row "归档双列布局 自定义模板 + CSS Grid layouts/archives.html + assets/scss/custom.scss" [ref=e179]:
+                - cell "归档双列布局" [ref=e180]
+                - cell "自定义模板 + CSS Grid" [ref=e181]
+                - cell "layouts/archives.html + assets/scss/custom.scss" [ref=e182]:
+                  - code [ref=e183]: layouts/archives.html
+                  - text: +
+                  - code [ref=e184]: assets/scss/custom.scss
+          - paragraph [ref=e185]:
+            - text: 所有功能的核心代码集中在
+            - strong [ref=e186]:
+              - code [ref=e187]: layouts/_partials/footer/custom.html
+            - text: （约 560 行）和
+            - strong [ref=e188]:
+              - code [ref=e189]: assets/scss/custom.scss
+            - text: （约 1050 行）两个文件中，没有引入任何第三方 JS 框架。
+          - separator [ref=e190]
+          - heading "# 一、音乐播放器" [level=2] [ref=e191]:
+            - link "#" [ref=e192]:
+              - /url: "#%e4%b8%80%e9%9f%b3%e4%b9%90%e6%92%ad%e6%94%be%e5%99%a8"
+            - text: 一、音乐播放器
+          - heading "# 1.1 架构设计" [level=3] [ref=e193]:
+            - link "#" [ref=e194]:
+              - /url: "#11-%e6%9e%b6%e6%9e%84%e8%ae%be%e8%ae%a1"
+            - text: 1.1 架构设计
+          - generic [ref=e195]:
+            - code [ref=e197]:
+              - generic [ref=e198]:
+                - generic [ref=e199]: "1"
+                - text: data/music.toml ──→ Hugo 模板渲染 ──→ APlayer JS 初始化 ──→ DOM
+              - generic [ref=e200]:
+                - generic [ref=e201]: "2"
+                - text: │ │
+              - generic [ref=e202]:
+                - generic [ref=e203]: "3"
+                - text: 歌曲元数据 自定义歌词系统
+              - generic [ref=e204]:
+                - generic [ref=e205]: "4"
+                - text: (URL/封面/LRC) (LRC fetch → parseLRC → tick loop)
+            - button "复制" [ref=e206] [cursor=pointer]
+          - paragraph [ref=e207]: 三层分离：
+          - list [ref=e208]:
+            - listitem [ref=e209]:
+              - strong [ref=e210]: 数据层
+              - code [ref=e211]: data/music.toml
+              - text: ：纯数据，修改歌曲不需要碰代码
+            - listitem [ref=e212]:
+              - strong [ref=e213]: 模板层
+              - code [ref=e214]: _partials/footer/custom.html
+              - text: ：Hugo 构建时将 TOML 数据注入 JS 变量
+            - listitem [ref=e215]:
+              - strong [ref=e216]: 交互层
+              - text: APlayer JS API + 自实现 LRC 系统
+          - heading "# 1.2 歌曲配置（data/music.toml）" [level=3] [ref=e217]:
+            - link "#" [ref=e218]:
+              - /url: "#12-%e6%ad%8c%e6%9b%b2%e9%85%8d%e7%bd%aedatamusictoml"
+            - text: 1.2 歌曲配置（
+            - code [ref=e219]: data/music.toml
+            - text: ）
+          - paragraph [ref=e220]:
+            - text: 每首歌一个
+            - code [ref=e221]: "[[music]]"
+            - text: 块，支持 5 个字段：
+          - generic [ref=e222]:
+            - code [ref=e224]:
+              - generic [ref=e225]:
+                - generic [ref=e226]: "1"
+                - generic [ref=e227]: "[[music]]"
+              - generic [ref=e228]:
+                - generic [ref=e229]: "2"
+                - generic [ref=e230]: "name = \"K歌之王\" # 必填：歌曲名"
+              - generic [ref=e231]:
+                - generic [ref=e232]: "3"
+                - generic [ref=e233]: "artist = \"陈奕迅\" # 必填：艺术家"
+              - generic [ref=e234]:
+                - generic [ref=e235]: "4"
+                - generic [ref=e236]: "url = \"https://oss.example.com/xxx.mp3\" # 必填：音频 URL"
+              - generic [ref=e237]:
+                - generic [ref=e238]: "5"
+                - generic [ref=e239]: "cover = \"/img/K歌之王.jpg\" # 可选：封面图"
+              - generic [ref=e240]:
+                - generic [ref=e241]: "6"
+                - generic [ref=e242]: "lrc = \"/music/K歌之王.lrc\" # 可选：LRC 歌词文件路径"
+            - button "复制" [ref=e243] [cursor=pointer]
+          - paragraph [ref=e244]:
+            - text: 数据结构被 Hugo 的
+            - code [ref=e245]: jsonify
+            - text: 过滤器序列化后注入 JS：
+          - generic [ref=e246]:
+            - code [ref=e248]:
+              - generic [ref=e249]:
+                - generic [ref=e250]: "1"
+                - generic [ref=e251]: // 模板中的注入代码
+              - generic [ref=e252]:
+                - generic [ref=e253]: "2"
+                - generic [ref=e254]: "var musicList = {{ $songs | jsonify | safeJS }};"
+            - button "复制" [ref=e255] [cursor=pointer]
+          - paragraph [ref=e256]: 注入后浏览器端收到的 JS 代码：
+          - generic [ref=e257]:
+            - code [ref=e259]:
+              - generic [ref=e260]:
+                - generic [ref=e261]: "1"
+                - generic [ref=e262]: var musicList = [
+              - generic [ref=e263]:
+                - generic [ref=e264]: "2"
+                - generic [ref=e265]: "{\"name\":\"K歌之王\",\"artist\":\"陈奕迅\",\"url\":\"https://...\",\"cover\":\"/img/...\",\"lrc\":\"/music/...\"},"
+              - generic [ref=e266]:
+                - generic [ref=e267]: "3"
+                - generic [ref=e268]: // ...更多歌曲
+              - generic [ref=e269]:
+                - generic [ref=e270]: "4"
+                - generic [ref=e271]: "];"
+            - button "复制" [ref=e272] [cursor=pointer]
+          - heading "# 1.3 LRC 歌词系统实现" [level=3] [ref=e273]:
+            - link "#" [ref=e274]:
+              - /url: "#13-lrc-%e6%ad%8c%e8%af%8d%e7%b3%bb%e7%bb%9f%e5%ae%9e%e7%8e%b0"
+            - text: 1.3 LRC 歌词系统实现
+          - paragraph [ref=e275]: APlayer 默认的歌词功能有局限：无 LRC 的歌曲显示 “Not available” 文字，且样式不可控。因此项目自建了一套双行歌词系统。
+          - heading "# LRC 解析算法" [level=4] [ref=e276]:
+            - link "#" [ref=e277]:
+              - /url: "#lrc-%e8%a7%a3%e6%9e%90%e7%ae%97%e6%b3%95"
+            - text: LRC 解析算法
+          - generic [ref=e278]:
+            - code [ref=e280]:
+              - generic [ref=e281]:
+                - generic [ref=e282]: "1"
+                - generic [ref=e283]: "function parseLRC(lrcText) {"
+              - generic [ref=e284]:
+                - generic [ref=e285]: "2"
+                - generic [ref=e286]: var lines = lrcText.split('\n');
+              - generic [ref=e287]:
+                - generic [ref=e288]: "3"
+                - generic [ref=e289]: var result = [];
+              - generic [ref=e290]:
+                - generic [ref=e291]: "4"
+                - generic [ref=e292]: "var seenTimes = {}; // 同时间戳去重"
+              - generic [ref=e293]:
+                - generic [ref=e294]: "5"
+                - generic [ref=e295]: "var tagRe = /\\[(\\d{2}):(\\d{2})(?:[.:](\\d{2,3}))?\\]/;"
+              - generic [ref=e297]: "6"
+              - generic [ref=e298]:
+                - generic [ref=e299]: "7"
+                - generic [ref=e300]: "for (var i = 0; i < lines.length; i++) {"
+              - generic [ref=e301]:
+                - generic [ref=e302]: "8"
+                - generic [ref=e303]: var match = tagRe.exec(lines[i]);
+              - generic [ref=e304]:
+                - generic [ref=e305]: "9"
+                - generic [ref=e306]: if (!match) continue;
+              - generic [ref=e308]: "10"
+              - generic [ref=e309]:
+                - generic [ref=e310]: "11"
+                - generic [ref=e311]: var min = parseInt(match[1], 10);
+              - generic [ref=e312]:
+                - generic [ref=e313]: "12"
+                - generic [ref=e314]: var sec = parseInt(match[2], 10);
+              - generic [ref=e315]:
+                - generic [ref=e316]: "13"
+                - generic [ref=e317]: "var ms = match[3] ? parseInt(match[3], 10) : 0;"
+              - generic [ref=e318]:
+                - generic [ref=e319]: "14"
+                - generic [ref=e320]: if (match[3] && match[3].length === 2) ms = ms * 10; // 兼容 [00:12.34] 和 [00:12.345]
+              - generic [ref=e322]: "15"
+              - generic [ref=e323]:
+                - generic [ref=e324]: "16"
+                - generic [ref=e325]: var time = min * 60 + sec + ms / 1000;
+              - generic [ref=e326]:
+                - generic [ref=e327]: "17"
+                - generic [ref=e328]: var text = lines[i].replace(tagRe, '').replace(/^\s+/, '').trim();
+              - generic [ref=e330]: "18"
+              - generic [ref=e331]:
+                - generic [ref=e332]: "19"
+                - generic [ref=e333]: "if (text.length > 0 && !seenTimes[time.toFixed(3)]) {"
+              - generic [ref=e334]:
+                - generic [ref=e335]: "20"
+                - generic [ref=e336]: seenTimes[time.toFixed(3)] = true;
+              - generic [ref=e337]:
+                - generic [ref=e338]: "21"
+                - generic [ref=e339]: "result.push({time: time, text: text});"
+              - generic [ref=e340]:
+                - generic [ref=e341]: "22"
+                - generic [ref=e342]: "}"
+              - generic [ref=e343]:
+                - generic [ref=e344]: "23"
+                - generic [ref=e345]: "}"
+              - generic [ref=e346]:
+                - generic [ref=e347]: "24"
+                - generic [ref=e348]: "result.sort(function(a, b) { return a.time - b.time; });"
+              - generic [ref=e349]:
+                - generic [ref=e350]: "25"
+                - generic [ref=e351]: return result;
+              - generic [ref=e352]:
+                - generic [ref=e353]: "26"
+                - generic [ref=e354]: "}"
+            - button "复制" [ref=e355] [cursor=pointer]
+          - paragraph [ref=e356]: 关键细节：
+          - list [ref=e357]:
+            - listitem [ref=e358]:
+              - text: 时间戳精确到毫秒（
+              - code [ref=e359]: toFixed(3)
+              - text: ），避免浮点误差
+            - listitem [ref=e360]:
+              - code [ref=e361]: seenTimes
+              - text: 去重：同一时间戳多行（原歌词 + 拼音/翻译）时保留第一行
+            - listitem [ref=e362]:
+              - text: 兼容
+              - code [ref=e363]: "[00:12.34]"
+              - text: 和
+              - code [ref=e364]: "[00:12.345]"
+              - text: 两种 LRC 格式
+          - heading "# 实时歌词匹配（findCurrentAndNext）" [level=4] [ref=e365]:
+            - link "#" [ref=e366]:
+              - /url: "#%e5%ae%9e%e6%97%b6%e6%ad%8c%e8%af%8d%e5%8c%b9%e9%85%8dfindcurrentandnext"
+            - text: 实时歌词匹配（
+            - code [ref=e367]: findCurrentAndNext
+            - text: ）
+          - generic [ref=e368]:
+            - code [ref=e370]:
+              - generic [ref=e371]:
+                - generic [ref=e372]: "1"
+                - generic [ref=e373]: "function findCurrentAndNext(lyrics, currentTime) {"
+              - generic [ref=e374]:
+                - generic [ref=e375]: "2"
+                - generic [ref=e376]: "if (!lyrics || lyrics.length === 0) return { current: null, next: null };"
+              - generic [ref=e377]:
+                - generic [ref=e378]: "3"
+                - generic [ref=e379]: var idx = 0;
+              - generic [ref=e380]:
+                - generic [ref=e381]: "4"
+                - generic [ref=e382]: "for (var i = 0; i < lyrics.length; i++) {"
+              - generic [ref=e383]:
+                - generic [ref=e384]: "5"
+                - generic [ref=e385]: if (currentTime >= lyrics[i].time) idx = i;
+              - generic [ref=e386]:
+                - generic [ref=e387]: "6"
+                - generic [ref=e388]: else break;
+              - generic [ref=e389]:
+                - generic [ref=e390]: "7"
+                - generic [ref=e391]: "}"
+              - generic [ref=e392]:
+                - generic [ref=e393]: "8"
+                - generic [ref=e394]: "var next = (idx + 1 < lyrics.length) ? lyrics[idx + 1] : null;"
+              - generic [ref=e395]:
+                - generic [ref=e396]: "9"
+                - generic [ref=e397]: "return { current: lyrics[idx], next: next };"
+              - generic [ref=e398]:
+                - generic [ref=e399]: "10"
+                - generic [ref=e400]: "}"
+            - button "复制" [ref=e401] [cursor=pointer]
+          - paragraph [ref=e402]:
+            - text: 线性扫描
+            - code [ref=e403]: O(n)
+            - text: ，但因 LRC 文件通常只有几十行，性能足够。
+          - heading "# 渲染循环（requestAnimationFrame）" [level=4] [ref=e404]:
+            - link "#" [ref=e405]:
+              - /url: "#%e6%b8%b2%e6%9f%93%e5%be%aa%e7%8e%afrequestanimationframe"
+            - text: 渲染循环（
+            - code [ref=e406]: requestAnimationFrame
+            - text: ）
+          - generic [ref=e407]:
+            - code [ref=e409]:
+              - generic [ref=e410]:
+                - generic [ref=e411]: "1"
+                - generic [ref=e412]: "function tick() {"
+              - generic [ref=e413]:
+                - generic [ref=e414]: "2"
+                - generic [ref=e415]: "try {"
+              - generic [ref=e416]:
+                - generic [ref=e417]: "3"
+                - generic [ref=e418]: "if (ap.audio && !ap.audio.paused && !lrcManuallyHidden) {"
+              - generic [ref=e419]:
+                - generic [ref=e420]: "4"
+                - generic [ref=e421]: var songName = getCurrentSongName();
+              - generic [ref=e422]:
+                - generic [ref=e423]: "5"
+                - generic [ref=e424]: "if (songName && lrcData[songName] && lrcData[songName].length > 0) {"
+              - generic [ref=e425]:
+                - generic [ref=e426]: "6"
+                - generic [ref=e427]: "if (currentLrc !== lrcData[songName]) {"
+              - generic [ref=e428]:
+                - generic [ref=e429]: "7"
+                - generic [ref=e430]: currentLrc = lrcData[songName]; // 自愈：自动关联当前歌曲
+              - generic [ref=e431]:
+                - generic [ref=e432]: "8"
+                - generic [ref=e433]: "}"
+              - generic [ref=e434]:
+                - generic [ref=e435]: "9"
+                - generic [ref=e436]: var lines = findCurrentAndNext(currentLrc, ap.audio.currentTime);
+              - generic [ref=e437]:
+                - generic [ref=e438]: "10"
+                - generic [ref=e439]: "if (lines.current && lines.current.text !== lastCurrentText) {"
+              - generic [ref=e440]:
+                - generic [ref=e441]: "11"
+                - generic [ref=e442]: lastCurrentText = lines.current.text;
+              - generic [ref=e443]:
+                - generic [ref=e444]: "12"
+                - generic [ref=e445]: lrcLineEl.textContent = lines.current.text;
+              - generic [ref=e446]:
+                - generic [ref=e447]: "13"
+                - generic [ref=e448]: flashFade(lrcLineEl);
+              - generic [ref=e449]:
+                - generic [ref=e450]: "14"
+                - generic [ref=e451]: "}"
+              - generic [ref=e452]:
+                - generic [ref=e453]: "15"
+                - generic [ref=e454]: "var nextText = lines.next ? lines.next.text : '';"
+              - generic [ref=e455]:
+                - generic [ref=e456]: "16"
+                - generic [ref=e457]: "if (nextText !== lastNextText) {"
+              - generic [ref=e458]:
+                - generic [ref=e459]: "17"
+                - generic [ref=e460]: lastNextText = nextText;
+              - generic [ref=e461]:
+                - generic [ref=e462]: "18"
+                - generic [ref=e463]: lrcNextEl.textContent = nextText;
+              - generic [ref=e464]:
+                - generic [ref=e465]: "19"
+                - generic [ref=e466]: if (nextText) flashFade(lrcNextEl);
+              - generic [ref=e467]:
+                - generic [ref=e468]: "20"
+                - generic [ref=e469]: "}"
+              - generic [ref=e470]:
+                - generic [ref=e471]: "21"
+                - generic [ref=e472]: "}"
+              - generic [ref=e473]:
+                - generic [ref=e474]: "22"
+                - generic [ref=e475]: "}"
+              - generic [ref=e476]:
+                - generic [ref=e477]: "23"
+                - generic [ref=e478]: "} catch(e) {}"
+              - generic [ref=e479]:
+                - generic [ref=e480]: "24"
+                - generic [ref=e481]: requestAnimationFrame(tick);
+              - generic [ref=e482]:
+                - generic [ref=e483]: "25"
+                - generic [ref=e484]: "}"
+              - generic [ref=e485]:
+                - generic [ref=e486]: "26"
+                - generic [ref=e487]: requestAnimationFrame(tick);
+            - button "复制" [ref=e488] [cursor=pointer]
+          - paragraph [ref=e489]:
+            - text: 每帧检查歌词变化，文本切换时触发 CSS
+            - code [ref=e490]: flashFade
+            - text: 动画（
+            - code [ref=e491]: "opacity: 0.4 → 1"
+            - text: 过渡）。
+          - heading "# APlayer API 注意事项" [level=4] [ref=e492]:
+            - link "#" [ref=e493]:
+              - /url: "#aplayer-api-%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9"
+            - text: APlayer API 注意事项
+          - paragraph [ref=e494]:
+            - strong [ref=e495]: 易错点
+            - text: ：
+            - code [ref=e496]: ap.audio
+            - text: 是 HTML5
+            - code [ref=e497]: <audio>
+            - text: 元素，只有
+            - code [ref=e498]: src
+            - text: /
+            - code [ref=e499]: currentTime
+            - text: /
+            - code [ref=e500]: paused
+            - text: 等原生属性。歌曲元数据（
+            - code [ref=e501]: name
+            - text: /
+            - code [ref=e502]: artist
+            - text: /
+            - code [ref=e503]: cover
+            - text: ）存储在
+            - code [ref=e504]: ap.list.audios[ap.list.index]
+            - text: 中。
+          - generic [ref=e505]:
+            - code [ref=e507]:
+              - generic [ref=e508]:
+                - generic [ref=e509]: "1"
+                - generic [ref=e510]: // ✅ 正确：从播放列表获取歌曲名
+              - generic [ref=e511]:
+                - generic [ref=e512]: "2"
+                - generic [ref=e513]: "function getCurrentSongName() {"
+              - generic [ref=e514]:
+                - generic [ref=e515]: "3"
+                - generic [ref=e516]: "try {"
+              - generic [ref=e517]:
+                - generic [ref=e518]: "4"
+                - generic [ref=e519]: return ap.list.audios[ap.list.index].name;
+              - generic [ref=e520]:
+                - generic [ref=e521]: "5"
+                - generic [ref=e522]: "} catch(e) { return null; }"
+              - generic [ref=e523]:
+                - generic [ref=e524]: "6"
+                - generic [ref=e525]: "}"
+              - generic [ref=e527]: "7"
+              - generic [ref=e528]:
+                - generic [ref=e529]: "8"
+                - generic [ref=e530]: // ❌ 错误：ap.audio 没有 name 属性
+              - generic [ref=e531]:
+                - generic [ref=e532]: "9"
+                - generic [ref=e533]: "function getCurrentSongName() {"
+              - generic [ref=e534]:
+                - generic [ref=e535]: "10"
+                - generic [ref=e536]: return ap.audio.name; // undefined!
+              - generic [ref=e537]:
+                - generic [ref=e538]: "11"
+                - generic [ref=e539]: "}"
+            - button "复制" [ref=e540] [cursor=pointer]
+          - heading "# 1.4 播放状态持久化" [level=3] [ref=e541]:
+            - link "#" [ref=e542]:
+              - /url: "#14-%e6%92%ad%e6%94%be%e7%8a%b6%e6%80%81%e6%8c%81%e4%b9%85%e5%8c%96"
+            - text: 1.4 播放状态持久化
+          - paragraph [ref=e543]:
+            - code [ref=e544]: localStorage
+            - text: 键名
+            - code [ref=e545]: aplayer_state_v2
+            - text: ，保存/恢复当前歌曲索引、播放进度、播放状态：
+          - generic [ref=e546]:
+            - code [ref=e548]:
+              - generic [ref=e549]:
+                - generic [ref=e550]: "1"
+                - generic [ref=e551]: "function saveState() {"
+              - generic [ref=e552]:
+                - generic [ref=e553]: "2"
+                - generic [ref=e554]: "var state = {"
+              - generic [ref=e555]:
+                - generic [ref=e556]: "3"
+                - generic [ref=e557]: "index: ap.list.index,"
+              - generic [ref=e558]:
+                - generic [ref=e559]: "4"
+                - generic [ref=e560]: "currentTime: ap.audio.currentTime,"
+              - generic [ref=e561]:
+                - generic [ref=e562]: "5"
+                - generic [ref=e563]: "isPlaying: !ap.audio.paused"
+              - generic [ref=e564]:
+                - generic [ref=e565]: "6"
+                - generic [ref=e566]: "};"
+              - generic [ref=e567]:
+                - generic [ref=e568]: "7"
+                - generic [ref=e569]: localStorage.setItem('aplayer_state_v2', JSON.stringify(state));
+              - generic [ref=e570]:
+                - generic [ref=e571]: "8"
+                - generic [ref=e572]: "}"
+            - button "复制" [ref=e573] [cursor=pointer]
+          - paragraph [ref=e574]:
+            - text: 恢复时用
+            - code [ref=e575]: ap.list.switch(saved.index)
+            - text: 切到上次歌曲，通过
+            - code [ref=e576]: loadedmetadata
+            - text: +
+            - code [ref=e577]: canplay
+            - text: 双事件 + 1.5s 兜底定时器确保进度恢复。
+          - separator [ref=e578]
+          - heading "# 二、PJAX 无刷新导航" [level=2] [ref=e579]:
+            - link "#" [ref=e580]:
+              - /url: "#%e4%ba%8cpjax-%e6%97%a0%e5%88%b7%e6%96%b0%e5%af%bc%e8%88%aa"
+            - text: 二、PJAX 无刷新导航
+          - heading "# 2.1 原理" [level=3] [ref=e581]:
+            - link "#" [ref=e582]:
+              - /url: "#21-%e5%8e%9f%e7%90%86"
+            - text: 2.1 原理
+          - paragraph [ref=e583]: 不依赖任何 PJAX 库，纯 fetch + DOMParser 实现：
+          - generic [ref=e584]:
+            - code [ref=e586]:
+              - generic [ref=e587]:
+                - generic [ref=e588]: "1"
+                - text: 用户点击内部链接 → e.preventDefault()
+              - generic [ref=e589]:
+                - generic [ref=e590]: "2"
+                - text: ↓
+              - generic [ref=e591]:
+                - generic [ref=e592]: "3"
+                - text: fetch(url) → response.text()
+              - generic [ref=e593]:
+                - generic [ref=e594]: "4"
+                - text: ↓
+              - generic [ref=e595]:
+                - generic [ref=e596]: "5"
+                - text: new DOMParser().parseFromString(html, 'text/html')
+              - generic [ref=e597]:
+                - generic [ref=e598]: "6"
+                - text: ↓
+              - generic [ref=e599]:
+                - generic [ref=e600]: "7"
+                - text: 提取 doc.querySelector('main.main')
+              - generic [ref=e601]:
+                - generic [ref=e602]: "8"
+                - text: 提取 doc.querySelector('aside.right-sidebar')
+              - generic [ref=e603]:
+                - generic [ref=e604]: "9"
+                - text: ↓
+              - generic [ref=e605]:
+                - generic [ref=e606]: "10"
+                - text: 替换 DOM 节点 → 同步 body.className / document.title
+              - generic [ref=e607]:
+                - generic [ref=e608]: "11"
+                - text: ↓
+              - generic [ref=e609]:
+                - generic [ref=e610]: "12"
+                - text: history.pushState(url)
+              - generic [ref=e611]:
+                - generic [ref=e612]: "13"
+                - text: ↓
+              - generic [ref=e613]:
+                - generic [ref=e614]: "14"
+                - text: window.Stack.init() 重新绑定主题功能
+            - button "复制" [ref=e615] [cursor=pointer]
+          - heading "# 2.2 为什么不用 innerHTML 替换整个页面" [level=3] [ref=e616]:
+            - link "#" [ref=e617]:
+              - /url: "#22-%e4%b8%ba%e4%bb%80%e4%b9%88%e4%b8%8d%e7%94%a8-innerhtml-%e6%9b%bf%e6%8d%a2%e6%95%b4%e4%b8%aa%e9%a1%b5%e9%9d%a2"
+            - text: 2.2 为什么不用
+            - code [ref=e618]: innerHTML
+            - text: 替换整个页面
+          - paragraph [ref=e619]:
+            - text: 只替换
+            - code [ref=e620]: main.main
+            - text: 和
+            - code [ref=e621]: aside.right-sidebar
+            - text: 两个区域，这样：
+          - list [ref=e622]:
+            - listitem [ref=e623]:
+              - strong [ref=e624]:
+                - text: 播放器
+                - code [ref=e625]: <div id="aplayer">
+              - text: 和歌词
+              - code [ref=e626]: <div id="custom-lrc">
+              - text: 保持不变（在 main 外部）
+            - listitem [ref=e627]:
+              - strong [ref=e628]: particles.js 画布
+              - code [ref=e629]: <div id="particles-js">
+              - text: 保持不变
+            - listitem [ref=e630]:
+              - strong [ref=e631]: 所有事件监听器
+              - text: 保持在同一个 JS 运行环境中
+          - heading "# 2.3 暗色模式持久化" [level=3] [ref=e632]:
+            - link "#" [ref=e633]:
+              - /url: "#23-%e6%9a%97%e8%89%b2%e6%a8%a1%e5%bc%8f%e6%8c%81%e4%b9%85%e5%8c%96"
+            - text: 2.3 暗色模式持久化
+          - paragraph [ref=e634]:
+            - text: 关键时序问题：
+            - code [ref=e635]: window.Stack.init()
+            - text: 会读取
+            - code [ref=e636]: localStorage
+            - text: 中的
+            - code [ref=e637]: StackColorScheme
+            - text: 并设置
+            - code [ref=e638]: data-scheme
+            - text: ，可能覆盖用户当前选择。因此 PJAX 必须在
+            - code [ref=e639]: Stack.init()
+            - text: 之后立即恢复：
+          - generic [ref=e640]:
+            - code [ref=e642]:
+              - generic [ref=e643]:
+                - generic [ref=e644]: "1"
+                - generic [ref=e645]: var savedScheme = document.documentElement.getAttribute('data-scheme');
+              - generic [ref=e646]:
+                - generic [ref=e647]: "2"
+                - generic [ref=e648]: "setTimeout(function() {"
+              - generic [ref=e649]:
+                - generic [ref=e650]: "3"
+                - generic [ref=e651]: window.Stack.init();
+              - generic [ref=e652]:
+                - generic [ref=e653]: "4"
+                - generic [ref=e654]: "if (savedScheme) {"
+              - generic [ref=e655]:
+                - generic [ref=e656]: "5"
+                - generic [ref=e657]: document.documentElement.setAttribute('data-scheme', savedScheme);
+              - generic [ref=e658]:
+                - generic [ref=e659]: "6"
+                - generic [ref=e660]: "}"
+              - generic [ref=e661]:
+                - generic [ref=e662]: "7"
+                - generic [ref=e663]: "}, 100);"
+            - button "复制" [ref=e664] [cursor=pointer]
+          - paragraph [ref=e665]:
+            - code [ref=e666]: setTimeout(100ms)
+            - text: 是因为 Stack 主题初始化需要等待 DOM 更新完成。
+          - heading "# 2.4 排除规则" [level=3] [ref=e667]:
+            - link "#" [ref=e668]:
+              - /url: "#24-%e6%8e%92%e9%99%a4%e8%a7%84%e5%88%99"
+            - text: 2.4 排除规则
+          - generic [ref=e669]:
+            - code [ref=e671]:
+              - generic [ref=e672]:
+                - generic [ref=e673]: "1"
+                - generic [ref=e674]: "function shouldIntercept(link) {"
+              - generic [ref=e675]:
+                - generic [ref=e676]: "2"
+                - generic [ref=e677]: if (!link.getAttribute('href').startsWith('/')) return false; // 外链
+              - generic [ref=e678]:
+                - generic [ref=e679]: "3"
+                - generic [ref=e680]: if (link.closest('.aplayer')) return false; // 播放器控件
+              - generic [ref=e681]:
+                - generic [ref=e682]: "4"
+                - generic [ref=e683]: if (link.closest('#i18n-switch')) return false; // 语言切换
+              - generic [ref=e684]:
+                - generic [ref=e685]: "5"
+                - generic [ref=e686]: if (link.target || link.hasAttribute('download')) return false; // 新窗口/下载
+              - generic [ref=e687]:
+                - generic [ref=e688]: "6"
+                - generic [ref=e689]: return true;
+              - generic [ref=e690]:
+                - generic [ref=e691]: "7"
+                - generic [ref=e692]: "}"
+            - button "复制" [ref=e693] [cursor=pointer]
+          - separator [ref=e694]
+          - heading "# 三、动态粒子背景" [level=2] [ref=e695]:
+            - link "#" [ref=e696]:
+              - /url: "#%e4%b8%89%e5%8a%a8%e6%80%81%e7%b2%92%e5%ad%90%e8%83%8c%e6%99%af"
+            - text: 三、动态粒子背景
+          - heading "# 3.1 配置方式" [level=3] [ref=e697]:
+            - link "#" [ref=e698]:
+              - /url: "#31-%e9%85%8d%e7%bd%ae%e6%96%b9%e5%bc%8f"
+            - text: 3.1 配置方式
+          - paragraph [ref=e699]:
+            - code [ref=e700]: assets/background/particlesjs-config.json
+            - text: 是 particles.js (Vincent Garreau, 2017) 的标准配置。Hugo 构建时 JSON 和 JS 库一同输出到
+            - code [ref=e701]: public/background/
+            - text: 。
+          - generic [ref=e702]:
+            - code [ref=e704]:
+              - generic [ref=e705]:
+                - generic [ref=e706]: "1"
+                - generic [ref=e707]: "{"
+              - generic [ref=e708]:
+                - generic [ref=e709]: "2"
+                - generic [ref=e710]: "\"particles\": {"
+              - generic [ref=e711]:
+                - generic [ref=e712]: "3"
+                - generic [ref=e713]: "\"number\": { \"value\": 80, \"density\": { \"enable\": true, \"value_area\": 800 } },"
+              - generic [ref=e714]:
+                - generic [ref=e715]: "4"
+                - generic [ref=e716]: "\"color\": { \"value\": \"#f4d2e2\" },"
+              - generic [ref=e717]:
+                - generic [ref=e718]: "5"
+                - generic [ref=e719]: "\"opacity\": { \"value\": 1, \"random\": false },"
+              - generic [ref=e720]:
+                - generic [ref=e721]: "6"
+                - generic [ref=e722]: "\"size\": { \"value\": 4.5, \"random\": true },"
+              - generic [ref=e723]:
+                - generic [ref=e724]: "7"
+                - generic [ref=e725]: "\"line_linked\": { \"enable\": true, \"distance\": 150, \"color\": \"#f4d2e2\", \"opacity\": 0.72, \"width\": 1 },"
+              - generic [ref=e726]:
+                - generic [ref=e727]: "8"
+                - generic [ref=e728]: "\"move\": { \"enable\": true, \"speed\": 1.2, \"direction\": \"none\", \"out_mode\": \"out\" }"
+              - generic [ref=e729]:
+                - generic [ref=e730]: "9"
+                - generic [ref=e731]: "},"
+              - generic [ref=e732]:
+                - generic [ref=e733]: "10"
+                - generic [ref=e734]: "\"interactivity\": {"
+              - generic [ref=e735]:
+                - generic [ref=e736]: "11"
+                - generic [ref=e737]: "\"detect_on\": \"window\","
+              - generic [ref=e738]:
+                - generic [ref=e739]: "12"
+                - generic [ref=e740]: "\"events\": { \"onhover\": { \"enable\": true, \"mode\": \"grab\" }, \"onclick\": { \"enable\": true, \"mode\": \"repulse\" } },"
+              - generic [ref=e741]:
+                - generic [ref=e742]: "13"
+                - generic [ref=e743]: "\"modes\": { \"grab\": { \"distance\": 250, \"line_linked\": { \"opacity\": 1 } }, \"repulse\": { \"distance\": 285 } }"
+              - generic [ref=e744]:
+                - generic [ref=e745]: "14"
+                - generic [ref=e746]: "},"
+              - generic [ref=e747]:
+                - generic [ref=e748]: "15"
+                - generic [ref=e749]: "\"retina_detect\": true"
+              - generic [ref=e750]:
+                - generic [ref=e751]: "16"
+                - generic [ref=e752]: "}"
+            - button "复制" [ref=e753] [cursor=pointer]
+          - paragraph [ref=e754]:
+            - strong [ref=e755]: 修改方法
+            - text: ：访问
+            - link "vincentgarreau.com/particles.js" [ref=e756]:
+              - /url: https://vincentgarreau.com/particles.js/
+            - text: 生成 JSON → 覆盖
+            - code [ref=e757]: assets/background/particlesjs-config.json
+            - text: →
+            - code [ref=e758]: hugo
+            - text: 重新构建。
+          - heading "# 3.2 CSS 层叠上下文挑战" [level=3] [ref=e759]:
+            - link "#" [ref=e760]:
+              - /url: "#32-css-%e5%b1%82%e5%8f%a0%e4%b8%8a%e4%b8%8b%e6%96%87%e6%8c%91%e6%88%98"
+            - text: 3.2 CSS 层叠上下文挑战
+          - paragraph [ref=e761]:
+            - text: 这是整个项目中最棘手的 CSS 问题。粒子画布（
+            - code [ref=e762]: <canvas>
+            - text: ）需要：
+          - list [ref=e763]:
+            - listitem [ref=e764]:
+              - text: 在页面内容
+              - strong [ref=e765]: 下面
+              - text: （z-index 低）
+            - listitem [ref=e766]:
+              - text: 在 body 背景
+              - strong [ref=e767]: 上面
+              - text: （否则被 body 的不透明背景挡住）
+          - paragraph [ref=e768]: 解决方案：不让 body 完全不透明，而是用 85% 不透明度的半透明背景：
+          - generic [ref=e769]:
+            - code [ref=e771]:
+              - generic [ref=e772]:
+                - generic [ref=e773]: "1"
+                - generic [ref=e774]: "body {"
+              - generic [ref=e775]:
+                - generic [ref=e776]: "2"
+                - generic [ref=e777]: "background: rgba(245, 245, 250, 0.85) !important;"
+              - generic [ref=e778]:
+                - generic [ref=e779]: "3"
+                - generic [ref=e780]: "}"
+              - generic [ref=e781]:
+                - generic [ref=e782]: "4"
+                - generic [ref=e783]: "[data-scheme=\"dark\"] body {"
+              - generic [ref=e784]:
+                - generic [ref=e785]: "5"
+                - generic [ref=e786]: "background: rgba(48, 48, 48, 0.85) !important;"
+              - generic [ref=e787]:
+                - generic [ref=e788]: "6"
+                - generic [ref=e789]: "}"
+              - generic [ref=e790]:
+                - generic [ref=e791]: "7"
+                - generic [ref=e792]: "#particles-js {"
+              - generic [ref=e793]:
+                - generic [ref=e794]: "8"
+                - generic [ref=e795]: "position: fixed;"
+              - generic [ref=e796]:
+                - generic [ref=e797]: "9"
+                - generic [ref=e798]: "z-index: -1; /* 在 body 背景下方，通过 body 半透明可见 */"
+              - generic [ref=e799]:
+                - generic [ref=e800]: "10"
+                - generic [ref=e801]: "pointer-events: none;"
+              - generic [ref=e802]:
+                - generic [ref=e803]: "11"
+                - generic [ref=e804]: "}"
+            - button "复制" [ref=e805] [cursor=pointer]
+          - paragraph [ref=e806]:
+            - code [ref=e807]: rgba(245,245,250,0.85)
+            - text: 代表浅色模式下 15% 的透明度让粒子透出；卡片（
+            - code [ref=e808]: article
+            - text: ）有 100% 不透明背景色，内容完全不受影响。
+          - heading "# 3.3 加载时序" [level=3] [ref=e809]:
+            - link "#" [ref=e810]:
+              - /url: "#33-%e5%8a%a0%e8%bd%bd%e6%97%b6%e5%ba%8f"
+            - text: 3.3 加载时序
+          - paragraph [ref=e811]:
+            - text: particles.js 在
+            - code [ref=e812]: <script src="...">
+            - text: 同步加载后立即调用
+            - code [ref=e813]: particlesJS.load()
+            - text: ，不等待 DOMContentLoaded。
+          - generic [ref=e814]:
+            - code [ref=e816]:
+              - generic [ref=e817]:
+                - generic [ref=e818]: "1"
+                - generic [ref=e819]: <div id="particles-js"></div>
+              - generic [ref=e820]:
+                - generic [ref=e821]: "2"
+                - generic [ref=e822]: <script src="/background/particles.min.js"></script>
+              - generic [ref=e823]:
+                - generic [ref=e824]: "3"
+                - generic [ref=e825]: <script>
+              - generic [ref=e826]:
+                - generic [ref=e827]: "4"
+                - generic [ref=e828]: "particlesJS.load('particles-js', '/background/particlesjs-config.json', function() {"
+              - generic [ref=e829]:
+                - generic [ref=e830]: "5"
+                - generic [ref=e831]: console.log('particles.js loaded');
+              - generic [ref=e832]:
+                - generic [ref=e833]: "6"
+                - generic [ref=e834]: "});"
+              - generic [ref=e835]:
+                - generic [ref=e836]: "7"
+                - generic [ref=e837]: </script>
+            - button "复制" [ref=e838] [cursor=pointer]
+          - separator [ref=e839]
+          - heading "# 四、暗色模式" [level=2] [ref=e840]:
+            - link "#" [ref=e841]:
+              - /url: "#%e5%9b%9b%e6%9a%97%e8%89%b2%e6%a8%a1%e5%bc%8f"
+            - text: 四、暗色模式
+          - heading "# 4.1 CSS 变量机制" [level=3] [ref=e842]:
+            - link "#" [ref=e843]:
+              - /url: "#41-css-%e5%8f%98%e9%87%8f%e6%9c%ba%e5%88%b6"
+            - text: 4.1 CSS 变量机制
+          - paragraph [ref=e844]:
+            - text: Stack 主题在
+            - code [ref=e845]: <html>
+            - text: 上设置
+            - code [ref=e846]: data-scheme
+            - text: 属性，通过 CSS 属性选择器切换变量：
+          - generic [ref=e847]:
+            - code [ref=e849]:
+              - generic [ref=e850]:
+                - generic [ref=e851]: "1"
+                - generic [ref=e852]: ":root {"
+              - generic [ref=e853]:
+                - generic [ref=e854]: "2"
+                - generic [ref=e855]: "--body-background: #f5f5fa; /* 浅色 */"
+              - generic [ref=e856]:
+                - generic [ref=e857]: "3"
+                - generic [ref=e858]: "--card-background: #fff;"
+              - generic [ref=e859]:
+                - generic [ref=e860]: "4"
+                - generic [ref=e861]: "--body-text-color: #707070;"
+              - generic [ref=e862]:
+                - generic [ref=e863]: "5"
+                - generic [ref=e864]: "}"
+              - generic [ref=e865]:
+                - generic [ref=e866]: "6"
+                - generic [ref=e867]: ":root[data-scheme=\"dark\"] {"
+              - generic [ref=e868]:
+                - generic [ref=e869]: "7"
+                - generic [ref=e870]: "--body-background: #303030; /* 深色 */"
+              - generic [ref=e871]:
+                - generic [ref=e872]: "8"
+                - generic [ref=e873]: "--card-background: #424242;"
+              - generic [ref=e874]:
+                - generic [ref=e875]: "9"
+                - generic [ref=e876]: "--body-text-color: rgba(255,255,255,0.7);"
+              - generic [ref=e877]:
+                - generic [ref=e878]: "10"
+                - generic [ref=e879]: "}"
+            - button "复制" [ref=e880] [cursor=pointer]
+          - paragraph [ref=e881]:
+            - text: 所有 UI 组件使用
+            - code [ref=e882]: var(--body-background)
+            - text: 等变量，自动适配明暗切换。
+          - heading "# 4.2 搜索框 Chrome autofill 修复" [level=3] [ref=e883]:
+            - link "#" [ref=e884]:
+              - /url: "#42-%e6%90%9c%e7%b4%a2%e6%a1%86-chrome-autofill-%e4%bf%ae%e5%a4%8d"
+            - text: 4.2 搜索框 Chrome autofill 修复
+          - paragraph [ref=e885]:
+            - text: Chrome 在识别到
+            - code [ref=e886]: <input name="keyword">
+            - text: 后会注入 autofill 样式，覆盖自定义背景色。解决方案：
+          - generic [ref=e887]:
+            - code [ref=e889]:
+              - generic [ref=e890]:
+                - generic [ref=e891]: "1"
+                - generic [ref=e892]: "input[name=\"keyword\"] {"
+              - generic [ref=e893]:
+                - generic [ref=e894]: "2"
+                - generic [ref=e895]: "-webkit-text-fill-color: var(--card-text-color-main);"
+              - generic [ref=e897]: "3"
+              - generic [ref=e898]:
+                - generic [ref=e899]: "4"
+                - generic [ref=e900]: "&:-webkit-autofill,"
+              - generic [ref=e901]:
+                - generic [ref=e902]: "5"
+                - generic [ref=e903]: "&:-webkit-autofill:hover,"
+              - generic [ref=e904]:
+                - generic [ref=e905]: "6"
+                - generic [ref=e906]: "&:-webkit-autofill:focus,"
+              - generic [ref=e907]:
+                - generic [ref=e908]: "7"
+                - generic [ref=e909]: "&:-webkit-autofill:active {"
+              - generic [ref=e910]:
+                - generic [ref=e911]: "8"
+                - generic [ref=e912]: "-webkit-text-fill-color: var(--card-text-color-main) !important;"
+              - generic [ref=e913]:
+                - generic [ref=e914]: "9"
+                - generic [ref=e915]: "-webkit-box-shadow: 0 0 0 1000px var(--card-background) inset !important;"
+              - generic [ref=e916]:
+                - generic [ref=e917]: "10"
+                - generic [ref=e918]: "transition: background-color 5000s ease-in-out 0s;"
+              - generic [ref=e919]:
+                - generic [ref=e920]: "11"
+                - generic [ref=e921]: "}"
+              - generic [ref=e922]:
+                - generic [ref=e923]: "12"
+                - generic [ref=e924]: "}"
+            - button "复制" [ref=e925] [cursor=pointer]
+          - paragraph [ref=e926]:
+            - text: 核心技巧：Chrome autofill 不认
+            - code [ref=e927]: background
+            - text: CSS 属性，但认
+            - code [ref=e928]: "-webkit-box-shadow: inset"
+            - text: 。用 1000px 的内阴影模拟背景色填充整个输入框。
+            - code [ref=e929]: "transition: 5000s"
+            - text: 阻止 autofill 的白色→主题色的过渡动画闪烁。
+          - heading "# 4.3 暗色模式按钮的 CSS 层级" [level=3] [ref=e930]:
+            - link "#" [ref=e931]:
+              - /url: "#43-%e6%9a%97%e8%89%b2%e6%a8%a1%e5%bc%8f%e6%8c%89%e9%92%ae%e7%9a%84-css-%e5%b1%82%e7%ba%a7"
+            - text: 4.3 暗色模式按钮的 CSS 层级
+          - generic [ref=e932]:
+            - code [ref=e934]:
+              - generic [ref=e935]:
+                - generic [ref=e936]: "1"
+                - generic [ref=e937]: "#dark-mode-toggle {"
+              - generic [ref=e938]:
+                - generic [ref=e939]: "2"
+                - generic [ref=e940]: "width: auto !important;"
+              - generic [ref=e941]:
+                - generic [ref=e942]: "3"
+                - generic [ref=e943]: "align-self: flex-start !important; // 阻止 flex 容器横向拉伸"
+              - generic [ref=e944]:
+                - generic [ref=e945]: "4"
+                - generic [ref=e946]: "}"
+            - button "复制" [ref=e947] [cursor=pointer]
+          - paragraph [ref=e948]:
+            - code [ref=e949]: "align-self: flex-start"
+            - text: 是因为主题 CSS 中
+            - code [ref=e950]: "#main-menu li { width: 100% }"
+            - text: 会导致按钮占满整行。
+          - separator [ref=e951]
+          - heading "# 五、i18n 语言切换" [level=2] [ref=e952]:
+            - link "#" [ref=e953]:
+              - /url: "#%e4%ba%94i18n-%e8%af%ad%e8%a8%80%e5%88%87%e6%8d%a2"
+            - text: 五、i18n 语言切换
+          - heading "# 5.1 下拉菜单实现" [level=3] [ref=e954]:
+            - link "#" [ref=e955]:
+              - /url: "#51-%e4%b8%8b%e6%8b%89%e8%8f%9c%e5%8d%95%e5%ae%9e%e7%8e%b0"
+            - text: 5.1 下拉菜单实现
+          - generic [ref=e956]:
+            - code [ref=e958]:
+              - generic [ref=e959]:
+                - generic [ref=e960]: "1"
+                - generic [ref=e961]: "#i18n-switch {"
+              - generic [ref=e962]:
+                - generic [ref=e963]: "2"
+                - generic [ref=e964]: "position: relative;"
+              - generic [ref=e965]:
+                - generic [ref=e966]: "3"
+                - generic [ref=e967]: "z-index: 10; // 关键：创建独立层叠上下文，防止暗色模式按钮穿透"
+              - generic [ref=e969]: "4"
+              - generic [ref=e970]:
+                - generic [ref=e971]: "5"
+                - generic [ref=e972]: ".i18n-menu {"
+              - generic [ref=e973]:
+                - generic [ref=e974]: "6"
+                - generic [ref=e975]: "position: absolute;"
+              - generic [ref=e976]:
+                - generic [ref=e977]: "7"
+                - generic [ref=e978]: "z-index: 100;"
+              - generic [ref=e979]:
+                - generic [ref=e980]: "8"
+                - generic [ref=e981]: "opacity: 0;"
+              - generic [ref=e982]:
+                - generic [ref=e983]: "9"
+                - generic [ref=e984]: "visibility: hidden;"
+              - generic [ref=e985]:
+                - generic [ref=e986]: "10"
+                - generic [ref=e987]: "transform: translateY(10px) scale(0.95);"
+              - generic [ref=e988]:
+                - generic [ref=e989]: "11"
+                - generic [ref=e990]: "transition: opacity 0.2s, visibility 0.2s, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);"
+              - generic [ref=e991]:
+                - generic [ref=e992]: "12"
+                - generic [ref=e993]: "}"
+              - generic [ref=e995]: "13"
+              - generic [ref=e996]:
+                - generic [ref=e997]: "14"
+                - generic [ref=e998]: ".i18n-dropdown.open .i18n-menu {"
+              - generic [ref=e999]:
+                - generic [ref=e1000]: "15"
+                - generic [ref=e1001]: "opacity: 1;"
+              - generic [ref=e1002]:
+                - generic [ref=e1003]: "16"
+                - generic [ref=e1004]: "visibility: visible;"
+              - generic [ref=e1005]:
+                - generic [ref=e1006]: "17"
+                - generic [ref=e1007]: "transform: translateY(0) scale(1);"
+              - generic [ref=e1008]:
+                - generic [ref=e1009]: "18"
+                - generic [ref=e1010]: "}"
+              - generic [ref=e1011]:
+                - generic [ref=e1012]: "19"
+                - generic [ref=e1013]: "}"
+            - button "复制" [ref=e1014] [cursor=pointer]
+          - paragraph [ref=e1015]:
+            - text: 动画使用
+            - code [ref=e1016]: cubic-bezier(0.34, 1.56, 0.64, 1)
+            - text: 产生弹性回弹效果。
+            - code [ref=e1017]: opacity
+            - text: +
+            - code [ref=e1018]: visibility
+            - text: 双属性控制是为了让隐藏状态下完全不可交互。
+          - heading "# 5.2 JS 控制" [level=3] [ref=e1019]:
+            - link "#" [ref=e1020]:
+              - /url: "#52-js-%e6%8e%a7%e5%88%b6"
+            - text: 5.2 JS 控制
+          - generic [ref=e1021]:
+            - code [ref=e1023]:
+              - generic [ref=e1024]:
+                - generic [ref=e1025]: "1"
+                - generic [ref=e1026]: var dropdown = document.querySelector('.i18n-dropdown');
+              - generic [ref=e1027]:
+                - generic [ref=e1028]: "2"
+                - generic [ref=e1029]: var toggleBtn = dropdown.querySelector('[data-toggle]');
+              - generic [ref=e1030]:
+                - generic [ref=e1031]: "3"
+                - generic [ref=e1032]: "toggleBtn.addEventListener('click', function(e) {"
+              - generic [ref=e1033]:
+                - generic [ref=e1034]: "4"
+                - generic [ref=e1035]: e.stopPropagation();
+              - generic [ref=e1036]:
+                - generic [ref=e1037]: "5"
+                - generic [ref=e1038]: dropdown.classList.toggle('open');
+              - generic [ref=e1039]:
+                - generic [ref=e1040]: "6"
+                - generic [ref=e1041]: "});"
+              - generic [ref=e1042]:
+                - generic [ref=e1043]: "7"
+                - generic [ref=e1044]: // 点击外部或按 Escape 关闭
+            - button "复制" [ref=e1045] [cursor=pointer]
+          - blockquote [ref=e1046]:
+            - paragraph [ref=e1047]:
+              - text: ⚠️ 此处踩过一个坑：最初用
+              - code [ref=e1048]: document.getElementById('i18n-dropdown')
+              - text: 获取元素，但
+              - code [ref=e1049]: .i18n-dropdown
+              - text: 是 class 不是 id，导致 JS 完全无效。改为
+              - code [ref=e1050]: querySelector('.i18n-dropdown')
+              - text: 解决。
+          - separator [ref=e1051]
+          - heading "# 六、项目结构速查" [level=2] [ref=e1052]:
+            - link "#" [ref=e1053]:
+              - /url: "#%e5%85%ad%e9%a1%b9%e7%9b%ae%e7%bb%93%e6%9e%84%e9%80%9f%e6%9f%a5"
+            - text: 六、项目结构速查
+          - generic [ref=e1054]:
+            - code [ref=e1056]:
+              - generic [ref=e1057]:
+                - generic [ref=e1058]: "1"
+                - text: dev/
+              - generic [ref=e1059]:
+                - generic [ref=e1060]: "2"
+                - text: ├── assets/
+              - generic [ref=e1061]:
+                - generic [ref=e1062]: "3"
+                - text: │ ├── background/
+              - generic [ref=e1063]:
+                - generic [ref=e1064]: "4"
+                - text: "│ │ ├── particles.min.js # particles.js 库 (23KB)"
+              - generic [ref=e1065]:
+                - generic [ref=e1066]: "5"
+                - text: "│ │ └── particlesjs-config.json # 粒子配置 ← 修改粒子效果"
+              - generic [ref=e1067]:
+                - generic [ref=e1068]: "6"
+                - text: │ └── scss/
+              - generic [ref=e1069]:
+                - generic [ref=e1070]: "7"
+                - text: "│ └── custom.scss # 全部自定义样式 ← 修改 UI"
+              - generic [ref=e1071]:
+                - generic [ref=e1072]: "8"
+                - text: ├── config/_default/
+              - generic [ref=e1073]:
+                - generic [ref=e1074]: "9"
+                - text: "│ ├── config.toml # Hugo 主配置"
+              - generic [ref=e1075]:
+                - generic [ref=e1076]: "10"
+                - text: "│ └── languages.toml # 多语言配置"
+              - generic [ref=e1077]:
+                - generic [ref=e1078]: "11"
+                - text: "├── content/post/ # 博客文章 (.md)"
+              - generic [ref=e1079]:
+                - generic [ref=e1080]: "12"
+                - text: ├── data/
+              - generic [ref=e1081]:
+                - generic [ref=e1082]: "13"
+                - text: "│ └── music.toml # 歌曲列表 ← 加歌/改歌"
+              - generic [ref=e1083]:
+                - generic [ref=e1084]: "14"
+                - text: ├── layouts/
+              - generic [ref=e1085]:
+                - generic [ref=e1086]: "15"
+                - text: │ ├── _partials/
+              - generic [ref=e1087]:
+                - generic [ref=e1088]: "16"
+                - text: "│ │ ├── footer/custom.html # ← 核心文件 (560行)"
+              - generic [ref=e1089]:
+                - generic [ref=e1090]: "17"
+                - text: "│ │ └── sidebar/left.html # 侧边栏覆盖"
+              - generic [ref=e1091]:
+                - generic [ref=e1092]: "18"
+                - text: │ ├── partials/
+              - generic [ref=e1093]:
+                - generic [ref=e1094]: "19"
+                - text: "│ │ ├── head/custom.html # APlayer CSS 引用"
+              - generic [ref=e1095]:
+                - generic [ref=e1096]: "20"
+                - text: "│ │ └── head/custom-font.html # 系统字体栈 (替代 Google Fonts)"
+              - generic [ref=e1097]:
+                - generic [ref=e1098]: "21"
+                - text: "│ ├── archives.html # 归档页 (双列 Grid)"
+              - generic [ref=e1099]:
+                - generic [ref=e1100]: "22"
+                - text: "│ └── _default/terms.html # 分类页"
+              - generic [ref=e1101]:
+                - generic [ref=e1102]: "23"
+                - text: ├── static/
+              - generic [ref=e1103]:
+                - generic [ref=e1104]: "24"
+                - text: "│ ├── lib/aplayer/ # APlayer v1.10.1 本地库"
+              - generic [ref=e1105]:
+                - generic [ref=e1106]: "25"
+                - text: │ │ ├── APlayer.min.css
+              - generic [ref=e1107]:
+                - generic [ref=e1108]: "26"
+                - text: │ │ └── APlayer.min.js
+              - generic [ref=e1109]:
+                - generic [ref=e1110]: "27"
+                - text: "│ ├── img/ # 封面图等"
+              - generic [ref=e1111]:
+                - generic [ref=e1112]: "28"
+                - text: "│ └── music/ # LRC 歌词文件"
+              - generic [ref=e1113]:
+                - generic [ref=e1114]: "29"
+                - text: "├── themes/hugo-theme-stack/ # 主题 (git submodule)"
+              - generic [ref=e1115]:
+                - generic [ref=e1116]: "30"
+                - text: "└── deploy.bat # 一键部署脚本"
+            - button "复制" [ref=e1117] [cursor=pointer]
+          - heading "# 修改速查表" [level=3] [ref=e1118]:
+            - link "#" [ref=e1119]:
+              - /url: "#%e4%bf%ae%e6%94%b9%e9%80%9f%e6%9f%a5%e8%a1%a8"
+            - text: 修改速查表
+          - table [ref=e1121]:
+            - rowgroup [ref=e1122]:
+              - row "需求 文件 怎么改" [ref=e1123]:
+                - columnheader "需求" [ref=e1124]
+                - columnheader "文件" [ref=e1125]
+                - columnheader "怎么改" [ref=e1126]
+            - rowgroup [ref=e1127]:
+              - row "加一首歌 data/music.toml 追加 [[music]] 块" [ref=e1128]:
+                - cell "加一首歌" [ref=e1129]
+                - cell "data/music.toml" [ref=e1130]:
+                  - code [ref=e1131]: data/music.toml
+                - cell "追加 [[music]] 块" [ref=e1132]:
+                  - text: 追加
+                  - code [ref=e1133]: "[[music]]"
+                  - text: 块
+              - row "改粒子颜色/密度 assets/background/particlesjs-config.json 改 JSON 字段" [ref=e1134]:
+                - cell "改粒子颜色/密度" [ref=e1135]
+                - cell "assets/background/particlesjs-config.json" [ref=e1136]:
+                  - code [ref=e1137]: assets/background/particlesjs-config.json
+                - cell "改 JSON 字段" [ref=e1138]
+              - row "调播放器样式 assets/scss/custom.scss APlayer 块" [ref=e1139]:
+                - cell "调播放器样式" [ref=e1140]
+                - cell "assets/scss/custom.scss" [ref=e1141]:
+                  - code [ref=e1142]: assets/scss/custom.scss
+                - cell "APlayer 块" [ref=e1143]
+              - 'row "调歌词样式 assets/scss/custom.scss #custom-lrc 块" [ref=e1144]':
+                - cell "调歌词样式" [ref=e1145]
+                - cell "assets/scss/custom.scss" [ref=e1146]:
+                  - code [ref=e1147]: assets/scss/custom.scss
+                - cell "#custom-lrc 块" [ref=e1148]:
+                  - code [ref=e1149]: "#custom-lrc"
+                  - text: 块
+              - row "改 PJAX 行为 layouts/_partials/footer/custom.html PJAX 块" [ref=e1150]:
+                - cell "改 PJAX 行为" [ref=e1151]
+                - cell "layouts/_partials/footer/custom.html" [ref=e1152]:
+                  - code [ref=e1153]: layouts/_partials/footer/custom.html
+                - cell "PJAX 块" [ref=e1154]
+              - row "改粒子透明度 layouts/_partials/footer/custom.html <style> 中 body background rgba" [ref=e1155]:
+                - cell "改粒子透明度" [ref=e1156]
+                - cell "layouts/_partials/footer/custom.html" [ref=e1157]:
+                  - code [ref=e1158]: layouts/_partials/footer/custom.html
+                - cell "<style> 中 body background rgba" [ref=e1159]:
+                  - code [ref=e1160]: <style>
+                  - text: 中 body background rgba
+              - row "加新侧边栏功能 layouts/_partials/footer/custom.html 追加 <script>" [ref=e1161]:
+                - cell "加新侧边栏功能" [ref=e1162]
+                - cell "layouts/_partials/footer/custom.html" [ref=e1163]:
+                  - code [ref=e1164]: layouts/_partials/footer/custom.html
+                - cell "追加 <script>" [ref=e1165]:
+                  - text: 追加
+                  - code [ref=e1166]: <script>
+              - row "更换背景类型 layouts/_partials/footer/custom.html 替换 particles.js 部分" [ref=e1167]:
+                - cell "更换背景类型" [ref=e1168]
+                - cell "layouts/_partials/footer/custom.html" [ref=e1169]:
+                  - code [ref=e1170]: layouts/_partials/footer/custom.html
+                - cell "替换 particles.js 部分" [ref=e1171]
+              - row "改搜索框样式 assets/scss/custom.scss .search-form 块" [ref=e1172]:
+                - cell "改搜索框样式" [ref=e1173]
+                - cell "assets/scss/custom.scss" [ref=e1174]:
+                  - code [ref=e1175]: assets/scss/custom.scss
+                - cell ".search-form 块" [ref=e1176]:
+                  - code [ref=e1177]: .search-form
+                  - text: 块
+          - separator [ref=e1178]
+          - heading "# 七、调试经验总结" [level=2] [ref=e1179]:
+            - link "#" [ref=e1180]:
+              - /url: "#%e4%b8%83%e8%b0%83%e8%af%95%e7%bb%8f%e9%aa%8c%e6%80%bb%e7%bb%93"
+            - text: 七、调试经验总结
+          - list [ref=e1181]:
+            - listitem [ref=e1182]:
+              - strong [ref=e1183]: Hugo 模板路径
+              - text: ：Stack 主题使用
+              - code [ref=e1184]: _partials
+              - text: 目录，自定义模板必须放在
+              - code [ref=e1185]: layouts/_partials/
+              - text: （带下划线），不是
+              - code [ref=e1186]: layouts/partials/
+            - listitem [ref=e1187]:
+              - strong [ref=e1188]: Hugo 0.156+ 弃用
+              - text: ：
+              - code [ref=e1189]: site.Data
+              - text: 替换为
+              - code [ref=e1190]: hugo.Data
+              - text: ，避免构建警告
+            - listitem [ref=e1191]:
+              - strong [ref=e1192]: APlayer API
+              - text: ：
+              - code [ref=e1193]: ap.audio
+              - text: 是 HTML5 Audio 元素（有 currentTime/paused/volume），歌曲元数据在
+              - code [ref=e1194]: ap.list.audios[index]
+              - text: （有 name/artist/cover/lrc）
+            - listitem [ref=e1195]:
+              - strong [ref=e1196]: CSS 层叠上下文
+              - text: ：
+              - code [ref=e1197]: "z-index: -1"
+              - text: 的 fixed 元素在 body 背景下方，需要 body 半透明才能看见
+            - listitem [ref=e1198]:
+              - strong [ref=e1199]: Chrome autofill
+              - text: ：用
+              - code [ref=e1200]: "-webkit-box-shadow: inset"
+              - text: 替代
+              - code [ref=e1201]: background
+              - text: 设置输入框背景色
+            - listitem [ref=e1202]:
+              - strong [ref=e1203]: 所有功能集中在两个文件
+              - text: ——便于维护，但修改时要小心不要破坏其他功能
+          - separator [ref=e1204]
+          - paragraph [ref=e1205]:
+            - emphasis [ref=e1206]: 本文由 Claude (Anthropic) 对博客项目进行全面审计与优化后撰写，记录项目的技术架构和实现细节。
+          - paragraph [ref=e1207]:
+            - emphasis [ref=e1208]: 2026 年 6 月 4 日
+        - generic [ref=e1209]:
+          - generic [ref=e1210]:
+            - link "Hugo" [ref=e1211]:
+              - /url: /tags/hugo/
+            - link "JavaScript" [ref=e1212]:
+              - /url: /tags/javascript/
+            - link "Css" [ref=e1213]:
+              - /url: /tags/css/
+            - link "APlayer" [ref=e1214]:
+              - /url: /tags/aplayer/
+            - link "PJAX" [ref=e1215]:
+              - /url: /tags/pjax/
+            - link "Particles.js" [ref=e1216]:
+              - /url: /tags/particles.js/
+          - generic [ref=e1217]:
+            - generic [ref=e1218]: 分享
+            - link "分享到 Twitter" [ref=e1219] [cursor=pointer]:
+              - /url: https://twitter.com/intent/tweet?url=http://localhost:1313/p/%E5%8D%9A%E5%AE%A2%E5%8A%9F%E8%83%BD%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90-%E4%BB%8E%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8%E5%88%B0%E5%8A%A8%E6%80%81%E8%83%8C%E6%99%AF/&text=%e5%8d%9a%e5%ae%a2%e5%8a%9f%e8%83%bd%e6%8a%80%e6%9c%af%e8%a7%a3%e6%9e%90%20%e2%80%94%20%e4%bb%8e%e9%9f%b3%e4%b9%90%e6%92%ad%e6%94%be%e5%99%a8%e5%88%b0%e5%8a%a8%e6%80%81%e8%83%8c%e6%99%af
+              - img [ref=e1220]
+            - button "微信" [ref=e1223] [cursor=pointer]:
+              - img "微信" [ref=e1224]
+            - link "QQ" [ref=e1225] [cursor=pointer]:
+              - /url: https://connect.qq.com/widget/shareqq/index.html?url=http://localhost:1313/p/%E5%8D%9A%E5%AE%A2%E5%8A%9F%E8%83%BD%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90-%E4%BB%8E%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8%E5%88%B0%E5%8A%A8%E6%80%81%E8%83%8C%E6%99%AF/&title=%e5%8d%9a%e5%ae%a2%e5%8a%9f%e8%83%bd%e6%8a%80%e6%9c%af%e8%a7%a3%e6%9e%90%20%e2%80%94%20%e4%bb%8e%e9%9f%b3%e4%b9%90%e6%92%ad%e6%94%be%e5%99%a8%e5%88%b0%e5%8a%a8%e6%80%81%e8%83%8c%e6%99%af
+              - img "QQ" [ref=e1226]
+            - button "链接" [ref=e1227] [cursor=pointer]
+          - generic [ref=e1228]:
+            - img [ref=e1229]
+            - link "Wuwei’s Blog" [ref=e1234]:
+              - /url: https://wyww7.github.io/
+      - complementary [ref=e1235]:
+        - heading "相关文章" [level=2] [ref=e1236]
+        - generic [ref=e1238]:
+          - article [ref=e1239]:
+            - link "Featured image of post k8s中最小单元pod k8s中最小单元pod" [ref=e1240]:
+              - /url: /p/k8s%E4%B8%AD%E6%9C%80%E5%B0%8F%E5%8D%95%E5%85%83pod/
+              - img "Featured image of post k8s中最小单元pod" [ref=e1242]
+              - heading "k8s中最小单元pod" [level=2] [ref=e1244]
+          - article [ref=e1245]:
+            - link "Featured image of post Docker容器 Docker容器" [ref=e1246]:
+              - /url: /p/docker%E5%AE%B9%E5%99%A8/
+              - img "Featured image of post Docker容器" [ref=e1248]
+              - heading "Docker容器" [level=2] [ref=e1250]
+          - article [ref=e1251]:
+            - link "Featured image of post 自动化运维工具 - Ansible 自动化运维工具 - Ansible" [ref=e1252]:
+              - /url: /p/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7-ansible/
+              - img "Featured image of post 自动化运维工具 - Ansible" [ref=e1254]
+              - heading "自动化运维工具 - Ansible" [level=2] [ref=e1256]
+          - article [ref=e1257]:
+            - link "Mermaid Diagrams" [ref=e1258]:
+              - /url: /p/mermaid-diagrams/
+              - heading "Mermaid Diagrams" [level=2] [ref=e1260]
+      - iframe [ref=e1262]:
+        
+      - generic [ref=e1263]:
+        - generic [ref=e1264]: © 2026 Wuwei1
+        - generic [ref=e1265]: 记录技术与生活
+  - generic [ref=e1267]:
+    - img [ref=e1270] [cursor=pointer]
+    - generic:
+      - generic: 三葉のテーマ - RADWIMPS
+      - generic:
+        - generic:
+          - generic: 00:00 / 04:03
+          - generic:
+            - img
+          - generic:
+            - img
+          - generic:
+            - img
+          - generic:
+            - button:
+              - img
+          - button:
+            - img
+          - button:
+            - img
+          - button:
+            - img
+          - button:
+            - img
+    - button [ref=e1273] [cursor=pointer]:
+      - img [ref=e1274]

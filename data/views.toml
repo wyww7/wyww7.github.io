@@ -1,0 +1,4 @@
+# 文章阅读量基准值
+# key = ContentBaseName (slug), value = 数字
+# 可以手工递增，也可以通过 CI 从日志统计自动更新
+[views]

@@ -18,6 +18,7 @@ export function setupCodeCopy() {
         const copyButton = document.createElement('button');
         copyButton.innerHTML = copyText;
         copyButton.classList.add('copyCodeButton');
+        // 按钮放在 .highlight 上（<pre> 滚动容器的父级），避免水平滚动时被带走
         highlight.appendChild(copyButton);
 
         const codeBlock = highlight.querySelector('code[data-lang]');

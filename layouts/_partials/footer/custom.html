@@ -33,11 +33,21 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 0;
+    width: 0%;
     height: 3px;
     z-index: 10000;
-    background: linear-gradient(90deg, var(--link-color), #e91e63);
-    transition: width 0.1s linear;
+    opacity: 0;
+    background: linear-gradient(90deg, var(--accent-color), #e91e63);
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  #reading-progress.visible {
+    opacity: 1;
+  }
+
+  [data-scheme="dark"] #reading-progress {
+    background: linear-gradient(90deg, #00d4ff, #7b2ff7);
   }
 
   /* ===== TOC 滚动跟随展开 ===== */
@@ -91,7 +101,7 @@
     border-color: #fff;
   }
 
-  /* 代码复制按钮 */
+  /* 代码复制按钮 — relative 相对 .highlight 定位，不在滚动容器内 */
   .highlight .copyCodeButton {
     position: absolute;
     top: 0;
@@ -240,12 +250,28 @@
                 executeScripts(oldMain);
 
                 // ⑤ 重新初始化主题功能，恢复暗色模式偏好
+                //   Stack.init() 在 window.load 时才运行，需要手动调用来初始化 TOC scrollspy
+                //   同时重置 TOC 展开（blog-extras.js 在首页时因没有 TOC 而跳过，PJAX 后需手动触发）
                 var savedScheme = document.documentElement.getAttribute('data-scheme');
+                function reinitTOC() {
+                    window.Stack.init();
+                    // 恢复暗色模式（Stack.init 会重新设置）
+                    if (savedScheme) {
+                        document.documentElement.setAttribute('data-scheme', savedScheme);
+                    }
+                    // 重新绑定 TOC 展开（新 DOM 中的 TOC 元素需要新的 observer）
+                    if (window.__TOC__ && window.__TOC__.init) {
+                        window.__TOC__.init();
+                    }
+                }
                 if (window.Stack && typeof window.Stack.init === 'function') {
+                    setTimeout(reinitTOC, 100);
+                } else {
+                    // Stack 还没初始化（比如从首页直接导航到文章页时 Stack 可能未定义）
+                    // 兜底：直接用 __TOC__.init()
                     setTimeout(function() {
-                        window.Stack.init();
-                        if (savedScheme) {
-                            document.documentElement.setAttribute('data-scheme', savedScheme);
+                        if (window.__TOC__ && window.__TOC__.init) {
+                            window.__TOC__.init();
                         }
                     }, 100);
                 }

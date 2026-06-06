@@ -1,0 +1,329 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - figure [ref=e5]:
+          - link "Avatar" [ref=e6]:
+            - /url: /
+            - img "Avatar" [ref=e7]
+          - generic [ref=e8]: 😎
+        - generic [ref=e9]:
+          - heading "Wuwei1" [level=1]:
+            - link "Wuwei1" [ref=e10]:
+              - /url: /
+          - heading "学习中" [level=2]
+      - list [ref=e11]:
+        - listitem [ref=e12]:
+          - link "Bilibili" [ref=e13]:
+            - /url: https://space.bilibili.com/178958911?spm_id_from=333.788.0.0
+            - img [ref=e14]
+        - listitem [ref=e19]:
+          - link "GitHub" [ref=e20]:
+            - /url: https://github.com/wyww7
+            - img [ref=e21]
+      - list [ref=e24]:
+        - listitem [ref=e25]:
+          - link "主页" [ref=e26]:
+            - /url: /
+            - img [ref=e27]
+            - generic [ref=e32]: 主页
+        - listitem [ref=e33]:
+          - link "关于" [ref=e34]:
+            - /url: /%E5%85%B3%E4%BA%8E/
+            - img [ref=e35]
+            - generic [ref=e39]: 关于
+        - listitem [ref=e40]:
+          - link "归档" [ref=e41]:
+            - /url: /archives/
+            - img [ref=e42]
+            - generic [ref=e46]: 归档
+        - listitem [ref=e47]:
+          - link "搜索" [ref=e48]:
+            - /url: /search/
+            - img [ref=e49]
+            - generic [ref=e53]: 搜索
+        - listitem [ref=e54]:
+          - link "技术链接" [ref=e55]:
+            - /url: /%E9%93%BE%E6%8E%A5/
+            - img [ref=e56]
+            - generic [ref=e60]: 技术链接
+        - listitem [ref=e61]:
+          - list [ref=e62]:
+            - listitem [ref=e63]:
+              - img [ref=e64]
+              - button "简体中文 ▾" [ref=e70]:
+                - generic [ref=e71]: 简体中文
+                - generic [ref=e72]: ▾
+            - listitem [ref=e73]:
+              - img [ref=e74]
+              - generic [ref=e78]: 暗色模式
+    - main [ref=e79]:
+      - generic [ref=e80]:
+        - article [ref=e81]:
+          - generic [ref=e82]:
+            - link "Featured image of post 博客功能技术解析 — 从音乐播放器到动态背景" [ref=e84]:
+              - /url: /p/%E5%8D%9A%E5%AE%A2%E5%8A%9F%E8%83%BD%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90-%E4%BB%8E%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8%E5%88%B0%E5%8A%A8%E6%80%81%E8%83%8C%E6%99%AF/
+              - img "Featured image of post 博客功能技术解析 — 从音乐播放器到动态背景" [ref=e85]
+            - generic [ref=e86]:
+              - generic [ref=e87]:
+                - link "笔记" [ref=e88]:
+                  - /url: /categories/%E7%AC%94%E8%AE%B0/
+                - link "Themes" [ref=e89]:
+                  - /url: /categories/themes/
+              - generic [ref=e90]:
+                - heading "博客功能技术解析 — 从音乐播放器到动态背景" [level=2] [ref=e91]:
+                  - link "博客功能技术解析 — 从音乐播放器到动态背景" [ref=e92]:
+                    - /url: /p/%E5%8D%9A%E5%AE%A2%E5%8A%9F%E8%83%BD%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90-%E4%BB%8E%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8%E5%88%B0%E5%8A%A8%E6%80%81%E8%83%8C%E6%99%AF/
+                - heading "深度解析本博客的技术实现：APlayer 音乐播放器、PJAX 无刷新导航、particles.js 动态背景、自定义 LRC 歌词、暗色模式等功能的架构与修改指南，附完整代码片段和调试经验。" [level=3] [ref=e93]
+              - generic [ref=e94]:
+                - generic [ref=e95]:
+                  - generic [ref=e96]:
+                    - generic [ref=e97]:
+                      - img [ref=e98]
+                      - time [ref=e103]: 2026-06-04
+                    - generic [ref=e104]:
+                      - img [ref=e105]
+                      - time [ref=e109]: 2026-06-04
+                  - generic [ref=e110]:
+                    - img [ref=e111]
+                    - generic [ref=e115]: 3777 字
+                  - generic [ref=e116]:
+                    - img [ref=e117]
+                    - generic [ref=e121]: 1 次阅读
+                - generic [ref=e122]:
+                  - img [ref=e123]
+                  - link "Hugo" [ref=e127]:
+                    - /url: /tags/hugo/
+                  - link "JavaScript" [ref=e128]:
+                    - /url: /tags/javascript/
+                  - link "Css" [ref=e129]:
+                    - /url: /tags/css/
+                  - link "APlayer" [ref=e130]:
+                    - /url: /tags/aplayer/
+                  - link "PJAX" [ref=e131]:
+                    - /url: /tags/pjax/
+                  - link "Particles.js" [ref=e132]:
+                    - /url: /tags/particles.js/
+        - article [ref=e133]:
+          - generic [ref=e135]:
+            - generic [ref=e136]:
+              - link "Kubernetes" [ref=e137]:
+                - /url: /categories/kubernetes/
+              - link "微服务" [ref=e138]:
+                - /url: /categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/
+              - link "搭建" [ref=e139]:
+                - /url: /categories/%E6%90%AD%E5%BB%BA/
+            - generic [ref=e140]:
+              - heading "K8s中部署若依微服务" [level=2] [ref=e141]:
+                - link "K8s中部署若依微服务" [ref=e142]:
+                  - /url: /p/k8s%E4%B8%AD%E9%83%A8%E7%BD%B2%E8%8B%A5%E4%BE%9D%E5%BE%AE%E6%9C%8D%E5%8A%A1/
+              - heading "在 Kubernetes 集群中完整部署若依微服务（RuoYi-Cloud）的实践记录，包含基础设施部署、Nacos 配置、Docker 镜像构建及 K8s 编排的全流程" [level=3] [ref=e143]
+            - generic [ref=e144]:
+              - generic [ref=e145]:
+                - generic [ref=e146]:
+                  - generic [ref=e147]:
+                    - img [ref=e148]
+                    - time [ref=e153]: 2026-05-29
+                  - generic [ref=e154]:
+                    - img [ref=e155]
+                    - time [ref=e159]: 2026-06-01
+                - generic [ref=e160]:
+                  - img [ref=e161]
+                  - generic [ref=e165]: 6493 字
+                - generic [ref=e166]:
+                  - img [ref=e167]
+                  - generic [ref=e171]: "--"
+              - generic [ref=e172]:
+                - img [ref=e173]
+                - link "K8s" [ref=e177]:
+                  - /url: /tags/k8s/
+                - link "若依" [ref=e178]:
+                  - /url: /tags/%E8%8B%A5%E4%BE%9D/
+                - link "RuoYi" [ref=e179]:
+                  - /url: /tags/ruoyi/
+                - link "Spring Cloud" [ref=e180]:
+                  - /url: /tags/spring-cloud/
+                - link "Docker" [ref=e181]:
+                  - /url: /tags/docker/
+        - article [ref=e182]:
+          - generic [ref=e183]:
+            - link "Featured image of post k8s中最小单元pod" [ref=e185]:
+              - /url: /p/k8s%E4%B8%AD%E6%9C%80%E5%B0%8F%E5%8D%95%E5%85%83pod/
+              - img "Featured image of post k8s中最小单元pod" [ref=e186]
+            - generic [ref=e187]:
+              - generic [ref=e188]:
+                - link "Kubernetes" [ref=e189]:
+                  - /url: /categories/kubernetes/
+                - link "笔记" [ref=e190]:
+                  - /url: /categories/%E7%AC%94%E8%AE%B0/
+              - generic [ref=e191]:
+                - heading "k8s中最小单元pod" [level=2] [ref=e192]:
+                  - link "k8s中最小单元pod" [ref=e193]:
+                    - /url: /p/k8s%E4%B8%AD%E6%9C%80%E5%B0%8F%E5%8D%95%E5%85%83pod/
+                - heading "k8s中的最小调度单元pod" [level=3] [ref=e194]
+              - generic [ref=e195]:
+                - generic [ref=e196]:
+                  - generic [ref=e197]:
+                    - generic [ref=e198]:
+                      - img [ref=e199]
+                      - time [ref=e204]: 2026-05-27
+                    - generic [ref=e205]:
+                      - img [ref=e206]
+                      - time [ref=e210]: 2026-05-27
+                  - generic [ref=e211]:
+                    - img [ref=e212]
+                    - generic [ref=e216]: 10261 字
+                  - generic [ref=e217]:
+                    - img [ref=e218]
+                    - generic [ref=e222]: "--"
+                - generic [ref=e223]:
+                  - img [ref=e224]
+                  - link "K8s" [ref=e228]:
+                    - /url: /tags/k8s/
+                  - link "Test" [ref=e229]:
+                    - /url: /tags/test/
+        - article [ref=e230]:
+          - generic [ref=e232]:
+            - generic [ref=e233]:
+              - link "Kubernetes" [ref=e234]:
+                - /url: /categories/kubernetes/
+              - link "部署" [ref=e235]:
+                - /url: /categories/%E9%83%A8%E7%BD%B2/
+            - generic [ref=e236]:
+              - heading "K8s集群本地部署" [level=2] [ref=e237]:
+                - link "K8s集群本地部署" [ref=e238]:
+                  - /url: /p/k8s%E9%9B%86%E7%BE%A4%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2/
+              - heading "使用虚拟机本地部署k8s" [level=3] [ref=e239]
+            - generic [ref=e240]:
+              - generic [ref=e241]:
+                - generic [ref=e242]:
+                  - generic [ref=e243]:
+                    - img [ref=e244]
+                    - time [ref=e249]: 2026-05-25
+                  - generic [ref=e250]:
+                    - img [ref=e251]
+                    - time [ref=e255]: 2026-06-02
+                - generic [ref=e256]:
+                  - img [ref=e257]
+                  - generic [ref=e261]: 3594 字
+                - generic [ref=e262]:
+                  - img [ref=e263]
+                  - generic [ref=e267]: "--"
+              - generic [ref=e268]:
+                - img [ref=e269]
+                - link "K8s" [ref=e273]:
+                  - /url: /tags/k8s/
+                - link "Test" [ref=e274]:
+                  - /url: /tags/test/
+        - article [ref=e275]:
+          - generic [ref=e276]:
+            - link "Featured image of post Docker容器" [ref=e278]:
+              - /url: /p/docker%E5%AE%B9%E5%99%A8/
+              - img "Featured image of post Docker容器" [ref=e279]
+            - generic [ref=e280]:
+              - generic [ref=e281]:
+                - link "Docker" [ref=e282]:
+                  - /url: /categories/docker/
+                - link "笔记" [ref=e283]:
+                  - /url: /categories/%E7%AC%94%E8%AE%B0/
+              - generic [ref=e284]:
+                - heading "Docker容器" [level=2] [ref=e285]:
+                  - link "Docker容器" [ref=e286]:
+                    - /url: /p/docker%E5%AE%B9%E5%99%A8/
+                - heading "Docker容器相关笔记内容" [level=3] [ref=e287]
+              - generic [ref=e288]:
+                - generic [ref=e289]:
+                  - generic [ref=e290]:
+                    - generic [ref=e291]:
+                      - img [ref=e292]
+                      - time [ref=e297]: 2026-05-21
+                    - generic [ref=e298]:
+                      - img [ref=e299]
+                      - time [ref=e303]: 2026-05-21
+                  - generic [ref=e304]:
+                    - img [ref=e305]
+                    - generic [ref=e309]: 11331 字
+                  - generic [ref=e310]:
+                    - img [ref=e311]
+                    - generic [ref=e315]: "--"
+                - generic [ref=e316]:
+                  - img [ref=e317]
+                  - link "Docker" [ref=e321]:
+                    - /url: /tags/docker/
+                  - link "容器" [ref=e322]:
+                    - /url: /tags/%E5%AE%B9%E5%99%A8/
+        - article [ref=e323]:
+          - generic [ref=e325]:
+            - generic [ref=e326]:
+              - link "Ansible" [ref=e327]:
+                - /url: /categories/ansible/
+              - link "部署" [ref=e328]:
+                - /url: /categories/%E9%83%A8%E7%BD%B2/
+            - generic [ref=e329]:
+              - heading "Ansible部署MySQL主从" [level=2] [ref=e330]:
+                - link "Ansible部署MySQL主从" [ref=e331]:
+                  - /url: /p/ansible%E9%83%A8%E7%BD%B2mysql%E4%B8%BB%E4%BB%8E/
+              - heading "使用ansible部署MySQL的主从复制" [level=3] [ref=e332]
+            - generic [ref=e333]:
+              - generic [ref=e334]:
+                - generic [ref=e335]:
+                  - generic [ref=e336]:
+                    - img [ref=e337]
+                    - time [ref=e342]: 2026-05-19
+                  - generic [ref=e343]:
+                    - img [ref=e344]
+                    - time [ref=e348]: 2026-05-19
+                - generic [ref=e349]:
+                  - img [ref=e350]
+                  - generic [ref=e354]: 1072 字
+                - generic [ref=e355]:
+                  - img [ref=e356]
+                  - generic [ref=e360]: "--"
+              - generic [ref=e361]:
+                - img [ref=e362]
+                - link "Ansible" [ref=e366]:
+                  - /url: /tags/ansible/
+                - link "Test" [ref=e367]:
+                  - /url: /tags/test/
+      - navigation "pagination" [ref=e368]:
+        - generic:
+          - img
+        - generic "Page 1" [ref=e369]: "1"
+        - link "Page 2" [ref=e370]:
+          - /url: /page/2/
+          - text: "2"
+        - link "Page 3" [ref=e371]:
+          - /url: /page/3/
+          - text: "3"
+        - link "Next page" [ref=e372]:
+          - /url: /page/2/
+          - img [ref=e373]
+      - generic [ref=e376]:
+        - generic [ref=e377]: © 2026 Wuwei1
+        - generic [ref=e378]: 记录技术与生活
+  - generic [ref=e380]:
+    - img [ref=e383] [cursor=pointer]
+    - generic:
+      - generic: 三葉のテーマ - RADWIMPS
+      - generic:
+        - generic:
+          - generic: 00:00 / 04:03
+          - generic:
+            - img
+          - generic:
+            - img
+          - generic:
+            - img
+          - generic:
+            - button:
+              - img
+          - button:
+            - img
+          - button:
+            - img
+          - button:
+            - img
+          - button:
+            - img
+    - button [ref=e386] [cursor=pointer]:
+      - img [ref=e387]
