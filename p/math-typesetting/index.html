@@ -1,0 +1,1524 @@
+<!DOCTYPE html>
+<html lang="zh" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="在 Stack 主题中启用和使用 KaTeX 的指南">
+<title>数学公式</title>
+
+
+<link rel="canonical" href="https://wyww7.github.io/p/math-typesetting/">
+
+<style>
+    :root {
+        --sys-font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC",
+                     "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+    }
+    body {
+        font-family: var(--sys-font);
+    }
+</style>
+
+
+<link rel="stylesheet" href="/scss/style.min.d88b03f9b0ccf554b3cbafb2aaffedef858313e2387ef4c7714a39a3476fa931.css"><meta property='og:title' content="数学公式">
+<meta property='og:description' content="在 Stack 主题中启用和使用 KaTeX 的指南">
+<meta property='og:url' content='https://wyww7.github.io/p/math-typesetting/'>
+<meta property='og:site_name' content='Wuwei1'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-01-24T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-01-24T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="数学公式">
+<meta name="twitter:description" content="在 Stack 主题中启用和使用 KaTeX 的指南">
+    <link rel="shortcut icon" href="/img/avatar.ico" />
+
+<link rel="stylesheet" href="/lib/aplayer/APlayer.min.css">
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        <figure class="site-avatar">
+                <a href="/">
+                    <img src="/img/avatar.jpg"
+                        width=""
+                        height=""
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+                    <span class="emoji">😎</span>
+                
+            </figure>
+        
+
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Wuwei1</a></h1>
+            <h2 class="site-description">学习中</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a
+                        href='https://space.bilibili.com/178958911?spm_id_from=333.788.0.0'
+                        
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-bilibili"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6" /><path d="M8 3l2 3" /><path d="M16 3l-2 3" /><path d="M9 13v-2" /><path d="M15 11v2" /></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a
+                        href='https://github.com/wyww7'
+                        
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>技术链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    <li id="i18n-switch">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                        <div class="i18n-dropdown" id="i18n-dropdown">
+                            <button class="i18n-current" onclick="event.stopPropagation()" data-toggle="i18n-dropdown">
+                                <span>简体中文</span>
+                                <span class="i18n-arrow">▾</span>
+                            </button>
+                            <ul class="i18n-menu">
+                                
+                                    <li class="active">
+                                        <a href="/">简体中文</a>
+                                    </li>
+                                
+                                    <li>
+                                        <a href="/ja/">日本語</a>
+                                    </li>
+                                
+                            </ul>
+                        </div>
+                    </li>
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav class="toc-nav" id="TableOfContents">
+                
+  <ol>
+    <li><a href="#启用-katex">启用 KaTeX</a>
+      <ol>
+        <li><a href="#按页面启用">按页面启用</a></li>
+        <li><a href="#全局启用">全局启用</a></li>
+      </ol>
+    </li>
+    <li><a href="#示例">示例</a>
+      <ol>
+        <li><a href="#行内公式">行内公式</a></li>
+        <li><a href="#块级公式">块级公式</a></li>
+        <li><a href="#更复杂的公式">更复杂的公式</a></li>
+      </ol>
+    </li>
+  </ol>
+
+            </nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/documentation/" style="background-color: #2a9d8f; color: #fff;">
+                文档
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/math-typesetting/">数学公式</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            在 Stack 主题中启用和使用 KaTeX 的指南
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <span class="article-date-group" style="display: inline-flex; align-items: center; gap: 12px; color: var(--card-text-color-secondary);">
+                        <span style="display: inline-flex; align-items: center; gap: 5px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                            <time class="article-time--published" datetime='2026-01-24T00:00:00Z'>2026-01-24</time>
+                        </span>
+
+                        
+                        <span style="display: inline-flex; align-items: center; gap: 5px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-refresh" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
+  <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
+</svg>
+
+                            <time class="article-time--updated" datetime='2026-01-24T00:00:00Z'>2026-01-24</time>
+                        </span>
+                        
+                    </span>
+                
+
+                
+                    <span style="display: inline-flex; align-items: center; gap: 5px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                        <span>310 字</span>
+                    </span>
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+</header>
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span>目录</span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ol>
+    <li><a href="#启用-katex">启用 KaTeX</a>
+      <ol>
+        <li><a href="#按页面启用">按页面启用</a></li>
+        <li><a href="#全局启用">全局启用</a></li>
+      </ol>
+    </li>
+    <li><a href="#示例">示例</a>
+      <ol>
+        <li><a href="#行内公式">行内公式</a></li>
+        <li><a href="#块级公式">块级公式</a></li>
+        <li><a href="#更复杂的公式">更复杂的公式</a></li>
+      </ol>
+    </li>
+  </ol>
+
+            </nav>
+        </details>
+    </aside>
+    
+
+    <section class="article-content">
+    
+    
+    <p>Stack 主题支持使用 <a class="link" href="https://katex.org/"  target="_blank" rel="noopener"
+    >KaTeX</a> 渲染数学公式。</p>
+<h2 id="启用-katex"><a href="#%e5%90%af%e7%94%a8-katex" class="header-anchor"></a>启用 KaTeX
+</h2><h3 id="按页面启用"><a href="#%e6%8c%89%e9%a1%b5%e9%9d%a2%e5%90%af%e7%94%a8" class="header-anchor"></a>按页面启用
+</h3><p>要在特定文章中启用 KaTeX，请在文章的前置参数（frontmatter）中包含 <code>math: true</code>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln">1</span><span class="cl"><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;我的数学文章&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="nt">math</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="nn">---</span><span class="w">
+</span></span></span></code></pre></div><h3 id="全局启用"><a href="#%e5%85%a8%e5%b1%80%e5%90%af%e7%94%a8" class="header-anchor"></a>全局启用
+</h3><p>要为所有文章启用 KaTeX，请在网站配置（<code>params.yaml</code> 或 <code>params.toml</code>）中将 <code>article.math</code> 设置为 <code>true</code>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln">1</span><span class="cl"><span class="nt">article</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w">    </span><span class="nt">math</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></div><h2 id="示例"><a href="#%e7%a4%ba%e4%be%8b" class="header-anchor"></a>示例
+</h2><h3 id="行内公式"><a href="#%e8%a1%8c%e5%86%85%e5%85%ac%e5%bc%8f" class="header-anchor"></a>行内公式
+</h3><p>你可以通过将表达式包裹在单个美元符号 <code>$</code> 中来包含行内公式。</p>
+<p>例如：<code>$ \varphi = \dfrac{1+\sqrt5}{2}= 1.6180339887… $</code> 将渲染为 $ \varphi = \dfrac{1+\sqrt5}{2}= 1.6180339887… $</p>
+<h3 id="块级公式"><a href="#%e5%9d%97%e7%ba%a7%e5%85%ac%e5%bc%8f" class="header-anchor"></a>块级公式
+</h3><p>对于较大的方程式，请使用双美元符号 <code>$$</code> 创建数学块。</p>
+$$
+ \varphi = 1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } } 
+$$<h3 id="更复杂的公式"><a href="#%e6%9b%b4%e5%a4%8d%e6%9d%82%e7%9a%84%e5%85%ac%e5%bc%8f" class="header-anchor"></a>更复杂的公式
+</h3>$$
+f(a) = \frac{1}{2\pi i} \oint_\gamma \frac{f(z)}{z-a} dz
+$$<hr>
+<p><strong>注意：</strong> 有关受支持的 TeX 函数的完整列表，请参阅 <a class="link" href="https://katex.org/docs/supported.html"  target="_blank" rel="noopener"
+    >KaTeX 文档</a>。</p>
+</section>
+
+
+    <footer class="article-meta article-footer">
+    
+
+    
+<section class="article-share">
+    <span class="share-label">分享</span>
+    <a href="https://twitter.com/intent/tweet?url=https://wyww7.github.io/p/math-typesetting/&text=%e6%95%b0%e5%ad%a6%e5%85%ac%e5%bc%8f"
+       target="_blank" rel="noopener" title="分享到 Twitter" class="share-btn twitter">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+    </a>
+    <button class="share-btn wechat" title="分享到微信" id="share-wechat">
+        <img src="/img/wechat.svg" width="14" height="14" alt="微信">
+    </button>
+    <a href="https://connect.qq.com/widget/shareqq/index.html?url=https://wyww7.github.io/p/math-typesetting/&title=%e6%95%b0%e5%ad%a6%e5%85%ac%e5%bc%8f"
+       target="_blank" rel="noopener" title="分享到 QQ" class="share-btn qq">
+        <img src="/img/qq.svg" width="14" height="14" alt="QQ">
+    </a>
+    <button class="share-btn copy-link" title="复制链接" id="share-copy-btn">链接</button>
+</section>
+
+<script>
+(function() {
+    var wechatBtn = document.getElementById('share-wechat');
+    if (wechatBtn) {
+        var wechatOrig = wechatBtn.innerHTML;
+        var wechatTxt = wechatBtn.textContent;
+        wechatBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(location.href).then(function() {
+                wechatBtn.textContent = '已复制';
+                wechatBtn.style.color = '#fff';
+                wechatBtn.style.background = '#07c160';
+                setTimeout(function() {
+                    wechatBtn.innerHTML = wechatOrig;
+                    wechatBtn.style.color = '';
+                    wechatBtn.style.background = '';
+                }, 2000);
+            });
+        });
+    }
+
+    var copyBtn = document.getElementById('share-copy-btn');
+    if (copyBtn) {
+        var origText = copyBtn.textContent;
+        copyBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(location.href).then(function() {
+                copyBtn.textContent = '已复制';
+                copyBtn.style.background = 'var(--accent-color)';
+                copyBtn.style.color = '#fff';
+                setTimeout(function() {
+                    copyBtn.textContent = origText;
+                    copyBtn.style.background = '';
+                    copyBtn.style.color = '';
+                }, 1500);
+            });
+        });
+    }
+})();
+</script>
+
+
+    
+    <section class="article-copyright inline-meta">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span><a class="link" href="https://wyww7.github.io/"  target="_blank" rel="noopener"
+    >Wuwei&rsquo;s Blog</a></span>
+    </section>
+    
+</footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const elementsToRender = [".main-article", ".widget--toc"];
+
+        elementsToRender.forEach(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                renderMathInElement(element, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false },
+                        { left: "\\(", right: "\\)", display: false },
+                        { left: "\\[", right: "\\]", display: true }
+                    ],
+                    ignoredClasses: ["gist"]
+                });
+            }
+        });
+    });
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside>
+    <h2 class="section-title">相关文章</h2>
+    <div class="subsection-list">
+        <div class="article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/elk%E7%9A%84%E7%AE%80%E5%8D%95%E6%90%AD%E5%BB%BA%E6%B5%81%E7%A8%8B/">
+        
+        <div class="article-image">
+            <img alt="Featured image of post ELK的简单搭建流程" height="150" loading="lazy" src="/p/elk%E7%9A%84%E7%AE%80%E5%8D%95%E6%90%AD%E5%BB%BA%E6%B5%81%E7%A8%8B/ScreenShot_2026-05-18_204335_141_hu_695763b2dce7ec74.png" srcset="/p/elk%E7%9A%84%E7%AE%80%E5%8D%95%E6%90%AD%E5%BB%BA%E6%B5%81%E7%A8%8B/ScreenShot_2026-05-18_204335_141_hu_695763b2dce7ec74.png 1x" width="250">
+
+        </div>
+        
+
+        <div class="article-details"style="background: linear-gradient(0deg, #21232880 0%, #fdfdfdC0 100%);">
+            <h2 class="article-title">ELK的简单搭建流程</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="has-image">
+    <a href="/p/hugo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/">
+        
+        <div class="article-image">
+            <img alt="Featured image of post hugo搭建博客相关问题" height="150" loading="lazy" src="/p/hugo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/ScreenShot_2026-05-18_204202_255_hu_436ad277715a0573.png" srcset="/p/hugo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/ScreenShot_2026-05-18_204202_255_hu_436ad277715a0573.png 1x, /p/hugo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/ScreenShot_2026-05-18_204202_255_hu_c711489f7edba9d8.png 2x" width="250">
+
+        </div>
+        
+
+        <div class="article-details"style="background: linear-gradient(0deg, #151d2d80 0%, #fefefeC0 100%);">
+            <h2 class="article-title">hugo搭建博客相关问题</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/%E7%9F%AD%E4%BB%A3%E7%A0%81/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">短代码</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="has-image">
+    <a href="/p/markdown-%E8%AF%AD%E6%B3%95%E6%8C%87%E5%8D%97/">
+        
+        <div class="article-image">
+            <img alt="Featured image of post Markdown 语法指南" height="150" loading="lazy" src="/p/markdown-%E8%AF%AD%E6%B3%95%E6%8C%87%E5%8D%97/pawel-czerwinski-8uZPynIu-rQ-unsplash_hu_cd6a07a0d3af7b3e.jpg" srcset="/p/markdown-%E8%AF%AD%E6%B3%95%E6%8C%87%E5%8D%97/pawel-czerwinski-8uZPynIu-rQ-unsplash_hu_cd6a07a0d3af7b3e.jpg 1x, /p/markdown-%E8%AF%AD%E6%B3%95%E6%8C%87%E5%8D%97/pawel-czerwinski-8uZPynIu-rQ-unsplash_hu_7eb399306de34336.jpg 2x" width="250">
+
+        </div>
+        
+
+        <div class="article-details"style="background: linear-gradient(0deg, #679ddc80 0%, #bbbadcC0 100%);">
+            <h2 class="article-title">Markdown 语法指南</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+
+        <script
+    src="https://giscus.app/client.js"
+    data-repo="wyww7/wyww7.github.io"
+    data-repo-id="R_kgDOSnUB8Q"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOSnUB8c4C-Ay_"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="light"
+    data-lang="zh-CN"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('light');
+            } else {
+                setGiscusTheme('dark_dimmed');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 Wuwei1
+    </section>
+    
+	
+     <section class="powerby">
+        
+            记录技术与生活 <br/>
+        
+    </section>
+	
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+
+    
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.d88cf3a6d6de09e604bc00078d6c7b48e2ff198def996e81394857ca0bf28bd1.js" defer></script>
+<div id="particles-js"></div>
+<script src="/background/particles.min.js"></script>
+<script>
+  particlesJS.load('particles-js', '\/background\/particlesjs-config.json', function() {
+    console.log('particles.js loaded - callback');
+  });
+</script>
+<style>
+  #particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+  }
+   
+  body {
+    background: rgba(245, 245, 250, 0.85) !important;
+  }
+  [data-scheme="dark"] body {
+    background: rgba(48, 48, 48, 0.85) !important;
+  }
+   
+  #dark-mode-toggle {
+    width: auto !important;
+    align-self: flex-start !important;
+  }
+
+  
+   
+  #reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    z-index: 10000;
+    background: linear-gradient(90deg, var(--accent-color), #e91e63);
+    pointer-events: none;
+  }
+
+  #reading-progress.visible {
+    opacity: 1;
+  }
+
+  [data-scheme="dark"] #reading-progress {
+    background: rgba(255,255,255,0.7);
+  }
+  
+
+   
+  #TableOfContents ol ol {
+    display: none;
+  }
+  #TableOfContents ol ol.open {
+    display: block;
+  }
+
+   
+  #back-to-top {
+    position: fixed;
+    bottom: 90px;
+    right: 24px;
+    z-index: 997;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--card-background);
+    border: 1px solid var(--card-separator-color);
+    box-shadow: var(--shadow-l1);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+  }
+  #back-to-top.visible {
+    opacity: 0.85;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  #back-to-top:hover {
+    opacity: 1;
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+  }
+  #back-to-top::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-left: 2px solid var(--body-text-color);
+    border-top: 2px solid var(--body-text-color);
+    transform: rotate(45deg) translate(2px, 2px);
+  }
+  #back-to-top:hover::before {
+    border-color: #fff;
+  }
+
+   
+  .highlight .copyCodeButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    border: none !important;
+    border-radius: 0 4px 0 4px !important;
+    padding: 1px 8px !important;
+    min-width: 58px !important;
+    width: 58px !important;
+    max-width: 58px !important;
+    font-size: 1.05rem !important;
+    font-family: inherit !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.02em !important;
+    white-space: nowrap !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+    line-height: 1.8 !important;
+    cursor: pointer !important;
+    overflow: hidden !important;
+    background: rgba(128,128,128,0.08) !important;
+    color: rgba(0,0,0,0.35) !important;
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+    transition: all 0.25s ease !important;
+  }
+  .highlight .copyCodeButton:hover {
+    background: rgba(128,128,128,0.16) !important;
+    color: rgba(0,0,0,0.6) !important;
+  }
+  .highlight .copyCodeButton.copied {
+    background: var(--accent-color) !important;
+    color: #fff !important;
+  }
+  [data-scheme="dark"] .highlight .copyCodeButton {
+    background: rgba(255,255,255,0.06) !important;
+    color: rgba(255,255,255,0.35) !important;
+  }
+  [data-scheme="dark"] .highlight .copyCodeButton:hover {
+    background: rgba(255,255,255,0.12) !important;
+    color: rgba(255,255,255,0.7) !important;
+  }
+  [data-scheme="dark"] .highlight .copyCodeButton.copied {
+    background: var(--accent-color) !important;
+    color: #000 !important;
+    font-weight: 500 !important;
+  }
+
+   
+  [data-scheme="dark"] #back-to-top::before {
+    border-color: rgba(255,255,255,0.7);
+  }
+  [data-scheme="dark"] #back-to-top:hover {
+    background: rgba(255,255,255,0.15);
+  }
+  [data-scheme="dark"] #back-to-top:hover::before {
+    border-color: #fff;
+  }
+</style>
+
+<script src="/js/blog-extras.js"></script>
+
+
+<script>
+
+
+(function() {
+    var bar = document.getElementById('reading-progress');
+    if (bar) return;
+
+    bar = document.createElement('div');
+    bar.id = 'reading-progress';
+    bar.style.opacity = '0';
+    document.body.prepend(bar);
+
+    var hideTimer = null;
+
+    function update() {
+        var scrollTop = window.scrollY || document.documentElement.scrollTop;
+        var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        if (docHeight > 0) {
+            bar.style.width = Math.min((scrollTop / docHeight) * 100, 100) + '%';
+        }
+    }
+
+    function show() {
+        bar.style.opacity = '1';
+        if (hideTimer) clearTimeout(hideTimer);
+        hideTimer = setTimeout(function() {
+            bar.style.opacity = '0';
+        }, 1500);
+    }
+
+    window.addEventListener('scroll', function() {
+        update();
+        show();
+    }, { passive: true });
+
+    update();
+})();
+</script>
+
+
+<script>
+
+(function() {
+    'use strict';
+    var MAIN_SELECTOR = 'main.main';
+
+    
+    function shouldIntercept(link) {
+        var href = link.getAttribute('href');
+        if (!href) return false;
+        if (!href.startsWith('/') || href.startsWith('//')) return false;
+        if (href.startsWith('#')) return false;
+        if (link.target || link.hasAttribute('download')) return false;
+        if (link.getAttribute('rel') === 'external') return false;
+        
+        if (link.closest('.aplayer')) return false;
+        
+        if (link.closest('#i18n-switch')) return false;
+        return true;
+    }
+
+    
+    function executeScripts(container) {
+        var scripts = container.querySelectorAll('script');
+        scripts.forEach(function(oldScript) {
+            var s = document.createElement('script');
+            for (var i = 0; i < oldScript.attributes.length; i++) {
+                var attr = oldScript.attributes[i];
+                s.setAttribute(attr.name, attr.value);
+            }
+            s.textContent = oldScript.textContent;
+            oldScript.parentNode.replaceChild(s, oldScript);
+        });
+    }
+
+    function navigate(url, addToHistory) {
+        
+        document.documentElement.classList.add('pjax-loading');
+
+        fetch(url)
+            .then(function(res) {
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                return res.text();
+            })
+            .then(function(html) {
+                var parser = new DOMParser();
+                var doc = parser.parseFromString(html, 'text/html');
+
+                var newMain = doc.querySelector(MAIN_SELECTOR);
+                var oldMain = document.querySelector(MAIN_SELECTOR);
+                if (!newMain || !oldMain) throw new Error('Missing main content');
+
+                
+                oldMain.innerHTML = newMain.innerHTML;
+
+                
+                var oldSidebar = document.querySelector('aside.right-sidebar');
+                var newSidebar = doc.querySelector('aside.right-sidebar');
+                if (newSidebar) {
+                    if (oldSidebar) {
+                        oldSidebar.innerHTML = newSidebar.innerHTML;
+                    } else {
+                        
+                        var container = document.querySelector('.main-container');
+                        var refNode = container.querySelector('main.main');
+                        if (container && refNode) {
+                            var sidebar = document.createElement('aside');
+                            sidebar.className = newSidebar.className;
+                            sidebar.innerHTML = newSidebar.innerHTML;
+                            container.insertBefore(sidebar, refNode);
+                        }
+                    }
+                } else if (oldSidebar) {
+                    
+                    oldSidebar.remove();
+                }
+
+                
+                document.body.className = doc.body.className;
+                document.title = doc.title;
+
+                
+                executeScripts(oldMain);
+
+                
+                
+                
+                var savedScheme = document.documentElement.getAttribute('data-scheme');
+                function reinitTOC() {
+                    window.Stack.init();
+                    
+                    if (savedScheme) {
+                        document.documentElement.setAttribute('data-scheme', savedScheme);
+                    }
+                    
+                    if (window.__TOC__ && window.__TOC__.init) {
+                        window.__TOC__.init();
+                    }
+                }
+                if (window.Stack && typeof window.Stack.init === 'function') {
+                    setTimeout(reinitTOC, 100);
+                } else {
+                    
+                    
+                    setTimeout(function() {
+                        if (window.__TOC__ && window.__TOC__.init) {
+                            window.__TOC__.init();
+                        }
+                    }, 100);
+                }
+
+                
+                if (addToHistory !== false) {
+                    history.pushState({ url: url }, doc.title, url);
+                }
+                window.scrollTo({ top: 0, behavior: 'instant' });
+
+                
+                document.dispatchEvent(new CustomEvent('pjax:complete', { detail: { url: url } }));
+            })
+            .catch(function() {
+                
+                window.location.href = url;
+            })
+            .finally(function() {
+                document.documentElement.classList.remove('pjax-loading');
+            });
+    }
+
+    function onReady() {
+        document.addEventListener('click', function(e) {
+            var link = e.target.closest('a');
+            if (!link || !shouldIntercept(link)) return;
+            if (e.ctrlKey || e.metaKey || e.shiftKey) return;
+            e.preventDefault();
+            navigate(link.getAttribute('href'));
+        });
+
+        
+        history.replaceState({ url: window.location.href }, document.title, window.location.href);
+
+        window.addEventListener('popstate', function(e) {
+            var targetUrl = (e.state && e.state.url) ? e.state.url : window.location.href;
+            navigate(targetUrl, false);
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', onReady);
+    } else {
+        onReady();
+    }
+})();
+</script>
+
+<script>
+(function() {
+    var dropdown = document.querySelector('.i18n-dropdown');
+    if (!dropdown) return;
+
+    var toggleBtn = dropdown.querySelector('[data-toggle]');
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            dropdown.classList.toggle('open');
+        });
+    }
+
+    
+    document.addEventListener('click', function(e) {
+        if (!dropdown.contains(e.target)) {
+            dropdown.classList.remove('open');
+        }
+    });
+
+    
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            dropdown.classList.remove('open');
+        }
+    });
+})();
+</script>
+
+<div id="aplayer"></div>
+
+<div id="custom-lrc">
+    <p id="custom-lrc-line"></p>
+    <p id="custom-lrc-next"></p>
+</div>
+<script src="/lib/aplayer/APlayer.min.js"></script>
+<script>
+(function() {
+    
+    var STORAGE_KEY = 'aplayer_state_v2';
+    function saveState() {
+        try {
+            if (!ap || !ap.list || !ap.audio) return;
+            var state = {
+                index: ap.list.index,
+                currentTime: ap.audio ? ap.audio.currentTime : 0,
+                isPlaying: !!(ap.audio && !ap.audio.paused)
+            };
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } catch(e) {}
+    }
+    function loadState() {
+        try {
+            var raw = localStorage.getItem(STORAGE_KEY);
+            return raw ? JSON.parse(raw) : null;
+        } catch(e) { return null; }
+    }
+
+    
+    var musicList = [{"artist":"RADWIMPS","cover":"/img/kiminonaha_jk_tsujo_tw-1.jpg","name":"三葉のテーマ","url":"https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/三葉のテーマ - RADWIMPS.mp3"},{"artist":"RADWIMPS","cover":"/img/kiminonaha_jk_tsujo_tw-1.jpg","name":"奥寺先輩のテーマ","url":"https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/奥寺先輩のテーマ - RADWIMPS.mp3"},{"artist":"RADWIMPS","cover":"/img/kiminonaha_jk_tsujo_tw-1.jpg","name":"かたわれ時","url":"https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/かたわれ時 - RADWIMPS.mp3"},{"artist":"dylanf","cover":"/img/Canon.jpg","name":"卡农 (Canon)","url":"https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/卡农（经典钢琴版） - dylanf.mp3"},{"artist":"Yiruma","cover":"/img/River Flows in You.jpg","name":"River Flows in You","url":"https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/River Flows in You (你的心河) - 李闰珉.mp3"},{"artist":"陈奕迅","cover":"/img/K歌之王.jpg","lrc":"/music/K歌之王 - 陈奕迅.lrc","name":"K歌之王","url":"https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/K歌之王 - 陈奕迅.mp3"},{"artist":"天門","cover":"/img/想い出は遠くの日々.jpg","name":"想い出は遠くの日々","url":"https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/想い出は遠くの日々 - 天門.mp3"},{"artist":"坂本龍一","cover":"/img/Merry Christmas Mr. Lawrence.jpg","name":"Merry Christmas Mr. Lawrence","url":"https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/Merry Christmas Mr. Lawrence - 坂本龍一.mp3"},{"artist":"DJ OKAWARI","cover":"/img/Flower Dance.jpg","name":"Flower Dance","url":"https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/Flower Dance - DJ OKAWARI.mp3"},{"artist":"岸部眞明","cover":"/img/流れ行く云.jpg","name":"流れ行く云","url":"https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/流れ行く云 (Nagareyuku Kumo) - 岸部眞明.mp3"},{"artist":"岸部眞明","cover":"/img/流れ行く云.jpg","name":"奇迹の山","url":"https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/奇迹の山 (Kisekino Yama) - 岸部眞明.mp3"}];
+
+    
+    musicList = musicList.filter(function(item) {
+        return item.url && item.url.trim() !== '';
+    });
+    if (musicList.length === 0) return;
+
+    
+    
+    var lrcMap = {};
+    musicList = musicList.map(function(item) {
+        if (item.url && item.url.trim() !== '') {
+            
+            if (item.url.indexOf('http') !== 0) {
+                item.url = encodeURI(item.url);
+            }
+        }
+        if (item.cover && item.cover.trim() !== '') {
+            if (item.cover.indexOf('http') !== 0) {
+                item.cover = encodeURI(item.cover);
+            }
+        }
+        if (item.lrc && typeof item.lrc === 'string' && item.lrc.trim() !== '') {
+            if (item.lrc.indexOf('http') === 0) {
+                lrcMap[item.name] = item.lrc;
+            } else {
+                lrcMap[item.name] = encodeURI(item.lrc.trim());
+            }
+        }
+        
+        delete item.lrc;
+        return item;
+    });
+
+    
+    var ap = new APlayer({
+        container: document.getElementById('aplayer'),
+        fixed: true,
+        autoplay: false,
+        preload: 'metadata',
+        theme: '#b7daff',
+        loop: 'all',
+        order: 'list',
+        listFolded: true,
+        lrcType: 0,
+        audio: musicList
+    });
+
+    
+    var lrcContainer = document.getElementById('custom-lrc');
+    var lrcLineEl = document.getElementById('custom-lrc-line');
+    var lrcNextEl = document.getElementById('custom-lrc-next');
+    if (!lrcContainer || !lrcLineEl || !lrcNextEl) return;
+
+    
+    
+    function parseLRC(lrcText) {
+        var lines = lrcText.split('\n');
+        var result = [];
+        var seenTimes = {};  
+        var tagRe = /\[(\d{2}):(\d{2})(?:[.:](\d{2,3}))?\]/;
+        for (var i = 0; i < lines.length; i++) {
+            var match = tagRe.exec(lines[i]);
+            if (!match) continue;
+            var min = parseInt(match[1], 10);
+            var sec = parseInt(match[2], 10);
+            var ms = match[3] ? parseInt(match[3], 10) : 0;
+            if (match[3] && match[3].length === 2) ms = ms * 10;
+            var time = min * 60 + sec + ms / 1000;
+            var text = lines[i].replace(tagRe, '').replace(/^\s+/, '').trim();
+            if (text.length > 0 && !seenTimes[time.toFixed(3)]) {
+                seenTimes[time.toFixed(3)] = true;
+                result.push({time: time, text: text});
+            }
+        }
+        result.sort(function(a, b) { return a.time - b.time; });
+        return result;
+    }
+
+    
+    
+    
+    function getCurrentSongName() {
+        try {
+            return ap.list.audios[ap.list.index].name;
+        } catch(e) { return null; }
+    }
+
+    
+    var currentLrc = null;
+    var lastCurrentText = '';
+    var lastNextText = '';
+
+    
+    var lrcData = {};
+    Object.keys(lrcMap).forEach(function(name) {
+        fetch(lrcMap[name])
+            .then(function(res) { return res.text(); })
+            .then(function(text) {
+                lrcData[name] = parseLRC(text);
+                
+                var curName = getCurrentSongName();
+                if (curName === name) {
+                    currentLrc = lrcData[name];
+                    lastCurrentText = '';
+                    lastNextText = '';
+                    lrcLineEl.textContent = '';
+                    lrcNextEl.textContent = '';
+                    if (!lrcManuallyHidden && ap.audio && !ap.audio.paused) {
+                        lrcContainer.style.display = 'block';
+                    }
+                }
+            })
+            .catch(function(){   });
+    });
+
+    
+    function findCurrentAndNext(lyrics, currentTime) {
+        if (!lyrics || lyrics.length === 0) return { current: null, next: null };
+        var idx = 0;
+        for (var i = 0; i < lyrics.length; i++) {
+            if (currentTime >= lyrics[i].time) {
+                idx = i;
+            } else {
+                break;
+            }
+        }
+        var next = (idx + 1 < lyrics.length) ? lyrics[idx + 1] : null;
+        return { current: lyrics[idx], next: next };
+    }
+
+    
+    function switchLrc() {
+        var name = getCurrentSongName();
+        if (!name) return;
+        currentLrc = lrcData[name] || null;
+        lastCurrentText = '';
+        lastNextText = '';
+        lrcLineEl.textContent = '';
+        lrcNextEl.textContent = '';
+        
+        if (!lrcManuallyHidden && currentLrc && currentLrc.length > 0 && ap.audio && !ap.audio.paused) {
+            lrcContainer.style.display = 'block';
+        } else {
+            lrcContainer.style.display = 'none';
+        }
+    }
+
+    
+    var lrcManuallyHidden = false;
+
+    
+    function bindLrcButton() {
+        var lrcBtn = document.querySelector('.aplayer-icon-lrc');
+        if (!lrcBtn) {
+            
+            setTimeout(bindLrcButton, 300);
+            return;
+        }
+        lrcBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            lrcManuallyHidden = !lrcManuallyHidden;
+            if (lrcManuallyHidden) {
+                lrcContainer.style.display = 'none';
+            } else {
+                
+                var name = getCurrentSongName();
+                if (name && lrcData[name] && lrcData[name].length > 0 && ap.audio && !ap.audio.paused) {
+                    currentLrc = lrcData[name];
+                    lrcContainer.style.display = 'block';
+                }
+            }
+        });
+    }
+    bindLrcButton();
+
+    
+    function shouldShowLrc() {
+        if (lrcManuallyHidden) return false;
+        var name = getCurrentSongName();
+        return name && lrcData[name] && lrcData[name].length > 0;
+    }
+
+    
+    ap.on('play', function() {
+        if (shouldShowLrc()) {
+            var name = getCurrentSongName();
+            currentLrc = lrcData[name];
+            lrcContainer.style.display = 'block';
+        }
+        saveState();
+    });
+    ap.on('pause', function() {
+        lrcContainer.style.display = 'none';
+        saveState();
+    });
+    ap.on('ended', function() {
+        lrcContainer.style.display = 'none';
+        saveState();
+    });
+    
+    ap.on('listswitch', function() {
+        setTimeout(function() {
+            switchLrc();
+        }, 150);
+        saveState();
+    });
+    ap.on('seeked', function() {
+        saveState();
+    });
+
+    
+    function flashFade(el) {
+        el.classList.add('fade');
+        clearTimeout(el._fadeTimer);
+        el._fadeTimer = setTimeout(function() {
+            el.classList.remove('fade');
+        }, 350);
+    }
+
+    
+    function tick() {
+        try {
+            if (ap.audio) {
+                var audio = ap.audio;
+                if (!audio.paused && !lrcManuallyHidden) {
+                    
+                    var songName = getCurrentSongName();
+                    if (songName && lrcData[songName] && lrcData[songName].length > 0) {
+                        if (currentLrc !== lrcData[songName]) {
+                            currentLrc = lrcData[songName];
+                            lastCurrentText = '';
+                            lastNextText = '';
+                        }
+                        var lines = findCurrentAndNext(currentLrc, audio.currentTime);
+                        if (lines.current && lines.current.text !== lastCurrentText) {
+                            lastCurrentText = lines.current.text;
+                            lrcLineEl.textContent = lines.current.text;
+                            flashFade(lrcLineEl);
+                        }
+                        var nextText = lines.next ? lines.next.text : '';
+                        if (nextText !== lastNextText) {
+                            lastNextText = nextText;
+                            lrcNextEl.textContent = nextText;
+                            if (nextText) flashFade(lrcNextEl);
+                        }
+                        if (lrcContainer.style.display !== 'block') {
+                            lrcContainer.style.display = 'block';
+                        }
+                    } else if (!songName || !lrcData[songName]) {
+                        if (lrcContainer.style.display !== 'none') {
+                            lrcContainer.style.display = 'none';
+                        }
+                    }
+                }
+            }
+        } catch(e) {}
+        requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+
+    
+    var saved = loadState();
+    if (saved && saved.index >= 0 && saved.index < ap.list.audios.length) {
+        
+        ap.list.switch(saved.index);
+        if (ap.audio) {
+            ap.audio.preload = 'auto'; 
+        }
+
+        if (saved.currentTime > 0 || saved.isPlaying) {
+            var restored = false;
+            function restorePlayback() {
+                if (restored) return;
+                restored = true;
+                try {
+                    if (saved.currentTime > 1) {
+                        ap.seek(saved.currentTime);
+                    }
+                    if (saved.isPlaying) {
+                        ap.play();
+                    }
+                } catch(e) {}
+            }
+            
+            if (ap.audio) {
+                ap.audio.addEventListener('loadedmetadata', restorePlayback, { once: true });
+            }
+            ap.on('canplay', restorePlayback);
+            
+            setTimeout(function() {
+                if (!restored) {
+                    try {
+                        if (saved.currentTime > 1) ap.seek(saved.currentTime);
+                        if (saved.isPlaying) ap.play();
+                    } catch(e) {}
+                    restored = true;
+                }
+            }, 1500);
+        }
+    }
+
+    
+    window.addEventListener('beforeunload', saveState);
+    
+    setInterval(saveState, 3000);
+    
+    var lastSavedTime = 0;
+    ap.on('timeupdate', function() {
+        try {
+            if (ap.audio && Math.abs(ap.audio.currentTime - lastSavedTime) > 5) {
+                lastSavedTime = ap.audio.currentTime;
+                saveState();
+            }
+        } catch(e) {}
+    });
+
+    
+    switchLrc();
+})();
+</script>
+
+
+    </body>
+</html>
