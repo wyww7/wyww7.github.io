@@ -1,0 +1,512 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content":
+    - /url: "#skip2content"
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - link "Jenkins" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img [ref=e6]
+        - generic [ref=e7]: Jenkins
+      - generic "breadcrumb" [ref=e8]:
+        - list [ref=e9]:
+          - listitem [ref=e10]:
+            - text: /
+            - link "系统管理" [ref=e11] [cursor=pointer]:
+              - /url: /manage/
+            - generic "dropdown menu for 系统管理" [ref=e12] [cursor=pointer]:
+              - img [ref=e13]
+          - listitem [ref=e15]:
+            - text: /
+            - link "插件管理" [ref=e16] [cursor=pointer]:
+              - /url: /manage/pluginManager/
+    - generic [ref=e17]:
+      - button "Search" [ref=e18] [cursor=pointer]:
+        - img [ref=e19]
+        - generic [ref=e22]: Search
+      - link "系统管理" [ref=e23] [cursor=pointer]:
+        - /url: /manage
+        - img [ref=e24]
+        - generic [ref=e28]: 系统管理
+      - link "root" [ref=e30] [cursor=pointer]:
+        - /url: /user/root
+        - img [ref=e31]
+        - generic [ref=e34]: root
+  - generic [ref=e35]:
+    - generic [ref=e36]:
+      - heading "Plugins" [level=1] [ref=e39]
+      - generic [ref=e40]:
+        - link "Updates 8" [ref=e43] [cursor=pointer]:
+          - /url: /manage/pluginManager/
+          - img [ref=e45]
+          - text: Updates
+          - generic "8 updates available 3 updates fix security vulnerabilities" [ref=e48]: "8"
+        - link "Available plugins" [ref=e51] [cursor=pointer]:
+          - /url: /manage/pluginManager/available
+          - img [ref=e53]
+          - text: Available plugins
+        - link "Installed plugins" [ref=e58] [cursor=pointer]:
+          - /url: /manage/pluginManager/installed
+          - img [ref=e60]
+          - text: Installed plugins
+        - link "Advanced settings" [ref=e64] [cursor=pointer]:
+          - /url: /manage/pluginManager/advanced
+          - img [ref=e66]
+          - text: Advanced settings
+        - link "Download progress" [ref=e72]:
+          - /url: /manage/pluginManager/updates/
+          - img [ref=e74]
+          - text: Download progress
+    - generic [ref=e79]:
+      - heading "Download progress" [level=1] [ref=e80]
+      - table [ref=e81]:
+        - rowgroup [ref=e82]:
+          - row "准备" [ref=e83]:
+            - cell "准备" [ref=e84]
+            - cell [ref=e85]:
+              - list
+          - row "apache-httpcomponents-client-4-api 完成" [ref=e86]:
+            - cell "apache-httpcomponents-client-4-api" [ref=e87]
+            - cell "完成" [ref=e88]:
+              - img [ref=e89]
+              - text: 完成
+          - row "准备" [ref=e92]:
+            - cell "准备" [ref=e93]
+            - cell [ref=e94]:
+              - list
+          - row "workflow-api 完成" [ref=e95]:
+            - cell "workflow-api" [ref=e96]
+            - cell "完成" [ref=e97]:
+              - img [ref=e98]
+              - text: 完成
+          - row "准备" [ref=e101]:
+            - cell "准备" [ref=e102]
+            - cell [ref=e103]:
+              - list
+          - row "workflow-support 完成" [ref=e104]:
+            - cell "workflow-support" [ref=e105]
+            - cell "完成" [ref=e106]:
+              - img [ref=e107]
+              - text: 完成
+          - row "准备" [ref=e110]:
+            - cell "准备" [ref=e111]
+            - cell [ref=e112]:
+              - list
+          - row "scm-api 插件scm-api已经安装完成。Jenkins 重启后才能生效。" [ref=e113]:
+            - cell "scm-api" [ref=e114]
+            - cell "插件scm-api已经安装完成。Jenkins 重启后才能生效。" [ref=e115]:
+              - img [ref=e116]
+              - text: 插件scm-api已经安装完成。Jenkins 重启后才能生效。
+          - row "准备" [ref=e120]:
+            - cell "准备" [ref=e121]
+            - cell [ref=e122]:
+              - list
+          - row "workflow-scm-step 插件workflow-scm-step已经安装完成。Jenkins 重启后才能生效。" [ref=e123]:
+            - cell "workflow-scm-step" [ref=e124]
+            - cell "插件workflow-scm-step已经安装完成。Jenkins 重启后才能生效。" [ref=e125]:
+              - img [ref=e126]
+              - text: 插件workflow-scm-step已经安装完成。Jenkins 重启后才能生效。
+          - row "准备" [ref=e130]:
+            - cell "准备" [ref=e131]
+            - cell [ref=e132]:
+              - list
+          - row "workflow-cps 失败 - 详细" [ref=e133]:
+            - cell "workflow-cps" [ref=e134]
+            - cell "失败 - 详细" [ref=e135]:
+              - generic [ref=e136]:
+                - img [ref=e137]
+                - text: 失败 -
+                - link "详细" [ref=e140] [cursor=pointer]:
+                  - /url: ""
+          - row "准备" [ref=e141]:
+            - cell "准备" [ref=e142]
+            - cell [ref=e143]:
+              - list
+          - row "workflow-job 完成" [ref=e144]:
+            - cell "workflow-job" [ref=e145]
+            - cell "完成" [ref=e146]:
+              - img [ref=e147]
+              - text: 完成
+          - row "准备 Checking internet connectivity Checking update center connectivity Success" [ref=e150]:
+            - cell "准备" [ref=e151]
+            - cell "Checking internet connectivity Checking update center connectivity Success" [ref=e152]:
+              - list [ref=e153]:
+                - listitem [ref=e154]: Checking internet connectivity
+                - listitem [ref=e155]: Checking update center connectivity
+                - listitem [ref=e156]: Success
+          - 'row "Pipeline: API 插件workflow-api已经安装完成。Jenkins 重启后才能生效。" [ref=e157]':
+            - 'cell "Pipeline: API" [ref=e158]'
+            - cell "插件workflow-api已经安装完成。Jenkins 重启后才能生效。" [ref=e159]:
+              - img [ref=e160]
+              - text: 插件workflow-api已经安装完成。Jenkins 重启后才能生效。
+          - 'row "Pipeline: Supporting APIs 插件workflow-support已经安装完成。Jenkins 重启后才能生效。" [ref=e164]':
+            - 'cell "Pipeline: Supporting APIs" [ref=e165]'
+            - cell "插件workflow-support已经安装完成。Jenkins 重启后才能生效。" [ref=e166]:
+              - img [ref=e167]
+              - text: 插件workflow-support已经安装完成。Jenkins 重启后才能生效。
+          - 'row "Pipeline: Nodes and Processes 失败 - 详细" [ref=e171]':
+            - 'cell "Pipeline: Nodes and Processes" [ref=e172]'
+            - cell "失败 - 详细" [ref=e173]:
+              - generic [ref=e174]:
+                - img [ref=e175]
+                - text: 失败 -
+                - link "详细" [ref=e178] [cursor=pointer]:
+                  - /url: ""
+          - row "准备" [ref=e179]:
+            - cell "准备" [ref=e180]
+            - cell [ref=e181]:
+              - list
+          - row "workflow-basic-steps 失败 - 详细" [ref=e182]:
+            - cell "workflow-basic-steps" [ref=e183]
+            - cell "失败 - 详细" [ref=e184]:
+              - generic [ref=e185]:
+                - img [ref=e186]
+                - text: 失败 -
+                - link "详细" [ref=e189] [cursor=pointer]:
+                  - /url: ""
+          - row "准备" [ref=e190]:
+            - cell "准备" [ref=e191]
+            - cell [ref=e192]:
+              - list
+          - row "workflow-durable-task-step 完成" [ref=e193]:
+            - cell "workflow-durable-task-step" [ref=e194]
+            - cell "完成" [ref=e195]:
+              - img [ref=e196]
+              - text: 完成
+          - row "准备" [ref=e199]:
+            - cell "准备" [ref=e200]
+            - cell [ref=e201]:
+              - list
+          - row "pipeline-build-step 完成" [ref=e202]:
+            - cell "pipeline-build-step" [ref=e203]
+            - cell "完成" [ref=e204]:
+              - img [ref=e205]
+              - text: 完成
+          - row "准备" [ref=e208]:
+            - cell "准备" [ref=e209]
+            - cell [ref=e210]:
+              - list
+          - row "pipeline-milestone-step 完成" [ref=e211]:
+            - cell "pipeline-milestone-step" [ref=e212]
+            - cell "完成" [ref=e213]:
+              - img [ref=e214]
+              - text: 完成
+          - row "准备" [ref=e217]:
+            - cell "准备" [ref=e218]
+            - cell [ref=e219]:
+              - list
+          - row "pipeline-stage-step 完成" [ref=e220]:
+            - cell "pipeline-stage-step" [ref=e221]
+            - cell "完成" [ref=e222]:
+              - img [ref=e223]
+              - text: 完成
+          - row "Credentials 失败 - 详细" [ref=e226]:
+            - cell "Credentials" [ref=e227]
+            - cell "失败 - 详细" [ref=e228]:
+              - generic [ref=e229]:
+                - img [ref=e230]
+                - text: 失败 -
+                - link "详细" [ref=e233] [cursor=pointer]:
+                  - /url: ""
+          - row "准备" [ref=e234]:
+            - cell "准备" [ref=e235]
+            - cell [ref=e236]:
+              - list
+          - row "pipeline-input-step 失败 - 详细" [ref=e237]:
+            - cell "pipeline-input-step" [ref=e238]
+            - cell "失败 - 详细" [ref=e239]:
+              - generic [ref=e240]:
+                - img [ref=e241]
+                - text: 失败 -
+                - link "详细" [ref=e244] [cursor=pointer]:
+                  - /url: ""
+          - 'row "Pipeline: Groovy 失败 - 详细" [ref=e245]':
+            - 'cell "Pipeline: Groovy" [ref=e246]'
+            - cell "失败 - 详细" [ref=e247]:
+              - generic [ref=e248]:
+                - img [ref=e249]
+                - text: 失败 -
+                - link "详细" [ref=e252] [cursor=pointer]:
+                  - /url: ""
+          - row "Plain Credentials 失败 - 详细" [ref=e253]:
+            - cell "Plain Credentials" [ref=e254]
+            - cell "失败 - 详细" [ref=e255]:
+              - generic [ref=e256]:
+                - img [ref=e257]
+                - text: 失败 -
+                - link "详细" [ref=e260] [cursor=pointer]:
+                  - /url: ""
+          - row "SSH Credentials 失败 - 详细" [ref=e261]:
+            - cell "SSH Credentials" [ref=e262]
+            - cell "失败 - 详细" [ref=e263]:
+              - generic [ref=e264]:
+                - img [ref=e265]
+                - text: 失败 -
+                - link "详细" [ref=e268] [cursor=pointer]:
+                  - /url: ""
+          - row "Credentials Binding 失败 - 详细" [ref=e269]:
+            - cell "Credentials Binding" [ref=e270]
+            - cell "失败 - 详细" [ref=e271]:
+              - generic [ref=e272]:
+                - img [ref=e273]
+                - text: 失败 -
+                - link "详细" [ref=e276] [cursor=pointer]:
+                  - /url: ""
+          - row "准备" [ref=e277]:
+            - cell "准备" [ref=e278]
+            - cell [ref=e279]:
+              - list
+          - row "pipeline-model-extensions 失败 - 详细" [ref=e280]:
+            - cell "pipeline-model-extensions" [ref=e281]
+            - cell "失败 - 详细" [ref=e282]:
+              - generic [ref=e283]:
+                - img [ref=e284]
+                - text: 失败 -
+                - link "详细" [ref=e287] [cursor=pointer]:
+                  - /url: ""
+          - row "准备" [ref=e288]:
+            - cell "准备" [ref=e289]
+            - cell [ref=e290]:
+              - list
+          - row "pipeline-model-api 插件pipeline-model-api已经安装完成。Jenkins 重启后才能生效。" [ref=e291]:
+            - cell "pipeline-model-api" [ref=e292]
+            - cell "插件pipeline-model-api已经安装完成。Jenkins 重启后才能生效。" [ref=e293]:
+              - img [ref=e294]
+              - text: 插件pipeline-model-api已经安装完成。Jenkins 重启后才能生效。
+          - row "准备" [ref=e298]:
+            - cell "准备" [ref=e299]
+            - cell [ref=e300]:
+              - list
+          - row "pipeline-stage-tags-metadata 完成" [ref=e301]:
+            - cell "pipeline-stage-tags-metadata" [ref=e302]
+            - cell "完成" [ref=e303]:
+              - img [ref=e304]
+              - text: 完成
+          - 'row "Pipeline: Groovy 失败 - 详细" [ref=e307]':
+            - 'cell "Pipeline: Groovy" [ref=e308]'
+            - cell "失败 - 详细" [ref=e309]:
+              - generic [ref=e310]:
+                - img [ref=e311]
+                - text: 失败 -
+                - link "详细" [ref=e314] [cursor=pointer]:
+                  - /url: ""
+          - row "准备" [ref=e315]:
+            - cell "准备" [ref=e316]
+            - cell [ref=e317]:
+              - list
+          - row "workflow-multibranch 失败 - 详细" [ref=e318]:
+            - cell "workflow-multibranch" [ref=e319]
+            - cell "失败 - 详细" [ref=e320]:
+              - generic [ref=e321]:
+                - img [ref=e322]
+                - text: 失败 -
+                - link "详细" [ref=e325] [cursor=pointer]:
+                  - /url: ""
+          - row "Credentials 失败 - 详细" [ref=e326]:
+            - cell "Credentials" [ref=e327]
+            - cell "失败 - 详细" [ref=e328]:
+              - generic [ref=e329]:
+                - img [ref=e330]
+                - text: 失败 -
+                - link "详细" [ref=e333] [cursor=pointer]:
+                  - /url: ""
+          - row "准备" [ref=e334]:
+            - cell "准备" [ref=e335]
+            - cell [ref=e336]:
+              - list
+          - row "plain-credentials 失败 - 详细" [ref=e337]:
+            - cell "plain-credentials" [ref=e338]
+            - cell "失败 - 详细" [ref=e339]:
+              - generic [ref=e340]:
+                - img [ref=e341]
+                - text: 失败 -
+                - link "详细" [ref=e344] [cursor=pointer]:
+                  - /url: ""
+          - row "EDDSA API 完成" [ref=e345]:
+            - cell "EDDSA API" [ref=e346]
+            - cell "完成" [ref=e347]:
+              - img [ref=e348]
+              - text: 完成
+          - row "Trilead API 完成" [ref=e351]:
+            - cell "Trilead API" [ref=e352]
+            - cell "完成" [ref=e353]:
+              - img [ref=e354]
+              - text: 完成
+          - row "准备" [ref=e357]:
+            - cell "准备" [ref=e358]
+            - cell [ref=e359]:
+              - list
+          - row "ssh-credentials 失败 - 详细" [ref=e360]:
+            - cell "ssh-credentials" [ref=e361]
+            - cell "失败 - 详细" [ref=e362]:
+              - generic [ref=e363]:
+                - img [ref=e364]
+                - text: 失败 -
+                - link "详细" [ref=e367] [cursor=pointer]:
+                  - /url: ""
+          - row "Plain Credentials 失败 - 详细" [ref=e368]:
+            - cell "Plain Credentials" [ref=e369]
+            - cell "失败 - 详细" [ref=e370]:
+              - generic [ref=e371]:
+                - img [ref=e372]
+                - text: 失败 -
+                - link "详细" [ref=e375] [cursor=pointer]:
+                  - /url: ""
+          - row "SSH Credentials 等待" [ref=e376]:
+            - cell "SSH Credentials" [ref=e377]
+            - cell "等待" [ref=e378]:
+              - img [ref=e379]
+              - text: 等待
+          - row "准备" [ref=e384]:
+            - cell "准备" [ref=e385]
+            - cell [ref=e386]:
+              - list
+          - row "credentials-binding 等待" [ref=e387]:
+            - cell "credentials-binding" [ref=e388]
+            - cell "等待" [ref=e389]:
+              - img [ref=e390]
+              - text: 等待
+          - row "Credentials Binding 等待" [ref=e395]:
+            - cell "Credentials Binding" [ref=e396]
+            - cell "等待" [ref=e397]:
+              - img [ref=e398]
+              - text: 等待
+          - 'row "Pipeline: Stage Step 等待" [ref=e403]':
+            - 'cell "Pipeline: Stage Step" [ref=e404]'
+            - cell "等待" [ref=e405]:
+              - img [ref=e406]
+              - text: 等待
+          - 'row "Pipeline: Job 等待" [ref=e411]':
+            - 'cell "Pipeline: Job" [ref=e412]'
+            - cell "等待" [ref=e413]:
+              - img [ref=e414]
+              - text: 等待
+          - 'row "Pipeline: Declarative Extension Points API 等待" [ref=e419]':
+            - 'cell "Pipeline: Declarative Extension Points API" [ref=e420]'
+            - cell "等待" [ref=e421]:
+              - img [ref=e422]
+              - text: 等待
+          - 'row "Pipeline: Groovy Libraries 等待" [ref=e427]':
+            - 'cell "Pipeline: Groovy Libraries" [ref=e428]'
+            - cell "等待" [ref=e429]:
+              - img [ref=e430]
+              - text: 等待
+          - 'row "Pipeline: Multibranch 等待" [ref=e435]':
+            - 'cell "Pipeline: Multibranch" [ref=e436]'
+            - cell "等待" [ref=e437]:
+              - img [ref=e438]
+              - text: 等待
+          - 'row "Mina SSHD API :: Common 等待" [ref=e443]':
+            - 'cell "Mina SSHD API :: Common" [ref=e444]'
+            - cell "等待" [ref=e445]:
+              - img [ref=e446]
+              - text: 等待
+          - 'row "Mina SSHD API :: Core 等待" [ref=e451]':
+            - 'cell "Mina SSHD API :: Core" [ref=e452]'
+            - cell "等待" [ref=e453]:
+              - img [ref=e454]
+              - text: 等待
+          - row "Git client 等待" [ref=e459]:
+            - cell "Git client" [ref=e460]
+            - cell "等待" [ref=e461]:
+              - img [ref=e462]
+              - text: 等待
+          - 'row "Pipeline: Input Step 等待" [ref=e467]':
+            - 'cell "Pipeline: Input Step" [ref=e468]'
+            - cell "等待" [ref=e469]:
+              - img [ref=e470]
+              - text: 等待
+          - 'row "Pipeline: Nodes and Processes 等待" [ref=e475]':
+            - 'cell "Pipeline: Nodes and Processes" [ref=e476]'
+            - cell "等待" [ref=e477]:
+              - img [ref=e478]
+              - text: 等待
+          - 'row "Pipeline: Basic Steps 等待" [ref=e483]':
+            - 'cell "Pipeline: Basic Steps" [ref=e484]'
+            - cell "等待" [ref=e485]:
+              - img [ref=e486]
+              - text: 等待
+          - row "准备" [ref=e491]:
+            - cell "准备" [ref=e492]
+            - cell [ref=e493]:
+              - list
+          - row "pipeline-model-definition 等待" [ref=e494]:
+            - cell "pipeline-model-definition" [ref=e495]
+            - cell "等待" [ref=e496]:
+              - img [ref=e497]
+              - text: 等待
+          - row "准备" [ref=e502]:
+            - cell "准备" [ref=e503]
+            - cell [ref=e504]:
+              - list
+          - row "display-url-api 等待" [ref=e505]:
+            - cell "display-url-api" [ref=e506]
+            - cell "等待" [ref=e507]:
+              - img [ref=e508]
+              - text: 等待
+          - row "Credentials 等待" [ref=e513]:
+            - cell "Credentials" [ref=e514]
+            - cell "等待" [ref=e515]:
+              - img [ref=e516]
+              - text: 等待
+          - row "准备" [ref=e521]:
+            - cell "准备" [ref=e522]
+            - cell [ref=e523]:
+              - list
+          - row "git 等待" [ref=e524]:
+            - cell "git" [ref=e525]
+            - cell "等待" [ref=e526]:
+              - img [ref=e527]
+              - text: 等待
+          - row "准备" [ref=e532]:
+            - cell "准备" [ref=e533]
+            - cell [ref=e534]:
+              - list
+          - row "credentials 等待" [ref=e535]:
+            - cell "credentials" [ref=e536]
+            - cell "等待" [ref=e537]:
+              - img [ref=e538]
+              - text: 等待
+          - row "准备" [ref=e543]:
+            - cell "准备" [ref=e544]
+            - cell [ref=e545]:
+              - list
+          - row "mailer 等待" [ref=e546]:
+            - cell "mailer" [ref=e547]
+            - cell "等待" [ref=e548]:
+              - img [ref=e549]
+              - text: 等待
+          - row "准备" [ref=e554]:
+            - cell "准备" [ref=e555]
+            - cell [ref=e556]:
+              - list
+          - row "pipeline-model-api 等待" [ref=e557]:
+            - cell "pipeline-model-api" [ref=e558]
+            - cell "等待" [ref=e559]:
+              - img [ref=e560]
+              - text: 等待
+          - row "准备" [ref=e565]:
+            - cell "准备" [ref=e566]
+            - cell [ref=e567]:
+              - list
+          - row "mina-sshd-api-common 等待" [ref=e568]:
+            - cell "mina-sshd-api-common" [ref=e569]
+            - cell "等待" [ref=e570]:
+              - img [ref=e571]
+              - text: 等待
+      - generic [ref=e577]:
+        - paragraph [ref=e578]:
+          - link "返回首页" [ref=e579] [cursor=pointer]:
+            - /url: /
+          - text: (返回首页使用已经安装好的插件)
+        - paragraph [ref=e580]:
+          - generic [ref=e581]:
+            - checkbox [ref=e582]
+            - generic [ref=e583] [cursor=pointer]: 安装完成后重启Jenkins(空闲时)
+  - contentinfo [ref=e584]:
+    - generic [ref=e585]:
+      - link "Jenkins 中文社区" [ref=e588] [cursor=pointer]:
+        - /url: /chinese
+      - generic [ref=e589]:
+        - link "REST API" [ref=e590] [cursor=pointer]:
+          - /url: api/
+        - button "Jenkins 2.528.3" [ref=e591] [cursor=pointer]

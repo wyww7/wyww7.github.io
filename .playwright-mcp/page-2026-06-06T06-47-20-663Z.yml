@@ -1,0 +1,65 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content":
+    - /url: "#skip2content"
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - link "Jenkins" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img [ref=e6]
+        - generic [ref=e7]: Jenkins
+      - generic "breadcrumb" [ref=e8]:
+        - list [ref=e9]:
+          - listitem [ref=e10]:
+            - text: /
+            - link "Manage Jenkins" [ref=e11] [cursor=pointer]:
+              - /url: /manage/
+            - generic "dropdown menu for Manage Jenkins" [ref=e12] [cursor=pointer]:
+              - img [ref=e13]
+          - listitem [ref=e15]:
+            - text: /
+            - generic [ref=e16]: Script Console
+    - generic [ref=e17]:
+      - button "Search" [ref=e18] [cursor=pointer]:
+        - img [ref=e19]
+        - generic [ref=e22]: Search
+      - link "Manage Jenkins" [ref=e23] [cursor=pointer]:
+        - /url: /manage
+        - img [ref=e24]
+        - generic [ref=e28]: Manage Jenkins
+      - link "root" [ref=e30] [cursor=pointer]:
+        - /url: /user/root
+        - img [ref=e31]
+        - generic [ref=e34]: root
+  - generic [ref=e36]:
+    - heading "Script Console" [level=1] [ref=e37]
+    - paragraph [ref=e38]:
+      - text: Type in an arbitrary
+      - link "Groovy script" [ref=e39] [cursor=pointer]:
+        - /url: https://www.groovy-lang.org
+      - text: and execute it on the server. Useful for trouble-shooting and diagnostics. Use the ‘println’ command to see the output (if you use
+      - code [ref=e40]: System.out
+      - text: ", it will go to the server’s stdout, which is harder to see.) Example:"
+    - generic [ref=e41]: println(Jenkins.instance.pluginManager.plugins)
+    - paragraph [ref=e42]:
+      - text: All the classes from all the plugins are visible.
+      - code [ref=e43]: jenkins.*
+      - text: ","
+      - code [ref=e44]: jenkins.model.*
+      - text: ","
+      - code [ref=e45]: hudson.*
+      - text: ", and"
+      - code [ref=e46]: hudson.model.*
+      - text: are pre-imported.
+    - generic [ref=e47]:
+      - generic [ref=e48]:
+        - textbox [ref=e49]
+        - generic [ref=e55]: "1"
+      - button "运行" [ref=e62] [cursor=pointer]
+  - contentinfo [ref=e63]:
+    - generic [ref=e64]:
+      - link "Jenkins 中文社区" [ref=e67] [cursor=pointer]:
+        - /url: /chinese
+      - generic [ref=e68]:
+        - link "REST API" [ref=e69] [cursor=pointer]:
+          - /url: api/
+        - button "Jenkins 2.528.3" [ref=e70] [cursor=pointer]

@@ -1,0 +1,740 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content":
+    - /url: "#skip2content"
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - link "Jenkins" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img [ref=e6]
+        - generic [ref=e7]: Jenkins
+      - generic "breadcrumb" [ref=e8]:
+        - list [ref=e9]:
+          - listitem [ref=e10]:
+            - text: /
+            - link "Manage Jenkins" [ref=e11] [cursor=pointer]:
+              - /url: /manage/
+            - generic "dropdown menu for Manage Jenkins" [ref=e12] [cursor=pointer]:
+              - img [ref=e13]
+          - listitem [ref=e15]:
+            - text: /
+            - link "插件管理" [ref=e16] [cursor=pointer]:
+              - /url: /manage/pluginManager/
+    - generic [ref=e17]:
+      - button "Search" [ref=e18] [cursor=pointer]:
+        - img [ref=e19]
+        - generic [ref=e22]: Search
+      - link "Manage Jenkins" [ref=e23] [cursor=pointer]:
+        - /url: /manage
+        - img [ref=e24]
+        - generic [ref=e28]: Manage Jenkins
+      - link "root" [ref=e30] [cursor=pointer]:
+        - /url: /user/root
+        - img [ref=e31]
+        - generic [ref=e34]: root
+  - generic [ref=e35]:
+    - generic [ref=e36]:
+      - heading "Plugins" [level=1] [ref=e39]
+      - generic [ref=e40]:
+        - link "Updates" [ref=e43] [cursor=pointer]:
+          - /url: /manage/pluginManager/
+          - img [ref=e45]
+          - text: Updates
+        - link "Available plugins" [ref=e50] [cursor=pointer]:
+          - /url: /manage/pluginManager/available
+          - img [ref=e52]
+          - text: Available plugins
+        - link "Installed plugins" [ref=e57] [cursor=pointer]:
+          - /url: /manage/pluginManager/installed
+          - img [ref=e59]
+          - text: Installed plugins
+        - link "Advanced settings" [ref=e63] [cursor=pointer]:
+          - /url: /manage/pluginManager/advanced
+          - img [ref=e65]
+          - text: Advanced settings
+        - link "Download progress" [ref=e71]:
+          - /url: /manage/pluginManager/updates/
+          - img [ref=e73]
+          - text: Download progress
+    - generic [ref=e78]:
+      - heading "Download progress" [level=1] [ref=e79]
+      - table [ref=e80]:
+        - rowgroup [ref=e81]:
+          - row "准备 Checking internet connectivity Checking update center connectivity Success" [ref=e82]:
+            - cell "准备" [ref=e83]
+            - cell "Checking internet connectivity Checking update center connectivity Success" [ref=e84]:
+              - list [ref=e85]:
+                - listitem [ref=e86]: Checking internet connectivity
+                - listitem [ref=e87]: Checking update center connectivity
+                - listitem [ref=e88]: Success
+          - row "Locale 完成" [ref=e89]:
+            - cell "Locale" [ref=e90]
+            - cell "完成" [ref=e91]:
+              - img [ref=e92]
+              - text: 完成
+          - row "Localization Support 完成" [ref=e95]:
+            - cell "Localization Support" [ref=e96]
+            - cell "完成" [ref=e97]:
+              - img [ref=e98]
+              - text: 完成
+          - 'row "Localization: Chinese (Simplified) 失败 - 详细" [ref=e101]':
+            - 'cell "Localization: Chinese (Simplified)" [ref=e102]'
+            - cell "失败 - 详细" [ref=e103]:
+              - generic [ref=e104]:
+                - img [ref=e105]
+                - text: 失败 -
+                - link "详细" [ref=e108] [cursor=pointer]:
+                  - /url: ""
+          - row "Loading plugin extensions Success" [ref=e109]:
+            - cell "Loading plugin extensions" [ref=e110]
+            - cell "Success" [ref=e111]:
+              - img [ref=e112]
+              - text: Success
+          - 'row "Localization: Chinese (Simplified) 完成" [ref=e115]':
+            - 'cell "Localization: Chinese (Simplified)" [ref=e116]'
+            - cell "完成" [ref=e117]:
+              - img [ref=e118]
+              - text: 完成
+          - row "Loading plugin extensions Success" [ref=e121]:
+            - cell "Loading plugin extensions" [ref=e122]
+            - cell "Success" [ref=e123]:
+              - img [ref=e124]
+              - text: Success
+          - row "Structs 完成" [ref=e127]:
+            - cell "Structs" [ref=e128]
+            - cell "完成" [ref=e129]:
+              - img [ref=e130]
+              - text: 完成
+          - row "commons-lang3 v3.x Jenkins API 失败 - 详细" [ref=e133]:
+            - cell "commons-lang3 v3.x Jenkins API" [ref=e134]
+            - cell "失败 - 详细" [ref=e135]:
+              - generic [ref=e136]:
+                - img [ref=e137]
+                - text: 失败 -
+                - link "详细" [ref=e140] [cursor=pointer]:
+                  - /url: ""
+          - row "ASM API 失败 - 详细" [ref=e141]:
+            - cell "ASM API" [ref=e142]
+            - cell "失败 - 详细" [ref=e143]:
+              - generic [ref=e144]:
+                - img [ref=e145]
+                - text: 失败 -
+                - link "详细" [ref=e148] [cursor=pointer]:
+                  - /url: ""
+          - row "SCM API 失败 - 详细" [ref=e149]:
+            - cell "SCM API" [ref=e150]
+            - cell "失败 - 详细" [ref=e151]:
+              - generic [ref=e152]:
+                - img [ref=e153]
+                - text: 失败 -
+                - link "详细" [ref=e156] [cursor=pointer]:
+                  - /url: ""
+          - 'row "Pipeline: Step API 完成" [ref=e157]':
+            - 'cell "Pipeline: Step API" [ref=e158]'
+            - cell "完成" [ref=e159]:
+              - img [ref=e160]
+              - text: 完成
+          - 'row "Pipeline: API 失败 - 详细" [ref=e163]':
+            - 'cell "Pipeline: API" [ref=e164]'
+            - cell "失败 - 详细" [ref=e165]:
+              - generic [ref=e166]:
+                - img [ref=e167]
+                - text: 失败 -
+                - link "详细" [ref=e170] [cursor=pointer]:
+                  - /url: ""
+          - 'row "Pipeline: Milestone Step 失败 - 详细" [ref=e171]':
+            - 'cell "Pipeline: Milestone Step" [ref=e172]'
+            - cell "失败 - 详细" [ref=e173]:
+              - generic [ref=e174]:
+                - img [ref=e175]
+                - text: 失败 -
+                - link "详细" [ref=e178] [cursor=pointer]:
+                  - /url: ""
+          - row "Caffeine API 完成" [ref=e179]:
+            - cell "Caffeine API" [ref=e180]
+            - cell "完成" [ref=e181]:
+              - img [ref=e182]
+              - text: 完成
+          - row "Script Security 完成" [ref=e185]:
+            - cell "Script Security" [ref=e186]
+            - cell "完成" [ref=e187]:
+              - img [ref=e188]
+              - text: 完成
+          - 'row "Pipeline: Supporting APIs 失败 - 详细" [ref=e191]':
+            - 'cell "Pipeline: Supporting APIs" [ref=e192]'
+            - cell "失败 - 详细" [ref=e193]:
+              - generic [ref=e194]:
+                - img [ref=e195]
+                - text: 失败 -
+                - link "详细" [ref=e198] [cursor=pointer]:
+                  - /url: ""
+          - row "Durable Task 完成" [ref=e199]:
+            - cell "Durable Task" [ref=e200]
+            - cell "完成" [ref=e201]:
+              - img [ref=e202]
+              - text: 完成
+          - 'row "Pipeline: Nodes and Processes 失败 - 详细" [ref=e205]':
+            - 'cell "Pipeline: Nodes and Processes" [ref=e206]'
+            - cell "失败 - 详细" [ref=e207]:
+              - generic [ref=e208]:
+                - img [ref=e209]
+                - text: 失败 -
+                - link "详细" [ref=e212] [cursor=pointer]:
+                  - /url: ""
+          - 'row "Pipeline: Build Step 失败 - 详细" [ref=e213]':
+            - 'cell "Pipeline: Build Step" [ref=e214]'
+            - cell "失败 - 详细" [ref=e215]:
+              - generic [ref=e216]:
+                - img [ref=e217]
+                - text: 失败 -
+                - link "详细" [ref=e220] [cursor=pointer]:
+                  - /url: ""
+          - 'row "Pipeline: SCM Step 失败 - 详细" [ref=e221]':
+            - 'cell "Pipeline: SCM Step" [ref=e222]'
+            - cell "失败 - 详细" [ref=e223]:
+              - generic [ref=e224]:
+                - img [ref=e225]
+                - text: 失败 -
+                - link "详细" [ref=e228] [cursor=pointer]:
+                  - /url: ""
+          - row "Ionicons API 失败 - 详细" [ref=e229]:
+            - cell "Ionicons API" [ref=e230]
+            - cell "失败 - 详细" [ref=e231]:
+              - generic [ref=e232]:
+                - img [ref=e233]
+                - text: 失败 -
+                - link "详细" [ref=e236] [cursor=pointer]:
+                  - /url: ""
+          - row "Folders 失败 - 详细" [ref=e237]:
+            - cell "Folders" [ref=e238]
+            - cell "失败 - 详细" [ref=e239]:
+              - generic [ref=e240]:
+                - img [ref=e241]
+                - text: 失败 -
+                - link "详细" [ref=e244] [cursor=pointer]:
+                  - /url: ""
+          - row "Variant 完成" [ref=e245]:
+            - cell "Variant" [ref=e246]
+            - cell "完成" [ref=e247]:
+              - img [ref=e248]
+              - text: 完成
+          - 'row "Pipeline: Groovy 失败 - 详细" [ref=e251]':
+            - 'cell "Pipeline: Groovy" [ref=e252]'
+            - cell "失败 - 详细" [ref=e253]:
+              - generic [ref=e254]:
+                - img [ref=e255]
+                - text: 失败 -
+                - link "详细" [ref=e258] [cursor=pointer]:
+                  - /url: ""
+          - 'row "Pipeline: Groovy Libraries 失败 - 详细" [ref=e259]':
+            - 'cell "Pipeline: Groovy Libraries" [ref=e260]'
+            - cell "失败 - 详细" [ref=e261]:
+              - generic [ref=e262]:
+                - img [ref=e263]
+                - text: 失败 -
+                - link "详细" [ref=e266] [cursor=pointer]:
+                  - /url: ""
+          - row "commons-text API 失败 - 详细" [ref=e267]:
+            - cell "commons-text API" [ref=e268]
+            - cell "失败 - 详细" [ref=e269]:
+              - generic [ref=e270]:
+                - img [ref=e271]
+                - text: 失败 -
+                - link "详细" [ref=e274] [cursor=pointer]:
+                  - /url: ""
+          - row "bouncycastle API 失败 - 详细" [ref=e275]:
+            - cell "bouncycastle API" [ref=e276]
+            - cell "失败 - 详细" [ref=e277]:
+              - generic [ref=e278]:
+                - img [ref=e279]
+                - text: 失败 -
+                - link "详细" [ref=e282] [cursor=pointer]:
+                  - /url: ""
+          - row "Credentials 失败 - 详细" [ref=e283]:
+            - cell "Credentials" [ref=e284]
+            - cell "失败 - 详细" [ref=e285]:
+              - generic [ref=e286]:
+                - img [ref=e287]
+                - text: 失败 -
+                - link "详细" [ref=e290] [cursor=pointer]:
+                  - /url: ""
+          - row "Plain Credentials 失败 - 详细" [ref=e291]:
+            - cell "Plain Credentials" [ref=e292]
+            - cell "失败 - 详细" [ref=e293]:
+              - generic [ref=e294]:
+                - img [ref=e295]
+                - text: 失败 -
+                - link "详细" [ref=e298] [cursor=pointer]:
+                  - /url: ""
+          - row "SSH Credentials 失败 - 详细" [ref=e299]:
+            - cell "SSH Credentials" [ref=e300]
+            - cell "失败 - 详细" [ref=e301]:
+              - generic [ref=e302]:
+                - img [ref=e303]
+                - text: 失败 -
+                - link "详细" [ref=e306] [cursor=pointer]:
+                  - /url: ""
+          - row "Credentials Binding 失败 - 详细" [ref=e307]:
+            - cell "Credentials Binding" [ref=e308]
+            - cell "失败 - 详细" [ref=e309]:
+              - generic [ref=e310]:
+                - img [ref=e311]
+                - text: 失败 -
+                - link "详细" [ref=e314] [cursor=pointer]:
+                  - /url: ""
+          - row "Joda Time API 完成" [ref=e315]:
+            - cell "Joda Time API" [ref=e316]
+            - cell "完成" [ref=e317]:
+              - img [ref=e318]
+              - text: 完成
+          - row "JavaBeans Activation Framework (JAF) API 完成" [ref=e321]:
+            - cell "JavaBeans Activation Framework (JAF) API" [ref=e322]
+            - cell "完成" [ref=e323]:
+              - img [ref=e324]
+              - text: 完成
+          - row "JAXB 完成" [ref=e327]:
+            - cell "JAXB" [ref=e328]
+            - cell "完成" [ref=e329]:
+              - img [ref=e330]
+              - text: 完成
+          - row "JSON API 完成" [ref=e333]:
+            - cell "JSON API" [ref=e334]
+            - cell "完成" [ref=e335]:
+              - img [ref=e336]
+              - text: 完成
+          - row "Jackson Annotations 2 API 完成" [ref=e339]:
+            - cell "Jackson Annotations 2 API" [ref=e340]
+            - cell "完成" [ref=e341]:
+              - img [ref=e342]
+              - text: 完成
+          - row "Jakarta Activation API 完成" [ref=e345]:
+            - cell "Jakarta Activation API" [ref=e346]
+            - cell "完成" [ref=e347]:
+              - img [ref=e348]
+              - text: 完成
+          - row "SnakeYAML API 失败 - 详细" [ref=e351]:
+            - cell "SnakeYAML API" [ref=e352]
+            - cell "失败 - 详细" [ref=e353]:
+              - generic [ref=e354]:
+                - img [ref=e355]
+                - text: 失败 -
+                - link "详细" [ref=e358] [cursor=pointer]:
+                  - /url: ""
+          - row "Jakarta XML Binding API 失败 - 详细" [ref=e359]:
+            - cell "Jakarta XML Binding API" [ref=e360]
+            - cell "失败 - 详细" [ref=e361]:
+              - generic [ref=e362]:
+                - img [ref=e363]
+                - text: 失败 -
+                - link "详细" [ref=e366] [cursor=pointer]:
+                  - /url: ""
+          - row "Woodstox Core API 失败 - 详细" [ref=e367]:
+            - cell "Woodstox Core API" [ref=e368]
+            - cell "失败 - 详细" [ref=e369]:
+              - generic [ref=e370]:
+                - img [ref=e371]
+                - text: 失败 -
+                - link "详细" [ref=e374] [cursor=pointer]:
+                  - /url: ""
+          - row "Jackson 2 API 失败 - 详细" [ref=e375]:
+            - cell "Jackson 2 API" [ref=e376]
+            - cell "失败 - 详细" [ref=e377]:
+              - generic [ref=e378]:
+                - img [ref=e379]
+                - text: 失败 -
+                - link "详细" [ref=e382] [cursor=pointer]:
+                  - /url: ""
+          - 'row "Pipeline: Model API 失败 - 详细" [ref=e383]':
+            - 'cell "Pipeline: Model API" [ref=e384]'
+            - cell "失败 - 详细" [ref=e385]:
+              - generic [ref=e386]:
+                - img [ref=e387]
+                - text: 失败 -
+                - link "详细" [ref=e390] [cursor=pointer]:
+                  - /url: ""
+          - 'row "Pipeline: Stage Step 失败 - 详细" [ref=e391]':
+            - 'cell "Pipeline: Stage Step" [ref=e392]'
+            - cell "失败 - 详细" [ref=e393]:
+              - generic [ref=e394]:
+                - img [ref=e395]
+                - text: 失败 -
+                - link "详细" [ref=e398] [cursor=pointer]:
+                  - /url: ""
+          - 'row "Pipeline: Job 失败 - 详细" [ref=e399]':
+            - 'cell "Pipeline: Job" [ref=e400]'
+            - cell "失败 - 详细" [ref=e401]:
+              - generic [ref=e402]:
+                - img [ref=e403]
+                - text: 失败 -
+                - link "详细" [ref=e406] [cursor=pointer]:
+                  - /url: ""
+          - 'row "Pipeline: Declarative Extension Points API 失败 - 详细" [ref=e407]':
+            - 'cell "Pipeline: Declarative Extension Points API" [ref=e408]'
+            - cell "失败 - 详细" [ref=e409]:
+              - generic [ref=e410]:
+                - img [ref=e411]
+                - text: 失败 -
+                - link "详细" [ref=e414] [cursor=pointer]:
+                  - /url: ""
+          - row "Jakarta Mail API 失败 - 详细" [ref=e415]:
+            - cell "Jakarta Mail API" [ref=e416]
+            - cell "失败 - 详细" [ref=e417]:
+              - generic [ref=e418]:
+                - img [ref=e419]
+                - text: 失败 -
+                - link "详细" [ref=e422] [cursor=pointer]:
+                  - /url: ""
+          - row "Instance Identity 失败 - 详细" [ref=e423]:
+            - cell "Instance Identity" [ref=e424]
+            - cell "失败 - 详细" [ref=e425]:
+              - generic [ref=e426]:
+                - img [ref=e427]
+                - text: 失败 -
+                - link "详细" [ref=e430] [cursor=pointer]:
+                  - /url: ""
+          - row "Display URL API 完成" [ref=e431]:
+            - cell "Display URL API" [ref=e432]
+            - cell "完成" [ref=e433]:
+              - img [ref=e434]
+              - text: 完成
+          - row "Mailer 失败 - 详细" [ref=e437]:
+            - cell "Mailer" [ref=e438]
+            - cell "失败 - 详细" [ref=e439]:
+              - generic [ref=e440]:
+                - img [ref=e441]
+                - text: 失败 -
+                - link "详细" [ref=e444] [cursor=pointer]:
+                  - /url: ""
+          - row "Branch API 失败 - 详细" [ref=e445]:
+            - cell "Branch API" [ref=e446]
+            - cell "失败 - 详细" [ref=e447]:
+              - generic [ref=e448]:
+                - img [ref=e449]
+                - text: 失败 -
+                - link "详细" [ref=e452] [cursor=pointer]:
+                  - /url: ""
+          - 'row "Pipeline: Multibranch 失败 - 详细" [ref=e453]':
+            - 'cell "Pipeline: Multibranch" [ref=e454]'
+            - cell "失败 - 详细" [ref=e455]:
+              - generic [ref=e456]:
+                - img [ref=e457]
+                - text: 失败 -
+                - link "详细" [ref=e460] [cursor=pointer]:
+                  - /url: ""
+          - 'row "Pipeline: Stage Tags Metadata 失败 - 详细" [ref=e461]':
+            - 'cell "Pipeline: Stage Tags Metadata" [ref=e462]'
+            - cell "失败 - 详细" [ref=e463]:
+              - generic [ref=e464]:
+                - img [ref=e465]
+                - text: 失败 -
+                - link "详细" [ref=e468] [cursor=pointer]:
+                  - /url: ""
+          - 'row "Pipeline: Input Step 失败 - 详细" [ref=e469]':
+            - 'cell "Pipeline: Input Step" [ref=e470]'
+            - cell "失败 - 详细" [ref=e471]:
+              - generic [ref=e472]:
+                - img [ref=e473]
+                - text: 失败 -
+                - link "详细" [ref=e476] [cursor=pointer]:
+                  - /url: ""
+          - row "Apache HttpComponents Client 4.x API 完成" [ref=e477]:
+            - cell "Apache HttpComponents Client 4.x API" [ref=e478]
+            - cell "完成" [ref=e479]:
+              - img [ref=e480]
+              - text: 完成
+          - 'row "Pipeline: Basic Steps 失败 - 详细" [ref=e483]':
+            - 'cell "Pipeline: Basic Steps" [ref=e484]'
+            - cell "失败 - 详细" [ref=e485]:
+              - generic [ref=e486]:
+                - img [ref=e487]
+                - text: 失败 -
+                - link "详细" [ref=e490] [cursor=pointer]:
+                  - /url: ""
+          - 'row "Pipeline: Declarative 失败 - 详细" [ref=e491]':
+            - 'cell "Pipeline: Declarative" [ref=e492]'
+            - cell "失败 - 详细" [ref=e493]:
+              - generic [ref=e494]:
+                - img [ref=e495]
+                - text: 失败 -
+                - link "详细" [ref=e498] [cursor=pointer]:
+                  - /url: ""
+          - row "Pipeline 失败 - 详细" [ref=e499]:
+            - cell "Pipeline" [ref=e500]
+            - cell "失败 - 详细" [ref=e501]:
+              - generic [ref=e502]:
+                - img [ref=e503]
+                - text: 失败 -
+                - link "详细" [ref=e506] [cursor=pointer]:
+                  - /url: ""
+          - row "Loading plugin extensions Success" [ref=e507]:
+            - cell "Loading plugin extensions" [ref=e508]
+            - cell "Success" [ref=e509]:
+              - img [ref=e510]
+              - text: Success
+          - 'row "Mina SSHD API :: Common 失败 - 详细" [ref=e513]':
+            - 'cell "Mina SSHD API :: Common" [ref=e514]'
+            - cell "失败 - 详细" [ref=e515]:
+              - generic [ref=e516]:
+                - img [ref=e517]
+                - text: 失败 -
+                - link "详细" [ref=e520] [cursor=pointer]:
+                  - /url: ""
+          - 'row "Mina SSHD API :: Core 失败 - 详细" [ref=e521]':
+            - 'cell "Mina SSHD API :: Core" [ref=e522]'
+            - cell "失败 - 详细" [ref=e523]:
+              - generic [ref=e524]:
+                - img [ref=e525]
+                - text: 失败 -
+                - link "详细" [ref=e528] [cursor=pointer]:
+                  - /url: ""
+          - row "Gson API 完成" [ref=e529]:
+            - cell "Gson API" [ref=e530]
+            - cell "完成" [ref=e531]:
+              - img [ref=e532]
+              - text: 完成
+          - row "Git client 安装中" [ref=e535]:
+            - cell "Git client" [ref=e536]
+            - cell "安装中" [ref=e537]:
+              - generic [ref=e538]:
+                - img [ref=e539]
+                - text: 安装中
+          - row "Git 等待" [ref=e548]:
+            - cell "Git" [ref=e549]
+            - cell "等待" [ref=e550]:
+              - img [ref=e551]
+              - text: 等待
+          - row "JQuery3 API 等待" [ref=e556]:
+            - cell "JQuery3 API" [ref=e557]
+            - cell "等待" [ref=e558]:
+              - img [ref=e559]
+              - text: 等待
+          - row "Git Parameter 等待" [ref=e564]:
+            - cell "Git Parameter" [ref=e565]
+            - cell "等待" [ref=e566]:
+              - img [ref=e567]
+              - text: 等待
+          - row "Loading plugin extensions Pending" [ref=e572]:
+            - cell "Loading plugin extensions" [ref=e573]
+            - cell "Pending" [ref=e574]:
+              - img [ref=e575]
+              - text: Pending
+          - row "Role-based Authorization Strategy 等待" [ref=e580]:
+            - cell "Role-based Authorization Strategy" [ref=e581]
+            - cell "等待" [ref=e582]:
+              - img [ref=e583]
+              - text: 等待
+          - row "Loading plugin extensions Pending" [ref=e588]:
+            - cell "Loading plugin extensions" [ref=e589]
+            - cell "Pending" [ref=e590]:
+              - img [ref=e591]
+              - text: Pending
+          - row "准备" [ref=e596]:
+            - cell "准备" [ref=e597]
+            - cell [ref=e598]:
+              - list
+          - row "commons-lang3 v3.x Jenkins API 等待" [ref=e599]:
+            - cell "commons-lang3 v3.x Jenkins API" [ref=e600]
+            - cell "等待" [ref=e601]:
+              - img [ref=e602]
+              - text: 等待
+          - row "ASM API 等待" [ref=e607]:
+            - cell "ASM API" [ref=e608]
+            - cell "等待" [ref=e609]:
+              - img [ref=e610]
+              - text: 等待
+          - row "SCM API 等待" [ref=e615]:
+            - cell "SCM API" [ref=e616]
+            - cell "等待" [ref=e617]:
+              - img [ref=e618]
+              - text: 等待
+          - 'row "Pipeline: API 等待" [ref=e623]':
+            - 'cell "Pipeline: API" [ref=e624]'
+            - cell "等待" [ref=e625]:
+              - img [ref=e626]
+              - text: 等待
+          - 'row "Pipeline: Milestone Step 等待" [ref=e631]':
+            - 'cell "Pipeline: Milestone Step" [ref=e632]'
+            - cell "等待" [ref=e633]:
+              - img [ref=e634]
+              - text: 等待
+          - 'row "Pipeline: Supporting APIs 等待" [ref=e639]':
+            - 'cell "Pipeline: Supporting APIs" [ref=e640]'
+            - cell "等待" [ref=e641]:
+              - img [ref=e642]
+              - text: 等待
+          - 'row "Pipeline: Nodes and Processes 等待" [ref=e647]':
+            - 'cell "Pipeline: Nodes and Processes" [ref=e648]'
+            - cell "等待" [ref=e649]:
+              - img [ref=e650]
+              - text: 等待
+          - 'row "Pipeline: Build Step 等待" [ref=e655]':
+            - 'cell "Pipeline: Build Step" [ref=e656]'
+            - cell "等待" [ref=e657]:
+              - img [ref=e658]
+              - text: 等待
+          - 'row "Pipeline: SCM Step 等待" [ref=e663]':
+            - 'cell "Pipeline: SCM Step" [ref=e664]'
+            - cell "等待" [ref=e665]:
+              - img [ref=e666]
+              - text: 等待
+          - row "Ionicons API 等待" [ref=e671]:
+            - cell "Ionicons API" [ref=e672]
+            - cell "等待" [ref=e673]:
+              - img [ref=e674]
+              - text: 等待
+          - row "Folders 等待" [ref=e679]:
+            - cell "Folders" [ref=e680]
+            - cell "等待" [ref=e681]:
+              - img [ref=e682]
+              - text: 等待
+          - 'row "Pipeline: Groovy 等待" [ref=e687]':
+            - 'cell "Pipeline: Groovy" [ref=e688]'
+            - cell "等待" [ref=e689]:
+              - img [ref=e690]
+              - text: 等待
+          - 'row "Pipeline: Groovy Libraries 等待" [ref=e695]':
+            - 'cell "Pipeline: Groovy Libraries" [ref=e696]'
+            - cell "等待" [ref=e697]:
+              - img [ref=e698]
+              - text: 等待
+          - row "commons-text API 等待" [ref=e703]:
+            - cell "commons-text API" [ref=e704]
+            - cell "等待" [ref=e705]:
+              - img [ref=e706]
+              - text: 等待
+          - row "bouncycastle API 等待" [ref=e711]:
+            - cell "bouncycastle API" [ref=e712]
+            - cell "等待" [ref=e713]:
+              - img [ref=e714]
+              - text: 等待
+          - row "Credentials 等待" [ref=e719]:
+            - cell "Credentials" [ref=e720]
+            - cell "等待" [ref=e721]:
+              - img [ref=e722]
+              - text: 等待
+          - row "Plain Credentials 等待" [ref=e727]:
+            - cell "Plain Credentials" [ref=e728]
+            - cell "等待" [ref=e729]:
+              - img [ref=e730]
+              - text: 等待
+          - row "SSH Credentials 等待" [ref=e735]:
+            - cell "SSH Credentials" [ref=e736]
+            - cell "等待" [ref=e737]:
+              - img [ref=e738]
+              - text: 等待
+          - row "Credentials Binding 等待" [ref=e743]:
+            - cell "Credentials Binding" [ref=e744]
+            - cell "等待" [ref=e745]:
+              - img [ref=e746]
+              - text: 等待
+          - row "SnakeYAML API 等待" [ref=e751]:
+            - cell "SnakeYAML API" [ref=e752]
+            - cell "等待" [ref=e753]:
+              - img [ref=e754]
+              - text: 等待
+          - row "Jakarta XML Binding API 等待" [ref=e759]:
+            - cell "Jakarta XML Binding API" [ref=e760]
+            - cell "等待" [ref=e761]:
+              - img [ref=e762]
+              - text: 等待
+          - row "Woodstox Core API 等待" [ref=e767]:
+            - cell "Woodstox Core API" [ref=e768]
+            - cell "等待" [ref=e769]:
+              - img [ref=e770]
+              - text: 等待
+          - row "Jackson 2 API 等待" [ref=e775]:
+            - cell "Jackson 2 API" [ref=e776]
+            - cell "等待" [ref=e777]:
+              - img [ref=e778]
+              - text: 等待
+          - 'row "Pipeline: Model API 等待" [ref=e783]':
+            - 'cell "Pipeline: Model API" [ref=e784]'
+            - cell "等待" [ref=e785]:
+              - img [ref=e786]
+              - text: 等待
+          - 'row "Pipeline: Stage Step 等待" [ref=e791]':
+            - 'cell "Pipeline: Stage Step" [ref=e792]'
+            - cell "等待" [ref=e793]:
+              - img [ref=e794]
+              - text: 等待
+          - 'row "Pipeline: Job 等待" [ref=e799]':
+            - 'cell "Pipeline: Job" [ref=e800]'
+            - cell "等待" [ref=e801]:
+              - img [ref=e802]
+              - text: 等待
+          - 'row "Pipeline: Declarative Extension Points API 等待" [ref=e807]':
+            - 'cell "Pipeline: Declarative Extension Points API" [ref=e808]'
+            - cell "等待" [ref=e809]:
+              - img [ref=e810]
+              - text: 等待
+          - row "Jakarta Mail API 等待" [ref=e815]:
+            - cell "Jakarta Mail API" [ref=e816]
+            - cell "等待" [ref=e817]:
+              - img [ref=e818]
+              - text: 等待
+          - row "Instance Identity 等待" [ref=e823]:
+            - cell "Instance Identity" [ref=e824]
+            - cell "等待" [ref=e825]:
+              - img [ref=e826]
+              - text: 等待
+          - row "Mailer 等待" [ref=e831]:
+            - cell "Mailer" [ref=e832]
+            - cell "等待" [ref=e833]:
+              - img [ref=e834]
+              - text: 等待
+          - row "Branch API 等待" [ref=e839]:
+            - cell "Branch API" [ref=e840]
+            - cell "等待" [ref=e841]:
+              - img [ref=e842]
+              - text: 等待
+          - 'row "Pipeline: Multibranch 等待" [ref=e847]':
+            - 'cell "Pipeline: Multibranch" [ref=e848]'
+            - cell "等待" [ref=e849]:
+              - img [ref=e850]
+              - text: 等待
+          - 'row "Pipeline: Stage Tags Metadata 等待" [ref=e855]':
+            - 'cell "Pipeline: Stage Tags Metadata" [ref=e856]'
+            - cell "等待" [ref=e857]:
+              - img [ref=e858]
+              - text: 等待
+          - 'row "Pipeline: Input Step 等待" [ref=e863]':
+            - 'cell "Pipeline: Input Step" [ref=e864]'
+            - cell "等待" [ref=e865]:
+              - img [ref=e866]
+              - text: 等待
+          - 'row "Pipeline: Basic Steps 等待" [ref=e871]':
+            - 'cell "Pipeline: Basic Steps" [ref=e872]'
+            - cell "等待" [ref=e873]:
+              - img [ref=e874]
+              - text: 等待
+          - 'row "Pipeline: Declarative 等待" [ref=e879]':
+            - 'cell "Pipeline: Declarative" [ref=e880]'
+            - cell "等待" [ref=e881]:
+              - img [ref=e882]
+              - text: 等待
+          - row "Pipeline 等待" [ref=e887]:
+            - cell "Pipeline" [ref=e888]
+            - cell "等待" [ref=e889]:
+              - img [ref=e890]
+              - text: 等待
+          - row "Loading plugin extensions Pending" [ref=e895]:
+            - cell "Loading plugin extensions" [ref=e896]
+            - cell "Pending" [ref=e897]:
+              - img [ref=e898]
+              - text: Pending
+      - generic [ref=e904]:
+        - paragraph [ref=e905]:
+          - link "返回首页" [ref=e906] [cursor=pointer]:
+            - /url: /
+          - text: (返回首页使用已经安装好的插件)
+        - paragraph [ref=e907]:
+          - generic [ref=e908]:
+            - checkbox [ref=e909]
+            - generic [ref=e910] [cursor=pointer]: 安装完成后重启Jenkins(空闲时)
+  - contentinfo [ref=e911]:
+    - generic [ref=e912]:
+      - link "Jenkins 中文社区" [ref=e915] [cursor=pointer]:
+        - /url: /chinese
+      - generic [ref=e916]:
+        - link "REST API" [ref=e917] [cursor=pointer]:
+          - /url: api/
+        - button "Jenkins 2.528.3" [ref=e918] [cursor=pointer]

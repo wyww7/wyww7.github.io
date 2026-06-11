@@ -28,17 +28,15 @@
     align-self: flex-start !important;
   }
 
-  /* ===== 阅读进度条 ===== */
+  {{ if and (eq .Kind "page") (eq .Section "post") }}
+  /* ===== 阅读进度条（仅文章页） ===== */
   #reading-progress {
     position: fixed;
     top: 0;
     left: 0;
-    width: 0%;
     height: 3px;
     z-index: 10000;
-    opacity: 0;
     background: linear-gradient(90deg, var(--accent-color), #e91e63);
-    transition: opacity 0.3s ease;
     pointer-events: none;
   }
 
@@ -47,8 +45,9 @@
   }
 
   [data-scheme="dark"] #reading-progress {
-    background: linear-gradient(90deg, #00d4ff, #7b2ff7);
+    background: rgba(255,255,255,0.7);
   }
+  {{ end }}
 
   /* ===== TOC 滚动跟随展开 ===== */
   #TableOfContents ol ol {
@@ -164,6 +163,47 @@
 </style>
 
 <script src="/js/blog-extras.js"></script>
+
+{{ if and (eq .Kind "page") (eq .Section "post") }}
+<script>
+// ===== 阅读进度条（仅文章页）=====
+// 滚动时显示，停止 1.5s 后淡出。JS 控制 width + opacity。
+(function() {
+    var bar = document.getElementById('reading-progress');
+    if (bar) return;
+
+    bar = document.createElement('div');
+    bar.id = 'reading-progress';
+    bar.style.opacity = '0';
+    document.body.prepend(bar);
+
+    var hideTimer = null;
+
+    function update() {
+        var scrollTop = window.scrollY || document.documentElement.scrollTop;
+        var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        if (docHeight > 0) {
+            bar.style.width = Math.min((scrollTop / docHeight) * 100, 100) + '%';
+        }
+    }
+
+    function show() {
+        bar.style.opacity = '1';
+        if (hideTimer) clearTimeout(hideTimer);
+        hideTimer = setTimeout(function() {
+            bar.style.opacity = '0';
+        }, 1500);
+    }
+
+    window.addEventListener('scroll', function() {
+        update();
+        show();
+    }, { passive: true });
+
+    update();
+})();
+</script>
+{{ end }}
 
 <script>
 // ===== PJAX 无刷新导航：保持音乐播放器跨页面不中断 =====

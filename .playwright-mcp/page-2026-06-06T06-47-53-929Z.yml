@@ -1,0 +1,91 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content":
+    - /url: "#skip2content"
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - link "Jenkins" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img [ref=e6]
+        - generic [ref=e7]: Jenkins
+      - generic "breadcrumb" [ref=e8]:
+        - list [ref=e9]:
+          - listitem [ref=e10]:
+            - text: /
+            - link "Manage Jenkins" [ref=e11] [cursor=pointer]:
+              - /url: /manage/
+            - generic "dropdown menu for Manage Jenkins" [ref=e12] [cursor=pointer]:
+              - img [ref=e13]
+          - listitem [ref=e15]:
+            - text: /
+            - link "插件管理" [ref=e16] [cursor=pointer]:
+              - /url: /manage/pluginManager/
+    - generic [ref=e17]:
+      - button "Search" [ref=e18] [cursor=pointer]:
+        - img [ref=e19]
+        - generic [ref=e22]: Search
+      - link "Manage Jenkins" [ref=e23] [cursor=pointer]:
+        - /url: /manage
+        - img [ref=e24]
+        - generic [ref=e28]: Manage Jenkins
+      - link "root" [ref=e30] [cursor=pointer]:
+        - /url: /user/root
+        - img [ref=e31]
+        - generic [ref=e34]: root
+  - generic [ref=e35]:
+    - generic [ref=e36]:
+      - heading "Plugins" [level=1] [ref=e39]
+      - generic [ref=e40]:
+        - link "Updates" [ref=e43] [cursor=pointer]:
+          - /url: /manage/pluginManager/
+          - img [ref=e45]
+          - text: Updates
+        - link "Available plugins" [ref=e50] [cursor=pointer]:
+          - /url: /manage/pluginManager/available
+          - img [ref=e52]
+          - text: Available plugins
+        - link "Installed plugins" [ref=e57] [cursor=pointer]:
+          - /url: /manage/pluginManager/installed
+          - img [ref=e59]
+          - text: Installed plugins
+        - link "Advanced settings" [ref=e63]:
+          - /url: /manage/pluginManager/advanced
+          - img [ref=e65]
+          - text: Advanced settings
+        - link "Download progress" [ref=e71] [cursor=pointer]:
+          - /url: /manage/pluginManager/updates/
+          - img [ref=e73]
+          - text: Download progress
+    - generic [ref=e78]:
+      - heading "Advanced settings" [level=1] [ref=e81]
+      - strong [ref=e83]:
+        - text: The Proxy configuration form has been moved to
+        - link "Configure System page" [ref=e84] [cursor=pointer]:
+          - /url: /manage/configure
+      - generic [ref=e85]:
+        - generic [ref=e86]:
+          - heading "部署插件" [level=2] [ref=e87]
+          - generic [ref=e89]:
+            - generic [ref=e90]: 您可以从本地系统中选择一个插件文件，或者提供一个 URL 从中央插件仓库以外的位置安装插件。
+            - generic [ref=e91]:
+              - generic [ref=e92]: 文件
+              - button "Choose File" [ref=e94]
+            - paragraph [ref=e95]: Or
+            - generic [ref=e96]:
+              - generic [ref=e97]: URL
+              - textbox [ref=e99]
+            - button "部署" [ref=e100] [cursor=pointer]
+        - generic [ref=e101]:
+          - heading "升级站点" [level=2] [ref=e102]
+          - generic [ref=e104]:
+            - generic [ref=e105]:
+              - generic [ref=e106]: URL
+              - textbox [ref=e109]: https://updates.jenkins.io/update-center.json
+            - button "提交" [ref=e112] [cursor=pointer]
+  - contentinfo [ref=e113]:
+    - generic [ref=e114]:
+      - link "Jenkins 中文社区" [ref=e117] [cursor=pointer]:
+        - /url: /chinese
+      - generic [ref=e118]:
+        - link "REST API" [ref=e119] [cursor=pointer]:
+          - /url: api/
+        - button "Jenkins 2.528.3" [ref=e120] [cursor=pointer]

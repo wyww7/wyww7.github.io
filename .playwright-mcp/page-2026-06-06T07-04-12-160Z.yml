@@ -1,0 +1,74 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content":
+    - /url: "#skip2content"
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - link "Jenkins" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img [ref=e6]
+        - generic [ref=e7]: Jenkins
+      - generic "breadcrumb" [ref=e8]:
+        - list [ref=e9]:
+          - listitem [ref=e10]:
+            - text: /
+            - link "系统管理" [ref=e11] [cursor=pointer]:
+              - /url: /manage/
+            - generic "dropdown menu for 系统管理" [ref=e12] [cursor=pointer]:
+              - img [ref=e13]
+          - listitem [ref=e15]:
+            - text: /
+            - link "插件管理" [ref=e16] [cursor=pointer]:
+              - /url: /manage/pluginManager/
+    - generic [ref=e17]:
+      - button "Search" [ref=e18] [cursor=pointer]:
+        - img [ref=e19]
+        - generic [ref=e22]: Search
+      - link "系统管理" [ref=e23] [cursor=pointer]:
+        - /url: /manage
+        - img [ref=e24]
+        - generic [ref=e28]: 系统管理
+      - link "root" [ref=e30] [cursor=pointer]:
+        - /url: /user/root
+        - img [ref=e31]
+        - generic [ref=e34]: root
+  - generic [ref=e35]:
+    - generic [ref=e36]:
+      - heading "Plugins" [level=1] [ref=e39]
+      - generic [ref=e40]:
+        - link "Updates 1" [ref=e43] [cursor=pointer]:
+          - /url: /manage/pluginManager/
+          - img [ref=e45]
+          - text: Updates
+          - generic "1 update available" [ref=e48]: "1"
+        - link "Available plugins" [ref=e51] [cursor=pointer]:
+          - /url: /manage/pluginManager/available
+          - img [ref=e53]
+          - text: Available plugins
+        - link "Installed plugins" [ref=e58] [cursor=pointer]:
+          - /url: /manage/pluginManager/installed
+          - img [ref=e60]
+          - text: Installed plugins
+        - link "Advanced settings" [ref=e64] [cursor=pointer]:
+          - /url: /manage/pluginManager/advanced
+          - img [ref=e66]
+          - text: Advanced settings
+    - generic [ref=e70]:
+      - heading "Download progress" [level=1] [ref=e71]
+      - table
+      - generic [ref=e73]:
+        - paragraph [ref=e74]:
+          - link "返回首页" [ref=e75] [cursor=pointer]:
+            - /url: /
+          - text: (返回首页使用已经安装好的插件)
+        - paragraph [ref=e76]:
+          - generic [ref=e77]:
+            - checkbox [ref=e78]
+            - generic [ref=e79] [cursor=pointer]: 安装完成后重启Jenkins(空闲时)
+  - contentinfo [ref=e80]:
+    - generic [ref=e81]:
+      - link "Jenkins 中文社区" [ref=e84] [cursor=pointer]:
+        - /url: /chinese
+      - generic [ref=e85]:
+        - link "REST API" [ref=e86] [cursor=pointer]:
+          - /url: api/
+        - button "Jenkins 2.528.3" [ref=e87] [cursor=pointer]

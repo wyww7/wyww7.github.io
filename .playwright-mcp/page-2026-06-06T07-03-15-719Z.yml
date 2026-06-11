@@ -1,0 +1,65 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content":
+    - /url: "#skip2content"
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - link "Jenkins" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img [ref=e6]
+        - generic [ref=e7]: Jenkins
+      - generic "breadcrumb" [ref=e8]:
+        - list [ref=e9]:
+          - listitem [ref=e10]:
+            - text: /
+            - generic [ref=e11]: Restart
+    - generic [ref=e12]:
+      - button "Search" [ref=e13] [cursor=pointer]:
+        - img [ref=e14]
+        - generic [ref=e17]: Search
+      - link "Manage Jenkins" [ref=e18] [cursor=pointer]:
+        - /url: /manage
+        - img [ref=e19]
+        - generic [ref=e23]: Manage Jenkins
+      - link "root" [ref=e25] [cursor=pointer]:
+        - /url: /user/root
+        - img [ref=e26]
+        - generic [ref=e29]: root
+  - generic [ref=e30]:
+    - generic [ref=e31]:
+      - generic [ref=e32]:
+        - link "新建Item" [ref=e35] [cursor=pointer]:
+          - /url: /view/all/newJob
+          - img [ref=e37]
+          - text: 新建Item
+        - link "构建历史" [ref=e41] [cursor=pointer]:
+          - /url: /view/all/builds
+          - img [ref=e43]
+          - text: 构建历史
+      - generic [ref=e46]:
+        - generic [ref=e47]:
+          - generic [ref=e48]: 构建队列
+          - link "合上" [ref=e49] [cursor=pointer]:
+            - /url: /toggleCollapse?paneId=buildQueue
+            - img [ref=e50]
+        - table [ref=e53]:
+          - rowgroup [ref=e54]:
+            - row "队列中没有构建任务" [ref=e55]:
+              - cell "队列中没有构建任务" [ref=e56]
+      - generic [ref=e58]:
+        - link "构建执行状态" [ref=e60] [cursor=pointer]:
+          - /url: /computer/
+        - generic "0 of 2 executors busy" [ref=e61]: 0/2
+        - link "Collapse" [ref=e62] [cursor=pointer]:
+          - /url: /toggleCollapse?paneId=executors
+          - img [ref=e63]
+    - generic [ref=e66]:
+      - text: 你确定要重启 Jenkins 吗？
+      - button "是" [ref=e67] [cursor=pointer]
+  - contentinfo [ref=e68]:
+    - generic [ref=e69]:
+      - link "Jenkins 中文社区" [ref=e72] [cursor=pointer]:
+        - /url: /chinese
+      - generic [ref=e73]:
+        - link "REST API" [ref=e74] [cursor=pointer]:
+          - /url: api/
+        - button "Jenkins 2.528.3" [ref=e75] [cursor=pointer]

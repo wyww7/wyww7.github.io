@@ -1,0 +1,6 @@
+- main [ref=e2]:
+  - generic [ref=e3]:
+    - img "Jenkins logo" [ref=e5]
+    - heading "Jenkins 正在重启，请稍等" [level=1] [ref=e6]:
+      - paragraph [ref=e7]: Jenkins 正在重启，请稍等
+    - paragraph [ref=e8]: Your browser will reload automatically when Jenkins is ready.

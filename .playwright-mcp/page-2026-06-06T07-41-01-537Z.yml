@@ -1,0 +1,1250 @@
+- generic [ref=e1]:
+  - link "Skip to content":
+    - /url: "#skip2content"
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - link "Jenkins" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img [ref=e6]
+        - generic [ref=e7]: Jenkins
+      - generic "breadcrumb" [ref=e8]:
+        - list [ref=e9]:
+          - listitem [ref=e10]:
+            - text: /
+            - link "系统管理" [ref=e11] [cursor=pointer]:
+              - /url: /manage/
+            - generic "dropdown menu for 系统管理" [ref=e12] [cursor=pointer]:
+              - img [ref=e13]
+          - listitem [ref=e15]:
+            - text: /
+            - link "插件管理" [ref=e16] [cursor=pointer]:
+              - /url: /manage/pluginManager/
+    - generic [ref=e17]:
+      - button "Search" [ref=e18] [cursor=pointer]:
+        - img [ref=e19]
+        - generic [ref=e22]: Search
+      - link "系统管理" [ref=e23] [cursor=pointer]:
+        - /url: /manage
+        - img [ref=e24]
+        - generic [ref=e28]: 系统管理
+      - link "root" [ref=e29] [cursor=pointer]:
+        - /url: /user/root
+        - img [ref=e30]
+        - generic [ref=e33]: root
+  - generic [ref=e34]:
+    - generic [ref=e35]:
+      - heading "Plugins" [level=1] [ref=e38]
+      - generic [ref=e39]:
+        - link "Updates" [ref=e42] [cursor=pointer]:
+          - /url: /manage/pluginManager/
+          - img [ref=e44]
+          - text: Updates
+        - link "Available plugins" [ref=e49] [cursor=pointer]:
+          - /url: /manage/pluginManager/available
+          - img [ref=e51]
+          - text: Available plugins
+        - link "Installed plugins" [ref=e56]:
+          - /url: /manage/pluginManager/installed
+          - img [ref=e58]
+          - text: Installed plugins
+        - link "Advanced settings" [ref=e62] [cursor=pointer]:
+          - /url: /manage/pluginManager/advanced
+          - img [ref=e64]
+          - text: Advanced settings
+    - generic [ref=e68]:
+      - generic [ref=e72]:
+        - generic:
+          - img
+        - searchbox "Search installed plugins" [active] [ref=e73]
+      - table [ref=e74]:
+        - rowgroup [ref=e75]:
+          - row "名称 ↓ Health 启用" [ref=e76]:
+            - columnheader "名称 ↓" [ref=e77]:
+              - link "名称 ↓" [ref=e78] [cursor=pointer]:
+                - /url: "#"
+                - text: 名称
+                - generic [ref=e79]: ↓
+            - columnheader "Health" [ref=e80]:
+              - link "Health" [ref=e81] [cursor=pointer]:
+                - /url: "#"
+                - generic [ref=e82]: Health
+            - columnheader "启用" [ref=e83]:
+              - link "启用" [ref=e84] [cursor=pointer]:
+                - /url: "#"
+                - text: 启用
+            - columnheader [ref=e85]
+        - rowgroup [ref=e86]:
+          - row "Apache HttpComponents Client 4.x API Plugin 版本 4.5.14-269.vfa_2321039a_83 Bundles Apache HttpComponents Client 4.x and allows it to be used by Jenkins plugins. Report an issue with this plugin 94" [ref=e87]:
+            - cell "Apache HttpComponents Client 4.x API Plugin 版本 4.5.14-269.vfa_2321039a_83 Bundles Apache HttpComponents Client 4.x and allows it to be used by Jenkins plugins. Report an issue with this plugin" [ref=e88]:
+              - link "Apache HttpComponents Client 4.x API Plugin 版本 4.5.14-269.vfa_2321039a_83" [ref=e90] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/apache-httpcomponents-client-4-api
+                - text: Apache HttpComponents Client 4.x API Plugin
+                - generic [ref=e91]:
+                  - generic [ref=e92]: 版本
+                  - text: 4.5.14-269.vfa_2321039a_83
+              - generic [ref=e94]: Bundles Apache HttpComponents Client 4.x and allows it to be used by Jenkins plugins.
+              - link "Report an issue with this plugin" [ref=e96] [cursor=pointer]:
+                - /url: https://github.com/jenkinsci/apache-httpcomponents-client-4-api-plugin/issues/new/choose
+            - cell "94" [ref=e97]:
+              - link "94" [ref=e99] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/apache-httpcomponents-client-4-api/healthScore
+            - cell [ref=e100]:
+              - checkbox [checked] [ref=e103]
+            - cell [ref=e105]:
+              - button "降到" [ref=e108] [cursor=pointer]:
+                - img [ref=e109]
+            - cell [ref=e113]:
+              - button "卸载 Apache HttpComponents Client 4.x API Plugin" [ref=e115] [cursor=pointer]:
+                - img [ref=e116]
+          - row "ASM API Plugin 版本 9.10.1-216.va_9256d3b_844b_ This plugin provides the ASM APIs (v9.10.1) for other plugins. Report an issue with this plugin 100 9.10.1-216.va_9256d3b_844b_" [ref=e119]:
+            - cell "ASM API Plugin 版本 9.10.1-216.va_9256d3b_844b_ This plugin provides the ASM APIs (v9.10.1) for other plugins. Report an issue with this plugin" [ref=e120]:
+              - link "ASM API Plugin 版本 9.10.1-216.va_9256d3b_844b_" [ref=e122] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/asm-api
+                - text: ASM API Plugin
+                - generic [ref=e123]:
+                  - generic [ref=e124]: 版本
+                  - text: 9.10.1-216.va_9256d3b_844b_
+              - generic [ref=e126]:
+                - text: This plugin provides the
+                - link "ASM" [ref=e127] [cursor=pointer]:
+                  - /url: https://asm.ow2.io/
+                - text: APIs (v9.10.1) for other plugins.
+              - link "Report an issue with this plugin" [ref=e129] [cursor=pointer]:
+                - /url: https://github.com/jenkinsci/asm-api-plugin/issues/new/choose
+            - cell "100" [ref=e130]:
+              - link "100" [ref=e132] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/asm-api/healthScore
+            - cell [ref=e133]:
+              - checkbox [checked] [ref=e136]
+            - cell "9.10.1-216.va_9256d3b_844b_" [ref=e138]:
+              - button "9.10.1-216.va_9256d3b_844b_" [ref=e141] [cursor=pointer]:
+                - img [ref=e142]
+                - generic [ref=e146]: 9.10.1-216.va_9256d3b_844b_
+            - cell [ref=e147]:
+              - button "卸载 ASM API Plugin" [ref=e149] [cursor=pointer]:
+                - img [ref=e150]
+          - row "bouncycastle API Plugin 版本 2.30.1.84-291.v9f17b_21896e2 This plugin provides a stable API to Bouncy Castle related tasks. Report an issue with this plugin 97" [ref=e153]:
+            - cell "bouncycastle API Plugin 版本 2.30.1.84-291.v9f17b_21896e2 This plugin provides a stable API to Bouncy Castle related tasks. Report an issue with this plugin" [ref=e154]:
+              - link "bouncycastle API Plugin 版本 2.30.1.84-291.v9f17b_21896e2" [ref=e156] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/bouncycastle-api
+                - text: bouncycastle API Plugin
+                - generic [ref=e157]:
+                  - generic [ref=e158]: 版本
+                  - text: 2.30.1.84-291.v9f17b_21896e2
+              - generic [ref=e160]: This plugin provides a stable API to Bouncy Castle related tasks.
+              - link "Report an issue with this plugin" [ref=e162] [cursor=pointer]:
+                - /url: https://www.jenkins.io/participate/report-issue/redirect/#21482/bouncycastle-api
+            - cell "97" [ref=e163]:
+              - link "97" [ref=e165] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/bouncycastle-api/healthScore
+            - cell [ref=e166]:
+              - generic [ref=e168]:
+                - checkbox [checked]
+            - cell [ref=e169]
+            - cell [ref=e170]:
+              - generic [ref=e171]:
+                - button "卸载 bouncycastle API Plugin":
+                  - img
+          - 'row "Branch API Plugin Failed to load: Branch API Plugin (branch-api 2.1280.v0d4e5b_b_460ef) - Update required: SCM API Plugin (scm-api 621.vda_a_b_055e58f7) to be updated to 724.v7d839074eb_5c or higher" [ref=e172]':
+            - 'cell "Branch API Plugin Failed to load: Branch API Plugin (branch-api 2.1280.v0d4e5b_b_460ef) - Update required: SCM API Plugin (scm-api 621.vda_a_b_055e58f7) to be updated to 724.v7d839074eb_5c or higher" [ref=e173]':
+              - link "Branch API Plugin" [ref=e175] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/branch-api
+              - generic [ref=e177]: "Failed to load: Branch API Plugin (branch-api 2.1280.v0d4e5b_b_460ef) - Update required: SCM API Plugin (scm-api 621.vda_a_b_055e58f7) to be updated to 724.v7d839074eb_5c or higher"
+            - cell [ref=e178]:
+              - checkbox [disabled] [ref=e181]
+            - cell [ref=e183]
+            - cell [ref=e184]
+          - row "Caffeine API Plugin 版本 3.2.3-194.v31a_b_f7a_b_5a_81 Caffeine api plugin for use by other Jenkins plugins. Report an issue with this plugin 97" [ref=e185]:
+            - cell "Caffeine API Plugin 版本 3.2.3-194.v31a_b_f7a_b_5a_81 Caffeine api plugin for use by other Jenkins plugins. Report an issue with this plugin" [ref=e186]:
+              - link "Caffeine API Plugin 版本 3.2.3-194.v31a_b_f7a_b_5a_81" [ref=e188] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/caffeine-api
+                - text: Caffeine API Plugin
+                - generic [ref=e189]:
+                  - generic [ref=e190]: 版本
+                  - text: 3.2.3-194.v31a_b_f7a_b_5a_81
+              - generic [ref=e192]:
+                - link "Caffeine" [ref=e193] [cursor=pointer]:
+                  - /url: https://github.com/ben-manes/caffeine/
+                - text: api plugin for use by other Jenkins plugins.
+              - link "Report an issue with this plugin" [ref=e195] [cursor=pointer]:
+                - /url: https://www.jenkins.io/participate/report-issue/redirect/#28622/caffeine-api
+            - cell "97" [ref=e196]:
+              - link "97" [ref=e198] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/caffeine-api/healthScore
+            - cell [ref=e199]:
+              - generic [ref=e201]:
+                - checkbox [checked]
+            - cell [ref=e202]
+            - cell [ref=e203]:
+              - generic [ref=e204]:
+                - button "卸载 Caffeine API Plugin":
+                  - img
+          - row "commons-lang3 v3.x Jenkins API Plugin 版本 3.20.0-109.ve43756e2d2b_4 Jenkins Api Plugin that Bundles Apache Commons Lang v3.x. Usage will slim downstream plugin and not require dependency jar being provided by core Jenkins. Provides org.apache.commons:commons-lang3:3.20.0. Report an issue with this plugin 100" [ref=e205]:
+            - cell "commons-lang3 v3.x Jenkins API Plugin 版本 3.20.0-109.ve43756e2d2b_4 Jenkins Api Plugin that Bundles Apache Commons Lang v3.x. Usage will slim downstream plugin and not require dependency jar being provided by core Jenkins. Provides org.apache.commons:commons-lang3:3.20.0. Report an issue with this plugin" [ref=e206]:
+              - link "commons-lang3 v3.x Jenkins API Plugin 版本 3.20.0-109.ve43756e2d2b_4" [ref=e208] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/commons-lang3-api
+                - text: commons-lang3 v3.x Jenkins API Plugin
+                - generic [ref=e209]:
+                  - generic [ref=e210]: 版本
+                  - text: 3.20.0-109.ve43756e2d2b_4
+              - generic [ref=e212]:
+                - text: Jenkins Api Plugin that Bundles Apache Commons Lang v3.x.
+                - text: Usage will slim downstream plugin and not require dependency jar being provided by core Jenkins.
+                - text: Provides org.apache.commons:commons-lang3:3.20.0.
+              - link "Report an issue with this plugin" [ref=e214] [cursor=pointer]:
+                - /url: https://github.com/jenkinsci/commons-lang3-api-plugin/issues/new/choose
+            - cell "100" [ref=e215]:
+              - link "100" [ref=e217] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/commons-lang3-api/healthScore
+            - cell [ref=e218]:
+              - generic [ref=e220]:
+                - checkbox [checked]
+            - cell [ref=e221]
+            - cell [ref=e222]:
+              - generic [ref=e223]:
+                - button "卸载 commons-lang3 v3.x Jenkins API Plugin":
+                  - img
+          - row "commons-text API Plugin 版本 1.15.0-218.va_61573470393 Jenkins Api Plugin that Bundles Apache Commons Text v1.x. Usage will slim downstream plugin. Provides org.apache.commons:commons-text:1.15.0. Report an issue with this plugin 100" [ref=e224]:
+            - cell "commons-text API Plugin 版本 1.15.0-218.va_61573470393 Jenkins Api Plugin that Bundles Apache Commons Text v1.x. Usage will slim downstream plugin. Provides org.apache.commons:commons-text:1.15.0. Report an issue with this plugin" [ref=e225]:
+              - link "commons-text API Plugin 版本 1.15.0-218.va_61573470393" [ref=e227] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/commons-text-api
+                - text: commons-text API Plugin
+                - generic [ref=e228]:
+                  - generic [ref=e229]: 版本
+                  - text: 1.15.0-218.va_61573470393
+              - generic [ref=e231]:
+                - text: Jenkins Api Plugin that Bundles Apache Commons Text v1.x.
+                - text: Usage will slim downstream plugin.
+                - text: Provides org.apache.commons:commons-text:1.15.0.
+              - link "Report an issue with this plugin" [ref=e233] [cursor=pointer]:
+                - /url: https://github.com/jenkinsci/commons-text-api-plugin/issues/new/choose
+            - cell "100" [ref=e234]:
+              - link "100" [ref=e236] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/commons-text-api/healthScore
+            - cell [ref=e237]:
+              - generic [ref=e239]:
+                - checkbox [checked]
+            - cell [ref=e240]
+            - cell [ref=e241]:
+              - generic [ref=e242]:
+                - button "卸载 commons-text API Plugin":
+                  - img
+          - row "Credentials Binding Plugin 版本 725.ve52b_2328a_fde Allows credentials to be bound to environment variables for use from miscellaneous build steps. Report an issue with this plugin 100 523.vd859a_4b_122e6" [ref=e243]:
+            - cell "Credentials Binding Plugin 版本 725.ve52b_2328a_fde Allows credentials to be bound to environment variables for use from miscellaneous build steps. Report an issue with this plugin" [ref=e244]:
+              - link "Credentials Binding Plugin 版本 725.ve52b_2328a_fde" [ref=e246] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/credentials-binding
+                - text: Credentials Binding Plugin
+                - generic [ref=e247]:
+                  - generic [ref=e248]: 版本
+                  - text: 725.ve52b_2328a_fde
+              - generic [ref=e250]: Allows credentials to be bound to environment variables for use from miscellaneous build steps.
+              - link "Report an issue with this plugin" [ref=e252] [cursor=pointer]:
+                - /url: https://github.com/jenkinsci/credentials-binding-plugin/issues/new/choose
+            - cell "100" [ref=e253]:
+              - link "100" [ref=e255] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/credentials-binding/healthScore
+            - cell [ref=e256]:
+              - checkbox [checked] [ref=e259]
+            - cell "523.vd859a_4b_122e6" [ref=e261]:
+              - button "523.vd859a_4b_122e6" [ref=e264] [cursor=pointer]:
+                - img [ref=e265]
+                - generic [ref=e269]: 523.vd859a_4b_122e6
+            - cell [ref=e270]:
+              - button "卸载 Credentials Binding Plugin" [ref=e272] [cursor=pointer]:
+                - img [ref=e273]
+          - row "Credentials Plugin 版本 1502.v5c95e620ddfe This plugin allows you to store credentials in Jenkins. Report an issue with this plugin 100 1502.v5c95e620ddfe" [ref=e276]:
+            - cell "Credentials Plugin 版本 1502.v5c95e620ddfe This plugin allows you to store credentials in Jenkins. Report an issue with this plugin" [ref=e277]:
+              - link "Credentials Plugin 版本 1502.v5c95e620ddfe" [ref=e279] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/credentials
+                - text: Credentials Plugin
+                - generic [ref=e280]:
+                  - generic [ref=e281]: 版本
+                  - text: 1502.v5c95e620ddfe
+              - generic [ref=e283]: This plugin allows you to store credentials in Jenkins.
+              - link "Report an issue with this plugin" [ref=e285] [cursor=pointer]:
+                - /url: https://github.com/jenkinsci/credentials-plugin/issues/new/choose
+            - cell "100" [ref=e286]:
+              - link "100" [ref=e288] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/credentials/healthScore
+            - cell [ref=e289]:
+              - generic [ref=e291]:
+                - checkbox [checked]
+            - cell "1502.v5c95e620ddfe" [ref=e292]:
+              - generic [ref=e294]:
+                - button "1502.v5c95e620ddfe":
+                  - img
+                  - generic: 1502.v5c95e620ddfe
+            - cell [ref=e295]:
+              - generic [ref=e296]:
+                - button "卸载 Credentials Plugin":
+                  - img
+          - row "Display URL API 版本 2.217.va_6b_de84cc74b_ Provides the DisplayURLProvider extension point to provide alternate URLs for use in notifications. Report an issue with this plugin 95" [ref=e297]:
+            - cell "Display URL API 版本 2.217.va_6b_de84cc74b_ Provides the DisplayURLProvider extension point to provide alternate URLs for use in notifications. Report an issue with this plugin" [ref=e298]:
+              - link "Display URL API 版本 2.217.va_6b_de84cc74b_" [ref=e300] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/display-url-api
+                - text: Display URL API
+                - generic [ref=e301]:
+                  - generic [ref=e302]: 版本
+                  - text: 2.217.va_6b_de84cc74b_
+              - generic [ref=e304]: Provides the DisplayURLProvider extension point to provide alternate URLs for use in notifications.
+              - link "Report an issue with this plugin" [ref=e306] [cursor=pointer]:
+                - /url: https://www.jenkins.io/participate/report-issue/redirect/#21721/display-url-api
+            - cell "95" [ref=e307]:
+              - link "95" [ref=e309] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/display-url-api/healthScore
+            - cell [ref=e310]:
+              - generic [ref=e312]:
+                - checkbox [checked]
+            - cell [ref=e313]
+            - cell [ref=e314]:
+              - generic [ref=e315]:
+                - button "卸载 Display URL API":
+                  - img
+          - row "Durable Task Plugin 版本 671.v340ff7959010 Library offering an extension point for processes which can run outside of Jenkins yet be monitored. Report an issue with this plugin 100" [ref=e316]:
+            - cell "Durable Task Plugin 版本 671.v340ff7959010 Library offering an extension point for processes which can run outside of Jenkins yet be monitored. Report an issue with this plugin" [ref=e317]:
+              - link "Durable Task Plugin 版本 671.v340ff7959010" [ref=e319] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/durable-task
+                - text: Durable Task Plugin
+                - generic [ref=e320]:
+                  - generic [ref=e321]: 版本
+                  - text: 671.v340ff7959010
+              - generic [ref=e323]: Library offering an extension point for processes which can run outside of Jenkins yet be monitored.
+              - link "Report an issue with this plugin" [ref=e325] [cursor=pointer]:
+                - /url: https://github.com/jenkinsci/durable-task-plugin/issues/new/choose
+            - cell "100" [ref=e326]:
+              - link "100" [ref=e328] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/durable-task/healthScore
+            - cell [ref=e329]:
+              - checkbox [checked] [ref=e332]
+            - cell [ref=e334]
+            - cell [ref=e335]:
+              - button "卸载 Durable Task Plugin" [ref=e337] [cursor=pointer]:
+                - img [ref=e338]
+          - row "EDDSA API Plugin 版本 0.3.0.1-29.v67e9a_1c969b_b_ EDDSA api plugin for use by other Jenkins plugins. Note:Modern (> 15) JDK variants natively support EdDSA signatures via JCE but some libraries still target JDK 11 and have a need of this library. Report an issue with this plugin 97" [ref=e341]:
+            - cell "EDDSA API Plugin 版本 0.3.0.1-29.v67e9a_1c969b_b_ EDDSA api plugin for use by other Jenkins plugins. Note:Modern (> 15) JDK variants natively support EdDSA signatures via JCE but some libraries still target JDK 11 and have a need of this library. Report an issue with this plugin" [ref=e342]:
+              - link "EDDSA API Plugin 版本 0.3.0.1-29.v67e9a_1c969b_b_" [ref=e344] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/eddsa-api
+                - text: EDDSA API Plugin
+                - generic [ref=e345]:
+                  - generic [ref=e346]: 版本
+                  - text: 0.3.0.1-29.v67e9a_1c969b_b_
+              - generic [ref=e348]:
+                - link "EDDSA" [ref=e349] [cursor=pointer]:
+                  - /url: https://github.com/str4d/ed25519-java
+                - text: api plugin for use by other Jenkins plugins.
+                - emphasis [ref=e350]: "Note:"
+                - text: Modern (> 15) JDK variants natively support EdDSA signatures via JCE but some libraries still target JDK 11 and have a need of this library.
+              - link "Report an issue with this plugin" [ref=e352] [cursor=pointer]:
+                - /url: https://www.jenkins.io/participate/report-issue/redirect/#29422/eddsa-api
+            - cell "97" [ref=e353]:
+              - link "97" [ref=e355] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/eddsa-api/healthScore
+            - cell [ref=e356]:
+              - generic [ref=e358]:
+                - checkbox [checked]
+            - cell [ref=e359]
+            - cell [ref=e360]:
+              - generic [ref=e361]:
+                - button "卸载 EDDSA API Plugin":
+                  - img
+          - row "Folders Plugin 版本 6.1100.ve9eed61d16c4 This plugin allows users to create \"folders\" to organize jobs. Users can define custom taxonomies (like by project type, organization type etc). Folders are nestable and you can define views within folders. Maintained by CloudBees, Inc. Report an issue with this plugin 100" [ref=e362]:
+            - cell "Folders Plugin 版本 6.1100.ve9eed61d16c4 This plugin allows users to create \"folders\" to organize jobs. Users can define custom taxonomies (like by project type, organization type etc). Folders are nestable and you can define views within folders. Maintained by CloudBees, Inc. Report an issue with this plugin" [ref=e363]:
+              - link "Folders Plugin 版本 6.1100.ve9eed61d16c4" [ref=e365] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/cloudbees-folder
+                - text: Folders Plugin
+                - generic [ref=e366]:
+                  - generic [ref=e367]: 版本
+                  - text: 6.1100.ve9eed61d16c4
+              - generic [ref=e369]: This plugin allows users to create "folders" to organize jobs. Users can define custom taxonomies (like by project type, organization type etc). Folders are nestable and you can define views within folders. Maintained by CloudBees, Inc.
+              - link "Report an issue with this plugin" [ref=e371] [cursor=pointer]:
+                - /url: https://github.com/jenkinsci/cloudbees-folder-plugin/issues/new/choose
+            - cell "100" [ref=e372]:
+              - link "100" [ref=e374] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/cloudbees-folder/healthScore
+            - cell [ref=e375]:
+              - checkbox [checked] [ref=e378]
+            - cell [ref=e380]
+            - cell [ref=e381]:
+              - button "卸载 Folders Plugin" [ref=e383] [cursor=pointer]:
+                - img [ref=e384]
+          - 'row "Git Parameter Plug-In Failed to load: Git Parameter Plug-In (git-parameter 462.vdcf3df2ed2ca_) - Failed to load: Pipeline: Supporting APIs (workflow-support 1015.v785e5a_b_b_8b_22)" [ref=e387]':
+            - 'cell "Git Parameter Plug-In Failed to load: Git Parameter Plug-In (git-parameter 462.vdcf3df2ed2ca_) - Failed to load: Pipeline: Supporting APIs (workflow-support 1015.v785e5a_b_b_8b_22)" [ref=e388]':
+              - link "Git Parameter Plug-In" [ref=e390] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/git-parameter
+              - generic [ref=e392]: "Failed to load: Git Parameter Plug-In (git-parameter 462.vdcf3df2ed2ca_) - Failed to load: Pipeline: Supporting APIs (workflow-support 1015.v785e5a_b_b_8b_22)"
+            - cell [ref=e393]:
+              - checkbox [disabled] [ref=e396]
+            - cell [ref=e398]
+            - cell [ref=e399]
+          - 'row "Git plugin Failed to load: Git plugin (git 5.10.1) - Plugin is missing: git-client (6.5.0) - Update required: SCM API Plugin (scm-api 621.vda_a_b_055e58f7) to be updated to 724.v7d839074eb_5c or higher - Update required: Pipeline: SCM Step (workflow-scm-step 400.v6b_89a_1317c9a_) to be updated to 466.va_d69e602552b_ or higher" [ref=e400]':
+            - 'cell "Git plugin Failed to load: Git plugin (git 5.10.1) - Plugin is missing: git-client (6.5.0) - Update required: SCM API Plugin (scm-api 621.vda_a_b_055e58f7) to be updated to 724.v7d839074eb_5c or higher - Update required: Pipeline: SCM Step (workflow-scm-step 400.v6b_89a_1317c9a_) to be updated to 466.va_d69e602552b_ or higher" [ref=e401]':
+              - link "Git plugin" [ref=e403] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/git
+              - generic [ref=e405]: "Failed to load: Git plugin (git 5.10.1) - Plugin is missing: git-client (6.5.0) - Update required: SCM API Plugin (scm-api 621.vda_a_b_055e58f7) to be updated to 724.v7d839074eb_5c or higher - Update required: Pipeline: SCM Step (workflow-scm-step 400.v6b_89a_1317c9a_) to be updated to 466.va_d69e602552b_ or higher"
+            - cell [ref=e406]:
+              - checkbox [disabled] [ref=e409]
+            - cell [ref=e411]
+            - cell [ref=e412]
+          - row "Gson API Plugin 版本 2.14.0-201.v8eefe5515533 This plugin provides the Gson APIs (v2.14.0) for other plugins. Report an issue with this plugin 100 2.14.0-201.v8eefe5515533" [ref=e413]:
+            - cell "Gson API Plugin 版本 2.14.0-201.v8eefe5515533 This plugin provides the Gson APIs (v2.14.0) for other plugins. Report an issue with this plugin" [ref=e414]:
+              - link "Gson API Plugin 版本 2.14.0-201.v8eefe5515533" [ref=e416] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/gson-api
+                - text: Gson API Plugin
+                - generic [ref=e417]:
+                  - generic [ref=e418]: 版本
+                  - text: 2.14.0-201.v8eefe5515533
+              - generic [ref=e420]:
+                - text: This plugin provides the
+                - link "Gson" [ref=e421] [cursor=pointer]:
+                  - /url: https://github.com/google/gson
+                - text: APIs (v2.14.0) for other plugins.
+              - link "Report an issue with this plugin" [ref=e423] [cursor=pointer]:
+                - /url: https://github.com/jenkinsci/gson-api-plugin/issues/new/choose
+            - cell "100" [ref=e424]:
+              - link "100" [ref=e426] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/gson-api/healthScore
+            - cell [ref=e427]:
+              - generic [ref=e429]:
+                - checkbox [checked]
+            - cell "2.14.0-201.v8eefe5515533" [ref=e430]:
+              - generic [ref=e432]:
+                - button "2.14.0-201.v8eefe5515533":
+                  - img
+                  - generic: 2.14.0-201.v8eefe5515533
+            - cell [ref=e433]:
+              - generic [ref=e434]:
+                - button "卸载 Gson API Plugin":
+                  - img
+          - row "Instance Identity 版本 203.v15e81a_1b_7a_38 Maintains an RSA key pair that can serve as a foundation of authentication when communicating with Jenkins Report an issue with this plugin 93" [ref=e435]:
+            - cell "Instance Identity 版本 203.v15e81a_1b_7a_38 Maintains an RSA key pair that can serve as a foundation of authentication when communicating with Jenkins Report an issue with this plugin" [ref=e436]:
+              - link "Instance Identity 版本 203.v15e81a_1b_7a_38" [ref=e438] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/instance-identity
+                - text: Instance Identity
+                - generic [ref=e439]:
+                  - generic [ref=e440]: 版本
+                  - text: 203.v15e81a_1b_7a_38
+              - generic [ref=e442]: Maintains an RSA key pair that can serve as a foundation of authentication when communicating with Jenkins
+              - link "Report an issue with this plugin" [ref=e444] [cursor=pointer]:
+                - /url: https://github.com/jenkinsci/instance-identity-plugin/issues/new/choose
+            - cell "93" [ref=e445]:
+              - link "93" [ref=e447] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/instance-identity/healthScore
+            - cell [ref=e448]:
+              - generic [ref=e450]:
+                - checkbox [checked]
+            - cell [ref=e451]
+            - cell [ref=e452]:
+              - generic [ref=e453]:
+                - button "卸载 Instance Identity":
+                  - img
+          - row "Ionicons API 版本 94.vcc3065403257 Provides Ionicons for Jenkins Plugins, internally known as \"symbols\". Check out the design-library how to use ionicons in your plugin. Report an issue with this plugin 96" [ref=e454]:
+            - cell "Ionicons API 版本 94.vcc3065403257 Provides Ionicons for Jenkins Plugins, internally known as \"symbols\". Check out the design-library how to use ionicons in your plugin. Report an issue with this plugin" [ref=e455]:
+              - link "Ionicons API 版本 94.vcc3065403257" [ref=e457] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/ionicons-api
+                - text: Ionicons API
+                - generic [ref=e458]:
+                  - generic [ref=e459]: 版本
+                  - text: 94.vcc3065403257
+              - generic [ref=e461]:
+                - text: Provides
+                - link "Ionicons" [ref=e462] [cursor=pointer]:
+                  - /url: https://ionic.io/ionicons
+                - text: for Jenkins Plugins, internally known as "symbols".
+                - text: Check out the
+                - link "design-library" [ref=e463] [cursor=pointer]:
+                  - /url: https://weekly.ci.jenkins.io/design-library/Symbols/
+                - text: how to use ionicons in your plugin.
+              - link "Report an issue with this plugin" [ref=e465] [cursor=pointer]:
+                - /url: https://github.com/jenkinsci/ionicons-api-plugin/issues/new/choose
+            - cell "96" [ref=e466]:
+              - link "96" [ref=e468] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/ionicons-api/healthScore
+            - cell [ref=e469]:
+              - generic [ref=e471]:
+                - checkbox [checked]
+            - cell [ref=e472]
+            - cell [ref=e473]:
+              - generic [ref=e474]:
+                - button "卸载 Ionicons API":
+                  - img
+          - row "Jackson 2 API Plugin 版本 2.21.2-436.v29efdb_7418ff This plugin exposes the Jackson 2 JSON APIs to other Jenkins plugins. Report an issue with this plugin 97" [ref=e475]:
+            - cell "Jackson 2 API Plugin 版本 2.21.2-436.v29efdb_7418ff This plugin exposes the Jackson 2 JSON APIs to other Jenkins plugins. Report an issue with this plugin" [ref=e476]:
+              - link "Jackson 2 API Plugin 版本 2.21.2-436.v29efdb_7418ff" [ref=e478] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/jackson2-api
+                - text: Jackson 2 API Plugin
+                - generic [ref=e479]:
+                  - generic [ref=e480]: 版本
+                  - text: 2.21.2-436.v29efdb_7418ff
+              - generic [ref=e482]: This plugin exposes the Jackson 2 JSON APIs to other Jenkins plugins.
+              - link "Report an issue with this plugin" [ref=e484] [cursor=pointer]:
+                - /url: https://www.jenkins.io/participate/report-issue/redirect/#23528/jackson2-api
+            - cell "97" [ref=e485]:
+              - link "97" [ref=e487] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/jackson2-api/healthScore
+            - cell [ref=e488]:
+              - generic [ref=e490]:
+                - checkbox [checked]
+            - cell [ref=e491]
+            - cell [ref=e492]:
+              - generic [ref=e493]:
+                - button "卸载 Jackson 2 API Plugin":
+                  - img
+          - row "Jackson Annotations 2 API Plugin 版本 2.22-19.v10a_a_582ea_26e This plugin exposes the Jackson Annotation 2 APIs to other Jenkins plugins. Report an issue with this plugin 100" [ref=e494]:
+            - cell "Jackson Annotations 2 API Plugin 版本 2.22-19.v10a_a_582ea_26e This plugin exposes the Jackson Annotation 2 APIs to other Jenkins plugins. Report an issue with this plugin" [ref=e495]:
+              - link "Jackson Annotations 2 API Plugin 版本 2.22-19.v10a_a_582ea_26e" [ref=e497] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/jackson-annotations2-api
+                - text: Jackson Annotations 2 API Plugin
+                - generic [ref=e498]:
+                  - generic [ref=e499]: 版本
+                  - text: 2.22-19.v10a_a_582ea_26e
+              - generic [ref=e501]: This plugin exposes the Jackson Annotation 2 APIs to other Jenkins plugins.
+              - link "Report an issue with this plugin" [ref=e503] [cursor=pointer]:
+                - /url: https://github.com/jenkinsci/jackson-annotations2-api-plugin/issues/new/choose
+            - cell "100" [ref=e504]:
+              - link "100" [ref=e506] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/jackson-annotations2-api/healthScore
+            - cell [ref=e507]:
+              - generic [ref=e509]:
+                - checkbox [checked]
+            - cell [ref=e510]
+            - cell [ref=e511]:
+              - generic [ref=e512]:
+                - button "卸载 Jackson Annotations 2 API Plugin":
+                  - img
+          - row "Jakarta Activation API 版本 2.1.4-1 This plugin provides the Jakarta Activation API for other plugins. Report an issue with this plugin 97" [ref=e513]:
+            - cell "Jakarta Activation API 版本 2.1.4-1 This plugin provides the Jakarta Activation API for other plugins. Report an issue with this plugin" [ref=e514]:
+              - link "Jakarta Activation API 版本 2.1.4-1" [ref=e516] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/jakarta-activation-api
+                - text: Jakarta Activation API
+                - generic [ref=e517]:
+                  - generic [ref=e518]: 版本
+                  - text: 2.1.4-1
+              - generic [ref=e520]:
+                - text: This plugin provides the
+                - link "Jakarta Activation" [ref=e521] [cursor=pointer]:
+                  - /url: https://github.com/eclipse-ee4j/jaf
+                - text: API for other plugins.
+              - link "Report an issue with this plugin" [ref=e523] [cursor=pointer]:
+                - /url: https://github.com/jenkinsci/jakarta-activation-api-plugin/issues/new/choose
+            - cell "97" [ref=e524]:
+              - link "97" [ref=e526] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/jakarta-activation-api/healthScore
+            - cell [ref=e527]:
+              - generic [ref=e529]:
+                - checkbox [checked]
+            - cell [ref=e530]
+            - cell [ref=e531]:
+              - generic [ref=e532]:
+                - button "卸载 Jakarta Activation API":
+                  - img
+          - row "Jakarta Mail API 版本 2.1.5-1 This plugin provides the Jakarta Mail API for other plugins. Report an issue with this plugin 96" [ref=e533]:
+            - cell "Jakarta Mail API 版本 2.1.5-1 This plugin provides the Jakarta Mail API for other plugins. Report an issue with this plugin" [ref=e534]:
+              - link "Jakarta Mail API 版本 2.1.5-1" [ref=e536] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/jakarta-mail-api
+                - text: Jakarta Mail API
+                - generic [ref=e537]:
+                  - generic [ref=e538]: 版本
+                  - text: 2.1.5-1
+              - generic [ref=e540]:
+                - text: This plugin provides the
+                - link "Jakarta Mail" [ref=e541] [cursor=pointer]:
+                  - /url: https://github.com/eclipse-ee4j/mail
+                - text: API for other plugins.
+              - link "Report an issue with this plugin" [ref=e543] [cursor=pointer]:
+                - /url: https://github.com/jenkinsci/jakarta-mail-api-plugin/issues/new/choose
+            - cell "96" [ref=e544]:
+              - link "96" [ref=e546] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/jakarta-mail-api/healthScore
+            - cell [ref=e547]:
+              - generic [ref=e549]:
+                - checkbox [checked]
+            - cell [ref=e550]
+            - cell [ref=e551]:
+              - generic [ref=e552]:
+                - button "卸载 Jakarta Mail API":
+                  - img
+          - row "Jakarta XML Binding API 版本 4.0.9-19.v2b_a_5b_44d9a_1c This plugin provides the Jakarta XML Binding API for other plugins. Report an issue with this plugin 100" [ref=e553]:
+            - cell "Jakarta XML Binding API 版本 4.0.9-19.v2b_a_5b_44d9a_1c This plugin provides the Jakarta XML Binding API for other plugins. Report an issue with this plugin" [ref=e554]:
+              - link "Jakarta XML Binding API 版本 4.0.9-19.v2b_a_5b_44d9a_1c" [ref=e556] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/jakarta-xml-bind-api
+                - text: Jakarta XML Binding API
+                - generic [ref=e557]:
+                  - generic [ref=e558]: 版本
+                  - text: 4.0.9-19.v2b_a_5b_44d9a_1c
+              - generic [ref=e560]:
+                - text: This plugin provides the
+                - link "Jakarta XML Binding" [ref=e561] [cursor=pointer]:
+                  - /url: https://eclipse-ee4j.github.io/jaxb-ri/
+                - text: API for other plugins.
+              - link "Report an issue with this plugin" [ref=e563] [cursor=pointer]:
+                - /url: https://github.com/jenkinsci/jakarta-xml-bind-api-plugin/issues/new/choose
+            - cell "100" [ref=e564]:
+              - link "100" [ref=e566] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/jakarta-xml-bind-api/healthScore
+            - cell [ref=e567]:
+              - generic [ref=e569]:
+                - checkbox [checked]
+            - cell [ref=e570]
+            - cell [ref=e571]:
+              - generic [ref=e572]:
+                - button "卸载 Jakarta XML Binding API":
+                  - img
+          - row "JavaBeans Activation Framework (JAF) API 版本 1.2.0-8 This plugin provides the JavaBeans Activation Framework (JAF) API for other plugins. Report an issue with this plugin 94" [ref=e573]:
+            - cell "JavaBeans Activation Framework (JAF) API 版本 1.2.0-8 This plugin provides the JavaBeans Activation Framework (JAF) API for other plugins. Report an issue with this plugin" [ref=e574]:
+              - link "JavaBeans Activation Framework (JAF) API 版本 1.2.0-8" [ref=e576] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/javax-activation-api
+                - text: JavaBeans Activation Framework (JAF) API
+                - generic [ref=e577]:
+                  - generic [ref=e578]: 版本
+                  - text: 1.2.0-8
+              - generic [ref=e580]:
+                - text: This plugin provides the
+                - link "JavaBeans Activation Framework (JAF)" [ref=e581] [cursor=pointer]:
+                  - /url: https://github.com/javaee/activation
+                - text: API for other plugins.
+              - link "Report an issue with this plugin" [ref=e583] [cursor=pointer]:
+                - /url: https://github.com/jenkinsci/javax-activation-api-plugin/issues/new/choose
+            - cell "94" [ref=e584]:
+              - link "94" [ref=e586] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/javax-activation-api/healthScore
+            - cell [ref=e587]:
+              - generic [ref=e589]:
+                - checkbox [checked]
+            - cell [ref=e590]
+            - cell [ref=e591]:
+              - generic [ref=e592]:
+                - button "卸载 JavaBeans Activation Framework (JAF) API":
+                  - img
+          - row "JavaMail API 版本 1.6.2-11 This plugin provides the JavaMail API for other plugins. Report an issue with this plugin 94" [ref=e593]:
+            - cell "JavaMail API 版本 1.6.2-11 This plugin provides the JavaMail API for other plugins. Report an issue with this plugin" [ref=e594]:
+              - link "JavaMail API 版本 1.6.2-11" [ref=e596] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/javax-mail-api
+                - text: JavaMail API
+                - generic [ref=e597]:
+                  - generic [ref=e598]: 版本
+                  - text: 1.6.2-11
+              - generic [ref=e600]:
+                - text: This plugin provides the
+                - link "JavaMail" [ref=e601] [cursor=pointer]:
+                  - /url: https://github.com/javaee/javamail
+                - text: API for other plugins.
+              - link "Report an issue with this plugin" [ref=e603] [cursor=pointer]:
+                - /url: https://github.com/jenkinsci/javax-mail-api-plugin/issues/new/choose
+            - cell "94" [ref=e604]:
+              - link "94" [ref=e606] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/javax-mail-api/healthScore
+            - cell [ref=e607]:
+              - checkbox [checked] [ref=e610]
+            - cell [ref=e612]
+            - cell [ref=e613]:
+              - button "卸载 JavaMail API" [ref=e615] [cursor=pointer]:
+                - img [ref=e616]
+          - row "JAXB plugin 版本 2.3.9-143.v5979df3304e6 JAXB packaging for more transparent Java 9+ compatibility Report an issue with this plugin This plugin is up for adoption! We are looking for new maintainers. Visit our Adopt a Plugin initiative for more information. 80" [ref=e619]:
+            - cell "JAXB plugin 版本 2.3.9-143.v5979df3304e6 JAXB packaging for more transparent Java 9+ compatibility Report an issue with this plugin This plugin is up for adoption! We are looking for new maintainers. Visit our Adopt a Plugin initiative for more information." [ref=e620]:
+              - link "JAXB plugin 版本 2.3.9-143.v5979df3304e6" [ref=e622] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/jaxb
+                - text: JAXB plugin
+                - generic [ref=e623]:
+                  - generic [ref=e624]: 版本
+                  - text: 2.3.9-143.v5979df3304e6
+              - generic [ref=e626]: JAXB packaging for more transparent Java 9+ compatibility
+              - link "Report an issue with this plugin" [ref=e628] [cursor=pointer]:
+                - /url: https://github.com/jenkinsci/jaxb-plugin/issues/new/choose
+              - generic [ref=e629]:
+                - strong [ref=e630]: This plugin is up for adoption!
+                - text: We are looking for new maintainers. Visit our
+                - link "Adopt a Plugin" [ref=e631] [cursor=pointer]:
+                  - /url: https://www.jenkins.io/doc/developer/plugin-governance/adopt-a-plugin/
+                - text: initiative for more information.
+            - cell "80" [ref=e632]:
+              - link "80" [ref=e634] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/jaxb/healthScore
+            - cell [ref=e635]:
+              - generic [ref=e637]:
+                - checkbox [checked]
+            - cell [ref=e638]
+            - cell [ref=e639]:
+              - generic [ref=e640]:
+                - button "卸载 JAXB plugin":
+                  - img
+          - row "Joda Time API Plugin 版本 2.14.2-193.v422b_efce56e0 This plugin provides the Joda Time APIs (v2.14.2) for other plugins. Report an issue with this plugin 100" [ref=e641]:
+            - cell "Joda Time API Plugin 版本 2.14.2-193.v422b_efce56e0 This plugin provides the Joda Time APIs (v2.14.2) for other plugins. Report an issue with this plugin" [ref=e642]:
+              - link "Joda Time API Plugin 版本 2.14.2-193.v422b_efce56e0" [ref=e644] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/joda-time-api
+                - text: Joda Time API Plugin
+                - generic [ref=e645]:
+                  - generic [ref=e646]: 版本
+                  - text: 2.14.2-193.v422b_efce56e0
+              - generic [ref=e648]:
+                - text: This plugin provides the
+                - link "Joda Time" [ref=e649] [cursor=pointer]:
+                  - /url: https://github.com/JodaOrg/joda-time
+                - text: APIs (v2.14.2) for other plugins.
+              - link "Report an issue with this plugin" [ref=e651] [cursor=pointer]:
+                - /url: https://github.com/jenkinsci/joda-time-api-plugin/issues/new/choose
+            - cell "100" [ref=e652]:
+              - link "100" [ref=e654] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/joda-time-api/healthScore
+            - cell [ref=e655]:
+              - checkbox [checked] [ref=e658]
+            - cell [ref=e660]
+            - cell [ref=e661]:
+              - button "卸载 Joda Time API Plugin" [ref=e663] [cursor=pointer]:
+                - img [ref=e664]
+          - row "JQuery3 API Plugin 版本 3.7.1-687.v68d468e40b_30 Provides jQuery 3 for Jenkins Plugins. jQuery is a fast, small, and feature-rich JavaScript library. Report an issue with this plugin 96" [ref=e667]:
+            - cell "JQuery3 API Plugin 版本 3.7.1-687.v68d468e40b_30 Provides jQuery 3 for Jenkins Plugins. jQuery is a fast, small, and feature-rich JavaScript library. Report an issue with this plugin" [ref=e668]:
+              - link "JQuery3 API Plugin 版本 3.7.1-687.v68d468e40b_30" [ref=e670] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/jquery3-api
+                - text: JQuery3 API Plugin
+                - generic [ref=e671]:
+                  - generic [ref=e672]: 版本
+                  - text: 3.7.1-687.v68d468e40b_30
+              - generic [ref=e674]:
+                - text: Provides
+                - link "jQuery 3" [ref=e675] [cursor=pointer]:
+                  - /url: https://jquery.com
+                - text: for Jenkins Plugins. jQuery is a fast, small, and feature-rich JavaScript library.
+              - link "Report an issue with this plugin" [ref=e677] [cursor=pointer]:
+                - /url: https://github.com/jenkinsci/jquery3-api-plugin/issues/new/choose
+            - cell "96" [ref=e678]:
+              - link "96" [ref=e680] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/jquery3-api/healthScore
+            - cell [ref=e681]:
+              - checkbox [checked] [ref=e684]
+            - cell [ref=e686]
+            - cell [ref=e687]:
+              - button "卸载 JQuery3 API Plugin" [ref=e689] [cursor=pointer]:
+                - img [ref=e690]
+          - row "JSON API Plugin 版本 20260522-217.v0b_18b_8cd4672 This plugin provides the JSON APIs (v20260522) for other plugins. Report an issue with this plugin 100" [ref=e693]:
+            - cell "JSON API Plugin 版本 20260522-217.v0b_18b_8cd4672 This plugin provides the JSON APIs (v20260522) for other plugins. Report an issue with this plugin" [ref=e694]:
+              - link "JSON API Plugin 版本 20260522-217.v0b_18b_8cd4672" [ref=e696] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/json-api
+                - text: JSON API Plugin
+                - generic [ref=e697]:
+                  - generic [ref=e698]: 版本
+                  - text: 20260522-217.v0b_18b_8cd4672
+              - generic [ref=e700]:
+                - text: This plugin provides the
+                - link "JSON" [ref=e701] [cursor=pointer]:
+                  - /url: https://github.com/stleary/JSON-java
+                - text: APIs (v20260522) for other plugins.
+              - link "Report an issue with this plugin" [ref=e703] [cursor=pointer]:
+                - /url: https://github.com/jenkinsci/json-api-plugin/issues/new/choose
+            - cell "100" [ref=e704]:
+              - link "100" [ref=e706] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/json-api/healthScore
+            - cell [ref=e707]:
+              - generic [ref=e709]:
+                - checkbox [checked]
+            - cell [ref=e710]
+            - cell [ref=e711]:
+              - generic [ref=e712]:
+                - button "卸载 JSON API Plugin":
+                  - img
+          - row "Locale plugin 版本 641.v84f22d75fd8b_ This plugin lets you control the language of Jenkins. Report an issue with this plugin 100" [ref=e713]:
+            - cell "Locale plugin 版本 641.v84f22d75fd8b_ This plugin lets you control the language of Jenkins. Report an issue with this plugin" [ref=e714]:
+              - link "Locale plugin 版本 641.v84f22d75fd8b_" [ref=e716] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/locale
+                - text: Locale plugin
+                - generic [ref=e717]:
+                  - generic [ref=e718]: 版本
+                  - text: 641.v84f22d75fd8b_
+              - generic [ref=e720]: This plugin lets you control the language of Jenkins.
+              - link "Report an issue with this plugin" [ref=e722] [cursor=pointer]:
+                - /url: https://github.com/jenkinsci/locale-plugin/issues/new/choose
+            - cell "100" [ref=e723]:
+              - link "100" [ref=e725] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/locale/healthScore
+            - cell [ref=e726]:
+              - checkbox [checked] [ref=e729]
+            - cell [ref=e731]
+            - cell [ref=e732]:
+              - button "卸载 Locale plugin" [ref=e734] [cursor=pointer]:
+                - img [ref=e735]
+          - row "Localization Support Plugin 版本 1.41.v186a_c1569458 Supporting infrastructure for standalone localization plugins. On its own, this plugin doesn't do a lot, it requires other plugins to work. Report an issue with this plugin 100" [ref=e738]:
+            - cell "Localization Support Plugin 版本 1.41.v186a_c1569458 Supporting infrastructure for standalone localization plugins. On its own, this plugin doesn't do a lot, it requires other plugins to work. Report an issue with this plugin" [ref=e739]:
+              - link "Localization Support Plugin 版本 1.41.v186a_c1569458" [ref=e741] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/localization-support
+                - text: Localization Support Plugin
+                - generic [ref=e742]:
+                  - generic [ref=e743]: 版本
+                  - text: 1.41.v186a_c1569458
+              - generic [ref=e745]: Supporting infrastructure for standalone localization plugins. On its own, this plugin doesn't do a lot, it requires other plugins to work.
+              - link "Report an issue with this plugin" [ref=e747] [cursor=pointer]:
+                - /url: https://github.com/jenkinsci/localization-support-plugin/issues/new/choose
+            - cell "100" [ref=e748]:
+              - link "100" [ref=e750] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/localization-support/healthScore
+            - cell [ref=e751]:
+              - generic [ref=e753]:
+                - checkbox [checked]
+            - cell [ref=e754]
+            - cell [ref=e755]:
+              - generic [ref=e756]:
+                - button "卸载 Localization Support Plugin":
+                  - img
+          - 'row "Localization: Chinese (Simplified) 版本 371.v23851f835d6b_ Jenkins Core 及其插件的简体中文语言包，由 Jenkins 中文社区维护。 Report an issue with this plugin 86" [ref=e757]':
+            - 'cell "Localization: Chinese (Simplified) 版本 371.v23851f835d6b_ Jenkins Core 及其插件的简体中文语言包，由 Jenkins 中文社区维护。 Report an issue with this plugin" [ref=e758]':
+              - 'link "Localization: Chinese (Simplified) 版本 371.v23851f835d6b_" [ref=e760] [cursor=pointer]':
+                - /url: https://plugins.jenkins.io/localization-zh-cn
+                - text: "Localization: Chinese (Simplified)"
+                - generic [ref=e761]:
+                  - generic [ref=e762]: 版本
+                  - text: 371.v23851f835d6b_
+              - generic [ref=e764]:
+                - text: Jenkins Core 及其插件的简体中文语言包，由
+                - link "Jenkins 中文社区" [ref=e765] [cursor=pointer]:
+                  - /url: https://jenkins-zh.cn/about
+                - text: 维护。
+              - link "Report an issue with this plugin" [ref=e767] [cursor=pointer]:
+                - /url: https://github.com/jenkinsci/localization-zh-cn-plugin/issues/new/choose
+            - cell "86" [ref=e768]:
+              - link "86" [ref=e770] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/localization-zh-cn/healthScore
+            - cell [ref=e771]:
+              - checkbox [checked] [ref=e774]
+            - cell [ref=e776]
+            - cell [ref=e777]:
+              - 'button "卸载 Localization: Chinese (Simplified)" [ref=e779] [cursor=pointer]':
+                - img [ref=e780]
+          - row "Mailer Plugin 版本 534.v1b_36f5864073 This plugin allows you to configure email notifications for build results. Report an issue with this plugin 100" [ref=e783]:
+            - cell "Mailer Plugin 版本 534.v1b_36f5864073 This plugin allows you to configure email notifications for build results. Report an issue with this plugin" [ref=e784]:
+              - link "Mailer Plugin 版本 534.v1b_36f5864073" [ref=e786] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/mailer
+                - text: Mailer Plugin
+                - generic [ref=e787]:
+                  - generic [ref=e788]: 版本
+                  - text: 534.v1b_36f5864073
+              - generic [ref=e790]: This plugin allows you to configure email notifications for build results.
+              - link "Report an issue with this plugin" [ref=e792] [cursor=pointer]:
+                - /url: https://github.com/jenkinsci/mailer-plugin/issues/new/choose
+            - cell "100" [ref=e793]:
+              - link "100" [ref=e795] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/mailer/healthScore
+            - cell [ref=e796]:
+              - checkbox [checked] [ref=e799]
+            - cell [ref=e801]
+            - cell [ref=e802]:
+              - button "卸载 Mailer Plugin" [ref=e804] [cursor=pointer]:
+                - img [ref=e805]
+          - 'row "Pipeline Failed to load: Pipeline (workflow-aggregator 608.v67378e9d3db_1) - Failed to load: Pipeline: Groovy Libraries (pipeline-groovy-lib 798.v5cc688825312)" [ref=e808]':
+            - 'cell "Pipeline Failed to load: Pipeline (workflow-aggregator 608.v67378e9d3db_1) - Failed to load: Pipeline: Groovy Libraries (pipeline-groovy-lib 798.v5cc688825312)" [ref=e809]':
+              - link "Pipeline" [ref=e811] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/workflow-aggregator
+              - generic [ref=e813]: "Failed to load: Pipeline (workflow-aggregator 608.v67378e9d3db_1) - Failed to load: Pipeline: Groovy Libraries (pipeline-groovy-lib 798.v5cc688825312)"
+            - cell [ref=e814]:
+              - checkbox [disabled] [ref=e817]
+            - cell [ref=e819]
+            - cell [ref=e820]
+          - 'row "Pipeline: API Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_) - Update required: SCM API Plugin (scm-api 621.vda_a_b_055e58f7) to be updated to 712.v8846fdd68c88 or higher" [ref=e821]':
+            - 'cell "Pipeline: API Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_) - Update required: SCM API Plugin (scm-api 621.vda_a_b_055e58f7) to be updated to 712.v8846fdd68c88 or higher" [ref=e822]':
+              - 'link "Pipeline: API" [ref=e824] [cursor=pointer]':
+                - /url: https://plugins.jenkins.io/workflow-api
+              - generic [ref=e826]: "Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_) - Update required: SCM API Plugin (scm-api 621.vda_a_b_055e58f7) to be updated to 712.v8846fdd68c88 or higher"
+            - cell [ref=e827]:
+              - checkbox [disabled] [ref=e830]
+            - cell [ref=e832]
+            - cell [ref=e833]
+          - 'row "Pipeline: Basic Steps Failed to load: Pipeline: Basic Steps (workflow-basic-steps 991.v43d80fea_ff66) - Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_)" [ref=e834]':
+            - 'cell "Pipeline: Basic Steps Failed to load: Pipeline: Basic Steps (workflow-basic-steps 991.v43d80fea_ff66) - Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_)" [ref=e835]':
+              - 'link "Pipeline: Basic Steps" [ref=e837] [cursor=pointer]':
+                - /url: https://plugins.jenkins.io/workflow-basic-steps
+              - generic [ref=e839]: "Failed to load: Pipeline: Basic Steps (workflow-basic-steps 991.v43d80fea_ff66) - Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_)"
+            - cell [ref=e840]:
+              - checkbox [disabled] [ref=e843]
+            - cell [ref=e845]
+            - cell [ref=e846]
+          - 'row "Pipeline: Build Step Failed to load: Pipeline: Build Step (pipeline-build-step 2.18) - Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_)" [ref=e847]':
+            - 'cell "Pipeline: Build Step Failed to load: Pipeline: Build Step (pipeline-build-step 2.18) - Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_)" [ref=e848]':
+              - 'link "Pipeline: Build Step" [ref=e850] [cursor=pointer]':
+                - /url: https://plugins.jenkins.io/pipeline-build-step
+              - generic [ref=e852]: "Failed to load: Pipeline: Build Step (pipeline-build-step 2.18) - Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_)"
+            - cell [ref=e853]:
+              - checkbox [disabled] [ref=e856]
+            - cell [ref=e858]
+            - cell [ref=e859]
+          - 'row "Pipeline: Declarative Extension Points API Failed to load: Pipeline: Declarative Extension Points API (pipeline-model-extensions 2.2289.v6f731d0a_02da_) - Failed to load: Pipeline: Groovy (workflow-cps 4331.v9d06ed4658ff)" [ref=e860]':
+            - 'cell "Pipeline: Declarative Extension Points API Failed to load: Pipeline: Declarative Extension Points API (pipeline-model-extensions 2.2289.v6f731d0a_02da_) - Failed to load: Pipeline: Groovy (workflow-cps 4331.v9d06ed4658ff)" [ref=e861]':
+              - 'link "Pipeline: Declarative Extension Points API" [ref=e863] [cursor=pointer]':
+                - /url: https://plugins.jenkins.io/pipeline-model-extensions
+              - generic [ref=e865]: "Failed to load: Pipeline: Declarative Extension Points API (pipeline-model-extensions 2.2289.v6f731d0a_02da_) - Failed to load: Pipeline: Groovy (workflow-cps 4331.v9d06ed4658ff)"
+            - cell [ref=e866]:
+              - checkbox [disabled] [ref=e869]
+            - cell [ref=e871]
+            - cell [ref=e872]
+          - 'row "Pipeline: Groovy Failed to load: Pipeline: Groovy (workflow-cps 4331.v9d06ed4658ff) - Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_)" [ref=e873]':
+            - 'cell "Pipeline: Groovy Failed to load: Pipeline: Groovy (workflow-cps 4331.v9d06ed4658ff) - Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_)" [ref=e874]':
+              - 'link "Pipeline: Groovy" [ref=e876] [cursor=pointer]':
+                - /url: https://plugins.jenkins.io/workflow-cps
+              - generic [ref=e878]: "Failed to load: Pipeline: Groovy (workflow-cps 4331.v9d06ed4658ff) - Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_)"
+            - cell [ref=e879]:
+              - checkbox [disabled] [ref=e882]
+            - cell [ref=e884]
+            - cell [ref=e885]
+          - 'row "Pipeline: Groovy Libraries Failed to load: Pipeline: Groovy Libraries (pipeline-groovy-lib 798.v5cc688825312) - Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_)" [ref=e886]':
+            - 'cell "Pipeline: Groovy Libraries Failed to load: Pipeline: Groovy Libraries (pipeline-groovy-lib 798.v5cc688825312) - Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_)" [ref=e887]':
+              - 'link "Pipeline: Groovy Libraries" [ref=e889] [cursor=pointer]':
+                - /url: https://plugins.jenkins.io/pipeline-groovy-lib
+              - generic [ref=e891]: "Failed to load: Pipeline: Groovy Libraries (pipeline-groovy-lib 798.v5cc688825312) - Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_)"
+            - cell [ref=e892]:
+              - checkbox [disabled] [ref=e895]
+            - cell [ref=e897]
+            - cell [ref=e898]
+          - 'row "Pipeline: Input Step Failed to load: Pipeline: Input Step (pipeline-input-step 449.v77f0e8b_845c4) - Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_)" [ref=e899]':
+            - 'cell "Pipeline: Input Step Failed to load: Pipeline: Input Step (pipeline-input-step 449.v77f0e8b_845c4) - Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_)" [ref=e900]':
+              - 'link "Pipeline: Input Step" [ref=e902] [cursor=pointer]':
+                - /url: https://plugins.jenkins.io/pipeline-input-step
+              - generic [ref=e904]: "Failed to load: Pipeline: Input Step (pipeline-input-step 449.v77f0e8b_845c4) - Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_)"
+            - cell [ref=e905]:
+              - checkbox [disabled] [ref=e908]
+            - cell [ref=e910]
+            - cell [ref=e911]
+          - 'row "Pipeline: Job Failed to load: Pipeline: Job (workflow-job 1581.ve4b_d0db_fcb_b_b_) - Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_)" [ref=e912]':
+            - 'cell "Pipeline: Job Failed to load: Pipeline: Job (workflow-job 1581.ve4b_d0db_fcb_b_b_) - Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_)" [ref=e913]':
+              - 'link "Pipeline: Job" [ref=e915] [cursor=pointer]':
+                - /url: https://plugins.jenkins.io/workflow-job
+              - generic [ref=e917]: "Failed to load: Pipeline: Job (workflow-job 1581.ve4b_d0db_fcb_b_b_) - Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_)"
+            - cell [ref=e918]:
+              - checkbox [disabled] [ref=e921]
+            - cell [ref=e923]
+            - cell [ref=e924]
+          - 'row "Pipeline: Milestone Step Failed to load: Pipeline: Milestone Step (pipeline-milestone-step 101.vd572fef9d926) - Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_)" [ref=e925]':
+            - 'cell "Pipeline: Milestone Step Failed to load: Pipeline: Milestone Step (pipeline-milestone-step 101.vd572fef9d926) - Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_)" [ref=e926]':
+              - 'link "Pipeline: Milestone Step" [ref=e928] [cursor=pointer]':
+                - /url: https://plugins.jenkins.io/pipeline-milestone-step
+              - generic [ref=e930]: "Failed to load: Pipeline: Milestone Step (pipeline-milestone-step 101.vd572fef9d926) - Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_)"
+            - cell [ref=e931]:
+              - checkbox [disabled] [ref=e934]
+            - cell [ref=e936]
+            - cell [ref=e937]
+          - 'row "Pipeline: Model API 版本 2.2114.v2654ca_721309 Model API for Declarative Pipeline. Report an issue with this plugin 96 2.2289.v6f731d0a_02da_" [ref=e938]':
+            - 'cell "Pipeline: Model API 版本 2.2114.v2654ca_721309 Model API for Declarative Pipeline. Report an issue with this plugin" [ref=e939]':
+              - 'link "Pipeline: Model API 版本 2.2114.v2654ca_721309" [ref=e941] [cursor=pointer]':
+                - /url: https://plugins.jenkins.io/pipeline-model-api
+                - text: "Pipeline: Model API"
+                - generic [ref=e942]:
+                  - generic [ref=e943]: 版本
+                  - text: 2.2114.v2654ca_721309
+              - generic [ref=e945]: Model API for Declarative Pipeline.
+              - link "Report an issue with this plugin" [ref=e947] [cursor=pointer]:
+                - /url: https://github.com/jenkinsci/pipeline-model-definition-plugin/issues/new/choose
+            - cell "96" [ref=e948]:
+              - link "96" [ref=e950] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/pipeline-model-api/healthScore
+            - cell [ref=e951]:
+              - checkbox [checked] [ref=e954]
+            - cell "2.2289.v6f731d0a_02da_" [ref=e956]:
+              - button "2.2289.v6f731d0a_02da_" [ref=e959] [cursor=pointer]:
+                - img [ref=e960]
+                - generic [ref=e964]: 2.2289.v6f731d0a_02da_
+            - cell [ref=e965]:
+              - 'button "卸载 Pipeline: Model API" [ref=e967] [cursor=pointer]':
+                - img [ref=e968]
+          - 'row "Pipeline: Multibranch Failed to load: Pipeline: Multibranch (workflow-multibranch 821.vc3b_4ea_780798) - Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_)" [ref=e971]':
+            - 'cell "Pipeline: Multibranch Failed to load: Pipeline: Multibranch (workflow-multibranch 821.vc3b_4ea_780798) - Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_)" [ref=e972]':
+              - 'link "Pipeline: Multibranch" [ref=e974] [cursor=pointer]':
+                - /url: https://plugins.jenkins.io/workflow-multibranch
+              - generic [ref=e976]: "Failed to load: Pipeline: Multibranch (workflow-multibranch 821.vc3b_4ea_780798) - Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_)"
+            - cell [ref=e977]:
+              - checkbox [disabled] [ref=e980]
+            - cell [ref=e982]
+            - cell [ref=e983]
+          - 'row "Pipeline: Nodes and Processes Failed to load: Pipeline: Nodes and Processes (workflow-durable-task-step 1199.v02b_9244f8064) - Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_)" [ref=e984]':
+            - 'cell "Pipeline: Nodes and Processes Failed to load: Pipeline: Nodes and Processes (workflow-durable-task-step 1199.v02b_9244f8064) - Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_)" [ref=e985]':
+              - 'link "Pipeline: Nodes and Processes" [ref=e987] [cursor=pointer]':
+                - /url: https://plugins.jenkins.io/workflow-durable-task-step
+              - generic [ref=e989]: "Failed to load: Pipeline: Nodes and Processes (workflow-durable-task-step 1199.v02b_9244f8064) - Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_)"
+            - cell [ref=e990]:
+              - checkbox [disabled] [ref=e993]
+            - cell [ref=e995]
+            - cell [ref=e996]
+          - 'row "Pipeline: SCM Step 版本 400.v6b_89a_1317c9a_ Adds a Pipeline step to check out or update working sources from various SCMs (version control). Report an issue with this plugin 97 466.va_d69e602552b_" [ref=e997]':
+            - 'cell "Pipeline: SCM Step 版本 400.v6b_89a_1317c9a_ Adds a Pipeline step to check out or update working sources from various SCMs (version control). Report an issue with this plugin" [ref=e998]':
+              - 'link "Pipeline: SCM Step 版本 400.v6b_89a_1317c9a_" [ref=e1000] [cursor=pointer]':
+                - /url: https://plugins.jenkins.io/workflow-scm-step
+                - text: "Pipeline: SCM Step"
+                - generic [ref=e1001]:
+                  - generic [ref=e1002]: 版本
+                  - text: 400.v6b_89a_1317c9a_
+              - generic [ref=e1004]: Adds a Pipeline step to check out or update working sources from various SCMs (version control).
+              - link "Report an issue with this plugin" [ref=e1006] [cursor=pointer]:
+                - /url: https://github.com/jenkinsci/workflow-scm-step-plugin/issues/new/choose
+            - cell "97" [ref=e1007]:
+              - link "97" [ref=e1009] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/workflow-scm-step/healthScore
+            - cell [ref=e1010]:
+              - checkbox [checked] [ref=e1013]
+            - cell "466.va_d69e602552b_" [ref=e1015]:
+              - button "466.va_d69e602552b_" [ref=e1018] [cursor=pointer]:
+                - img [ref=e1019]
+                - generic [ref=e1023]: 466.va_d69e602552b_
+            - cell [ref=e1024]:
+              - 'button "卸载 Pipeline: SCM Step" [ref=e1026] [cursor=pointer]':
+                - img [ref=e1027]
+          - 'row "Pipeline: Stage Step Failed to load: Pipeline: Stage Step (pipeline-stage-step 345.va_96187909426) - Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_)" [ref=e1030]':
+            - 'cell "Pipeline: Stage Step Failed to load: Pipeline: Stage Step (pipeline-stage-step 345.va_96187909426) - Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_)" [ref=e1031]':
+              - 'link "Pipeline: Stage Step" [ref=e1033] [cursor=pointer]':
+                - /url: https://plugins.jenkins.io/pipeline-stage-step
+              - generic [ref=e1035]: "Failed to load: Pipeline: Stage Step (pipeline-stage-step 345.va_96187909426) - Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_)"
+            - cell [ref=e1036]:
+              - checkbox [disabled] [ref=e1039]
+            - cell [ref=e1041]
+            - cell [ref=e1042]
+          - 'row "Pipeline: Stage Tags Metadata Failed to load: Pipeline: Stage Tags Metadata (pipeline-stage-tags-metadata 2.2114.v2654ca_721309) - Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_)" [ref=e1043]':
+            - 'cell "Pipeline: Stage Tags Metadata Failed to load: Pipeline: Stage Tags Metadata (pipeline-stage-tags-metadata 2.2114.v2654ca_721309) - Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_)" [ref=e1044]':
+              - 'link "Pipeline: Stage Tags Metadata" [ref=e1046] [cursor=pointer]':
+                - /url: https://plugins.jenkins.io/pipeline-stage-tags-metadata
+              - generic [ref=e1048]: "Failed to load: Pipeline: Stage Tags Metadata (pipeline-stage-tags-metadata 2.2114.v2654ca_721309) - Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_)"
+            - cell [ref=e1049]:
+              - checkbox [disabled] [ref=e1052]
+            - cell [ref=e1054]
+            - cell [ref=e1055]
+          - 'row "Pipeline: Step API 版本 724.v538c2362b_dfb_ API for asynchronous build step primitive. Report an issue with this plugin 100" [ref=e1056]':
+            - 'cell "Pipeline: Step API 版本 724.v538c2362b_dfb_ API for asynchronous build step primitive. Report an issue with this plugin" [ref=e1057]':
+              - 'link "Pipeline: Step API 版本 724.v538c2362b_dfb_" [ref=e1059] [cursor=pointer]':
+                - /url: https://plugins.jenkins.io/workflow-step-api
+                - text: "Pipeline: Step API"
+                - generic [ref=e1060]:
+                  - generic [ref=e1061]: 版本
+                  - text: 724.v538c2362b_dfb_
+              - generic [ref=e1063]: API for asynchronous build step primitive.
+              - link "Report an issue with this plugin" [ref=e1065] [cursor=pointer]:
+                - /url: https://github.com/jenkinsci/workflow-step-api-plugin/issues/new/choose
+            - cell "100" [ref=e1066]:
+              - link "100" [ref=e1068] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/workflow-step-api/healthScore
+            - cell [ref=e1069]:
+              - generic [ref=e1071]:
+                - checkbox [checked]
+            - cell [ref=e1072]
+            - cell [ref=e1073]:
+              - generic [ref=e1074]:
+                - 'button "卸载 Pipeline: Step API"':
+                  - img
+          - 'row "Pipeline: Supporting APIs Failed to load: Pipeline: Supporting APIs (workflow-support 1015.v785e5a_b_b_8b_22) - Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_)" [ref=e1075]':
+            - 'cell "Pipeline: Supporting APIs Failed to load: Pipeline: Supporting APIs (workflow-support 1015.v785e5a_b_b_8b_22) - Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_)" [ref=e1076]':
+              - 'link "Pipeline: Supporting APIs" [ref=e1078] [cursor=pointer]':
+                - /url: https://plugins.jenkins.io/workflow-support
+              - generic [ref=e1080]: "Failed to load: Pipeline: Supporting APIs (workflow-support 1015.v785e5a_b_b_8b_22) - Failed to load: Pipeline: API (workflow-api 1413.v2ff1a_5e720fa_)"
+            - cell [ref=e1081]:
+              - checkbox [disabled] [ref=e1084]
+            - cell [ref=e1086]
+            - cell [ref=e1087]
+          - row "Plain Credentials Plugin 版本 199.v9f8e1f741799 Allows use of plain strings and files as credentials. Report an issue with this plugin 97 139.ved2b_9cf7587b" [ref=e1088]:
+            - cell "Plain Credentials Plugin 版本 199.v9f8e1f741799 Allows use of plain strings and files as credentials. Report an issue with this plugin" [ref=e1089]:
+              - link "Plain Credentials Plugin 版本 199.v9f8e1f741799" [ref=e1091] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/plain-credentials
+                - text: Plain Credentials Plugin
+                - generic [ref=e1092]:
+                  - generic [ref=e1093]: 版本
+                  - text: 199.v9f8e1f741799
+              - generic [ref=e1095]: Allows use of plain strings and files as credentials.
+              - link "Report an issue with this plugin" [ref=e1097] [cursor=pointer]:
+                - /url: https://github.com/jenkinsci/plain-credentials-plugin/issues/new/choose
+            - cell "97" [ref=e1098]:
+              - link "97" [ref=e1100] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/plain-credentials/healthScore
+            - cell [ref=e1101]:
+              - generic [ref=e1103]:
+                - checkbox [checked]
+            - cell "139.ved2b_9cf7587b" [ref=e1104]:
+              - generic [ref=e1106]:
+                - button "139.ved2b_9cf7587b":
+                  - img
+                  - generic: 139.ved2b_9cf7587b
+            - cell [ref=e1107]:
+              - generic [ref=e1108]:
+                - button "卸载 Plain Credentials Plugin":
+                  - img
+          - row "SCM API 版本 621.vda_a_b_055e58f7 This plugin provides a new enhanced API for interacting with SCM systems. Report an issue with this plugin 100 621.vda_a_b_055e58f7" [ref=e1109]:
+            - cell "SCM API 版本 621.vda_a_b_055e58f7 This plugin provides a new enhanced API for interacting with SCM systems. Report an issue with this plugin" [ref=e1110]:
+              - link "SCM API 版本 621.vda_a_b_055e58f7" [ref=e1112] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/scm-api
+                - text: SCM API
+                - generic [ref=e1113]:
+                  - generic [ref=e1114]: 版本
+                  - text: 621.vda_a_b_055e58f7
+              - generic [ref=e1116]: This plugin provides a new enhanced API for interacting with SCM systems.
+              - link "Report an issue with this plugin" [ref=e1118] [cursor=pointer]:
+                - /url: https://github.com/jenkinsci/scm-api-plugin/issues/new/choose
+            - cell "100" [ref=e1119]:
+              - link "100" [ref=e1121] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/scm-api/healthScore
+            - cell [ref=e1122]:
+              - checkbox [checked] [ref=e1125]
+            - cell "621.vda_a_b_055e58f7" [ref=e1127]:
+              - button "621.vda_a_b_055e58f7" [ref=e1130] [cursor=pointer]:
+                - img [ref=e1131]
+                - generic [ref=e1135]: 621.vda_a_b_055e58f7
+            - cell [ref=e1136]:
+              - button "卸载 SCM API" [ref=e1138] [cursor=pointer]:
+                - img [ref=e1139]
+          - row "Script Security Plugin 版本 1402.v94c9ce464861 Allows Jenkins administrators to control what in-process scripts can be run by less-privileged users. Report an issue with this plugin 100" [ref=e1142]:
+            - cell "Script Security Plugin 版本 1402.v94c9ce464861 Allows Jenkins administrators to control what in-process scripts can be run by less-privileged users. Report an issue with this plugin" [ref=e1143]:
+              - link "Script Security Plugin 版本 1402.v94c9ce464861" [ref=e1145] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/script-security
+                - text: Script Security Plugin
+                - generic [ref=e1146]:
+                  - generic [ref=e1147]: 版本
+                  - text: 1402.v94c9ce464861
+              - generic [ref=e1149]: Allows Jenkins administrators to control what in-process scripts can be run by less-privileged users.
+              - link "Report an issue with this plugin" [ref=e1151] [cursor=pointer]:
+                - /url: https://github.com/jenkinsci/script-security-plugin/issues/new/choose
+            - cell "100" [ref=e1152]:
+              - link "100" [ref=e1154] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/script-security/healthScore
+            - cell [ref=e1155]:
+              - checkbox [checked] [ref=e1158]
+            - cell [ref=e1160]
+            - cell [ref=e1161]:
+              - button "卸载 Script Security Plugin" [ref=e1163] [cursor=pointer]:
+                - img [ref=e1164]
+          - row "SnakeYAML API Plugin 版本 2.5-149.v72471e9c6371 This plugin provides org.yaml:snakeyaml:2.5 for other plugins. Report an issue with this plugin 98" [ref=e1167]:
+            - cell "SnakeYAML API Plugin 版本 2.5-149.v72471e9c6371 This plugin provides org.yaml:snakeyaml:2.5 for other plugins. Report an issue with this plugin" [ref=e1168]:
+              - link "SnakeYAML API Plugin 版本 2.5-149.v72471e9c6371" [ref=e1170] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/snakeyaml-api
+                - text: SnakeYAML API Plugin
+                - generic [ref=e1171]:
+                  - generic [ref=e1172]: 版本
+                  - text: 2.5-149.v72471e9c6371
+              - generic [ref=e1174]: This plugin provides org.yaml:snakeyaml:2.5 for other plugins.
+              - link "Report an issue with this plugin" [ref=e1176] [cursor=pointer]:
+                - /url: https://github.com/jenkinsci/snakeyaml-api-plugin/issues/new/choose
+            - cell "98" [ref=e1177]:
+              - link "98" [ref=e1179] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/snakeyaml-api/healthScore
+            - cell [ref=e1180]:
+              - generic [ref=e1182]:
+                - checkbox [checked]
+            - cell [ref=e1183]
+            - cell [ref=e1184]:
+              - generic [ref=e1185]:
+                - button "卸载 SnakeYAML API Plugin":
+                  - img
+          - row "SSH Credentials Plugin 版本 372.va_250881b_08cd Allows storage of SSH credentials in Jenkins Report an issue with this plugin 97 295.vced876c18eb_4" [ref=e1186]:
+            - cell "SSH Credentials Plugin 版本 372.va_250881b_08cd Allows storage of SSH credentials in Jenkins Report an issue with this plugin" [ref=e1187]:
+              - link "SSH Credentials Plugin 版本 372.va_250881b_08cd" [ref=e1189] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/ssh-credentials
+                - text: SSH Credentials Plugin
+                - generic [ref=e1190]:
+                  - generic [ref=e1191]: 版本
+                  - text: 372.va_250881b_08cd
+              - generic [ref=e1193]: Allows storage of SSH credentials in Jenkins
+              - link "Report an issue with this plugin" [ref=e1195] [cursor=pointer]:
+                - /url: https://github.com/jenkinsci/ssh-credentials-plugin/issues/new/choose
+            - cell "97" [ref=e1196]:
+              - link "97" [ref=e1198] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/ssh-credentials/healthScore
+            - cell [ref=e1199]:
+              - generic [ref=e1201]:
+                - checkbox [checked]
+            - cell "295.vced876c18eb_4" [ref=e1202]:
+              - generic [ref=e1204]:
+                - button "295.vced876c18eb_4":
+                  - img
+                  - generic: 295.vced876c18eb_4
+            - cell [ref=e1205]:
+              - generic [ref=e1206]:
+                - button "卸载 SSH Credentials Plugin":
+                  - img
+          - row "Structs Plugin 版本 362.va_b_695ef4fdf9 Library plugin for DSL plugins that need names for Jenkins objects. Report an issue with this plugin 97" [ref=e1207]:
+            - cell "Structs Plugin 版本 362.va_b_695ef4fdf9 Library plugin for DSL plugins that need names for Jenkins objects. Report an issue with this plugin" [ref=e1208]:
+              - link "Structs Plugin 版本 362.va_b_695ef4fdf9" [ref=e1210] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/structs
+                - text: Structs Plugin
+                - generic [ref=e1211]:
+                  - generic [ref=e1212]: 版本
+                  - text: 362.va_b_695ef4fdf9
+              - generic [ref=e1214]: Library plugin for DSL plugins that need names for Jenkins objects.
+              - link "Report an issue with this plugin" [ref=e1216] [cursor=pointer]:
+                - /url: https://github.com/jenkinsci/structs-plugin/issues/new/choose
+            - cell "97" [ref=e1217]:
+              - link "97" [ref=e1219] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/structs/healthScore
+            - cell [ref=e1220]:
+              - generic [ref=e1222]:
+                - checkbox [checked]
+            - cell [ref=e1223]
+            - cell [ref=e1224]:
+              - generic [ref=e1225]:
+                - button "卸载 Structs Plugin":
+                  - img
+          - row "Trilead API Plugin 版本 2.284.v1974ea_324382 Trilead API Plugin provides the Trilead library to any dependent plugins in an easily update-able manner. Report an issue with this plugin 100" [ref=e1226]:
+            - cell "Trilead API Plugin 版本 2.284.v1974ea_324382 Trilead API Plugin provides the Trilead library to any dependent plugins in an easily update-able manner. Report an issue with this plugin" [ref=e1227]:
+              - link "Trilead API Plugin 版本 2.284.v1974ea_324382" [ref=e1229] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/trilead-api
+                - text: Trilead API Plugin
+                - generic [ref=e1230]:
+                  - generic [ref=e1231]: 版本
+                  - text: 2.284.v1974ea_324382
+              - generic [ref=e1233]: Trilead API Plugin provides the Trilead library to any dependent plugins in an easily update-able manner.
+              - link "Report an issue with this plugin" [ref=e1235] [cursor=pointer]:
+                - /url: https://github.com/jenkinsci/trilead-api-plugin/issues/new/choose
+            - cell "100" [ref=e1236]:
+              - link "100" [ref=e1238] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/trilead-api/healthScore
+            - cell [ref=e1239]:
+              - checkbox [checked] [ref=e1242]
+            - cell [ref=e1244]
+            - cell [ref=e1245]:
+              - button "卸载 Trilead API Plugin" [ref=e1247] [cursor=pointer]:
+                - img [ref=e1248]
+          - row "Variant Plugin 版本 70.va_d9f17f859e0 This user-invisible library plugin allows other multi-modal plugins to behave differently depending on where they run. Report an issue with this plugin 94" [ref=e1251]:
+            - cell "Variant Plugin 版本 70.va_d9f17f859e0 This user-invisible library plugin allows other multi-modal plugins to behave differently depending on where they run. Report an issue with this plugin" [ref=e1252]:
+              - link "Variant Plugin 版本 70.va_d9f17f859e0" [ref=e1254] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/variant
+                - text: Variant Plugin
+                - generic [ref=e1255]:
+                  - generic [ref=e1256]: 版本
+                  - text: 70.va_d9f17f859e0
+              - generic [ref=e1258]: This user-invisible library plugin allows other multi-modal plugins to behave differently depending on where they run.
+              - link "Report an issue with this plugin" [ref=e1260] [cursor=pointer]:
+                - /url: https://github.com/jenkinsci/variant-plugin/issues/new/choose
+            - cell "94" [ref=e1261]:
+              - link "94" [ref=e1263] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/variant/healthScore
+            - cell [ref=e1264]:
+              - generic [ref=e1266]:
+                - checkbox [checked]
+            - cell [ref=e1267]
+            - cell [ref=e1268]:
+              - generic [ref=e1269]:
+                - button "卸载 Variant Plugin":
+                  - img
+          - row "Woodstox Core API Plugin 版本 7.1.1-1.v4d297985f397 This plugin provides Woodstox (v7.1.1) to other plugins. Report an issue with this plugin 100" [ref=e1270]:
+            - cell "Woodstox Core API Plugin 版本 7.1.1-1.v4d297985f397 This plugin provides Woodstox (v7.1.1) to other plugins. Report an issue with this plugin" [ref=e1271]:
+              - link "Woodstox Core API Plugin 版本 7.1.1-1.v4d297985f397" [ref=e1273] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/woodstox-core-api
+                - text: Woodstox Core API Plugin
+                - generic [ref=e1274]:
+                  - generic [ref=e1275]: 版本
+                  - text: 7.1.1-1.v4d297985f397
+              - generic [ref=e1277]:
+                - text: This plugin provides
+                - link "Woodstox" [ref=e1278] [cursor=pointer]:
+                  - /url: https://github.com/FasterXML/woodstox
+                - text: (v7.1.1) to other plugins.
+              - link "Report an issue with this plugin" [ref=e1280] [cursor=pointer]:
+                - /url: https://github.com/jenkinsci/woodstox-core-api-plugin/issues/new/choose
+            - cell "100" [ref=e1281]:
+              - link "100" [ref=e1283] [cursor=pointer]:
+                - /url: https://plugins.jenkins.io/woodstox-core-api/healthScore
+            - cell [ref=e1284]:
+              - generic [ref=e1286]:
+                - checkbox [checked]
+            - cell [ref=e1287]
+            - cell [ref=e1288]:
+              - generic [ref=e1289]:
+                - button "卸载 Woodstox Core API Plugin":
+                  - img
+      - generic [ref=e1291]:
+        - text: 所有改变会在重新启动Jenkins以后生效。
+        - button "当没有任务时重启" [ref=e1292] [cursor=pointer]
+  - contentinfo [ref=e1293]:
+    - generic [ref=e1294]:
+      - link "Jenkins 中文社区" [ref=e1297] [cursor=pointer]:
+        - /url: /chinese
+      - generic [ref=e1298]:
+        - link "REST API" [ref=e1299] [cursor=pointer]:
+          - /url: api/
+        - button "Jenkins 2.567" [ref=e1300] [cursor=pointer]

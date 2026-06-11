@@ -85,42 +85,7 @@
     }
 })();
 
-// ===== 阅读进度条 =====
-// 滚动时显示，停止后 1.5s 淡出。暗色模式使用蓝紫色渐变。
-// Width 使用 CSS transition + bar.style.width (不使用 !important，避免与 CSS transition 冲突)
-(function() {
-    var bar = document.getElementById('reading-progress');
-    if (bar) return;
-
-    bar = document.createElement('div');
-    bar.id = 'reading-progress';
-    document.body.prepend(bar);
-
-    var hideTimer = null;
-
-    function update() {
-        var scrollTop = window.scrollY || document.documentElement.scrollTop;
-        var docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        if (docHeight > 0) {
-            bar.style.width = Math.min((scrollTop / docHeight) * 100, 100) + '%';
-        }
-    }
-
-    function show() {
-        bar.classList.add('visible');
-        if (hideTimer) clearTimeout(hideTimer);
-        hideTimer = setTimeout(function() {
-            bar.classList.remove('visible');
-        }, 1500);
-    }
-
-    window.addEventListener('scroll', function() {
-        update();
-        show();
-    }, { passive: true });
-
-    update();
-})();
+// 阅读进度条已移至 layouts/_partials/footer/custom.html，通过 Hugo 的 {{ if .IsPage }} 条件渲染
 
 // ===== 回到顶部按钮 =====
 (function() {

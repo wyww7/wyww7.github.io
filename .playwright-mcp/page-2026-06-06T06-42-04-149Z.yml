@@ -1,0 +1,15 @@
+- main [ref=e2]:
+  - generic [ref=e3]:
+    - heading "Sign in to Jenkins" [level=1] [ref=e4]
+    - generic [ref=e5]:
+      - generic [ref=e6]: 用户名或密码错误
+      - generic [ref=e7]:
+        - generic [ref=e8]: 用户名
+        - textbox "用户名" [active] [ref=e9]
+      - generic [ref=e10]:
+        - generic [ref=e11]: 密码
+        - textbox "密码" [ref=e12]
+      - generic [ref=e13]:
+        - checkbox "保持登录状态" [ref=e14]
+        - generic [ref=e15] [cursor=pointer]: 保持登录状态
+      - button "登录" [ref=e16] [cursor=pointer]

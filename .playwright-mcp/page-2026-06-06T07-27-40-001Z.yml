@@ -1,0 +1,209 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content":
+    - /url: "#skip2content"
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - link "Jenkins" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img [ref=e6]
+        - generic [ref=e7]: Jenkins
+      - generic "breadcrumb" [ref=e8]:
+        - list [ref=e9]:
+          - listitem [ref=e10]:
+            - text: /
+            - link "系统管理" [ref=e11] [cursor=pointer]:
+              - /url: /manage/
+            - generic "dropdown menu for 系统管理" [ref=e12] [cursor=pointer]:
+              - img [ref=e13]
+          - listitem [ref=e15]:
+            - text: /
+            - link "插件管理" [ref=e16] [cursor=pointer]:
+              - /url: /manage/pluginManager/
+    - generic [ref=e17]:
+      - button "Search" [ref=e18] [cursor=pointer]:
+        - img [ref=e19]
+        - generic [ref=e22]: Search
+      - link "系统管理" [ref=e23] [cursor=pointer]:
+        - /url: /manage
+        - img [ref=e24]
+        - generic [ref=e28]: 系统管理
+      - link "root" [ref=e30] [cursor=pointer]:
+        - /url: /user/root
+        - img [ref=e31]
+        - generic [ref=e34]: root
+  - generic [ref=e35]:
+    - generic [ref=e36]:
+      - heading "Plugins" [level=1] [ref=e39]
+      - generic [ref=e40]:
+        - link "Updates 6" [ref=e43] [cursor=pointer]:
+          - /url: /manage/pluginManager/
+          - img [ref=e45]
+          - text: Updates
+          - generic "6 updates available 3 updates fix security vulnerabilities" [ref=e48]: "6"
+        - link "Available plugins" [ref=e51] [cursor=pointer]:
+          - /url: /manage/pluginManager/available
+          - img [ref=e53]
+          - text: Available plugins
+        - link "Installed plugins" [ref=e58] [cursor=pointer]:
+          - /url: /manage/pluginManager/installed
+          - img [ref=e60]
+          - text: Installed plugins
+        - link "Advanced settings" [ref=e64] [cursor=pointer]:
+          - /url: /manage/pluginManager/advanced
+          - img [ref=e66]
+          - text: Advanced settings
+        - link "Download progress" [ref=e72]:
+          - /url: /manage/pluginManager/updates/
+          - img [ref=e74]
+          - text: Download progress
+    - generic [ref=e79]:
+      - heading "Download progress" [level=1] [ref=e80]
+      - table [ref=e81]:
+        - rowgroup [ref=e82]:
+          - row "准备" [ref=e83]:
+            - cell "准备" [ref=e84]
+            - cell [ref=e85]:
+              - list
+          - row "apache-httpcomponents-client-4-api 完成" [ref=e86]:
+            - cell "apache-httpcomponents-client-4-api" [ref=e87]
+            - cell "完成" [ref=e88]:
+              - img [ref=e89]
+              - text: 完成
+          - row "准备" [ref=e92]:
+            - cell "准备" [ref=e93]
+            - cell [ref=e94]:
+              - list
+          - row "workflow-api 完成" [ref=e95]:
+            - cell "workflow-api" [ref=e96]
+            - cell "完成" [ref=e97]:
+              - img [ref=e98]
+              - text: 完成
+          - row "准备" [ref=e101]:
+            - cell "准备" [ref=e102]
+            - cell [ref=e103]:
+              - list
+          - row "workflow-support 完成" [ref=e104]:
+            - cell "workflow-support" [ref=e105]
+            - cell "完成" [ref=e106]:
+              - img [ref=e107]
+              - text: 完成
+          - row "准备" [ref=e110]:
+            - cell "准备" [ref=e111]
+            - cell [ref=e112]:
+              - list
+          - row "scm-api 插件scm-api已经安装完成。Jenkins 重启后才能生效。" [ref=e113]:
+            - cell "scm-api" [ref=e114]
+            - cell "插件scm-api已经安装完成。Jenkins 重启后才能生效。" [ref=e115]:
+              - img [ref=e116]
+              - text: 插件scm-api已经安装完成。Jenkins 重启后才能生效。
+          - row "准备" [ref=e120]:
+            - cell "准备" [ref=e121]
+            - cell [ref=e122]:
+              - list
+          - row "workflow-scm-step 插件workflow-scm-step已经安装完成。Jenkins 重启后才能生效。" [ref=e123]:
+            - cell "workflow-scm-step" [ref=e124]
+            - cell "插件workflow-scm-step已经安装完成。Jenkins 重启后才能生效。" [ref=e125]:
+              - img [ref=e126]
+              - text: 插件workflow-scm-step已经安装完成。Jenkins 重启后才能生效。
+          - row "准备" [ref=e130]:
+            - cell "准备" [ref=e131]
+            - cell [ref=e132]:
+              - list
+          - row "workflow-cps 失败 - 详细" [ref=e133]:
+            - cell "workflow-cps" [ref=e134]
+            - cell "失败 - 详细" [ref=e135]:
+              - generic [ref=e136]:
+                - img [ref=e137]
+                - text: 失败 -
+                - link "详细" [ref=e140] [cursor=pointer]:
+                  - /url: ""
+          - row "准备" [ref=e141]:
+            - cell "准备" [ref=e142]
+            - cell [ref=e143]:
+              - list
+          - row "workflow-job 完成" [ref=e144]:
+            - cell "workflow-job" [ref=e145]
+            - cell "完成" [ref=e146]:
+              - img [ref=e147]
+              - text: 完成
+          - row "准备 Checking internet connectivity Checking update center connectivity Success" [ref=e150]:
+            - cell "准备" [ref=e151]
+            - cell "Checking internet connectivity Checking update center connectivity Success" [ref=e152]:
+              - list [ref=e153]:
+                - listitem [ref=e154]: Checking internet connectivity
+                - listitem [ref=e155]: Checking update center connectivity
+                - listitem [ref=e156]: Success
+          - 'row "Pipeline: API 插件workflow-api已经安装完成。Jenkins 重启后才能生效。" [ref=e157]':
+            - 'cell "Pipeline: API" [ref=e158]'
+            - cell "插件workflow-api已经安装完成。Jenkins 重启后才能生效。" [ref=e159]:
+              - img [ref=e160]
+              - text: 插件workflow-api已经安装完成。Jenkins 重启后才能生效。
+          - 'row "Pipeline: Supporting APIs 插件workflow-support已经安装完成。Jenkins 重启后才能生效。" [ref=e164]':
+            - 'cell "Pipeline: Supporting APIs" [ref=e165]'
+            - cell "插件workflow-support已经安装完成。Jenkins 重启后才能生效。" [ref=e166]:
+              - img [ref=e167]
+              - text: 插件workflow-support已经安装完成。Jenkins 重启后才能生效。
+          - 'row "Pipeline: Nodes and Processes 失败 - 详细" [ref=e171]':
+            - 'cell "Pipeline: Nodes and Processes" [ref=e172]'
+            - cell "失败 - 详细" [ref=e173]:
+              - generic [ref=e174]:
+                - img [ref=e175]
+                - text: 失败 -
+                - link "详细" [ref=e178] [cursor=pointer]:
+                  - /url: ""
+          - row "准备" [ref=e179]:
+            - cell "准备" [ref=e180]
+            - cell [ref=e181]:
+              - list
+          - row "workflow-basic-steps 失败 - 详细" [ref=e182]:
+            - cell "workflow-basic-steps" [ref=e183]
+            - cell "失败 - 详细" [ref=e184]:
+              - generic [ref=e185]:
+                - img [ref=e186]
+                - text: 失败 -
+                - link "详细" [ref=e189] [cursor=pointer]:
+                  - /url: ""
+          - row "准备" [ref=e190]:
+            - cell "准备" [ref=e191]
+            - cell [ref=e192]:
+              - list
+          - row "workflow-durable-task-step 完成" [ref=e193]:
+            - cell "workflow-durable-task-step" [ref=e194]
+            - cell "完成" [ref=e195]:
+              - img [ref=e196]
+              - text: 完成
+          - row "准备" [ref=e199]:
+            - cell "准备" [ref=e200]
+            - cell [ref=e201]:
+              - list
+          - row "pipeline-build-step 完成" [ref=e202]:
+            - cell "pipeline-build-step" [ref=e203]
+            - cell "完成" [ref=e204]:
+              - img [ref=e205]
+              - text: 完成
+          - row "准备" [ref=e208]:
+            - cell "准备" [ref=e209]
+            - cell [ref=e210]:
+              - list
+          - row "pipeline-milestone-step 完成" [ref=e211]:
+            - cell "pipeline-milestone-step" [ref=e212]
+            - cell "完成" [ref=e213]:
+              - img [ref=e214]
+              - text: 完成
+      - generic [ref=e218]:
+        - paragraph [ref=e219]:
+          - link "返回首页" [ref=e220] [cursor=pointer]:
+            - /url: /
+          - text: (返回首页使用已经安装好的插件)
+        - paragraph [ref=e221]:
+          - generic [ref=e222]:
+            - checkbox [ref=e223]
+            - generic [ref=e224] [cursor=pointer]: 安装完成后重启Jenkins(空闲时)
+  - contentinfo [ref=e225]:
+    - generic [ref=e226]:
+      - link "Jenkins 中文社区" [ref=e229] [cursor=pointer]:
+        - /url: /chinese
+      - generic [ref=e230]:
+        - link "REST API" [ref=e231] [cursor=pointer]:
+          - /url: api/
+        - button "Jenkins 2.528.3" [ref=e232] [cursor=pointer]

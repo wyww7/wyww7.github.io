@@ -1,0 +1,101 @@
+- generic [ref=e1]:
+  - link "Skip to content":
+    - /url: "#skip2content"
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - link "Jenkins" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img [ref=e6]
+        - generic [ref=e7]: Jenkins
+      - generic "breadcrumb" [ref=e8]:
+        - list [ref=e9]:
+          - listitem [ref=e10]:
+            - text: /
+            - link "Manage Jenkins" [ref=e11] [cursor=pointer]:
+              - /url: /manage/
+            - generic "dropdown menu for Manage Jenkins" [ref=e12] [cursor=pointer]:
+              - img [ref=e13]
+          - listitem [ref=e15]:
+            - text: /
+            - link "插件管理" [ref=e16] [cursor=pointer]:
+              - /url: /manage/pluginManager/
+    - generic [ref=e17]:
+      - button "Search" [ref=e18] [cursor=pointer]:
+        - img [ref=e19]
+        - generic [ref=e22]: Search
+      - link "Manage Jenkins" [ref=e23] [cursor=pointer]:
+        - /url: /manage
+        - img [ref=e24]
+        - generic [ref=e28]: Manage Jenkins
+      - link "root" [ref=e30] [cursor=pointer]:
+        - /url: /user/root
+        - img [ref=e31]
+        - generic [ref=e34]: root
+  - generic [ref=e35]:
+    - generic [ref=e36]:
+      - heading "Plugins" [level=1] [ref=e39]
+      - generic [ref=e40]:
+        - link "Updates" [ref=e43] [cursor=pointer]:
+          - /url: /manage/pluginManager/
+          - img [ref=e45]
+          - text: Updates
+        - link "Available plugins" [ref=e50]:
+          - /url: /manage/pluginManager/available
+          - img [ref=e52]
+          - text: Available plugins
+        - link "Installed plugins" [ref=e57] [cursor=pointer]:
+          - /url: /manage/pluginManager/installed
+          - img [ref=e59]
+          - text: Installed plugins
+        - link "Advanced settings" [ref=e63] [cursor=pointer]:
+          - /url: /manage/pluginManager/advanced
+          - img [ref=e65]
+          - text: Advanced settings
+        - link "Download progress" [ref=e71] [cursor=pointer]:
+          - /url: /manage/pluginManager/updates/
+          - img [ref=e73]
+          - text: Download progress
+    - generic [ref=e78]:
+      - generic [ref=e79]:
+        - generic [ref=e82]:
+          - generic:
+            - img
+          - searchbox "Search available plugins" [active] [ref=e83]
+          - generic:
+            - img
+        - generic [ref=e84]:
+          - generic [ref=e85]:
+            - button "安装" [ref=e86] [cursor=pointer]:
+              - img [ref=e88]
+              - text: 安装
+            - button [ref=e91] [cursor=pointer]:
+              - img [ref=e92]
+          - button "立即获取" [ref=e95] [cursor=pointer]:
+            - generic [ref=e96]: 立即获取
+            - img [ref=e97]
+      - table [ref=e101]:
+        - rowgroup [ref=e102]:
+          - row "安装 名称 ↓ Released Health" [ref=e103]:
+            - columnheader "安装" [ref=e104]
+            - columnheader "名称 ↓" [ref=e105]:
+              - link "名称 ↓" [ref=e106] [cursor=pointer]:
+                - /url: "#"
+                - text: 名称
+                - generic [ref=e107]: ↓
+            - columnheader "Released" [ref=e108]:
+              - link "Released" [ref=e109] [cursor=pointer]:
+                - /url: "#"
+                - text: Released
+            - columnheader "Health" [ref=e110]:
+              - link "Health" [ref=e111] [cursor=pointer]:
+                - /url: "#"
+                - generic [ref=e112]: Health
+        - rowgroup
+  - contentinfo [ref=e113]:
+    - generic [ref=e114]:
+      - link "Jenkins 中文社区" [ref=e117] [cursor=pointer]:
+        - /url: /chinese
+      - generic [ref=e118]:
+        - link "REST API" [ref=e119] [cursor=pointer]:
+          - /url: api/
+        - button "Jenkins 2.528.3" [ref=e120] [cursor=pointer]

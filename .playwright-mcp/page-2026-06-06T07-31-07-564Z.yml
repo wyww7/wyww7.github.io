@@ -1,0 +1,93 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content":
+    - /url: "#skip2content"
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - link "Jenkins" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img [ref=e6]
+        - generic [ref=e7]: Jenkins
+      - generic "breadcrumb" [ref=e8]:
+        - list
+    - generic [ref=e9]:
+      - button "Search" [ref=e10] [cursor=pointer]:
+        - img [ref=e11]
+        - generic [ref=e14]: Search
+      - link "系统管理" [ref=e15] [cursor=pointer]:
+        - /url: /manage
+        - img [ref=e16]
+        - generic [ref=e20]: 系统管理
+      - link "root" [ref=e22] [cursor=pointer]:
+        - /url: /user/root
+        - img [ref=e23]
+        - generic [ref=e26]: root
+  - generic [ref=e27]:
+    - generic [ref=e28]:
+      - generic [ref=e29]:
+        - link "新建任务" [ref=e32] [cursor=pointer]:
+          - /url: /view/all/newJob
+          - img [ref=e34]
+          - text: 新建任务
+        - link "构建历史" [ref=e38] [cursor=pointer]:
+          - /url: /view/all/builds
+          - img [ref=e40]
+          - text: 构建历史
+      - generic [ref=e43]:
+        - generic [ref=e44]:
+          - generic [ref=e45]: 构建队列
+          - link "合上" [ref=e46] [cursor=pointer]:
+            - /url: /toggleCollapse?paneId=buildQueue
+            - img [ref=e47]
+        - table [ref=e50]:
+          - rowgroup [ref=e51]:
+            - row "队列中没有构建任务" [ref=e52]:
+              - cell "队列中没有构建任务" [ref=e53]
+      - generic [ref=e55]:
+        - link "构建执行状态" [ref=e57] [cursor=pointer]:
+          - /url: /computer/
+        - generic "0 of 2 executors busy" [ref=e58]: 0/2
+        - link "Collapse" [ref=e59] [cursor=pointer]:
+          - /url: /toggleCollapse?paneId=executors
+          - img [ref=e60]
+    - generic [ref=e62]:
+      - link "Add description" [ref=e66] [cursor=pointer]:
+        - /url: editDescription
+        - img [ref=e67]
+        - text: Add description
+      - generic [ref=e72]:
+        - heading "欢迎来到 Jenkins!" [level=1] [ref=e73]
+        - paragraph [ref=e74]: This page is where your Jenkins jobs will be displayed. To get started, you can set up distributed builds or start building a software project.
+        - generic [ref=e75]:
+          - heading "Start building your software project" [level=2] [ref=e76]
+          - list [ref=e77]:
+            - listitem [ref=e78]:
+              - link "Create a job" [ref=e79] [cursor=pointer]:
+                - /url: newJob
+                - generic [ref=e80]: Create a job
+                - img [ref=e82]
+        - generic [ref=e84]:
+          - heading "Set up a distributed build" [level=2] [ref=e85]
+          - list [ref=e86]:
+            - listitem [ref=e87]:
+              - link "Set up an agent" [ref=e88] [cursor=pointer]:
+                - /url: computer/new
+                - generic [ref=e89]: Set up an agent
+                - img [ref=e91]
+            - listitem [ref=e96]:
+              - link "Configure a cloud" [ref=e97] [cursor=pointer]:
+                - /url: cloud/
+                - generic [ref=e98]: Configure a cloud
+                - img [ref=e100]
+            - listitem [ref=e102]:
+              - link "Learn more about distributed builds" [ref=e103] [cursor=pointer]:
+                - /url: https://www.jenkins.io/redirect/distributed-builds
+                - generic [ref=e104]: Learn more about distributed builds
+                - img [ref=e106]
+  - contentinfo [ref=e110]:
+    - generic [ref=e111]:
+      - link "Jenkins 中文社区" [ref=e114] [cursor=pointer]:
+        - /url: /chinese
+      - generic [ref=e115]:
+        - link "REST API" [ref=e116] [cursor=pointer]:
+          - /url: api/
+        - button "Jenkins 2.528.3" [ref=e117] [cursor=pointer]
