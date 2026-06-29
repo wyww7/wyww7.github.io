@@ -1,7 +1,7 @@
 ---
 title: K8s集群本地部署
-date: 2026-05-25
-lastmod: 2026-06-02
+date: 2026-01-25
+lastmod: 2026-01-25
 description: 使用虚拟机本地部署k8s
 image: 
 categories:		# 文章外标签

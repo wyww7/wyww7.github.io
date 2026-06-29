@@ -1,7 +1,7 @@
 ---
 title: 自动化运维工具 - Ansible
-date: 2026-05-19
-lastmod: 2026-05-19
+date: 2025-07-15
+lastmod: 2025-07-15
 description: 介绍Ansible的各模块及使用方式
 image: ScreenShot_2026-05-19_201246_361.png
 categories:		# 文章外标签

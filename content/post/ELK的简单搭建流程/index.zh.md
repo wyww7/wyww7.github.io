@@ -1,6 +1,6 @@
 ---
 title: ELK的简单搭建流程
-date: 2026-05-14
+date: 2025-06-14
 lastmod: 2026-05-18
 description: 搭建ELK的过程
 image: ScreenShot_2026-05-18_204335_141.png

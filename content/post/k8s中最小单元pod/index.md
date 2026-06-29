@@ -1,7 +1,7 @@
 ---
 title: k8s中最小单元pod
-date: 2026-05-27
-lastmod: 2026-05-27
+date: 2026-01-27
+lastmod: 2026-01-27
 description: k8s中的最小调度单元pod
 image: ScreenShot_2026-05-27_182923_991.png
 categories:		# 文章外标签

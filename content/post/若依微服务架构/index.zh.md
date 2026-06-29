@@ -1,7 +1,7 @@
 ---
 title: 若依微服务架构
-date: 2026-05-19
-lastmod: 2026-05-19
+date: 2025-08-15
+lastmod: 2025-08-15
 description: linux中使用虚拟机搭建若依微服务架构
 image: ScreenShot_2026-05-19_200258_742.png
 categories:		# 文章外标签

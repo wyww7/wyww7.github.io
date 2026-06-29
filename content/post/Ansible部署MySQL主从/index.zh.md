@@ -1,7 +1,7 @@
 ---
 title: Ansible部署MySQL主从
-date: 2026-05-19
-lastmod: 2026-05-19
+date: 2025-07-19
+lastmod: 2026-07-19
 description: 使用ansible部署MySQL的主从复制
 image: 
 categories:		# 文章外标签

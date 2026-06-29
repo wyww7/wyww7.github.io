@@ -1,6 +1,6 @@
 ---
 title: hugo搭建博客相关问题
-date: 2026-05-12
+date: 2025-05-12
 description: 展示搭建hugo博客的过程
 image: ScreenShot_2026-05-18_204202_255.png
 categories:		# 文章外标签

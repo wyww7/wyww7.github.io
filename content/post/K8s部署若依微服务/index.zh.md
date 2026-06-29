@@ -1,7 +1,7 @@
 ---
 title: "K8s中部署若依微服务"
-date: 2026-05-29
-lastmod: 2026-06-01
+date: 2026-02-28
+lastmod: 2026-03-01
 description: "在 Kubernetes 集群中完整部署若依微服务（RuoYi-Cloud）的实践记录，包含基础设施部署、Nacos 配置、Docker 镜像构建及 K8s 编排的全流程"
 categories:
     - Kubernetes
