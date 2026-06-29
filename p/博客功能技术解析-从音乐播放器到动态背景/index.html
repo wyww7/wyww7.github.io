@@ -1,0 +1,2030 @@
+<!DOCTYPE html>
+<html lang="zh" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="深度解析本博客的技术实现：APlayer 音乐播放器、PJAX 无刷新导航、particles.js 动态背景、自定义 LRC 歌词、暗色模式等功能的架构与修改指南，附完整代码片段和调试经验。">
+<title>博客功能技术解析 — 从音乐播放器到动态背景</title>
+
+
+<link rel="canonical" href="https://wyww7.github.io/p/%E5%8D%9A%E5%AE%A2%E5%8A%9F%E8%83%BD%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90-%E4%BB%8E%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8%E5%88%B0%E5%8A%A8%E6%80%81%E8%83%8C%E6%99%AF/">
+
+<style>
+    :root {
+        --sys-font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC",
+                     "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+    }
+    body {
+        font-family: var(--sys-font);
+    }
+</style>
+
+
+<link rel="stylesheet" href="/scss/style.min.d88b03f9b0ccf554b3cbafb2aaffedef858313e2387ef4c7714a39a3476fa931.css"><meta property='og:title' content="博客功能技术解析 — 从音乐播放器到动态背景">
+<meta property='og:description' content="深度解析本博客的技术实现：APlayer 音乐播放器、PJAX 无刷新导航、particles.js 动态背景、自定义 LRC 歌词、暗色模式等功能的架构与修改指南，附完整代码片段和调试经验。">
+<meta property='og:url' content='https://wyww7.github.io/p/%E5%8D%9A%E5%AE%A2%E5%8A%9F%E8%83%BD%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90-%E4%BB%8E%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8%E5%88%B0%E5%8A%A8%E6%80%81%E8%83%8C%E6%99%AF/'>
+<meta property='og:site_name' content='Wuwei1'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Hugo' /><meta property='article:tag' content='JavaScript' /><meta property='article:tag' content='CSS' /><meta property='article:tag' content='APlayer' /><meta property='article:tag' content='PJAX' /><meta property='article:tag' content='Particles.js' /><meta property='article:published_time' content='2026-06-04T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-06-04T00:00:00&#43;00:00'/><meta property='og:image' content='https://wyww7.github.io/img/River%20Flows%20in%20You.jpg' />
+<meta name="twitter:title" content="博客功能技术解析 — 从音乐播放器到动态背景">
+<meta name="twitter:description" content="深度解析本博客的技术实现：APlayer 音乐播放器、PJAX 无刷新导航、particles.js 动态背景、自定义 LRC 歌词、暗色模式等功能的架构与修改指南，附完整代码片段和调试经验。"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://wyww7.github.io/img/River%20Flows%20in%20You.jpg' />
+    <link rel="shortcut icon" href="/img/avatar.ico" />
+
+<link rel="stylesheet" href="/lib/aplayer/APlayer.min.css">
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        <figure class="site-avatar">
+                <a href="/">
+                    <img src="/img/avatar.jpg"
+                        width=""
+                        height=""
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+                    <span class="emoji">😎</span>
+                
+            </figure>
+        
+
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Wuwei1</a></h1>
+            <h2 class="site-description">学习中</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a
+                        href='https://space.bilibili.com/178958911?spm_id_from=333.788.0.0'
+                        
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-bilibili"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6" /><path d="M8 3l2 3" /><path d="M16 3l-2 3" /><path d="M9 13v-2" /><path d="M15 11v2" /></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a
+                        href='https://github.com/wyww7'
+                        
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>技术链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    <li id="i18n-switch">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                        <div class="i18n-dropdown" id="i18n-dropdown">
+                            <button class="i18n-current" onclick="event.stopPropagation()" data-toggle="i18n-dropdown">
+                                <span>简体中文</span>
+                                <span class="i18n-arrow">▾</span>
+                            </button>
+                            <ul class="i18n-menu">
+                                
+                                    <li class="active">
+                                        <a href="/">简体中文</a>
+                                    </li>
+                                
+                                    <li>
+                                        <a href="/ja/">日本語</a>
+                                    </li>
+                                
+                            </ul>
+                        </div>
+                    </li>
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav class="toc-nav" id="TableOfContents">
+                
+  <ol>
+    <li><a href="#概览">概览</a></li>
+    <li><a href="#一音乐播放器">一、音乐播放器</a>
+      <ol>
+        <li><a href="#11-架构设计">1.1 架构设计</a></li>
+        <li><a href="#12-歌曲配置datamusictoml">1.2 歌曲配置（<code>data/music.toml</code>）</a></li>
+        <li><a href="#13-lrc-歌词系统实现">1.3 LRC 歌词系统实现</a>
+          <ol>
+            <li><a href="#lrc-解析算法">LRC 解析算法</a></li>
+            <li><a href="#实时歌词匹配findcurrentandnext">实时歌词匹配（<code>findCurrentAndNext</code>）</a></li>
+            <li><a href="#渲染循环requestanimationframe">渲染循环（<code>requestAnimationFrame</code>）</a></li>
+            <li><a href="#aplayer-api-注意事项">APlayer API 注意事项</a></li>
+          </ol>
+        </li>
+        <li><a href="#14-播放状态持久化">1.4 播放状态持久化</a></li>
+      </ol>
+    </li>
+    <li><a href="#二pjax-无刷新导航">二、PJAX 无刷新导航</a>
+      <ol>
+        <li><a href="#21-原理">2.1 原理</a></li>
+        <li><a href="#22-为什么不用-innerhtml-替换整个页面">2.2 为什么不用 <code>innerHTML</code> 替换整个页面</a></li>
+        <li><a href="#23-暗色模式持久化">2.3 暗色模式持久化</a></li>
+        <li><a href="#24-排除规则">2.4 排除规则</a></li>
+      </ol>
+    </li>
+    <li><a href="#三动态粒子背景">三、动态粒子背景</a>
+      <ol>
+        <li><a href="#31-配置方式">3.1 配置方式</a></li>
+        <li><a href="#32-css-层叠上下文挑战">3.2 CSS 层叠上下文挑战</a></li>
+        <li><a href="#33-加载时序">3.3 加载时序</a></li>
+      </ol>
+    </li>
+    <li><a href="#四暗色模式">四、暗色模式</a>
+      <ol>
+        <li><a href="#41-css-变量机制">4.1 CSS 变量机制</a></li>
+        <li><a href="#42-搜索框-chrome-autofill-修复">4.2 搜索框 Chrome autofill 修复</a></li>
+        <li><a href="#43-暗色模式按钮的-css-层级">4.3 暗色模式按钮的 CSS 层级</a></li>
+      </ol>
+    </li>
+    <li><a href="#五i18n-语言切换">五、i18n 语言切换</a>
+      <ol>
+        <li><a href="#51-下拉菜单实现">5.1 下拉菜单实现</a></li>
+        <li><a href="#52-js-控制">5.2 JS 控制</a></li>
+      </ol>
+    </li>
+    <li><a href="#六项目结构速查">六、项目结构速查</a>
+      <ol>
+        <li><a href="#修改速查表">修改速查表</a></li>
+      </ol>
+    </li>
+    <li><a href="#七调试经验总结">七、调试经验总结</a></li>
+  </ol>
+
+            </nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+    <div class="article-image">
+        <a href="/p/%E5%8D%9A%E5%AE%A2%E5%8A%9F%E8%83%BD%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90-%E4%BB%8E%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8%E5%88%B0%E5%8A%A8%E6%80%81%E8%83%8C%E6%99%AF/">
+            <img alt="Featured image of post 博客功能技术解析 — 从音乐播放器到动态背景" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/img/River Flows in You.jpg">
+        </a>
+    </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/%E7%AC%94%E8%AE%B0/" style="background-color: hsl(4, 60%, 84%); color: hsl(4, 60%, 15%);">
+                笔记
+            </a>
+        
+            
+            
+            
+            <a href="/categories/themes/" style="background-color: hsl(307, 60%, 84%); color: hsl(307, 60%, 15%);">
+                Themes
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/%E5%8D%9A%E5%AE%A2%E5%8A%9F%E8%83%BD%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90-%E4%BB%8E%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8%E5%88%B0%E5%8A%A8%E6%80%81%E8%83%8C%E6%99%AF/">博客功能技术解析 — 从音乐播放器到动态背景</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            深度解析本博客的技术实现：APlayer 音乐播放器、PJAX 无刷新导航、particles.js 动态背景、自定义 LRC 歌词、暗色模式等功能的架构与修改指南，附完整代码片段和调试经验。
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <span class="article-date-group" style="display: inline-flex; align-items: center; gap: 12px; color: var(--card-text-color-secondary);">
+                        <span style="display: inline-flex; align-items: center; gap: 5px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                            <time class="article-time--published" datetime='2026-06-04T00:00:00Z'>2026-06-04</time>
+                        </span>
+
+                        
+                        <span style="display: inline-flex; align-items: center; gap: 5px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-refresh" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
+  <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
+</svg>
+
+                            <time class="article-time--updated" datetime='2026-06-04T00:00:00Z'>2026-06-04</time>
+                        </span>
+                        
+                    </span>
+                
+
+                
+                    <span style="display: inline-flex; align-items: center; gap: 5px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                        <span>3777 字</span>
+                    </span>
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+</header>
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span>目录</span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ol>
+    <li><a href="#概览">概览</a></li>
+    <li><a href="#一音乐播放器">一、音乐播放器</a>
+      <ol>
+        <li><a href="#11-架构设计">1.1 架构设计</a></li>
+        <li><a href="#12-歌曲配置datamusictoml">1.2 歌曲配置（<code>data/music.toml</code>）</a></li>
+        <li><a href="#13-lrc-歌词系统实现">1.3 LRC 歌词系统实现</a>
+          <ol>
+            <li><a href="#lrc-解析算法">LRC 解析算法</a></li>
+            <li><a href="#实时歌词匹配findcurrentandnext">实时歌词匹配（<code>findCurrentAndNext</code>）</a></li>
+            <li><a href="#渲染循环requestanimationframe">渲染循环（<code>requestAnimationFrame</code>）</a></li>
+            <li><a href="#aplayer-api-注意事项">APlayer API 注意事项</a></li>
+          </ol>
+        </li>
+        <li><a href="#14-播放状态持久化">1.4 播放状态持久化</a></li>
+      </ol>
+    </li>
+    <li><a href="#二pjax-无刷新导航">二、PJAX 无刷新导航</a>
+      <ol>
+        <li><a href="#21-原理">2.1 原理</a></li>
+        <li><a href="#22-为什么不用-innerhtml-替换整个页面">2.2 为什么不用 <code>innerHTML</code> 替换整个页面</a></li>
+        <li><a href="#23-暗色模式持久化">2.3 暗色模式持久化</a></li>
+        <li><a href="#24-排除规则">2.4 排除规则</a></li>
+      </ol>
+    </li>
+    <li><a href="#三动态粒子背景">三、动态粒子背景</a>
+      <ol>
+        <li><a href="#31-配置方式">3.1 配置方式</a></li>
+        <li><a href="#32-css-层叠上下文挑战">3.2 CSS 层叠上下文挑战</a></li>
+        <li><a href="#33-加载时序">3.3 加载时序</a></li>
+      </ol>
+    </li>
+    <li><a href="#四暗色模式">四、暗色模式</a>
+      <ol>
+        <li><a href="#41-css-变量机制">4.1 CSS 变量机制</a></li>
+        <li><a href="#42-搜索框-chrome-autofill-修复">4.2 搜索框 Chrome autofill 修复</a></li>
+        <li><a href="#43-暗色模式按钮的-css-层级">4.3 暗色模式按钮的 CSS 层级</a></li>
+      </ol>
+    </li>
+    <li><a href="#五i18n-语言切换">五、i18n 语言切换</a>
+      <ol>
+        <li><a href="#51-下拉菜单实现">5.1 下拉菜单实现</a></li>
+        <li><a href="#52-js-控制">5.2 JS 控制</a></li>
+      </ol>
+    </li>
+    <li><a href="#六项目结构速查">六、项目结构速查</a>
+      <ol>
+        <li><a href="#修改速查表">修改速查表</a></li>
+      </ol>
+    </li>
+    <li><a href="#七调试经验总结">七、调试经验总结</a></li>
+  </ol>
+
+            </nav>
+        </details>
+    </aside>
+    
+
+    <section class="article-content">
+    
+    
+    <h2 id="概览"><a href="#%e6%a6%82%e8%a7%88" class="header-anchor"></a>概览
+</h2><p>本博客基于 Hugo 静态站点生成器 + Stack 主题构建，托管于 GitHub Pages。在主题基础上扩展了以下功能：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>功能</th>
+          <th>实现方式</th>
+          <th>核心文件</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>音乐播放器</td>
+          <td>APlayer + Hugo Data 模板</td>
+          <td><code>layouts/_partials/footer/custom.html</code></td>
+      </tr>
+      <tr>
+          <td>无刷新导航</td>
+          <td>自实现 PJAX (fetch + DOMParser)</td>
+          <td><code>layouts/_partials/footer/custom.html</code></td>
+      </tr>
+      <tr>
+          <td>双重歌词</td>
+          <td>自定义 LRC 解析 + CSS 毛玻璃</td>
+          <td><code>layouts/_partials/footer/custom.html</code> + <code>assets/scss/custom.scss</code></td>
+      </tr>
+      <tr>
+          <td>动态粒子背景</td>
+          <td>particles.js + 半透明 body 层</td>
+          <td><code>layouts/_partials/footer/custom.html</code> + <code>assets/background/particlesjs-config.json</code></td>
+      </tr>
+      <tr>
+          <td>暗色模式</td>
+          <td>Stack 主题原生 + PJAX 持久化 + autofill 修复</td>
+          <td><code>layouts/_partials/footer/custom.html</code> + <code>assets/scss/custom.scss</code></td>
+      </tr>
+      <tr>
+          <td>语言切换</td>
+          <td>i18n 下拉菜单 + Hugo 多语言</td>
+          <td><code>layouts/_partials/footer/custom.html</code> + <code>assets/scss/custom.scss</code></td>
+      </tr>
+      <tr>
+          <td>搜索框暗色适配</td>
+          <td>CSS autofill 防护</td>
+          <td><code>assets/scss/custom.scss</code></td>
+      </tr>
+      <tr>
+          <td>归档双列布局</td>
+          <td>自定义模板 + CSS Grid</td>
+          <td><code>layouts/archives.html</code> + <code>assets/scss/custom.scss</code></td>
+      </tr>
+  </tbody>
+</table></div>
+<p>所有功能的核心代码集中在 <strong><code>layouts/_partials/footer/custom.html</code></strong>（约 560 行）和 <strong><code>assets/scss/custom.scss</code></strong>（约 1050 行）两个文件中，没有引入任何第三方 JS 框架。</p>
+<hr>
+<h2 id="一音乐播放器"><a href="#%e4%b8%80%e9%9f%b3%e4%b9%90%e6%92%ad%e6%94%be%e5%99%a8" class="header-anchor"></a>一、音乐播放器
+</h2><h3 id="11-架构设计"><a href="#11-%e6%9e%b6%e6%9e%84%e8%ae%be%e8%ae%a1" class="header-anchor"></a>1.1 架构设计
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">data/music.toml ──→ Hugo 模板渲染 ──→ APlayer JS 初始化 ──→ DOM
+</span></span><span class="line"><span class="ln">2</span><span class="cl">       │                                        │
+</span></span><span class="line"><span class="ln">3</span><span class="cl">  歌曲元数据                             自定义歌词系统
+</span></span><span class="line"><span class="ln">4</span><span class="cl">  (URL/封面/LRC)                    (LRC fetch → parseLRC → tick loop)
+</span></span></code></pre></div><p>三层分离：</p>
+<ul>
+<li><strong>数据层</strong> <code>data/music.toml</code>：纯数据，修改歌曲不需要碰代码</li>
+<li><strong>模板层</strong> <code>_partials/footer/custom.html</code>：Hugo 构建时将 TOML 数据注入 JS 变量</li>
+<li><strong>交互层</strong> APlayer JS API + 自实现 LRC 系统</li>
+</ul>
+<h3 id="12-歌曲配置datamusictoml"><a href="#12-%e6%ad%8c%e6%9b%b2%e9%85%8d%e7%bd%aedatamusictoml" class="header-anchor"></a>1.2 歌曲配置（<code>data/music.toml</code>）
+</h3><p>每首歌一个 <code>[[music]]</code> 块，支持 5 个字段：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="ln">1</span><span class="cl"><span class="p">[[</span><span class="nx">music</span><span class="p">]]</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="nx">name</span>   <span class="p">=</span> <span class="s2">&#34;K歌之王&#34;</span>                    <span class="c"># 必填：歌曲名</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="nx">artist</span> <span class="p">=</span> <span class="s2">&#34;陈奕迅&#34;</span>                     <span class="c"># 必填：艺术家</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="nx">url</span>    <span class="p">=</span> <span class="s2">&#34;https://oss.example.com/xxx.mp3&#34;</span>  <span class="c"># 必填：音频 URL</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="nx">cover</span>  <span class="p">=</span> <span class="s2">&#34;/img/K歌之王.jpg&#34;</span>          <span class="c"># 可选：封面图</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="nx">lrc</span>    <span class="p">=</span> <span class="s2">&#34;/music/K歌之王.lrc&#34;</span>        <span class="c"># 可选：LRC 歌词文件路径</span>
+</span></span></code></pre></div><p>数据结构被 Hugo 的 <code>jsonify</code> 过滤器序列化后注入 JS：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1">// 模板中的注入代码</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="kd">var</span><span class="w"> </span><span class="nx">musicList</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{{</span><span class="w"> </span><span class="err">$</span><span class="nx">songs</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nx">jsonify</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nx">safeJS</span><span class="w"> </span><span class="p">}};</span><span class="w">
+</span></span></span></code></pre></div><p>注入后浏览器端收到的 JS 代码：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="ln">1</span><span class="cl"><span class="kd">var</span> <span class="nx">musicList</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="o">:</span><span class="s2">&#34;K歌之王&#34;</span><span class="p">,</span><span class="s2">&#34;artist&#34;</span><span class="o">:</span><span class="s2">&#34;陈奕迅&#34;</span><span class="p">,</span><span class="s2">&#34;url&#34;</span><span class="o">:</span><span class="s2">&#34;https://...&#34;</span><span class="p">,</span><span class="s2">&#34;cover&#34;</span><span class="o">:</span><span class="s2">&#34;/img/...&#34;</span><span class="p">,</span><span class="s2">&#34;lrc&#34;</span><span class="o">:</span><span class="s2">&#34;/music/...&#34;</span><span class="p">},</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">  <span class="c1">// ...更多歌曲
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="p">];</span>
+</span></span></code></pre></div><h3 id="13-lrc-歌词系统实现"><a href="#13-lrc-%e6%ad%8c%e8%af%8d%e7%b3%bb%e7%bb%9f%e5%ae%9e%e7%8e%b0" class="header-anchor"></a>1.3 LRC 歌词系统实现
+</h3><p>APlayer 默认的歌词功能有局限：无 LRC 的歌曲显示 &ldquo;Not available&rdquo; 文字，且样式不可控。因此项目自建了一套双行歌词系统。</p>
+<h4 id="lrc-解析算法"><a href="#lrc-%e8%a7%a3%e6%9e%90%e7%ae%97%e6%b3%95" class="header-anchor"></a>LRC 解析算法
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kd">function</span> <span class="nx">parseLRC</span><span class="p">(</span><span class="nx">lrcText</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">    <span class="kd">var</span> <span class="nx">lines</span> <span class="o">=</span> <span class="nx">lrcText</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;\n&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">    <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="kd">var</span> <span class="nx">seenTimes</span> <span class="o">=</span> <span class="p">{};</span>  <span class="c1">// 同时间戳去重
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="kd">var</span> <span class="nx">tagRe</span> <span class="o">=</span> <span class="sr">/\[(\d{2}):(\d{2})(?:[.:](\d{2,3}))?\]/</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lines</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">        <span class="kd">var</span> <span class="nx">match</span> <span class="o">=</span> <span class="nx">tagRe</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">lines</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">match</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">
+</span></span><span class="line"><span class="ln">11</span><span class="cl">        <span class="kd">var</span> <span class="nx">min</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">10</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">        <span class="kd">var</span> <span class="nx">sec</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">match</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">10</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">        <span class="kd">var</span> <span class="nx">ms</span>  <span class="o">=</span> <span class="nx">match</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">?</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">match</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="mi">10</span><span class="p">)</span> <span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">match</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="nx">match</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">2</span><span class="p">)</span> <span class="nx">ms</span> <span class="o">=</span> <span class="nx">ms</span> <span class="o">*</span> <span class="mi">10</span><span class="p">;</span> <span class="c1">// 兼容 [00:12.34] 和 [00:12.345]
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl">
+</span></span><span class="line"><span class="ln">16</span><span class="cl">        <span class="kd">var</span> <span class="nx">time</span> <span class="o">=</span> <span class="nx">min</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">+</span> <span class="nx">sec</span> <span class="o">+</span> <span class="nx">ms</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">        <span class="kd">var</span> <span class="nx">text</span> <span class="o">=</span> <span class="nx">lines</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">replace</span><span class="p">(</span><span class="nx">tagRe</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">).</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/^\s+/</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">).</span><span class="nx">trim</span><span class="p">();</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">
+</span></span><span class="line"><span class="ln">19</span><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">text</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">seenTimes</span><span class="p">[</span><span class="nx">time</span><span class="p">.</span><span class="nx">toFixed</span><span class="p">(</span><span class="mi">3</span><span class="p">)])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">            <span class="nx">seenTimes</span><span class="p">[</span><span class="nx">time</span><span class="p">.</span><span class="nx">toFixed</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">            <span class="nx">result</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span><span class="nx">time</span><span class="o">:</span> <span class="nx">time</span><span class="p">,</span> <span class="nx">text</span><span class="o">:</span> <span class="nx">text</span><span class="p">});</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">24</span><span class="cl">    <span class="nx">result</span><span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">a</span><span class="p">.</span><span class="nx">time</span> <span class="o">-</span> <span class="nx">b</span><span class="p">.</span><span class="nx">time</span><span class="p">;</span> <span class="p">});</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl">    <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>关键细节：</p>
+<ul>
+<li>时间戳精确到毫秒（<code>toFixed(3)</code>），避免浮点误差</li>
+<li><code>seenTimes</code> 去重：同一时间戳多行（原歌词 + 拼音/翻译）时保留第一行</li>
+<li>兼容 <code>[00:12.34]</code> 和 <code>[00:12.345]</code> 两种 LRC 格式</li>
+</ul>
+<h4 id="实时歌词匹配findcurrentandnext"><a href="#%e5%ae%9e%e6%97%b6%e6%ad%8c%e8%af%8d%e5%8c%b9%e9%85%8dfindcurrentandnext" class="header-anchor"></a>实时歌词匹配（<code>findCurrentAndNext</code>）
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kd">function</span> <span class="nx">findCurrentAndNext</span><span class="p">(</span><span class="nx">lyrics</span><span class="p">,</span> <span class="nx">currentTime</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">lyrics</span> <span class="o">||</span> <span class="nx">lyrics</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="p">{</span> <span class="nx">current</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">next</span><span class="o">:</span> <span class="kc">null</span> <span class="p">};</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">    <span class="kd">var</span> <span class="nx">idx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lyrics</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">currentTime</span> <span class="o">&gt;=</span> <span class="nx">lyrics</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">time</span><span class="p">)</span> <span class="nx">idx</span> <span class="o">=</span> <span class="nx">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">        <span class="k">else</span> <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">    <span class="kd">var</span> <span class="nx">next</span> <span class="o">=</span> <span class="p">(</span><span class="nx">idx</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="nx">lyrics</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="o">?</span> <span class="nx">lyrics</span><span class="p">[</span><span class="nx">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">:</span> <span class="kc">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">    <span class="k">return</span> <span class="p">{</span> <span class="nx">current</span><span class="o">:</span> <span class="nx">lyrics</span><span class="p">[</span><span class="nx">idx</span><span class="p">],</span> <span class="nx">next</span><span class="o">:</span> <span class="nx">next</span> <span class="p">};</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>线性扫描 <code>O(n)</code>，但因 LRC 文件通常只有几十行，性能足够。</p>
+<h4 id="渲染循环requestanimationframe"><a href="#%e6%b8%b2%e6%9f%93%e5%be%aa%e7%8e%afrequestanimationframe" class="header-anchor"></a>渲染循环（<code>requestAnimationFrame</code>）
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kd">function</span> <span class="nx">tick</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">    <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">ap</span><span class="p">.</span><span class="nx">audio</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">ap</span><span class="p">.</span><span class="nx">audio</span><span class="p">.</span><span class="nx">paused</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">lrcManuallyHidden</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">            <span class="kd">var</span> <span class="nx">songName</span> <span class="o">=</span> <span class="nx">getCurrentSongName</span><span class="p">();</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="nx">songName</span> <span class="o">&amp;&amp;</span> <span class="nx">lrcData</span><span class="p">[</span><span class="nx">songName</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="nx">lrcData</span><span class="p">[</span><span class="nx">songName</span><span class="p">].</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="nx">currentLrc</span> <span class="o">!==</span> <span class="nx">lrcData</span><span class="p">[</span><span class="nx">songName</span><span class="p">])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">                    <span class="nx">currentLrc</span> <span class="o">=</span> <span class="nx">lrcData</span><span class="p">[</span><span class="nx">songName</span><span class="p">];</span>  <span class="c1">// 自愈：自动关联当前歌曲
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">                <span class="kd">var</span> <span class="nx">lines</span> <span class="o">=</span> <span class="nx">findCurrentAndNext</span><span class="p">(</span><span class="nx">currentLrc</span><span class="p">,</span> <span class="nx">ap</span><span class="p">.</span><span class="nx">audio</span><span class="p">.</span><span class="nx">currentTime</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="nx">lines</span><span class="p">.</span><span class="nx">current</span> <span class="o">&amp;&amp;</span> <span class="nx">lines</span><span class="p">.</span><span class="nx">current</span><span class="p">.</span><span class="nx">text</span> <span class="o">!==</span> <span class="nx">lastCurrentText</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">                    <span class="nx">lastCurrentText</span> <span class="o">=</span> <span class="nx">lines</span><span class="p">.</span><span class="nx">current</span><span class="p">.</span><span class="nx">text</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">                    <span class="nx">lrcLineEl</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">lines</span><span class="p">.</span><span class="nx">current</span><span class="p">.</span><span class="nx">text</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">                    <span class="nx">flashFade</span><span class="p">(</span><span class="nx">lrcLineEl</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">                <span class="kd">var</span> <span class="nx">nextText</span> <span class="o">=</span> <span class="nx">lines</span><span class="p">.</span><span class="nx">next</span> <span class="o">?</span> <span class="nx">lines</span><span class="p">.</span><span class="nx">next</span><span class="p">.</span><span class="nx">text</span> <span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="nx">nextText</span> <span class="o">!==</span> <span class="nx">lastNextText</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">                    <span class="nx">lastNextText</span> <span class="o">=</span> <span class="nx">nextText</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">                    <span class="nx">lrcNextEl</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">nextText</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">                    <span class="k">if</span> <span class="p">(</span><span class="nx">nextText</span><span class="p">)</span> <span class="nx">flashFade</span><span class="p">(</span><span class="nx">lrcNextEl</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl">    <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="ln">24</span><span class="cl">    <span class="nx">requestAnimationFrame</span><span class="p">(</span><span class="nx">tick</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="nx">requestAnimationFrame</span><span class="p">(</span><span class="nx">tick</span><span class="p">);</span>
+</span></span></code></pre></div><p>每帧检查歌词变化，文本切换时触发 CSS <code>flashFade</code> 动画（<code>opacity: 0.4 → 1</code> 过渡）。</p>
+<h4 id="aplayer-api-注意事项"><a href="#aplayer-api-%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9" class="header-anchor"></a>APlayer API 注意事项
+</h4><p><strong>易错点</strong>：<code>ap.audio</code> 是 HTML5 <code>&lt;audio&gt;</code> 元素，只有 <code>src</code>/<code>currentTime</code>/<code>paused</code> 等原生属性。歌曲元数据（<code>name</code>/<code>artist</code>/<code>cover</code>）存储在 <code>ap.list.audios[ap.list.index]</code> 中。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">// ✅ 正确：从播放列表获取歌曲名
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="kd">function</span> <span class="nx">getCurrentSongName</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">    <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">        <span class="k">return</span> <span class="nx">ap</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">audios</span><span class="p">[</span><span class="nx">ap</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">index</span><span class="p">].</span><span class="nx">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">null</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="c1">// ❌ 错误：ap.audio 没有 name 属性
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="kd">function</span> <span class="nx">getCurrentSongName</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">    <span class="k">return</span> <span class="nx">ap</span><span class="p">.</span><span class="nx">audio</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>  <span class="c1">// undefined!
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="14-播放状态持久化"><a href="#14-%e6%92%ad%e6%94%be%e7%8a%b6%e6%80%81%e6%8c%81%e4%b9%85%e5%8c%96" class="header-anchor"></a>1.4 播放状态持久化
+</h3><p><code>localStorage</code> 键名 <code>aplayer_state_v2</code>，保存/恢复当前歌曲索引、播放进度、播放状态：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="ln">1</span><span class="cl"><span class="kd">function</span> <span class="nx">saveState</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">    <span class="kd">var</span> <span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">        <span class="nx">index</span><span class="o">:</span> <span class="nx">ap</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">index</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">        <span class="nx">currentTime</span><span class="o">:</span> <span class="nx">ap</span><span class="p">.</span><span class="nx">audio</span><span class="p">.</span><span class="nx">currentTime</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">        <span class="nx">isPlaying</span><span class="o">:</span> <span class="o">!</span><span class="nx">ap</span><span class="p">.</span><span class="nx">audio</span><span class="p">.</span><span class="nx">paused</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl">    <span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">&#39;aplayer_state_v2&#39;</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">state</span><span class="p">));</span>
+</span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>恢复时用 <code>ap.list.switch(saved.index)</code> 切到上次歌曲，通过 <code>loadedmetadata</code> + <code>canplay</code> 双事件 + 1.5s 兜底定时器确保进度恢复。</p>
+<hr>
+<h2 id="二pjax-无刷新导航"><a href="#%e4%ba%8cpjax-%e6%97%a0%e5%88%b7%e6%96%b0%e5%af%bc%e8%88%aa" class="header-anchor"></a>二、PJAX 无刷新导航
+</h2><h3 id="21-原理"><a href="#21-%e5%8e%9f%e7%90%86" class="header-anchor"></a>2.1 原理
+</h3><p>不依赖任何 PJAX 库，纯 fetch + DOMParser 实现：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln"> 1</span><span class="cl">用户点击内部链接 → e.preventDefault()
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">     ↓
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">fetch(url) → response.text()
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">     ↓
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">new DOMParser().parseFromString(html, &#39;text/html&#39;)
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">     ↓
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">提取 doc.querySelector(&#39;main.main&#39;)
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">提取 doc.querySelector(&#39;aside.right-sidebar&#39;)
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">     ↓
+</span></span><span class="line"><span class="ln">10</span><span class="cl">替换 DOM 节点 → 同步 body.className / document.title
+</span></span><span class="line"><span class="ln">11</span><span class="cl">     ↓
+</span></span><span class="line"><span class="ln">12</span><span class="cl">history.pushState(url)
+</span></span><span class="line"><span class="ln">13</span><span class="cl">     ↓
+</span></span><span class="line"><span class="ln">14</span><span class="cl">window.Stack.init() 重新绑定主题功能
+</span></span></code></pre></div><h3 id="22-为什么不用-innerhtml-替换整个页面"><a href="#22-%e4%b8%ba%e4%bb%80%e4%b9%88%e4%b8%8d%e7%94%a8-innerhtml-%e6%9b%bf%e6%8d%a2%e6%95%b4%e4%b8%aa%e9%a1%b5%e9%9d%a2" class="header-anchor"></a>2.2 为什么不用 <code>innerHTML</code> 替换整个页面
+</h3><p>只替换 <code>main.main</code> 和 <code>aside.right-sidebar</code> 两个区域，这样：</p>
+<ul>
+<li><strong>播放器 <code>&lt;div id=&quot;aplayer&quot;&gt;</code></strong> 和歌词 <code>&lt;div id=&quot;custom-lrc&quot;&gt;</code> 保持不变（在 main 外部）</li>
+<li><strong>particles.js 画布</strong> <code>&lt;div id=&quot;particles-js&quot;&gt;</code> 保持不变</li>
+<li><strong>所有事件监听器</strong> 保持在同一个 JS 运行环境中</li>
+</ul>
+<h3 id="23-暗色模式持久化"><a href="#23-%e6%9a%97%e8%89%b2%e6%a8%a1%e5%bc%8f%e6%8c%81%e4%b9%85%e5%8c%96" class="header-anchor"></a>2.3 暗色模式持久化
+</h3><p>关键时序问题：<code>window.Stack.init()</code> 会读取 <code>localStorage</code> 中的 <code>StackColorScheme</code> 并设置 <code>data-scheme</code>，可能覆盖用户当前选择。因此 PJAX 必须在 <code>Stack.init()</code> 之后立即恢复：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="ln">1</span><span class="cl"><span class="kd">var</span> <span class="nx">savedScheme</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;data-scheme&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">    <span class="nb">window</span><span class="p">.</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">init</span><span class="p">();</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">savedScheme</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">        <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;data-scheme&#39;</span><span class="p">,</span> <span class="nx">savedScheme</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="p">},</span> <span class="mi">100</span><span class="p">);</span>
+</span></span></code></pre></div><p><code>setTimeout(100ms)</code> 是因为 Stack 主题初始化需要等待 DOM 更新完成。</p>
+<h3 id="24-排除规则"><a href="#24-%e6%8e%92%e9%99%a4%e8%a7%84%e5%88%99" class="header-anchor"></a>2.4 排除规则
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="ln">1</span><span class="cl"><span class="kd">function</span> <span class="nx">shouldIntercept</span><span class="p">(</span><span class="nx">link</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">link</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">).</span><span class="nx">startsWith</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">))</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>  <span class="c1">// 外链
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">link</span><span class="p">.</span><span class="nx">closest</span><span class="p">(</span><span class="s1">&#39;.aplayer&#39;</span><span class="p">))</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>                     <span class="c1">// 播放器控件
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">link</span><span class="p">.</span><span class="nx">closest</span><span class="p">(</span><span class="s1">&#39;#i18n-switch&#39;</span><span class="p">))</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>                <span class="c1">// 语言切换
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">link</span><span class="p">.</span><span class="nx">target</span> <span class="o">||</span> <span class="nx">link</span><span class="p">.</span><span class="nx">hasAttribute</span><span class="p">(</span><span class="s1">&#39;download&#39;</span><span class="p">))</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span> <span class="c1">// 新窗口/下载
+</span></span></span><span class="line"><span class="ln">6</span><span class="cl">    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><hr>
+<h2 id="三动态粒子背景"><a href="#%e4%b8%89%e5%8a%a8%e6%80%81%e7%b2%92%e5%ad%90%e8%83%8c%e6%99%af" class="header-anchor"></a>三、动态粒子背景
+</h2><h3 id="31-配置方式"><a href="#31-%e9%85%8d%e7%bd%ae%e6%96%b9%e5%bc%8f" class="header-anchor"></a>3.1 配置方式
+</h3><p><code>assets/background/particlesjs-config.json</code> 是 particles.js (Vincent Garreau, 2017) 的标准配置。Hugo 构建时 JSON 和 JS 库一同输出到 <code>public/background/</code>。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">  <span class="nt">&#34;particles&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">    <span class="nt">&#34;number&#34;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&#34;value&#34;</span><span class="p">:</span> <span class="mi">80</span><span class="p">,</span> <span class="nt">&#34;density&#34;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&#34;enable&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nt">&#34;value_area&#34;</span><span class="p">:</span> <span class="mi">800</span> <span class="p">}</span> <span class="p">},</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="nt">&#34;color&#34;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&#34;value&#34;</span><span class="p">:</span> <span class="s2">&#34;#f4d2e2&#34;</span> <span class="p">},</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="nt">&#34;opacity&#34;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&#34;value&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nt">&#34;random&#34;</span><span class="p">:</span> <span class="kc">false</span> <span class="p">},</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">    <span class="nt">&#34;size&#34;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&#34;value&#34;</span><span class="p">:</span> <span class="mf">4.5</span><span class="p">,</span> <span class="nt">&#34;random&#34;</span><span class="p">:</span> <span class="kc">true</span> <span class="p">},</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">    <span class="nt">&#34;line_linked&#34;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&#34;enable&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nt">&#34;distance&#34;</span><span class="p">:</span> <span class="mi">150</span><span class="p">,</span> <span class="nt">&#34;color&#34;</span><span class="p">:</span> <span class="s2">&#34;#f4d2e2&#34;</span><span class="p">,</span> <span class="nt">&#34;opacity&#34;</span><span class="p">:</span> <span class="mf">0.72</span><span class="p">,</span> <span class="nt">&#34;width&#34;</span><span class="p">:</span> <span class="mi">1</span> <span class="p">},</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">    <span class="nt">&#34;move&#34;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&#34;enable&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nt">&#34;speed&#34;</span><span class="p">:</span> <span class="mf">1.2</span><span class="p">,</span> <span class="nt">&#34;direction&#34;</span><span class="p">:</span> <span class="s2">&#34;none&#34;</span><span class="p">,</span> <span class="nt">&#34;out_mode&#34;</span><span class="p">:</span> <span class="s2">&#34;out&#34;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">  <span class="nt">&#34;interactivity&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">    <span class="nt">&#34;detect_on&#34;</span><span class="p">:</span> <span class="s2">&#34;window&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">    <span class="nt">&#34;events&#34;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&#34;onhover&#34;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&#34;enable&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nt">&#34;mode&#34;</span><span class="p">:</span> <span class="s2">&#34;grab&#34;</span> <span class="p">},</span> <span class="nt">&#34;onclick&#34;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&#34;enable&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nt">&#34;mode&#34;</span><span class="p">:</span> <span class="s2">&#34;repulse&#34;</span> <span class="p">}</span> <span class="p">},</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">    <span class="nt">&#34;modes&#34;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&#34;grab&#34;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&#34;distance&#34;</span><span class="p">:</span> <span class="mi">250</span><span class="p">,</span> <span class="nt">&#34;line_linked&#34;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&#34;opacity&#34;</span><span class="p">:</span> <span class="mi">1</span> <span class="p">}</span> <span class="p">},</span> <span class="nt">&#34;repulse&#34;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&#34;distance&#34;</span><span class="p">:</span> <span class="mi">285</span> <span class="p">}</span> <span class="p">}</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">  <span class="nt">&#34;retina_detect&#34;</span><span class="p">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><strong>修改方法</strong>：访问 <a class="link" href="https://vincentgarreau.com/particles.js/"  target="_blank" rel="noopener"
+    >vincentgarreau.com/particles.js</a> 生成 JSON → 覆盖 <code>assets/background/particlesjs-config.json</code> → <code>hugo</code> 重新构建。</p>
+<h3 id="32-css-层叠上下文挑战"><a href="#32-css-%e5%b1%82%e5%8f%a0%e4%b8%8a%e4%b8%8b%e6%96%87%e6%8c%91%e6%88%98" class="header-anchor"></a>3.2 CSS 层叠上下文挑战
+</h3><p>这是整个项目中最棘手的 CSS 问题。粒子画布（<code>&lt;canvas&gt;</code>）需要：</p>
+<ul>
+<li>在页面内容<strong>下面</strong>（z-index 低）</li>
+<li>在 body 背景<strong>上面</strong>（否则被 body 的不透明背景挡住）</li>
+</ul>
+<p>解决方案：不让 body 完全不透明，而是用 85% 不透明度的半透明背景：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">body</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">    <span class="k">background</span><span class="p">:</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">245</span><span class="p">,</span> <span class="mi">245</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">)</span> <span class="cp">!important</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="o">[</span><span class="nt">data-scheme</span><span class="o">=</span><span class="s2">&#34;dark&#34;</span><span class="o">]</span> <span class="nt">body</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="k">background</span><span class="p">:</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">48</span><span class="p">,</span> <span class="mi">48</span><span class="p">,</span> <span class="mi">48</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">)</span> <span class="cp">!important</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="p">#</span><span class="nn">particles-js</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">    <span class="k">position</span><span class="p">:</span> <span class="kc">fixed</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">    <span class="k">z-index</span><span class="p">:</span> <span class="mi">-1</span><span class="p">;</span>  <span class="c">/* 在 body 背景下方，通过 body 半透明可见 */</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">    <span class="n">pointer-events</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><code>rgba(245,245,250,0.85)</code> 代表浅色模式下 15% 的透明度让粒子透出；卡片（<code>article</code>）有 100% 不透明背景色，内容完全不受影响。</p>
+<h3 id="33-加载时序"><a href="#33-%e5%8a%a0%e8%bd%bd%e6%97%b6%e5%ba%8f" class="header-anchor"></a>3.3 加载时序
+</h3><p>particles.js 在 <code>&lt;script src=&quot;...&quot;&gt;</code> 同步加载后立即调用 <code>particlesJS.load()</code>，不等待 DOMContentLoaded。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="ln">1</span><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;particles-js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;/background/particles.min.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">  <span class="nx">particlesJS</span><span class="p">.</span><span class="nx">load</span><span class="p">(</span><span class="s1">&#39;particles-js&#39;</span><span class="p">,</span> <span class="s1">&#39;/background/particlesjs-config.json&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;particles.js loaded&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></div><hr>
+<h2 id="四暗色模式"><a href="#%e5%9b%9b%e6%9a%97%e8%89%b2%e6%a8%a1%e5%bc%8f" class="header-anchor"></a>四、暗色模式
+</h2><h3 id="41-css-变量机制"><a href="#41-css-%e5%8f%98%e9%87%8f%e6%9c%ba%e5%88%b6" class="header-anchor"></a>4.1 CSS 变量机制
+</h3><p>Stack 主题在 <code>&lt;html&gt;</code> 上设置 <code>data-scheme</code> 属性，通过 CSS 属性选择器切换变量：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="p">:</span><span class="nd">root</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">    <span class="nv">--body-background</span><span class="p">:</span> <span class="mh">#f5f5fa</span><span class="p">;</span>       <span class="c">/* 浅色 */</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">    <span class="nv">--card-background</span><span class="p">:</span> <span class="mh">#fff</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="nv">--body-text-color</span><span class="p">:</span> <span class="mh">#707070</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="p">:</span><span class="nd">root</span><span class="o">[</span><span class="nt">data-scheme</span><span class="o">=</span><span class="s2">&#34;dark&#34;</span><span class="o">]</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">    <span class="nv">--body-background</span><span class="p">:</span> <span class="mh">#303030</span><span class="p">;</span>       <span class="c">/* 深色 */</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">    <span class="nv">--card-background</span><span class="p">:</span> <span class="mh">#424242</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">    <span class="nv">--body-text-color</span><span class="p">:</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mf">0.7</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>所有 UI 组件使用 <code>var(--body-background)</code> 等变量，自动适配明暗切换。</p>
+<h3 id="42-搜索框-chrome-autofill-修复"><a href="#42-%e6%90%9c%e7%b4%a2%e6%a1%86-chrome-autofill-%e4%bf%ae%e5%a4%8d" class="header-anchor"></a>4.2 搜索框 Chrome autofill 修复
+</h3><p>Chrome 在识别到 <code>&lt;input name=&quot;keyword&quot;&gt;</code> 后会注入 autofill 样式，覆盖自定义背景色。解决方案：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">input</span><span class="o">[</span><span class="nt">name</span><span class="o">=</span><span class="s2">&#34;keyword&#34;</span><span class="o">]</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">    <span class="na">-webkit-text-fill-color</span><span class="o">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">card-text-color-main</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="na">&amp;</span><span class="o">:-</span><span class="n">webkit-autofill</span><span class="o">,</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="na">&amp;</span><span class="o">:-</span><span class="na">webkit-autofill</span><span class="o">:</span><span class="n">hover</span><span class="o">,</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">    <span class="na">&amp;</span><span class="o">:-</span><span class="na">webkit-autofill</span><span class="o">:</span><span class="ni">focus</span><span class="o">,</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">    <span class="o">&amp;:-</span><span class="n">webkit-autofill</span><span class="o">:</span><span class="n">active</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">        <span class="na">-webkit-text-fill-color</span><span class="o">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">card-text-color-main</span><span class="p">)</span> <span class="k">!important</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">        <span class="na">-webkit-box-shadow</span><span class="o">:</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1000</span><span class="kt">px</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">card-background</span><span class="p">)</span> <span class="ni">inset</span> <span class="k">!important</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">        <span class="na">transition</span><span class="o">:</span> <span class="n">background-color</span> <span class="mi">5000</span><span class="kt">s</span> <span class="ni">ease-in-out</span> <span class="mi">0</span><span class="kt">s</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>核心技巧：Chrome autofill 不认 <code>background</code> CSS 属性，但认 <code>-webkit-box-shadow: inset</code>。用 1000px 的内阴影模拟背景色填充整个输入框。<code>transition: 5000s</code> 阻止 autofill 的白色→主题色的过渡动画闪烁。</p>
+<h3 id="43-暗色模式按钮的-css-层级"><a href="#43-%e6%9a%97%e8%89%b2%e6%a8%a1%e5%bc%8f%e6%8c%89%e9%92%ae%e7%9a%84-css-%e5%b1%82%e7%ba%a7" class="header-anchor"></a>4.3 暗色模式按钮的 CSS 层级
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="ln">1</span><span class="cl"><span class="nn">#dark-mode-toggle</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">    <span class="na">width</span><span class="o">:</span> <span class="ni">auto</span> <span class="k">!important</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">    <span class="na">align-self</span><span class="o">:</span> <span class="ni">flex-start</span> <span class="k">!important</span><span class="p">;</span>  <span class="c1">// 阻止 flex 容器横向拉伸
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><code>align-self: flex-start</code> 是因为主题 CSS 中 <code>#main-menu li { width: 100% }</code> 会导致按钮占满整行。</p>
+<hr>
+<h2 id="五i18n-语言切换"><a href="#%e4%ba%94i18n-%e8%af%ad%e8%a8%80%e5%88%87%e6%8d%a2" class="header-anchor"></a>五、i18n 语言切换
+</h2><h3 id="51-下拉菜单实现"><a href="#51-%e4%b8%8b%e6%8b%89%e8%8f%9c%e5%8d%95%e5%ae%9e%e7%8e%b0" class="header-anchor"></a>5.1 下拉菜单实现
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nn">#i18n-switch</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">    <span class="na">position</span><span class="o">:</span> <span class="ni">relative</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">    <span class="na">z-index</span><span class="o">:</span> <span class="mi">10</span><span class="p">;</span>  <span class="c1">// 关键：创建独立层叠上下文，防止暗色模式按钮穿透
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="nc">.i18n-menu</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">        <span class="na">position</span><span class="o">:</span> <span class="ni">absolute</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">        <span class="na">z-index</span><span class="o">:</span> <span class="mi">100</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">        <span class="na">opacity</span><span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">        <span class="na">visibility</span><span class="o">:</span> <span class="ni">hidden</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">        <span class="na">transform</span><span class="o">:</span> <span class="nf">translateY</span><span class="p">(</span><span class="mi">10</span><span class="kt">px</span><span class="p">)</span> <span class="nf">scale</span><span class="p">(</span><span class="mi">0</span><span class="mf">.95</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">        <span class="na">transition</span><span class="o">:</span> <span class="ni">opacity</span> <span class="mi">0</span><span class="mf">.2</span><span class="kt">s</span><span class="o">,</span> <span class="n">visibility</span> <span class="mi">0</span><span class="mf">.2</span><span class="kt">s</span><span class="o">,</span> <span class="ni">transform</span> <span class="mi">0</span><span class="mf">.25</span><span class="kt">s</span> <span class="nf">cubic-bezier</span><span class="p">(</span><span class="mi">0</span><span class="mf">.34</span><span class="o">,</span> <span class="mi">1</span><span class="mf">.56</span><span class="o">,</span> <span class="mi">0</span><span class="mf">.64</span><span class="o">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">
+</span></span><span class="line"><span class="ln">14</span><span class="cl">    <span class="nc">.i18n-dropdown.open</span> <span class="nc">.i18n-menu</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">        <span class="na">opacity</span><span class="o">:</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">        <span class="na">visibility</span><span class="o">:</span> <span class="ni">visible</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">        <span class="na">transform</span><span class="o">:</span> <span class="nf">translateY</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="nf">scale</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>动画使用 <code>cubic-bezier(0.34, 1.56, 0.64, 1)</code> 产生弹性回弹效果。<code>opacity</code> + <code>visibility</code> 双属性控制是为了让隐藏状态下完全不可交互。</p>
+<h3 id="52-js-控制"><a href="#52-js-%e6%8e%a7%e5%88%b6" class="header-anchor"></a>5.2 JS 控制
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="ln">1</span><span class="cl"><span class="kd">var</span> <span class="nx">dropdown</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;.i18n-dropdown&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="kd">var</span> <span class="nx">toggleBtn</span> <span class="o">=</span> <span class="nx">dropdown</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;[data-toggle]&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="nx">toggleBtn</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">    <span class="nx">e</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">();</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">    <span class="nx">dropdown</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">toggle</span><span class="p">(</span><span class="s1">&#39;open&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="c1">// 点击外部或按 Escape 关闭
+</span></span></span></code></pre></div>
+    <blockquote>
+        <p>⚠️ 此处踩过一个坑：最初用 <code>document.getElementById('i18n-dropdown')</code> 获取元素，但 <code>.i18n-dropdown</code> 是 class 不是 id，导致 JS 完全无效。改为 <code>querySelector('.i18n-dropdown')</code> 解决。</p>
+
+    </blockquote>
+<hr>
+<h2 id="六项目结构速查"><a href="#%e5%85%ad%e9%a1%b9%e7%9b%ae%e7%bb%93%e6%9e%84%e9%80%9f%e6%9f%a5" class="header-anchor"></a>六、项目结构速查
+</h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln"> 1</span><span class="cl">dev/
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">├── assets/
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">│   ├── background/
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">│   │   ├── particles.min.js               # particles.js 库 (23KB)
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">│   │   └── particlesjs-config.json        # 粒子配置 ← 修改粒子效果
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">│   └── scss/
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">│       └── custom.scss                    # 全部自定义样式 ← 修改 UI
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">├── config/_default/
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">│   ├── config.toml                        # Hugo 主配置
+</span></span><span class="line"><span class="ln">10</span><span class="cl">│   └── languages.toml                     # 多语言配置
+</span></span><span class="line"><span class="ln">11</span><span class="cl">├── content/post/                          # 博客文章 (.md)
+</span></span><span class="line"><span class="ln">12</span><span class="cl">├── data/
+</span></span><span class="line"><span class="ln">13</span><span class="cl">│   └── music.toml                         # 歌曲列表 ← 加歌/改歌
+</span></span><span class="line"><span class="ln">14</span><span class="cl">├── layouts/
+</span></span><span class="line"><span class="ln">15</span><span class="cl">│   ├── _partials/
+</span></span><span class="line"><span class="ln">16</span><span class="cl">│   │   ├── footer/custom.html             # ← 核心文件 (560行)
+</span></span><span class="line"><span class="ln">17</span><span class="cl">│   │   └── sidebar/left.html              # 侧边栏覆盖
+</span></span><span class="line"><span class="ln">18</span><span class="cl">│   ├── partials/
+</span></span><span class="line"><span class="ln">19</span><span class="cl">│   │   ├── head/custom.html               # APlayer CSS 引用
+</span></span><span class="line"><span class="ln">20</span><span class="cl">│   │   └── head/custom-font.html          # 系统字体栈 (替代 Google Fonts)
+</span></span><span class="line"><span class="ln">21</span><span class="cl">│   ├── archives.html                      # 归档页 (双列 Grid)
+</span></span><span class="line"><span class="ln">22</span><span class="cl">│   └── _default/terms.html                # 分类页
+</span></span><span class="line"><span class="ln">23</span><span class="cl">├── static/
+</span></span><span class="line"><span class="ln">24</span><span class="cl">│   ├── lib/aplayer/                       # APlayer v1.10.1 本地库
+</span></span><span class="line"><span class="ln">25</span><span class="cl">│   │   ├── APlayer.min.css
+</span></span><span class="line"><span class="ln">26</span><span class="cl">│   │   └── APlayer.min.js
+</span></span><span class="line"><span class="ln">27</span><span class="cl">│   ├── img/                               # 封面图等
+</span></span><span class="line"><span class="ln">28</span><span class="cl">│   └── music/                             # LRC 歌词文件
+</span></span><span class="line"><span class="ln">29</span><span class="cl">├── themes/hugo-theme-stack/               # 主题 (git submodule)
+</span></span><span class="line"><span class="ln">30</span><span class="cl">└── deploy.bat                             # 一键部署脚本
+</span></span></code></pre></div><h3 id="修改速查表"><a href="#%e4%bf%ae%e6%94%b9%e9%80%9f%e6%9f%a5%e8%a1%a8" class="header-anchor"></a>修改速查表
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>需求</th>
+          <th>文件</th>
+          <th>怎么改</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>加一首歌</td>
+          <td><code>data/music.toml</code></td>
+          <td>追加 <code>[[music]]</code> 块</td>
+      </tr>
+      <tr>
+          <td>改粒子颜色/密度</td>
+          <td><code>assets/background/particlesjs-config.json</code></td>
+          <td>改 JSON 字段</td>
+      </tr>
+      <tr>
+          <td>调播放器样式</td>
+          <td><code>assets/scss/custom.scss</code></td>
+          <td>APlayer 块</td>
+      </tr>
+      <tr>
+          <td>调歌词样式</td>
+          <td><code>assets/scss/custom.scss</code></td>
+          <td><code>#custom-lrc</code> 块</td>
+      </tr>
+      <tr>
+          <td>改 PJAX 行为</td>
+          <td><code>layouts/_partials/footer/custom.html</code></td>
+          <td>PJAX 块</td>
+      </tr>
+      <tr>
+          <td>改粒子透明度</td>
+          <td><code>layouts/_partials/footer/custom.html</code></td>
+          <td><code>&lt;style&gt;</code> 中 body background rgba</td>
+      </tr>
+      <tr>
+          <td>加新侧边栏功能</td>
+          <td><code>layouts/_partials/footer/custom.html</code></td>
+          <td>追加 <code>&lt;script&gt;</code></td>
+      </tr>
+      <tr>
+          <td>更换背景类型</td>
+          <td><code>layouts/_partials/footer/custom.html</code></td>
+          <td>替换 particles.js 部分</td>
+      </tr>
+      <tr>
+          <td>改搜索框样式</td>
+          <td><code>assets/scss/custom.scss</code></td>
+          <td><code>.search-form</code> 块</td>
+      </tr>
+  </tbody>
+</table></div>
+<hr>
+<h2 id="七调试经验总结"><a href="#%e4%b8%83%e8%b0%83%e8%af%95%e7%bb%8f%e9%aa%8c%e6%80%bb%e7%bb%93" class="header-anchor"></a>七、调试经验总结
+</h2><ol>
+<li><strong>Hugo 模板路径</strong>：Stack 主题使用 <code>_partials</code> 目录，自定义模板必须放在 <code>layouts/_partials/</code>（带下划线），不是 <code>layouts/partials/</code></li>
+<li><strong>Hugo 0.156+ 弃用</strong>：<code>site.Data</code> 替换为 <code>hugo.Data</code>，避免构建警告</li>
+<li><strong>APlayer API</strong>：<code>ap.audio</code> 是 HTML5 Audio 元素（有 currentTime/paused/volume），歌曲元数据在 <code>ap.list.audios[index]</code>（有 name/artist/cover/lrc）</li>
+<li><strong>CSS 层叠上下文</strong>：<code>z-index: -1</code> 的 fixed 元素在 body 背景下方，需要 body 半透明才能看见</li>
+<li><strong>Chrome autofill</strong>：用 <code>-webkit-box-shadow: inset</code> 替代 <code>background</code> 设置输入框背景色</li>
+<li><strong>所有功能集中在两个文件</strong>——便于维护，但修改时要小心不要破坏其他功能</li>
+</ol>
+<hr>
+<p><em>本文由 Claude (Anthropic) 对博客项目进行全面审计与优化后撰写，记录项目的技术架构和实现细节。</em></p>
+<p><em>2026 年 6 月 4 日</em></p>
+
+</section>
+
+
+    <footer class="article-meta article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/hugo/">Hugo</a>
+        
+            <a href="/tags/javascript/">JavaScript</a>
+        
+            <a href="/tags/css/">CSS</a>
+        
+            <a href="/tags/aplayer/">APlayer</a>
+        
+            <a href="/tags/pjax/">PJAX</a>
+        
+            <a href="/tags/particles.js/">Particles.js</a>
+        
+    </section>
+
+
+    
+<section class="article-share">
+    <span class="share-label">分享</span>
+    <a href="https://twitter.com/intent/tweet?url=https://wyww7.github.io/p/%E5%8D%9A%E5%AE%A2%E5%8A%9F%E8%83%BD%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90-%E4%BB%8E%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8%E5%88%B0%E5%8A%A8%E6%80%81%E8%83%8C%E6%99%AF/&text=%e5%8d%9a%e5%ae%a2%e5%8a%9f%e8%83%bd%e6%8a%80%e6%9c%af%e8%a7%a3%e6%9e%90%20%e2%80%94%20%e4%bb%8e%e9%9f%b3%e4%b9%90%e6%92%ad%e6%94%be%e5%99%a8%e5%88%b0%e5%8a%a8%e6%80%81%e8%83%8c%e6%99%af"
+       target="_blank" rel="noopener" title="分享到 Twitter" class="share-btn twitter">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+    </a>
+    <button class="share-btn wechat" title="分享到微信" id="share-wechat">
+        <img src="/img/wechat.svg" width="14" height="14" alt="微信">
+    </button>
+    <a href="https://connect.qq.com/widget/shareqq/index.html?url=https://wyww7.github.io/p/%E5%8D%9A%E5%AE%A2%E5%8A%9F%E8%83%BD%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90-%E4%BB%8E%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8%E5%88%B0%E5%8A%A8%E6%80%81%E8%83%8C%E6%99%AF/&title=%e5%8d%9a%e5%ae%a2%e5%8a%9f%e8%83%bd%e6%8a%80%e6%9c%af%e8%a7%a3%e6%9e%90%20%e2%80%94%20%e4%bb%8e%e9%9f%b3%e4%b9%90%e6%92%ad%e6%94%be%e5%99%a8%e5%88%b0%e5%8a%a8%e6%80%81%e8%83%8c%e6%99%af"
+       target="_blank" rel="noopener" title="分享到 QQ" class="share-btn qq">
+        <img src="/img/qq.svg" width="14" height="14" alt="QQ">
+    </a>
+    <button class="share-btn copy-link" title="复制链接" id="share-copy-btn">链接</button>
+</section>
+
+<script>
+(function() {
+    var wechatBtn = document.getElementById('share-wechat');
+    if (wechatBtn) {
+        var wechatOrig = wechatBtn.innerHTML;
+        var wechatTxt = wechatBtn.textContent;
+        wechatBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(location.href).then(function() {
+                wechatBtn.textContent = '已复制';
+                wechatBtn.style.color = '#fff';
+                wechatBtn.style.background = '#07c160';
+                setTimeout(function() {
+                    wechatBtn.innerHTML = wechatOrig;
+                    wechatBtn.style.color = '';
+                    wechatBtn.style.background = '';
+                }, 2000);
+            });
+        });
+    }
+
+    var copyBtn = document.getElementById('share-copy-btn');
+    if (copyBtn) {
+        var origText = copyBtn.textContent;
+        copyBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(location.href).then(function() {
+                copyBtn.textContent = '已复制';
+                copyBtn.style.background = 'var(--accent-color)';
+                copyBtn.style.color = '#fff';
+                setTimeout(function() {
+                    copyBtn.textContent = origText;
+                    copyBtn.style.background = '';
+                    copyBtn.style.color = '';
+                }, 1500);
+            });
+        });
+    }
+})();
+</script>
+
+
+    
+    <section class="article-copyright inline-meta">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span><a class="link" href="https://wyww7.github.io/"  target="_blank" rel="noopener"
+    >Wuwei&rsquo;s Blog</a></span>
+    </section>
+    
+</footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside>
+    <h2 class="section-title">相关文章</h2>
+    <div class="subsection-list">
+        <div class="article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/mall-swarm-k8s-%E5%AE%8C%E6%95%B4%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8D%97/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">mall-swarm K8S 完整部署指南</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="has-image">
+    <a href="/p/k8s%E4%B8%AD%E6%9C%80%E5%B0%8F%E5%8D%95%E5%85%83pod/">
+        
+        <div class="article-image">
+            <img alt="Featured image of post k8s中最小单元pod" height="150" loading="lazy" src="/p/k8s%E4%B8%AD%E6%9C%80%E5%B0%8F%E5%8D%95%E5%85%83pod/ScreenShot_2026-05-27_182923_991_hu_a0254465ca0cebd0.png" srcset="/p/k8s%E4%B8%AD%E6%9C%80%E5%B0%8F%E5%8D%95%E5%85%83pod/ScreenShot_2026-05-27_182923_991_hu_a0254465ca0cebd0.png 1x, /p/k8s%E4%B8%AD%E6%9C%80%E5%B0%8F%E5%8D%95%E5%85%83pod/ScreenShot_2026-05-27_182923_991_hu_6e6ad7d5bca8fb1d.png 2x" width="250">
+
+        </div>
+        
+
+        <div class="article-details"style="background: linear-gradient(0deg, #32313280 0%, #f8fafdC0 100%);">
+            <h2 class="article-title">k8s中最小单元pod</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/mermaid-diagrams/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Mermaid Diagrams</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="has-image">
+    <a href="/p/docker%E5%AE%B9%E5%99%A8/">
+        
+        <div class="article-image">
+            <img alt="Featured image of post Docker容器" height="150" loading="lazy" src="/p/docker%E5%AE%B9%E5%99%A8/ScreenShot_2026-05-21_185139_700_hu_a0ec85d6e8cb6fac.png" srcset="/p/docker%E5%AE%B9%E5%99%A8/ScreenShot_2026-05-21_185139_700_hu_a0ec85d6e8cb6fac.png 1x, /p/docker%E5%AE%B9%E5%99%A8/ScreenShot_2026-05-21_185139_700_hu_5474d7da45363cf3.png 2x" width="250">
+
+        </div>
+        
+
+        <div class="article-details"style="background: linear-gradient(0deg, #09143780 0%, #f7f9faC0 100%);">
+            <h2 class="article-title">Docker容器</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="has-image">
+    <a href="/p/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7-ansible/">
+        
+        <div class="article-image">
+            <img alt="Featured image of post 自动化运维工具 - Ansible" height="150" loading="lazy" src="/p/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7-ansible/ScreenShot_2026-05-19_201246_361_hu_920458fd756d4bc6.png" srcset="/p/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7-ansible/ScreenShot_2026-05-19_201246_361_hu_920458fd756d4bc6.png 1x, /p/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7-ansible/ScreenShot_2026-05-19_201246_361_hu_7ab5084ed11ec15e.png 2x" width="250">
+
+        </div>
+        
+
+        <div class="article-details"style="background: linear-gradient(0deg, #51a8b780 0%, #fbfbfbC0 100%);">
+            <h2 class="article-title">自动化运维工具 - Ansible</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+
+        <script
+    src="https://giscus.app/client.js"
+    data-repo="wyww7/wyww7.github.io"
+    data-repo-id="R_kgDOSnUB8Q"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOSnUB8c4C-Ay_"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="light"
+    data-lang="zh-CN"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('light');
+            } else {
+                setGiscusTheme('dark_dimmed');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 Wuwei1
+    </section>
+    
+	
+     <section class="powerby">
+        
+            记录技术与生活 <br/>
+        
+    </section>
+	
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+
+    
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.d88cf3a6d6de09e604bc00078d6c7b48e2ff198def996e81394857ca0bf28bd1.js" defer></script>
+<div id="particles-js"></div>
+<script src="/background/particles.min.js"></script>
+<script>
+  particlesJS.load('particles-js', '\/background\/particlesjs-config.json', function() {
+    console.log('particles.js loaded - callback');
+  });
+</script>
+<style>
+  #particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+  }
+   
+  body {
+    background: rgba(245, 245, 250, 0.85) !important;
+  }
+  [data-scheme="dark"] body {
+    background: rgba(48, 48, 48, 0.85) !important;
+  }
+   
+  #dark-mode-toggle {
+    width: auto !important;
+    align-self: flex-start !important;
+  }
+
+  
+   
+  #reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    z-index: 10000;
+    background: linear-gradient(90deg, var(--accent-color), #e91e63);
+    pointer-events: none;
+  }
+
+  #reading-progress.visible {
+    opacity: 1;
+  }
+
+  [data-scheme="dark"] #reading-progress {
+    background: rgba(255,255,255,0.7);
+  }
+  
+
+   
+  #TableOfContents ol ol {
+    display: none;
+  }
+  #TableOfContents ol ol.open {
+    display: block;
+  }
+
+   
+  #back-to-top {
+    position: fixed;
+    bottom: 90px;
+    right: 24px;
+    z-index: 997;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--card-background);
+    border: 1px solid var(--card-separator-color);
+    box-shadow: var(--shadow-l1);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+  }
+  #back-to-top.visible {
+    opacity: 0.85;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  #back-to-top:hover {
+    opacity: 1;
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+  }
+  #back-to-top::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-left: 2px solid var(--body-text-color);
+    border-top: 2px solid var(--body-text-color);
+    transform: rotate(45deg) translate(2px, 2px);
+  }
+  #back-to-top:hover::before {
+    border-color: #fff;
+  }
+
+   
+  .highlight .copyCodeButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    border: none !important;
+    border-radius: 0 4px 0 4px !important;
+    padding: 1px 8px !important;
+    min-width: 58px !important;
+    width: 58px !important;
+    max-width: 58px !important;
+    font-size: 1.05rem !important;
+    font-family: inherit !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.02em !important;
+    white-space: nowrap !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+    line-height: 1.8 !important;
+    cursor: pointer !important;
+    overflow: hidden !important;
+    background: rgba(128,128,128,0.08) !important;
+    color: rgba(0,0,0,0.35) !important;
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+    transition: all 0.25s ease !important;
+  }
+  .highlight .copyCodeButton:hover {
+    background: rgba(128,128,128,0.16) !important;
+    color: rgba(0,0,0,0.6) !important;
+  }
+  .highlight .copyCodeButton.copied {
+    background: var(--accent-color) !important;
+    color: #fff !important;
+  }
+  [data-scheme="dark"] .highlight .copyCodeButton {
+    background: rgba(255,255,255,0.06) !important;
+    color: rgba(255,255,255,0.35) !important;
+  }
+  [data-scheme="dark"] .highlight .copyCodeButton:hover {
+    background: rgba(255,255,255,0.12) !important;
+    color: rgba(255,255,255,0.7) !important;
+  }
+  [data-scheme="dark"] .highlight .copyCodeButton.copied {
+    background: var(--accent-color) !important;
+    color: #000 !important;
+    font-weight: 500 !important;
+  }
+
+   
+  [data-scheme="dark"] #back-to-top::before {
+    border-color: rgba(255,255,255,0.7);
+  }
+  [data-scheme="dark"] #back-to-top:hover {
+    background: rgba(255,255,255,0.15);
+  }
+  [data-scheme="dark"] #back-to-top:hover::before {
+    border-color: #fff;
+  }
+</style>
+
+<script src="/js/blog-extras.js"></script>
+
+
+<script>
+
+
+(function() {
+    var bar = document.getElementById('reading-progress');
+    if (bar) return;
+
+    bar = document.createElement('div');
+    bar.id = 'reading-progress';
+    bar.style.opacity = '0';
+    document.body.prepend(bar);
+
+    var hideTimer = null;
+
+    function update() {
+        var scrollTop = window.scrollY || document.documentElement.scrollTop;
+        var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        if (docHeight > 0) {
+            bar.style.width = Math.min((scrollTop / docHeight) * 100, 100) + '%';
+        }
+    }
+
+    function show() {
+        bar.style.opacity = '1';
+        if (hideTimer) clearTimeout(hideTimer);
+        hideTimer = setTimeout(function() {
+            bar.style.opacity = '0';
+        }, 1500);
+    }
+
+    window.addEventListener('scroll', function() {
+        update();
+        show();
+    }, { passive: true });
+
+    update();
+})();
+</script>
+
+
+<script>
+
+(function() {
+    'use strict';
+    var MAIN_SELECTOR = 'main.main';
+
+    
+    function shouldIntercept(link) {
+        var href = link.getAttribute('href');
+        if (!href) return false;
+        if (!href.startsWith('/') || href.startsWith('//')) return false;
+        if (href.startsWith('#')) return false;
+        if (link.target || link.hasAttribute('download')) return false;
+        if (link.getAttribute('rel') === 'external') return false;
+        
+        if (link.closest('.aplayer')) return false;
+        
+        if (link.closest('#i18n-switch')) return false;
+        return true;
+    }
+
+    
+    function executeScripts(container) {
+        var scripts = container.querySelectorAll('script');
+        scripts.forEach(function(oldScript) {
+            var s = document.createElement('script');
+            for (var i = 0; i < oldScript.attributes.length; i++) {
+                var attr = oldScript.attributes[i];
+                s.setAttribute(attr.name, attr.value);
+            }
+            s.textContent = oldScript.textContent;
+            oldScript.parentNode.replaceChild(s, oldScript);
+        });
+    }
+
+    function navigate(url, addToHistory) {
+        
+        document.documentElement.classList.add('pjax-loading');
+
+        fetch(url)
+            .then(function(res) {
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                return res.text();
+            })
+            .then(function(html) {
+                var parser = new DOMParser();
+                var doc = parser.parseFromString(html, 'text/html');
+
+                var newMain = doc.querySelector(MAIN_SELECTOR);
+                var oldMain = document.querySelector(MAIN_SELECTOR);
+                if (!newMain || !oldMain) throw new Error('Missing main content');
+
+                
+                oldMain.innerHTML = newMain.innerHTML;
+
+                
+                var oldSidebar = document.querySelector('aside.right-sidebar');
+                var newSidebar = doc.querySelector('aside.right-sidebar');
+                if (newSidebar) {
+                    if (oldSidebar) {
+                        oldSidebar.innerHTML = newSidebar.innerHTML;
+                    } else {
+                        
+                        var container = document.querySelector('.main-container');
+                        var refNode = container.querySelector('main.main');
+                        if (container && refNode) {
+                            var sidebar = document.createElement('aside');
+                            sidebar.className = newSidebar.className;
+                            sidebar.innerHTML = newSidebar.innerHTML;
+                            container.insertBefore(sidebar, refNode);
+                        }
+                    }
+                } else if (oldSidebar) {
+                    
+                    oldSidebar.remove();
+                }
+
+                
+                document.body.className = doc.body.className;
+                document.title = doc.title;
+
+                
+                executeScripts(oldMain);
+
+                
+                
+                
+                var savedScheme = document.documentElement.getAttribute('data-scheme');
+                function reinitTOC() {
+                    window.Stack.init();
+                    
+                    if (savedScheme) {
+                        document.documentElement.setAttribute('data-scheme', savedScheme);
+                    }
+                    
+                    if (window.__TOC__ && window.__TOC__.init) {
+                        window.__TOC__.init();
+                    }
+                }
+                if (window.Stack && typeof window.Stack.init === 'function') {
+                    setTimeout(reinitTOC, 100);
+                } else {
+                    
+                    
+                    setTimeout(function() {
+                        if (window.__TOC__ && window.__TOC__.init) {
+                            window.__TOC__.init();
+                        }
+                    }, 100);
+                }
+
+                
+                if (addToHistory !== false) {
+                    history.pushState({ url: url }, doc.title, url);
+                }
+                window.scrollTo({ top: 0, behavior: 'instant' });
+
+                
+                document.dispatchEvent(new CustomEvent('pjax:complete', { detail: { url: url } }));
+            })
+            .catch(function() {
+                
+                window.location.href = url;
+            })
+            .finally(function() {
+                document.documentElement.classList.remove('pjax-loading');
+            });
+    }
+
+    function onReady() {
+        document.addEventListener('click', function(e) {
+            var link = e.target.closest('a');
+            if (!link || !shouldIntercept(link)) return;
+            if (e.ctrlKey || e.metaKey || e.shiftKey) return;
+            e.preventDefault();
+            navigate(link.getAttribute('href'));
+        });
+
+        
+        history.replaceState({ url: window.location.href }, document.title, window.location.href);
+
+        window.addEventListener('popstate', function(e) {
+            var targetUrl = (e.state && e.state.url) ? e.state.url : window.location.href;
+            navigate(targetUrl, false);
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', onReady);
+    } else {
+        onReady();
+    }
+})();
+</script>
+
+<script>
+(function() {
+    var dropdown = document.querySelector('.i18n-dropdown');
+    if (!dropdown) return;
+
+    var toggleBtn = dropdown.querySelector('[data-toggle]');
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            dropdown.classList.toggle('open');
+        });
+    }
+
+    
+    document.addEventListener('click', function(e) {
+        if (!dropdown.contains(e.target)) {
+            dropdown.classList.remove('open');
+        }
+    });
+
+    
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            dropdown.classList.remove('open');
+        }
+    });
+})();
+</script>
+
+<div id="aplayer"></div>
+
+<div id="custom-lrc">
+    <p id="custom-lrc-line"></p>
+    <p id="custom-lrc-next"></p>
+</div>
+<script src="/lib/aplayer/APlayer.min.js"></script>
+<script>
+(function() {
+    
+    var STORAGE_KEY = 'aplayer_state_v2';
+    function saveState() {
+        try {
+            if (!ap || !ap.list || !ap.audio) return;
+            var state = {
+                index: ap.list.index,
+                currentTime: ap.audio ? ap.audio.currentTime : 0,
+                isPlaying: !!(ap.audio && !ap.audio.paused)
+            };
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } catch(e) {}
+    }
+    function loadState() {
+        try {
+            var raw = localStorage.getItem(STORAGE_KEY);
+            return raw ? JSON.parse(raw) : null;
+        } catch(e) { return null; }
+    }
+
+    
+    var musicList = [{"artist":"RADWIMPS","cover":"/img/kiminonaha_jk_tsujo_tw-1.jpg","name":"三葉のテーマ","url":"https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/三葉のテーマ - RADWIMPS.mp3"},{"artist":"RADWIMPS","cover":"/img/kiminonaha_jk_tsujo_tw-1.jpg","name":"奥寺先輩のテーマ","url":"https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/奥寺先輩のテーマ - RADWIMPS.mp3"},{"artist":"RADWIMPS","cover":"/img/kiminonaha_jk_tsujo_tw-1.jpg","name":"かたわれ時","url":"https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/かたわれ時 - RADWIMPS.mp3"},{"artist":"dylanf","cover":"/img/Canon.jpg","name":"卡农 (Canon)","url":"https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/卡农（经典钢琴版） - dylanf.mp3"},{"artist":"Yiruma","cover":"/img/River Flows in You.jpg","name":"River Flows in You","url":"https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/River Flows in You (你的心河) - 李闰珉.mp3"},{"artist":"陈奕迅","cover":"/img/K歌之王.jpg","lrc":"/music/K歌之王 - 陈奕迅.lrc","name":"K歌之王","url":"https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/K歌之王 - 陈奕迅.mp3"},{"artist":"天門","cover":"/img/想い出は遠くの日々.jpg","name":"想い出は遠くの日々","url":"https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/想い出は遠くの日々 - 天門.mp3"},{"artist":"坂本龍一","cover":"/img/Merry Christmas Mr. Lawrence.jpg","name":"Merry Christmas Mr. Lawrence","url":"https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/Merry Christmas Mr. Lawrence - 坂本龍一.mp3"},{"artist":"DJ OKAWARI","cover":"/img/Flower Dance.jpg","name":"Flower Dance","url":"https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/Flower Dance - DJ OKAWARI.mp3"},{"artist":"岸部眞明","cover":"/img/流れ行く云.jpg","name":"流れ行く云","url":"https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/流れ行く云 (Nagareyuku Kumo) - 岸部眞明.mp3"},{"artist":"岸部眞明","cover":"/img/流れ行く云.jpg","name":"奇迹の山","url":"https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/奇迹の山 (Kisekino Yama) - 岸部眞明.mp3"}];
+
+    
+    musicList = musicList.filter(function(item) {
+        return item.url && item.url.trim() !== '';
+    });
+    if (musicList.length === 0) return;
+
+    
+    
+    var lrcMap = {};
+    musicList = musicList.map(function(item) {
+        if (item.url && item.url.trim() !== '') {
+            
+            if (item.url.indexOf('http') !== 0) {
+                item.url = encodeURI(item.url);
+            }
+        }
+        if (item.cover && item.cover.trim() !== '') {
+            if (item.cover.indexOf('http') !== 0) {
+                item.cover = encodeURI(item.cover);
+            }
+        }
+        if (item.lrc && typeof item.lrc === 'string' && item.lrc.trim() !== '') {
+            if (item.lrc.indexOf('http') === 0) {
+                lrcMap[item.name] = item.lrc;
+            } else {
+                lrcMap[item.name] = encodeURI(item.lrc.trim());
+            }
+        }
+        
+        delete item.lrc;
+        return item;
+    });
+
+    
+    var ap = new APlayer({
+        container: document.getElementById('aplayer'),
+        fixed: true,
+        autoplay: false,
+        preload: 'metadata',
+        theme: '#b7daff',
+        loop: 'all',
+        order: 'list',
+        listFolded: true,
+        lrcType: 0,
+        audio: musicList
+    });
+
+    
+    var lrcContainer = document.getElementById('custom-lrc');
+    var lrcLineEl = document.getElementById('custom-lrc-line');
+    var lrcNextEl = document.getElementById('custom-lrc-next');
+    if (!lrcContainer || !lrcLineEl || !lrcNextEl) return;
+
+    
+    
+    function parseLRC(lrcText) {
+        var lines = lrcText.split('\n');
+        var result = [];
+        var seenTimes = {};  
+        var tagRe = /\[(\d{2}):(\d{2})(?:[.:](\d{2,3}))?\]/;
+        for (var i = 0; i < lines.length; i++) {
+            var match = tagRe.exec(lines[i]);
+            if (!match) continue;
+            var min = parseInt(match[1], 10);
+            var sec = parseInt(match[2], 10);
+            var ms = match[3] ? parseInt(match[3], 10) : 0;
+            if (match[3] && match[3].length === 2) ms = ms * 10;
+            var time = min * 60 + sec + ms / 1000;
+            var text = lines[i].replace(tagRe, '').replace(/^\s+/, '').trim();
+            if (text.length > 0 && !seenTimes[time.toFixed(3)]) {
+                seenTimes[time.toFixed(3)] = true;
+                result.push({time: time, text: text});
+            }
+        }
+        result.sort(function(a, b) { return a.time - b.time; });
+        return result;
+    }
+
+    
+    
+    
+    function getCurrentSongName() {
+        try {
+            return ap.list.audios[ap.list.index].name;
+        } catch(e) { return null; }
+    }
+
+    
+    var currentLrc = null;
+    var lastCurrentText = '';
+    var lastNextText = '';
+
+    
+    var lrcData = {};
+    Object.keys(lrcMap).forEach(function(name) {
+        fetch(lrcMap[name])
+            .then(function(res) { return res.text(); })
+            .then(function(text) {
+                lrcData[name] = parseLRC(text);
+                
+                var curName = getCurrentSongName();
+                if (curName === name) {
+                    currentLrc = lrcData[name];
+                    lastCurrentText = '';
+                    lastNextText = '';
+                    lrcLineEl.textContent = '';
+                    lrcNextEl.textContent = '';
+                    if (!lrcManuallyHidden && ap.audio && !ap.audio.paused) {
+                        lrcContainer.style.display = 'block';
+                    }
+                }
+            })
+            .catch(function(){   });
+    });
+
+    
+    function findCurrentAndNext(lyrics, currentTime) {
+        if (!lyrics || lyrics.length === 0) return { current: null, next: null };
+        var idx = 0;
+        for (var i = 0; i < lyrics.length; i++) {
+            if (currentTime >= lyrics[i].time) {
+                idx = i;
+            } else {
+                break;
+            }
+        }
+        var next = (idx + 1 < lyrics.length) ? lyrics[idx + 1] : null;
+        return { current: lyrics[idx], next: next };
+    }
+
+    
+    function switchLrc() {
+        var name = getCurrentSongName();
+        if (!name) return;
+        currentLrc = lrcData[name] || null;
+        lastCurrentText = '';
+        lastNextText = '';
+        lrcLineEl.textContent = '';
+        lrcNextEl.textContent = '';
+        
+        if (!lrcManuallyHidden && currentLrc && currentLrc.length > 0 && ap.audio && !ap.audio.paused) {
+            lrcContainer.style.display = 'block';
+        } else {
+            lrcContainer.style.display = 'none';
+        }
+    }
+
+    
+    var lrcManuallyHidden = false;
+
+    
+    function bindLrcButton() {
+        var lrcBtn = document.querySelector('.aplayer-icon-lrc');
+        if (!lrcBtn) {
+            
+            setTimeout(bindLrcButton, 300);
+            return;
+        }
+        lrcBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            lrcManuallyHidden = !lrcManuallyHidden;
+            if (lrcManuallyHidden) {
+                lrcContainer.style.display = 'none';
+            } else {
+                
+                var name = getCurrentSongName();
+                if (name && lrcData[name] && lrcData[name].length > 0 && ap.audio && !ap.audio.paused) {
+                    currentLrc = lrcData[name];
+                    lrcContainer.style.display = 'block';
+                }
+            }
+        });
+    }
+    bindLrcButton();
+
+    
+    function shouldShowLrc() {
+        if (lrcManuallyHidden) return false;
+        var name = getCurrentSongName();
+        return name && lrcData[name] && lrcData[name].length > 0;
+    }
+
+    
+    ap.on('play', function() {
+        if (shouldShowLrc()) {
+            var name = getCurrentSongName();
+            currentLrc = lrcData[name];
+            lrcContainer.style.display = 'block';
+        }
+        saveState();
+    });
+    ap.on('pause', function() {
+        lrcContainer.style.display = 'none';
+        saveState();
+    });
+    ap.on('ended', function() {
+        lrcContainer.style.display = 'none';
+        saveState();
+    });
+    
+    ap.on('listswitch', function() {
+        setTimeout(function() {
+            switchLrc();
+        }, 150);
+        saveState();
+    });
+    ap.on('seeked', function() {
+        saveState();
+    });
+
+    
+    function flashFade(el) {
+        el.classList.add('fade');
+        clearTimeout(el._fadeTimer);
+        el._fadeTimer = setTimeout(function() {
+            el.classList.remove('fade');
+        }, 350);
+    }
+
+    
+    function tick() {
+        try {
+            if (ap.audio) {
+                var audio = ap.audio;
+                if (!audio.paused && !lrcManuallyHidden) {
+                    
+                    var songName = getCurrentSongName();
+                    if (songName && lrcData[songName] && lrcData[songName].length > 0) {
+                        if (currentLrc !== lrcData[songName]) {
+                            currentLrc = lrcData[songName];
+                            lastCurrentText = '';
+                            lastNextText = '';
+                        }
+                        var lines = findCurrentAndNext(currentLrc, audio.currentTime);
+                        if (lines.current && lines.current.text !== lastCurrentText) {
+                            lastCurrentText = lines.current.text;
+                            lrcLineEl.textContent = lines.current.text;
+                            flashFade(lrcLineEl);
+                        }
+                        var nextText = lines.next ? lines.next.text : '';
+                        if (nextText !== lastNextText) {
+                            lastNextText = nextText;
+                            lrcNextEl.textContent = nextText;
+                            if (nextText) flashFade(lrcNextEl);
+                        }
+                        if (lrcContainer.style.display !== 'block') {
+                            lrcContainer.style.display = 'block';
+                        }
+                    } else if (!songName || !lrcData[songName]) {
+                        if (lrcContainer.style.display !== 'none') {
+                            lrcContainer.style.display = 'none';
+                        }
+                    }
+                }
+            }
+        } catch(e) {}
+        requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+
+    
+    var saved = loadState();
+    if (saved && saved.index >= 0 && saved.index < ap.list.audios.length) {
+        
+        ap.list.switch(saved.index);
+        if (ap.audio) {
+            ap.audio.preload = 'auto'; 
+        }
+
+        if (saved.currentTime > 0 || saved.isPlaying) {
+            var restored = false;
+            function restorePlayback() {
+                if (restored) return;
+                restored = true;
+                try {
+                    if (saved.currentTime > 1) {
+                        ap.seek(saved.currentTime);
+                    }
+                    if (saved.isPlaying) {
+                        ap.play();
+                    }
+                } catch(e) {}
+            }
+            
+            if (ap.audio) {
+                ap.audio.addEventListener('loadedmetadata', restorePlayback, { once: true });
+            }
+            ap.on('canplay', restorePlayback);
+            
+            setTimeout(function() {
+                if (!restored) {
+                    try {
+                        if (saved.currentTime > 1) ap.seek(saved.currentTime);
+                        if (saved.isPlaying) ap.play();
+                    } catch(e) {}
+                    restored = true;
+                }
+            }, 1500);
+        }
+    }
+
+    
+    window.addEventListener('beforeunload', saveState);
+    
+    setInterval(saveState, 3000);
+    
+    var lastSavedTime = 0;
+    ap.on('timeupdate', function() {
+        try {
+            if (ap.audio && Math.abs(ap.audio.currentTime - lastSavedTime) > 5) {
+                lastSavedTime = ap.audio.currentTime;
+                saveState();
+            }
+        } catch(e) {}
+    });
+
+    
+    switchLrc();
+})();
+</script>
+
+
+    </body>
+</html>

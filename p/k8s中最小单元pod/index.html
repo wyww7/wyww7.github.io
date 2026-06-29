@@ -1,0 +1,2287 @@
+<!DOCTYPE html>
+<html lang="zh" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="k8s中的最小调度单元pod">
+<title>k8s中最小单元pod</title>
+
+
+<link rel="canonical" href="https://wyww7.github.io/p/k8s%E4%B8%AD%E6%9C%80%E5%B0%8F%E5%8D%95%E5%85%83pod/">
+
+<style>
+    :root {
+        --sys-font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC",
+                     "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+    }
+    body {
+        font-family: var(--sys-font);
+    }
+</style>
+
+
+<link rel="stylesheet" href="/scss/style.min.d88b03f9b0ccf554b3cbafb2aaffedef858313e2387ef4c7714a39a3476fa931.css"><meta property='og:title' content="k8s中最小单元pod">
+<meta property='og:description' content="k8s中的最小调度单元pod">
+<meta property='og:url' content='https://wyww7.github.io/p/k8s%E4%B8%AD%E6%9C%80%E5%B0%8F%E5%8D%95%E5%85%83pod/'>
+<meta property='og:site_name' content='Wuwei1'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='k8s' /><meta property='article:tag' content='test' /><meta property='article:published_time' content='2026-01-27T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-01-27T00:00:00&#43;00:00'/><meta property='og:image' content='https://wyww7.github.io/p/k8s%E4%B8%AD%E6%9C%80%E5%B0%8F%E5%8D%95%E5%85%83pod/ScreenShot_2026-05-27_182923_991.png' />
+<meta name="twitter:title" content="k8s中最小单元pod">
+<meta name="twitter:description" content="k8s中的最小调度单元pod"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://wyww7.github.io/p/k8s%E4%B8%AD%E6%9C%80%E5%B0%8F%E5%8D%95%E5%85%83pod/ScreenShot_2026-05-27_182923_991.png' />
+    <link rel="shortcut icon" href="/img/avatar.ico" />
+
+<link rel="stylesheet" href="/lib/aplayer/APlayer.min.css">
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        <figure class="site-avatar">
+                <a href="/">
+                    <img src="/img/avatar.jpg"
+                        width=""
+                        height=""
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+                    <span class="emoji">😎</span>
+                
+            </figure>
+        
+
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Wuwei1</a></h1>
+            <h2 class="site-description">学习中</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a
+                        href='https://space.bilibili.com/178958911?spm_id_from=333.788.0.0'
+                        
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-bilibili"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6" /><path d="M8 3l2 3" /><path d="M16 3l-2 3" /><path d="M9 13v-2" /><path d="M15 11v2" /></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a
+                        href='https://github.com/wyww7'
+                        
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>技术链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    <li id="i18n-switch">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                        <div class="i18n-dropdown" id="i18n-dropdown">
+                            <button class="i18n-current" onclick="event.stopPropagation()" data-toggle="i18n-dropdown">
+                                <span>简体中文</span>
+                                <span class="i18n-arrow">▾</span>
+                            </button>
+                            <ul class="i18n-menu">
+                                
+                                    <li class="active">
+                                        <a href="/">简体中文</a>
+                                    </li>
+                                
+                                    <li>
+                                        <a href="/ja/">日本語</a>
+                                    </li>
+                                
+                            </ul>
+                        </div>
+                    </li>
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav class="toc-nav" id="TableOfContents">
+                
+  <ol>
+    <li><a href="#k8s-最小单元pod"><strong>K8S 最小单元POD</strong></a>
+      <ol>
+        <li><a href="#什么是pod">什么是POD？</a></li>
+        <li><a href="#举例-将nginx部署到k8s的pod中去">举例-将nginx部署到k8s的pod中去</a>
+          <ol>
+            <li><a href="#创建pod资源清单文件">创建Pod资源清单文件</a></li>
+            <li><a href="#创建pod">创建Pod</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#创建完整pod过程"><strong>创建完整pod过程</strong></a>
+      <ol>
+        <li><a href="#客户端请求与认证阶段">客户端请求与认证阶段</a></li>
+        <li><a href="#api-server-处理与持久化阶段">API Server 处理与持久化阶段</a></li>
+        <li><a href="#scheduler-调度阶段">Scheduler 调度阶段</a></li>
+        <li><a href="#kubelet-落地与容器运行时阶段">Kubelet 落地与容器运行时阶段</a></li>
+      </ol>
+    </li>
+    <li><a href="#pod-生命周期管理"><strong>Pod 生命周期管理</strong></a>
+      <ol>
+        <li><a href="#pod生命周期核心概念">Pod生命周期核心概念</a></li>
+        <li><a href="#其中pod状态管理">其中Pod状态管理</a></li>
+        <li><a href="#pod生命周期重要行为">Pod生命周期重要行为</a>
+          <ol>
+            <li><a href="#基础容器创建pause-container">基础容器创建（Pause Container）</a></li>
+            <li><a href="#初始化容器initcontainer">初始化容器（InitContainer）</a></li>
+            <li><a href="#生命周期钩子">生命周期钩子</a></li>
+            <li><a href="#生命周期钩子类型">生命周期钩子类型</a></li>
+            <li><a href="#容器健康探测">容器健康探测</a></li>
+            <li><a href="#探针的类型">探针的类型</a></li>
+            <li><a href="#容器重启策略">容器重启策略</a></li>
+            <li><a href="#pod-终止过程">Pod 终止过程</a></li>
+            <li><a href="#pod-完整生命周期过程">Pod 完整生命周期过程</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#k8s名称空间和资源配额"><strong>K8S名称空间和资源配额</strong></a>
+      <ol>
+        <li><a href="#命名空间namespace概述">命名空间（Namespace）概述</a>
+          <ol>
+            <li><a href="#1-多租户与团队隔离资源切分">1. 多租户与团队隔离（资源切分）</a></li>
+            <li><a href="#2-避免命名冲突名字空间">2. 避免命名冲突（名字空间）</a></li>
+            <li><a href="#3-资源配额限制防止占满集群">3. 资源配额限制（防止占满集群）</a></li>
+            <li><a href="#4-安全与权限控制谁能干什么">4. 安全与权限控制（谁能干什么）</a></li>
+          </ol>
+        </li>
+        <li><a href="#kubernetes-yaml-配置示例">Kubernetes YAML 配置示例</a></li>
+      </ol>
+    </li>
+    <li><a href="#pod亲和性污点容忍度的多种调度策略"><strong>POD：亲和性、污点、容忍度的多种调度策略</strong></a>
+      <ol>
+        <li><a href="#nodename最直接的强行绑定">nodeName：最直接的“强行绑定”</a></li>
+        <li><a href="#nodeselector基于标签的硬性筛选">nodeSelector：基于标签的“硬性筛选”</a></li>
+        <li><a href="#高级标签方法节点亲和性node-affinity">高级标签方法：节点亲和性（Node Affinity）</a>
+          <ol>
+            <li><a href="#node-角度节点亲和性-node-affinity">Node 角度：节点亲和性 (Node Affinity)</a></li>
+            <li><a href="#pod-角度pod-亲和性与反亲和性">Pod 角度：Pod 亲和性与反亲和性</a></li>
+            <li><a href="#关键概念什么是拓扑域-topologykey">关键概念：什么是“拓扑域” (topologyKey)？</a></li>
+            <li><a href="#对比总结表格">对比总结表格</a></li>
+          </ol>
+        </li>
+        <li><a href="#污点与容忍度">污点与容忍度</a>
+          <ol>
+            <li><a href="#污点-taint--属于节点-node">污点 (Taint) —— 属于节点 (Node)</a></li>
+            <li><a href="#容忍度-toleration--属于-pod">容忍度 (Toleration) —— 属于 Pod</a></li>
+            <li><a href="#典型生产应用场景">典型生产应用场景</a></li>
+            <li><a href="#亲和性与污点容忍度的选择">亲和性与污点/容忍度的选择</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+
+            </nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+    <div class="article-image">
+        <a href="/p/k8s%E4%B8%AD%E6%9C%80%E5%B0%8F%E5%8D%95%E5%85%83pod/">
+            <img alt="Featured image of post k8s中最小单元pod" height="1187" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/k8s%E4%B8%AD%E6%9C%80%E5%B0%8F%E5%8D%95%E5%85%83pod/ScreenShot_2026-05-27_182923_991.png" srcset="/p/k8s%E4%B8%AD%E6%9C%80%E5%B0%8F%E5%8D%95%E5%85%83pod/ScreenShot_2026-05-27_182923_991_hu_1241a0f9e3039698.png 800w, /p/k8s%E4%B8%AD%E6%9C%80%E5%B0%8F%E5%8D%95%E5%85%83pod/ScreenShot_2026-05-27_182923_991_hu_886d0cad00a9873.png 1600w, /p/k8s%E4%B8%AD%E6%9C%80%E5%B0%8F%E5%8D%95%E5%85%83pod/ScreenShot_2026-05-27_182923_991_hu_f7a55392097d7866.png 2400w, /p/k8s%E4%B8%AD%E6%9C%80%E5%B0%8F%E5%8D%95%E5%85%83pod/ScreenShot_2026-05-27_182923_991.png 2559w" width="2559">
+        </a>
+    </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/kubernetes/" style="background-color: hsl(109, 60%, 84%); color: hsl(109, 60%, 15%);">
+                Kubernetes
+            </a>
+        
+            
+            
+            
+            <a href="/categories/%E7%AC%94%E8%AE%B0/" style="background-color: hsl(4, 60%, 84%); color: hsl(4, 60%, 15%);">
+                笔记
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/k8s%E4%B8%AD%E6%9C%80%E5%B0%8F%E5%8D%95%E5%85%83pod/">k8s中最小单元pod</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            k8s中的最小调度单元pod
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <span class="article-date-group" style="display: inline-flex; align-items: center; gap: 12px; color: var(--card-text-color-secondary);">
+                        <span style="display: inline-flex; align-items: center; gap: 5px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                            <time class="article-time--published" datetime='2026-01-27T00:00:00Z'>2026-01-27</time>
+                        </span>
+
+                        
+                        <span style="display: inline-flex; align-items: center; gap: 5px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-refresh" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
+  <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
+</svg>
+
+                            <time class="article-time--updated" datetime='2026-01-27T00:00:00Z'>2026-01-27</time>
+                        </span>
+                        
+                    </span>
+                
+
+                
+                    <span style="display: inline-flex; align-items: center; gap: 5px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                        <span>10261 字</span>
+                    </span>
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+</header>
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span>目录</span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ol>
+    <li><a href="#k8s-最小单元pod"><strong>K8S 最小单元POD</strong></a>
+      <ol>
+        <li><a href="#什么是pod">什么是POD？</a></li>
+        <li><a href="#举例-将nginx部署到k8s的pod中去">举例-将nginx部署到k8s的pod中去</a>
+          <ol>
+            <li><a href="#创建pod资源清单文件">创建Pod资源清单文件</a></li>
+            <li><a href="#创建pod">创建Pod</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#创建完整pod过程"><strong>创建完整pod过程</strong></a>
+      <ol>
+        <li><a href="#客户端请求与认证阶段">客户端请求与认证阶段</a></li>
+        <li><a href="#api-server-处理与持久化阶段">API Server 处理与持久化阶段</a></li>
+        <li><a href="#scheduler-调度阶段">Scheduler 调度阶段</a></li>
+        <li><a href="#kubelet-落地与容器运行时阶段">Kubelet 落地与容器运行时阶段</a></li>
+      </ol>
+    </li>
+    <li><a href="#pod-生命周期管理"><strong>Pod 生命周期管理</strong></a>
+      <ol>
+        <li><a href="#pod生命周期核心概念">Pod生命周期核心概念</a></li>
+        <li><a href="#其中pod状态管理">其中Pod状态管理</a></li>
+        <li><a href="#pod生命周期重要行为">Pod生命周期重要行为</a>
+          <ol>
+            <li><a href="#基础容器创建pause-container">基础容器创建（Pause Container）</a></li>
+            <li><a href="#初始化容器initcontainer">初始化容器（InitContainer）</a></li>
+            <li><a href="#生命周期钩子">生命周期钩子</a></li>
+            <li><a href="#生命周期钩子类型">生命周期钩子类型</a></li>
+            <li><a href="#容器健康探测">容器健康探测</a></li>
+            <li><a href="#探针的类型">探针的类型</a></li>
+            <li><a href="#容器重启策略">容器重启策略</a></li>
+            <li><a href="#pod-终止过程">Pod 终止过程</a></li>
+            <li><a href="#pod-完整生命周期过程">Pod 完整生命周期过程</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#k8s名称空间和资源配额"><strong>K8S名称空间和资源配额</strong></a>
+      <ol>
+        <li><a href="#命名空间namespace概述">命名空间（Namespace）概述</a>
+          <ol>
+            <li><a href="#1-多租户与团队隔离资源切分">1. 多租户与团队隔离（资源切分）</a></li>
+            <li><a href="#2-避免命名冲突名字空间">2. 避免命名冲突（名字空间）</a></li>
+            <li><a href="#3-资源配额限制防止占满集群">3. 资源配额限制（防止占满集群）</a></li>
+            <li><a href="#4-安全与权限控制谁能干什么">4. 安全与权限控制（谁能干什么）</a></li>
+          </ol>
+        </li>
+        <li><a href="#kubernetes-yaml-配置示例">Kubernetes YAML 配置示例</a></li>
+      </ol>
+    </li>
+    <li><a href="#pod亲和性污点容忍度的多种调度策略"><strong>POD：亲和性、污点、容忍度的多种调度策略</strong></a>
+      <ol>
+        <li><a href="#nodename最直接的强行绑定">nodeName：最直接的“强行绑定”</a></li>
+        <li><a href="#nodeselector基于标签的硬性筛选">nodeSelector：基于标签的“硬性筛选”</a></li>
+        <li><a href="#高级标签方法节点亲和性node-affinity">高级标签方法：节点亲和性（Node Affinity）</a>
+          <ol>
+            <li><a href="#node-角度节点亲和性-node-affinity">Node 角度：节点亲和性 (Node Affinity)</a></li>
+            <li><a href="#pod-角度pod-亲和性与反亲和性">Pod 角度：Pod 亲和性与反亲和性</a></li>
+            <li><a href="#关键概念什么是拓扑域-topologykey">关键概念：什么是“拓扑域” (topologyKey)？</a></li>
+            <li><a href="#对比总结表格">对比总结表格</a></li>
+          </ol>
+        </li>
+        <li><a href="#污点与容忍度">污点与容忍度</a>
+          <ol>
+            <li><a href="#污点-taint--属于节点-node">污点 (Taint) —— 属于节点 (Node)</a></li>
+            <li><a href="#容忍度-toleration--属于-pod">容忍度 (Toleration) —— 属于 Pod</a></li>
+            <li><a href="#典型生产应用场景">典型生产应用场景</a></li>
+            <li><a href="#亲和性与污点容忍度的选择">亲和性与污点/容忍度的选择</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+
+            </nav>
+        </details>
+    </aside>
+    
+
+    <section class="article-content">
+    
+    
+    <h2 id="k8s-最小单元pod"><a href="#k8s-%e6%9c%80%e5%b0%8f%e5%8d%95%e5%85%83pod" class="header-anchor"></a><strong>K8S 最小单元POD</strong>
+</h2><p>k8s架构</p>
+<p><img loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/k8s%E4%B8%AD%E6%9C%80%E5%B0%8F%E5%8D%95%E5%85%83pod/components-of-kubernetes.svg"></p>
+<p>在k8s集群中，节点分为：控制台节点master、一个是工作节 点node，</p>
+<ul>
+<li>其中master中包含apiserver、etcd、controllermanager、scheduler 、kubelet、kebue_proxy</li>
+<li>node节点包含 kubelet、kebue_proxy 、Docker</li>
+</ul>
+<p>控制平面组件</p>
+<p>控制平面是集群的“大脑”，负责全局决策。它通常运行在集群的主节点上。</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th><strong>组件名称</strong></th>
+          <th><strong>核心职责（做什么）</strong></th>
+          <th><strong>关键技术点（怎么做）</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>etcd</strong></td>
+          <td>1. 存储集群所有状态与配置（唯一数据源） 2. 提供高可用、强一致性的键值存储</td>
+          <td>1. <strong>Raft 算法</strong>（保证一致性） 2. <strong>Watch 机制</strong>（数据变更实时推送） 3. TLS 加密与数据持久化</td>
+      </tr>
+      <tr>
+          <td><strong>API Server</strong></td>
+          <td>1. 集群的<strong>唯一访问入口</strong>，处理 REST 请求 2. 负责安全校验（认证、授权、准入控制） 3. 协调其他组件，作为它们交互的枢纽</td>
+          <td>1. 认证/授权机制（如 <strong>RBAC</strong>） 2. <strong>准入控制器</strong>（Mutating/Validating） 3. 支持高效的 <strong>Watch 长连接</strong></td>
+      </tr>
+      <tr>
+          <td><strong>Scheduler</strong></td>
+          <td>1. 监听未绑定的 Pod，决定将其分配到哪个最佳 Node</td>
+          <td>1. 调度两步法：<strong>过滤</strong>（筛选）与 <strong>打分</strong>（排序） 2. 调度规则：<strong>亲和性/反亲和性</strong>、<strong>污点与容忍</strong></td>
+      </tr>
+      <tr>
+          <td><strong>Controller Manager</strong></td>
+          <td>1. 运行各类控制器，维护集群<strong>期望状态</strong>与<strong>实际状态</strong>的一致（实现自愈）</td>
+          <td>1. <strong>控制循环（Control Loop）</strong>：观察 -&gt; 对比 -&gt; 行动 2. 核心控制器：Deployment、Node、Endpoints 等 3. <strong>Informer 机制</strong>（本地缓存，减轻 API Server 压力）</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>工作节点组件</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th><strong>组件名称</strong></th>
+          <th><strong>核心职责（做什么）</strong></th>
+          <th><strong>关键技术点（怎么做）</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>kubelet</strong></td>
+          <td>1. 节点上的“大管家”，负责 <strong>Pod 生命周期全管理</strong>（创建、监控、销毁） 2. 挂载存储卷，执行 Hook（postStart/preStop） 3. 定期向 API Server 上报节点和 Pod 的健康状态</td>
+          <td>1. <strong>探针机制</strong>：<strong>Liveness</strong>（存活）、<strong>Readiness</strong>（就绪）、<strong>Startup</strong>（启动） 2. 通过 <strong>CRI（gRPC）</strong> 驱动底层容器运行时 3. 存储卷（Volume）的本地挂载与管理</td>
+      </tr>
+      <tr>
+          <td><strong>kube-proxy</strong></td>
+          <td>1. 节点上的“网络代理”，负责 <strong>Service 流量转发与负载均衡</strong> 2. 实时同步 Service 和 Endpoints 的变化并更新本地网络规则</td>
+          <td>1. <strong>两种工作模式</strong>： - <strong>iptables</strong>：纯内核态，规则随规模增大性能会下降 - <strong>IPVS</strong>：支持高效负载均衡算法，适合大规模集群 2. 自动剔除异常 Pod 的转发规则</td>
+      </tr>
+      <tr>
+          <td><strong>CNI 插件</strong> <em>(如 Calico/Flannel)</em></td>
+          <td>1. 负责为 Pod 创建网络命名空间并<strong>分配集群唯一 IP</strong> 2. 实现 Pod 间、Pod 与外网的互通，支持网络策略</td>
+          <td>1. <strong>CNI 规范操作</strong>：核心是 <strong>ADD</strong>（创建网络与分配 IP） 2. <strong>主流实现</strong>：<strong>Flannel</strong>（大二层，简单）与 <strong>Calico</strong>（三层路由，支持 NetworkPolicy 策略）</td>
+      </tr>
+      <tr>
+          <td><strong>CRI / containerd</strong> <em>(容器运行时)</em></td>
+          <td>1. 实现 CRI 标准接口，解耦 K8s 与底层容器 2. <strong>管理容器与镜像</strong>：拉取镜像，创建/启停容器 3. 为 Pod 创建隔离的底层运行环境（<strong>Pod 沙箱</strong>）</td>
+          <td>1. <strong>Pod Sandbox</strong>：为同一个 Pod 内的容器共享网络（Network Namespace）和存储 2. <strong>兼容 OCI 规范</strong>：底层调用 <strong>runc</strong> 真正跑容器 3. <strong>OverlayFS</strong>：主流的快照驱动，实现镜像分层的高效复用</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="什么是pod"><a href="#%e4%bb%80%e4%b9%88%e6%98%afpod" class="header-anchor"></a>什么是POD？
+</h3><p><strong>通俗话术理解</strong>：Pod就像一个&quot;豌豆荚&quot;，里面可以放多个&quot;豆子&quot;（容器）。每个豌豆荚代表一个逻辑主机，里面的豆子（容器）共享豌豆荚的资源，就像在同一台虚拟机上运行的进程一样。</p>
+<p><strong>专业技术性话术理解</strong>：Pod是Kubernetes中的最小调度单元，可以封装一个或多个容器。Pod中的容器共享网络命名空间、存储卷和IP地址空间。Pod需要被调度到集群的工作节点上运行，具体的调度决策由Scheduler调度 器完成。</p>
+<h3 id="举例-将nginx部署到k8s的pod中去"><a href="#%e4%b8%be%e4%be%8b-%e5%b0%86nginx%e9%83%a8%e7%bd%b2%e5%88%b0k8s%e7%9a%84pod%e4%b8%ad%e5%8e%bb" class="header-anchor"></a>举例-将nginx部署到k8s的pod中去
+</h3><h4 id="创建pod资源清单文件"><a href="#%e5%88%9b%e5%bb%bapod%e8%b5%84%e6%ba%90%e6%b8%85%e5%8d%95%e6%96%87%e4%bb%b6" class="header-anchor"></a>创建Pod资源清单文件
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1"># 创建Pod配置文件</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">vim pod-nginx.yaml
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1				# API版本：指定使用Kubernetes的v1 API版本</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Pod				# 资源类型：创建一个Pod类型的资源对象</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="l">metadata:				# 元数据：定义资源的标识信息</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nginx-test			# Pod名称：指定这个Pod的名称为nginx-test</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">default			# 命名空间：将Pod创建在default命名空间中</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">  </span><span class="l">labels:				# 标签：定义Pod的标签信息，用于标识和选择器</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">nginx				# 标签键值对：app=nginx，表示这是一个nginx应用</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="l">spec:					# 规范：定义Pod的具体配置</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">  </span><span class="l">containers:				# 容器列表：定义Pod中包含的容器</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nginx			# 容器名称：指定第一个容器的名称为nginx</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">    </span><span class="l">ports:				# 端口配置：定义容器暴露的端口</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">    </span>- <span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">		</span><span class="c"># 容器端口：指定容器监听80端口（HTTP默认端口）</span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">nginx:latest		# 镜像：使用nginx:latest镜像启动容器</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">    </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">IfNotPresent	# 镜像拉取策略：</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">                                  	</span><span class="c"># IfNotPresent - 本地不存在镜像时才从仓库拉取</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">                                  	</span><span class="c"># Always - 每次启动容器都重新拉取镜像</span><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">                                  	</span><span class="c"># Never - 从不拉取镜像，只使用本地镜像</span><span class="w">
+</span></span></span></code></pre></div><h4 id="创建pod"><a href="#%e5%88%9b%e5%bb%bapod" class="header-anchor"></a>创建Pod
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1"># 发布创建pod</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">kubectl apply -f pod-nginx.yaml
+</span></span><span class="line"><span class="ln">3</span><span class="cl">
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="c1"># 查看Pod状态</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">kubectl get pods -o wide -l <span class="nv">app</span><span class="o">=</span>nginx
+</span></span></code></pre></div><h2 id="创建完整pod过程"><a href="#%e5%88%9b%e5%bb%ba%e5%ae%8c%e6%95%b4pod%e8%bf%87%e7%a8%8b" class="header-anchor"></a><strong>创建完整pod过程</strong>
+</h2><h3 id="客户端请求与认证阶段"><a href="#%e5%ae%a2%e6%88%b7%e7%ab%af%e8%af%b7%e6%b1%82%e4%b8%8e%e8%ae%a4%e8%af%81%e9%98%b6%e6%ae%b5" class="header-anchor"></a>客户端请求与认证阶段
+</h3><ul>
+<li><strong>读取配置与寻址：</strong> <code>kubectl</code> 自动寻找本地的 <code>kubeconfig</code> 文件，获取其中定义的用户凭证和集群地址，从而定位到集群的 <strong>API Server</strong>。</li>
+<li><strong>提交请求：</strong> <code>kubectl</code> 解析 <code>.yaml</code> 文件，并向 API Server 发送一个 <code>POST</code> 请求，申请创建该 Pod。</li>
+</ul>
+<h3 id="api-server-处理与持久化阶段"><a href="#api-server-%e5%a4%84%e7%90%86%e4%b8%8e%e6%8c%81%e4%b9%85%e5%8c%96%e9%98%b6%e6%ae%b5" class="header-anchor"></a>API Server 处理与持久化阶段
+</h3><ul>
+<li><strong>校验与写入：</strong> API Server 接收到请求后，对请求进行认证、鉴权和准入控制（Admission Control）。验证无误后，将 Pod 的属性信息（Metadata 与 Spec）写入 <strong>etcd</strong> 进行持久化。</li>
+<li><strong>触发 Watch：</strong> 一旦写入 etcd 成功，API Server 就会通过其核心的 <strong>Watch 机制</strong> 向外广播这个新 Pod 的创建事件。</li>
+</ul>
+<h3 id="scheduler-调度阶段"><a href="#scheduler-%e8%b0%83%e5%ba%a6%e9%98%b6%e6%ae%b5" class="header-anchor"></a>Scheduler 调度阶段
+</h3><ul>
+<li><strong>监听新 Pod：</strong> <strong>kube-scheduler（调度器）</strong> 一直在 Watch API Server。发现有一个新创建、但 <code>nodeName</code> 为空的 Pod 后，将其捞起。</li>
+<li><strong>计算与选择：</strong> 调度器运行其调度算法（预选过滤和优选打分），在集群中挑选出一个最合适的 <strong>Node（节点）</strong>。</li>
+<li><strong>绑定返回：</strong> 调度器将选中的 Node 信息（Binding 对象）提交给 API Server。API Server 再次将这个“Pod 与 Node 的绑定关系”写入 <strong>etcd</strong>。</li>
+</ul>
+<h3 id="kubelet-落地与容器运行时阶段"><a href="#kubelet-%e8%90%bd%e5%9c%b0%e4%b8%8e%e5%ae%b9%e5%99%a8%e8%bf%90%e8%a1%8c%e6%97%b6%e9%98%b6%e6%ae%b5" class="header-anchor"></a>Kubelet 落地与容器运行时阶段
+</h3><ul>
+<li><strong>监听属于自己的任务：</strong> 目标 Node 上的 <strong>kubelet</strong> 通过 Watch 机制发现有一个 Pod 已经被分配到了自己所在的节点。</li>
+<li><strong>调用 Runtime 创建：</strong> kubelet 本身不直接运行容器，它会通过 CRI（容器运行时接口）调用本地的 <strong>容器运行时（如 Containerd、Docker）</strong> 来下载镜像、创建并启动 nginx 容器。</li>
+<li><strong>状态上报：</strong> 容器启动成功后，容器运行时将结果反馈给 kubelet。kubelet 收集到 Pod 的最新状态信息（Status），将其上报给 API Server。</li>
+<li><strong>最终持久化：</strong> API Server 将 Pod 的最新状态（如 Running）写入 <strong>etcd</strong>。至此，Pod 创建流程完美闭环。</li>
+</ul>
+<h2 id="pod-生命周期管理"><a href="#pod-%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f%e7%ae%a1%e7%90%86" class="header-anchor"></a><strong>Pod 生命周期管理</strong>
+</h2><h3 id="pod生命周期核心概念"><a href="#pod%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5" class="header-anchor"></a>Pod生命周期核心概念
+</h3><p>Pod从开始创建到终止退出的时间范围称为Pod生命周期，包含以下重要流程：创建基础容器、初始化容器、容器启动后钩子、健康探测、就绪性探测、容器停止前钩子、容器结束。</p>
+<h3 id="其中pod状态管理"><a href="#%e5%85%b6%e4%b8%adpod%e7%8a%b6%e6%80%81%e7%ae%a1%e7%90%86" class="header-anchor"></a>其中Pod状态管理
+</h3><p>Pod在整个生命周期过程中会处于以下几个状态：</p>
+<ol>
+<li>Pending（待处理）： 创建了Pod资源并存入etcd中，但尚未完成调度</li>
+<li>ContainerCreating（容器创建中）： Pod的调度完成，被分配到指定Node上，处于容器创建过程中</li>
+<li>Running（运行中）： Pod包含的所有容器都已经成功创建，并且成功运行起来</li>
+<li>Succeeded（成功）： Pod中的所有容器都已经成功终止并且不会被重启</li>
+<li>Failed（失败）： 所有容器都已经终止，但至少有一个容器终止失败</li>
+<li>Unknown（未知）： 因为某些原因无法取得Pod的状态</li>
+</ol>
+<h3 id="pod生命周期重要行为"><a href="#pod%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f%e9%87%8d%e8%a6%81%e8%a1%8c%e4%b8%ba" class="header-anchor"></a>Pod生命周期重要行为
+</h3><h4 id="基础容器创建pause-container"><a href="#%e5%9f%ba%e7%a1%80%e5%ae%b9%e5%99%a8%e5%88%9b%e5%bb%bapause-container" class="header-anchor"></a>基础容器创建（Pause Container）
+</h4><ul>
+<li><strong>核心作用</strong>：作为 Pod 的<strong>环境初始化容器</strong>，为 Pod 内所有业务容器提供共享的命名空间（网络、UTS、IPC 等），保证 Pod 内容器的资源隔离与互通。</li>
+<li><strong>运行时机</strong>：启动 Pod 内任何业务容器<strong>之前</strong>，由容器运行时（如 containerd）自动创建。</li>
+<li><strong>特性</strong>：轻量级、长期运行，不执行业务逻辑，仅维持 Pod 的命名空间存在。</li>
+</ul>
+<h4 id="初始化容器initcontainer"><a href="#%e5%88%9d%e5%a7%8b%e5%8c%96%e5%ae%b9%e5%99%a8initcontainer" class="header-anchor"></a>初始化容器（InitContainer）
+</h4><ul>
+<li>
+<p><strong>定义</strong>：Pod 中可以配置<strong>任意数量</strong>的初始化容器，与主容器分离。</p>
+</li>
+<li>
+<p><strong>执行规则</strong></p>
+<ul>
+<li>
+<p><strong>顺序执行</strong>：严格按照配置文件中的顺序依次运行，前一个 InitContainer 执行成功后，才会启动下一个。</p>
+</li>
+<li>
+<p><strong>全量成功</strong>：只有<strong>所有 InitContainer 执行完毕且成功退出</strong>，才会启动 Pod 内的主容器。</p>
+</li>
+<li>
+<p><strong>作用域</strong>：针对<strong>整个 Pod</strong>，用于完成主容器启动前的前置任务（如配置拉取、依赖检查、服务预热）。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="生命周期钩子"><a href="#%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f%e9%92%a9%e5%ad%90" class="header-anchor"></a>生命周期钩子
+</h4><p>Pod 支持为<strong>每个容器</strong>单独定义生命周期钩子，在容器生命周期的特定阶段触发自定义操作，与 InitContainer（作用于 Pod）的作用域不同。</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th><strong>钩子类型</strong></th>
+          <th><strong>触发时机</strong></th>
+          <th><strong>作用</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>postStart</strong></td>
+          <td>容器<strong>创建完成后</strong>立即触发</td>
+          <td>执行容器启动后的初始化操作（如注册服务、日志初始化）</td>
+      </tr>
+      <tr>
+          <td><strong>preStop</strong></td>
+          <td>容器<strong>终止前</strong>触发</td>
+          <td>执行容器退出前的清理操作（如数据备份、连接关闭）</td>
+      </tr>
+  </tbody>
+</table></div>
+<h4 id="生命周期钩子类型"><a href="#%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f%e9%92%a9%e5%ad%90%e7%b1%bb%e5%9e%8b" class="header-anchor"></a>生命周期钩子类型
+</h4><p>生命周期钩子总共有4中类型，分别是：exec、tcpSocket、httpGet、sleep</p>
+<ul>
+<li>exec ：是在容器终止之前执行命令</li>
+<li>tcpSocket：是在容器终止之前进行端口探测</li>
+<li>httpGet：是在容器终止之前进行一次 HTTP 访问</li>
+<li>sleep : 在容器终止之前，睡眠一段时间</li>
+</ul>
+<h4 id="容器健康探测"><a href="#%e5%ae%b9%e5%99%a8%e5%81%a5%e5%ba%b7%e6%8e%a2%e6%b5%8b" class="header-anchor"></a>容器健康探测
+</h4><p>通过三种探测机制诊断 Pod 及容器的健康状态，保障业务可用性，探测规则可针对<strong>单个容器</strong>配置。</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th><strong>探测类型</strong></th>
+          <th><strong>核心作用</strong></th>
+          <th><strong>失败处理</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>StartupProbe（启动探测）</strong></td>
+          <td>判断容器内应用是否<strong>完全启动</strong></td>
+          <td>探测失败时，根据重启策略重启容器</td>
+      </tr>
+      <tr>
+          <td><strong>LivenessProbe（存活性探测）</strong></td>
+          <td>判断容器是否<strong>正常运行</strong></td>
+          <td>探测失败时，触发容器重启</td>
+      </tr>
+      <tr>
+          <td><strong>ReadinessProbe（就绪性探测）</strong></td>
+          <td>判断容器是否<strong>可以接收请求</strong></td>
+          <td>探测失败时，将 Pod 从 Service Endpoints 中移除，停止流量转发</td>
+      </tr>
+  </tbody>
+</table></div>
+<h4 id="探针的类型"><a href="#%e6%8e%a2%e9%92%88%e7%9a%84%e7%b1%bb%e5%9e%8b" class="header-anchor"></a>探针的类型
+</h4><p>探针的类型总共有 4 种，分别是：httpGet、exec、tcpSocket、grpc。</p>
+<ul>
+<li>httpGet 是通过 HTTP 的方式，进行访问来探测服务是否正常。</li>
+<li>exec 是通过执行某个shell命令，如果命令执行然会的状态码是 0 ；则证明探测的服务正常。</li>
+<li>tcpSocket 是通过 telnet 的方式，探测端口是否正常从而证明服务是否正常。</li>
+<li>grpc 是通过 grpc 协议，探测相关服务是否正常。</li>
+</ul>
+<h4 id="容器重启策略"><a href="#%e5%ae%b9%e5%99%a8%e9%87%8d%e5%90%af%e7%ad%96%e7%95%a5" class="header-anchor"></a>容器重启策略
+</h4><p>定义 Pod 内容器终止后的重启规则，作用于<strong>整个 Pod 内的所有容器</strong>，是 Pod 的级别的配置，默认值为 <code>Always</code>。</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th><strong>策略类型</strong></th>
+          <th><strong>触发条件</strong></th>
+          <th><strong>适用场景</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Always（默认）</strong></td>
+          <td>容器无论因何种原因终止（正常 / 异常）</td>
+          <td>无状态服务、需要持续运行的守护进程</td>
+      </tr>
+      <tr>
+          <td><strong>OnFailure</strong></td>
+          <td>仅当容器<strong>异常退出</strong>（退出码非 0）</td>
+          <td>一次性任务、批处理作业</td>
+      </tr>
+      <tr>
+          <td><strong>Never</strong></td>
+          <td>容器终止后<strong>永不重启</strong></td>
+          <td>测试类 Pod、一次性执行的任务</td>
+      </tr>
+  </tbody>
+</table></div>
+<h4 id="pod-终止过程"><a href="#pod-%e7%bb%88%e6%ad%a2%e8%bf%87%e7%a8%8b" class="header-anchor"></a>Pod 终止过程
+</h4><p>Pod 终止是一个有序的优雅流程，核心步骤如下：</p>
+<ol>
+<li><strong>接收删除请求</strong>：用户执行 <code>kubectl delete pod</code> 或控制器触发 Pod 删除。</li>
+<li><strong>标记终止状态</strong>：API Server 为 Pod 设置 <code>deletionTimestamp</code>，Pod 状态变为 <code>Terminating</code>。</li>
+<li><strong>移出服务端点</strong>：Endpoints Controller 移除该 Pod 的 IP 地址，kube-proxy 更新转发规则，停止流量流入。</li>
+<li><strong>执行 preStop 钩子</strong>：kubelet 调用容器的 <code>preStop</code> 钩子，执行清理操作。</li>
+<li><strong>发送终止信号</strong>：kubelet 向容器发送 <code>SIGTERM</code> 信号，通知容器优雅退出。</li>
+<li><strong>等待宽限期</strong>：等待 Pod 定义的 <code>terminationGracePeriodSeconds</code>（默认 30 秒）。</li>
+<li><strong>强制终止</strong>：若宽限期内容器未退出，kubelet 发送 <code>SIGKILL</code> 信号强制终止容器。</li>
+<li><strong>清理资源</strong>：kubelet 清理容器、网络、存储等资源，更新 Pod 状态为 <code>Terminated</code>，最终由垃圾回收器删除 Pod 对象。</li>
+</ol>
+<h4 id="pod-完整生命周期过程"><a href="#pod-%e5%ae%8c%e6%95%b4%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f%e8%bf%87%e7%a8%8b" class="header-anchor"></a>Pod 完整生命周期过程
+</h4><p><img alt="完整的pod生命周期" class="gallery-image" data-flex-basis="91px" data-flex-grow="38" height="8192" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/k8s%E4%B8%AD%E6%9C%80%E5%B0%8F%E5%8D%95%E5%85%83pod/Untitled-diagram-2026-01-14-043936.png" srcset="/p/k8s%E4%B8%AD%E6%9C%80%E5%B0%8F%E5%8D%95%E5%85%83pod/Untitled-diagram-2026-01-14-043936_hu_14bf2bee9b6f15ef.png 800w, /p/k8s%E4%B8%AD%E6%9C%80%E5%B0%8F%E5%8D%95%E5%85%83pod/Untitled-diagram-2026-01-14-043936_hu_28d6866c636990a5.png 1600w, /p/k8s%E4%B8%AD%E6%9C%80%E5%B0%8F%E5%8D%95%E5%85%83pod/Untitled-diagram-2026-01-14-043936_hu_3998ce7cc379dfed.png 2400w, /p/k8s%E4%B8%AD%E6%9C%80%E5%B0%8F%E5%8D%95%E5%85%83pod/Untitled-diagram-2026-01-14-043936.png 3125w" width="3125"></p>
+<h2 id="k8s名称空间和资源配额"><a href="#k8s%e5%90%8d%e7%a7%b0%e7%a9%ba%e9%97%b4%e5%92%8c%e8%b5%84%e6%ba%90%e9%85%8d%e9%a2%9d" class="header-anchor"></a><strong>K8S名称空间和资源配额</strong>
+</h2><h3 id="命名空间namespace概述"><a href="#%e5%91%bd%e5%90%8d%e7%a9%ba%e9%97%b4namespace%e6%a6%82%e8%bf%b0" class="header-anchor"></a>命名空间（Namespace）概述
+</h3><p>在 Kubernetes（以及 Linux 底层）中，<strong>Namespace（命名空间）</strong> 的核心作用就是：<strong>隔离</strong>。</p>
+<p>如果把一个 Kubernetes 集群比作一栋<strong>大型办公楼</strong>，那么 Namespace 就是楼里划分出来的<strong>独立办公室</strong>。不同办公室之间互不干扰，从而实现对资源的高效管理和安全隔离。</p>
+<p>我们可以从以下四个方面来理解它的具体作用：</p>
+<h4 id="1-多租户与团队隔离资源切分"><a href="#1-%e5%a4%9a%e7%a7%9f%e6%88%b7%e4%b8%8e%e5%9b%a2%e9%98%9f%e9%9a%94%e7%a6%bb%e8%b5%84%e6%ba%90%e5%88%87%e5%88%86" class="header-anchor"></a>1. 多租户与团队隔离（资源切分）
+</h4><p>在一个公司里，可能有很多团队（如开发、测试、生产，或者 A 业务线、B 业务线）共用同一个 K8s 集群。</p>
+<ul>
+<li><strong>作用：</strong> 通过为每个团队分配一个独立的 Namespace（如 <code>dev</code>、<code>test</code>、<code>prod</code>），可以让各团队在自己的“地盘”里部署应用，<strong>互不影响</strong>。</li>
+<li><strong>效果：</strong> 开发团队在 <code>dev</code> 空间里怎么折腾，都不会影响到 <code>prod</code> 空间里的线上生产业务。</li>
+</ul>
+<h4 id="2-避免命名冲突名字空间"><a href="#2-%e9%81%bf%e5%85%8d%e5%91%bd%e5%90%8d%e5%86%b2%e7%aa%81%e5%90%8d%e5%ad%97%e7%a9%ba%e9%97%b4" class="header-anchor"></a>2. 避免命名冲突（名字空间）
+</h4><p>K8s 要求在同一个空间内，资源的名称必须是唯一的（比如不能有两个叫 <code>nginx-service</code> 的服务）。</p>
+<ul>
+<li><strong>作用：</strong> Namespace 提供了名称作用域的隔离。</li>
+<li><strong>效果：</strong> 你可以在 <code>dev</code> 空间里建一个 <code>nginx</code> Pod，同时也可以在 <code>test</code> 空间里建一个一模一样的 <code>nginx</code> Pod，它们同名同姓但互不冲突。</li>
+</ul>
+<h4 id="3-资源配额限制防止占满集群"><a href="#3-%e8%b5%84%e6%ba%90%e9%85%8d%e9%a2%9d%e9%99%90%e5%88%b6%e9%98%b2%e6%ad%a2%e5%8d%a0%e6%bb%a1%e9%9b%86%e7%be%a4" class="header-anchor"></a>3. 资源配额限制（防止占满集群）
+</h4><p>如果没有限制，某一个跑偏的测试服务可能会疯狂消耗 CPU 和内存，把整个集群的资源全部吃光，导致其他重要业务崩溃。</p>
+<ul>
+<li><strong>作用：</strong> 管理员可以针对不同的 Namespace 设置 <strong>ResourceQuota（资源配额）</strong>。</li>
+<li><strong>效果：</strong> 比如给 <code>dev</code> 空间限制最多使用 10 核 CPU 和 20G 内存。一旦超过这个界限，开发空间就无法再创建新资源，从而保护了集群其他空间的稳定性。</li>
+</ul>
+<h4 id="4-安全与权限控制谁能干什么"><a href="#4-%e5%ae%89%e5%85%a8%e4%b8%8e%e6%9d%83%e9%99%90%e6%8e%a7%e5%88%b6%e8%b0%81%e8%83%bd%e5%b9%b2%e4%bb%80%e4%b9%88" class="header-anchor"></a>4. 安全与权限控制（谁能干什么）
+</h4><p>配合 K8s 的 RBAC（基于角色的权限控制），可以实现非常精细的安全管理。</p>
+<ul>
+<li><strong>作用：</strong> 权限可以绑定在特定的 Namespace 上。</li>
+<li><strong>效果：</strong> 你可以给前端开发人员分配 <code>dev</code> 空间的“管理员”权限，但只给他们 <code>prod</code> 空间的“只读”权限（只能看日志，不能改配置），从而极大地提升了集群的安全性。</li>
+</ul>
+<blockquote class="alert alert-caution">
+        <div class="alert-header">
+            <span class="alert-icon">🚨</span>
+            <span class="alert-title">注意</span>
+        </div>
+        <div class="alert-body">
+            <p>注意：Namespace 隔离的局限性</p>
+<p>Namespace 属于 <strong>逻辑隔离</strong>，而不是物理隔离。</p>
+        </div>
+    </blockquote>
+<p><strong>网络默认互通：</strong> 在默认情况下，不同 Namespace 之间的 Pod 仍然是通过 IP 互相通信的（如果要彻底切断，需要配置网络策略 Network Policy）。</p>
+<p><strong>不隔离底层资源：</strong> 底层的节点（Node）、存储卷（PersistentVolume）和集群角色（ClusterRole）等是全局共享的，不属于任何 Namespace。</p>
+<h3 id="kubernetes-yaml-配置示例"><a href="#kubernetes-yaml-%e9%85%8d%e7%bd%ae%e7%a4%ba%e4%be%8b" class="header-anchor"></a>Kubernetes YAML 配置示例
+</h3><p>将以下内容保存为 <code>namespace-demo.yaml</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c"># ==========================================</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c"># 1. 定义一个名为 &#34;dev-team&#34; 的命名空间</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="c"># ==========================================</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Namespace</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">dev-team     </span><span class="w"> </span><span class="c"># 空间的名字，后续所有资源都分配在这里</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">    </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="l">development </span><span class="w"> </span><span class="c"># 给空间打上标签，方便过滤和做网络隔离</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="c"># ==========================================</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="c"># 2. 为这个命名空间设置资源配额（ResourceQuota）</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="c"># ==========================================</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ResourceQuota</span><span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">dev-quota</span><span class="w">
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">dev-team</span><span class="w"> </span><span class="c"># 【核心】明确指定这个配额只在 dev-team 空间生效</span><span class="w">
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w">  </span><span class="nt">hard</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w">    </span><span class="nt">pods</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;4&#34;</span><span class="w">         </span><span class="c"># 该空间内最多只能同时运行 4 个 Pod</span><span class="w">
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w">    </span><span class="nt">requests.cpu</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;2&#34;</span><span class="w"> </span><span class="c"># 该空间所有 Pod 申请的 CPU 总和不能超过 2 核</span><span class="w">
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="w">    </span><span class="nt">requests.memory</span><span class="p">:</span><span class="w"> </span><span class="l">4Gi</span><span class="w"> </span><span class="c"># 申请的内存总和不能超过 4GB</span><span class="w">
+</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="w">    </span><span class="nt">limits.cpu</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;4&#34;</span><span class="w">   </span><span class="c"># 该空间最多能撑满的 CPU 上限</span><span class="w">
+</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="w">    </span><span class="nt">limits.memory</span><span class="p">:</span><span class="w"> </span><span class="l">8Gi</span><span class="w"> </span><span class="c"># 最多能撑满的内存上限</span><span class="w">
+</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="c"># ==========================================</span><span class="w">
+</span></span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="c"># 3. 在该命名空间下部署一个 Nginx 应用</span><span class="w">
+</span></span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="c"># ==========================================</span><span class="w">
+</span></span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">apps/v1</span><span class="w">
+</span></span></span><span class="line"><span class="ln">35</span><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Deployment</span><span class="w">
+</span></span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">37</span><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nginx-app</span><span class="w">
+</span></span></span><span class="line"><span class="ln">38</span><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">dev-team</span><span class="w"> </span><span class="c"># 【核心】明确指定将这个应用部署到 dev-team 空间</span><span class="w">
+</span></span></span><span class="line"><span class="ln">39</span><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">40</span><span class="cl"><span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">         </span><span class="c"># 启动 2 个副本（未超过配额限制的 4 个）</span><span class="w">
+</span></span></span><span class="line"><span class="ln">41</span><span class="cl"><span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">42</span><span class="cl"><span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">43</span><span class="cl"><span class="w">      </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w">
+</span></span></span><span class="line"><span class="ln">44</span><span class="cl"><span class="w">  </span><span class="nt">template</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">45</span><span class="cl"><span class="w">    </span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">46</span><span class="cl"><span class="w">      </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">47</span><span class="cl"><span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w">
+</span></span></span><span class="line"><span class="ln">48</span><span class="cl"><span class="w">    </span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">49</span><span class="cl"><span class="w">      </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">50</span><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w">
+</span></span></span><span class="line"><span class="ln">51</span><span class="cl"><span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">nginx:1.25-alpine</span><span class="w">
+</span></span></span><span class="line"><span class="ln">52</span><span class="cl"><span class="w">        </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">53</span><span class="cl"><span class="w">        </span>- <span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span></span></span><span class="line"><span class="ln">54</span><span class="cl"><span class="w">        </span><span class="nt">resources</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">55</span><span class="cl"><span class="w">          </span><span class="c"># K8s 要求：一旦空间配置了 ResourceQuota，</span><span class="w">
+</span></span></span><span class="line"><span class="ln">56</span><span class="cl"><span class="w">          </span><span class="c"># 空间下的 Pod 必须明确写出资源申请（requests/limits），否则会被拒绝创建！</span><span class="w">
+</span></span></span><span class="line"><span class="ln">57</span><span class="cl"><span class="w">          </span><span class="nt">requests</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">58</span><span class="cl"><span class="w">            </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;256Mi&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">59</span><span class="cl"><span class="w">            </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;200m&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">60</span><span class="cl"><span class="w">          </span><span class="nt">limits</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">61</span><span class="cl"><span class="w">            </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;512Mi&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">62</span><span class="cl"><span class="w">            </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;500m&#34;</span><span class="w">
+</span></span></span></code></pre></div><p><strong>一键创建所有资源：</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">kubectl apply -f namespace-demo.yaml
+</span></span></code></pre></div><p><strong>查看你刚创建的 Namespace：</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="ln">1</span><span class="cl">kubectl get ns
+</span></span></code></pre></div><p><strong>【关键】查看特定 Namespace 下的资源：</strong> 如果你直接运行 <code>kubectl get pods</code>，你会发现<strong>什么都看不到</strong>（因为 K8s 默认看的是 <code>default</code> 空间）。你必须加上 <code>-n</code> 参数指定空间：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="ln">1</span><span class="cl">kubectl get pods -n dev-team
+</span></span></code></pre></div><p><strong>查看该空间下的资源消耗和配额情况：</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="ln">1</span><span class="cl">kubectl describe quota dev-quota -n dev-team
+</span></span></code></pre></div><p>你会看到类似下面的表格，清晰地显示了当前 <code>dev-team</code> 空间用了多少资源，还剩多少：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Plaintext" data-lang="Plaintext"><span class="line"><span class="ln">1</span><span class="cl">Resource        Used   Hard
+</span></span><span class="line"><span class="ln">2</span><span class="cl">--------        ----   ----
+</span></span><span class="line"><span class="ln">3</span><span class="cl">pods            2      4
+</span></span><span class="line"><span class="ln">4</span><span class="cl">requests.cpu    400m   2
+</span></span><span class="line"><span class="ln">5</span><span class="cl">requests.memory 512Mi  4Gi
+</span></span><span class="line"><span class="ln">6</span><span class="cl">limits.cpu      1      4
+</span></span><span class="line"><span class="ln">7</span><span class="cl">limits.memory   1Gi    8Gi
+</span></span></code></pre></div><h2 id="pod亲和性污点容忍度的多种调度策略"><a href="#pod%e4%ba%b2%e5%92%8c%e6%80%a7%e6%b1%a1%e7%82%b9%e5%ae%b9%e5%bf%8d%e5%ba%a6%e7%9a%84%e5%a4%9a%e7%a7%8d%e8%b0%83%e5%ba%a6%e7%ad%96%e7%95%a5" class="header-anchor"></a><strong>POD：亲和性、污点、容忍度的多种调度策略</strong>
+</h2><p>在 Kubernetes 中，将 Pod 调度到指定的节点（Node）上是生产环境中非常常见的需求。K8s 提供了多种机制来实现这一功能。</p>
+<h3 id="nodename最直接的强行绑定"><a href="#nodename%e6%9c%80%e7%9b%b4%e6%8e%a5%e7%9a%84%e5%bc%ba%e8%a1%8c%e7%bb%91%e5%ae%9a" class="header-anchor"></a>nodeName：最直接的“强行绑定”
+</h3><p><code>nodeName</code> 是最简单的调度方式。你直接在 YAML 中写死目标节点的名称，Pod 就会跳过所有的调度算法和 Scheduler（调度器），直接由该节点上的 <code>kubelet</code> 接管并运行。</p>
+<ul>
+<li><strong>工作原理：</strong> <strong>跳过调度器</strong>。即使目标节点资源满了、或者有污点（Taint），Pod 也会强行调度过去（如果节点故障，Pod 就会一直处于 Error 或 Pending 状态）。</li>
+<li><strong>适用场景：</strong> 通常用于测试、开发环境，或者写 K8s 内部组件（如 DaemonSet）时，非常不建议在生产环境的普通业务中使用。</li>
+</ul>
+<p>YAML 示例：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln">1</span><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Pod</span><span class="w">
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nodename-demo</span><span class="w">
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="w">  </span><span class="nt">nodeName</span><span class="p">:</span><span class="w"> </span><span class="l">k8s-node-02</span><span class="w"> </span><span class="c"># 【核心】直接写死节点名称，必须与 kubectl get nodes 看到的名称完全一致</span><span class="w">
+</span></span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="w">  </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w">
+</span></span></span><span class="line"><span class="ln">9</span><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">nginx:1.25-alpine</span><span class="w">
+</span></span></span></code></pre></div><h3 id="nodeselector基于标签的硬性筛选"><a href="#nodeselector%e5%9f%ba%e4%ba%8e%e6%a0%87%e7%ad%be%e7%9a%84%e7%a1%ac%e6%80%a7%e7%ad%9b%e9%80%89" class="header-anchor"></a>nodeSelector：基于标签的“硬性筛选”
+</h3><p><code>nodeSelector</code> 是早期的、最经典的<strong>标签选择器</strong>。它要求节点必须具备某些特殊的键值对标签（Label），Pod 才会调度过去。</p>
+<ul>
+<li><strong>工作原理：</strong> <strong>硬性过滤（Must 关系）</strong>。调度器在调度时，会检查哪些 Node 拥有 Pod 指定的标签。如果找不到满足条件的 Node，Pod 就会一直处于 <code>Pending</code> 状态。</li>
+<li><strong>使用步骤：</strong>
+<ol>
+<li>先给节点打标签：<code>kubectl label nodes k8s-node-01 disk=ssd</code></li>
+<li>在 Pod 中配置 <code>nodeSelector</code> 匹配该标签。</li>
+</ol>
+</li>
+</ul>
+<p><strong>YAML 示例：</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Pod</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nodeselector-demo</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">  </span><span class="nt">nodeSelector</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">    </span><span class="nt">disk</span><span class="p">:</span><span class="w"> </span><span class="l">ssd     </span><span class="w"> </span><span class="c"># 【核心】要求节点必须有 disk=ssd 这个标签</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">    </span><span class="nt">gpu</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;true&#34;</span><span class="w">    </span><span class="c"># 可以写多个条件，节点必须同时满足（And 关系）</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">  </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">nginx:1.25-alpine</span><span class="w">
+</span></span></span></code></pre></div><h3 id="高级标签方法节点亲和性node-affinity"><a href="#%e9%ab%98%e7%ba%a7%e6%a0%87%e7%ad%be%e6%96%b9%e6%b3%95%e8%8a%82%e7%82%b9%e4%ba%b2%e5%92%8c%e6%80%a7node-affinity" class="header-anchor"></a>高级标签方法：节点亲和性（Node Affinity）
+</h3><p>虽然 <code>nodeSelector</code> 很好用，但它太死板了（只有“必须满足”和“不满足”两种情况）。为了实现更复杂的调度逻辑，K8s 引入了 <strong>Node Affinity（节点亲和性）</strong>。</p>
+<p>节点亲和性分为两种硬度：</p>
+<ul>
+<li><strong>硬亲和性（Required&hellip;）：</strong> 必须满足，等同于增强版的 <code>nodeSelector</code>。</li>
+<li><strong>软亲和性（Preferred&hellip;）：</strong> 尽量满足。如果满足最好；如果不满足，调度器会妥协，找一个普通节点让 Pod 也能运行（<strong>不会 Pending</strong>）。</li>
+</ul>
+<p>此外，它还支持丰富的操作符（如 <code>In</code>, <code>NotIn</code>, <code>Exists</code>, <code>DoesNotExist</code>），而不像 <code>nodeSelector</code> 只能写等号。</p>
+<p><strong>示例 A：硬亲和性（必须在 SSD 或 10G 网卡的节点上）</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Pod</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">affinity-required-demo</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">  </span><span class="nt">affinity</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">    </span><span class="nt">nodeAffinity</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">      </span><span class="nt">requiredDuringSchedulingIgnoredDuringExecution</span><span class="p">:</span><span class="w"> </span><span class="c"># 【硬限制】</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">        </span><span class="nt">nodeSelectorTerms</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">        </span>- <span class="nt">matchExpressions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">          </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">disk-type</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">            </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="l">In</span><span class="w"> </span><span class="c"># 支持 In 操作符，表示值在列表中即可</span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">            </span><span class="nt">values</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">            </span>- <span class="l">ssd</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">            </span>- <span class="l">nvme</span><span class="w">
+</span></span></span></code></pre></div><p><strong>示例 B：软亲和性（优先调度到有 GPU 的节点，没有也行）</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Pod</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">affinity-preferred-demo</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">  </span><span class="nt">affinity</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">    </span><span class="nt">nodeAffinity</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">      </span><span class="nt">preferredDuringSchedulingIgnoredDuringExecution</span><span class="p">:</span><span class="w"> </span><span class="c"># 【软限制】</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">      </span>- <span class="nt">weight</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w"> </span><span class="c"># 权重 (1-100)，数字越大优先级越高</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">        </span><span class="nt">preference</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">          </span><span class="nt">matchExpressions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">          </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">has-gpu</span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">            </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="l">In</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">            </span><span class="nt">values</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">            </span>- <span class="s2">&#34;true&#34;</span><span class="w">
+</span></span></span></code></pre></div><p>我们可以从 <strong>Node（节点）</strong> 和 <strong>Pod（工作负载）</strong> 两个完全不同的视角来看待和配置亲和性。</p>
+<h4 id="node-角度节点亲和性-node-affinity"><a href="#node-%e8%a7%92%e5%ba%a6%e8%8a%82%e7%82%b9%e4%ba%b2%e5%92%8c%e6%80%a7-node-affinity" class="header-anchor"></a>Node 角度：节点亲和性 (Node Affinity)
+</h4><p>节点亲和性是以 <strong>Pod 为中心，看中了哪个 Node 的标签</strong>。它决定了 Pod 应该被调度到具有哪些特征的物理机或虚拟机上。</p>
+<p>它主要分为两种规则强度：</p>
+<ol>
+<li>
+<p><strong><code>requiredDuringSchedulingIgnoredDuringExecution</code>（硬策略）</strong>：<strong>必须</strong>满足条件，否则 Pod 宁可处于 <code>Pending</code> 状态也绝不上岸。</p>
+</li>
+<li>
+<p><strong><code>preferredDuringSchedulingIgnoredDuringExecution</code>（软策略）</strong>：<strong>尽量</strong>满足条件，如果有带这个标签的节点就优先去；如果没有，退而求其次，随便找个普通的节点也能运行。</p>
+
+    <blockquote>
+        <p><em>注：后缀 <code>IgnoredDuringExecution</code> 意味着：如果 Pod 已经运行在节点上了，此时节点的标签被管理员删改了，K8s 也<strong>不会</strong>把正在运行的 Pod 赶走。</em></p>
+
+    </blockquote>
+</li>
+</ol>
+<p><strong>典型应用场景</strong></p>
+<ul>
+<li><strong>硬件特殊需求</strong>：某些大数据处理或 AI 训练的 Pod，必须调度到带有 <code>hardware-type=gpu</code> 标签的节点上（硬策略）。</li>
+<li><strong>业务环境隔离</strong>：生产环境的 Pod 必须调度到 <code>env=production</code> 的节点上（硬策略）。</li>
+<li><strong>成本/偏好控制</strong>：优先把服务部署到 SSD 硬盘的节点 <code>storage=ssd</code> 上，如果没有，普通机械硬盘 <code>storage=hdd</code> 也能接受（软策略，通过 <code>weight</code> 权重控制优先级）。</li>
+</ul>
+<h4 id="pod-角度pod-亲和性与反亲和性"><a href="#pod-%e8%a7%92%e5%ba%a6pod-%e4%ba%b2%e5%92%8c%e6%80%a7%e4%b8%8e%e5%8f%8d%e4%ba%b2%e5%92%8c%e6%80%a7" class="header-anchor"></a>Pod 角度：Pod 亲和性与反亲和性
+</h4><p>Pod 角度的亲和性则完全不同。<strong>它不在乎 Node 叫什么、有什么硬件，它只在乎 Node 上目前已经运行了哪些 Pod</strong>。</p>
+<p>Pod 角度分为<strong>亲和性（Affinity）和反亲和性（Anti-Affinity）</strong>。同样，它们各自也支持硬策略和软策略。</p>
+<p><strong>Pod 亲和性 (Pod Affinity)</strong></p>
+<ul>
+<li><strong>核心逻辑</strong>：我想和某类 Pod <strong>住在一起</strong>（在同一个拓扑域）。</li>
+<li><strong>典型场景（就近看齐）</strong>： 在微服务架构中，你的 <strong>LNMP 环境</strong>（Nginx 和 PHP-FPM）或者<strong>应用与本地缓存</strong>（如一个 Java 应用和它的专属 Redis）。因为它们之间有高频的网络调用，如果把它们调度到同一个机架、甚至同一个节点上，网络延迟会降到最低。</li>
+<li><strong>规则示例</strong>：我要启动一个 <code>php-pod</code>，它的亲和性规则是：必须找到一个已经运行了 <code>app=nginx</code> 的节点，然后和它挤在一起。</li>
+</ul>
+<p><strong>Pod 反亲和性 (Pod Anti-Affinity)</strong></p>
+<ul>
+<li><strong>核心逻辑</strong>：我<strong>不想</strong>和某类 Pod 住在一起。</li>
+<li><strong>典型场景（分散避嫌）</strong>：
+<ul>
+<li><strong>高可用防灾</strong>：你的多副本服务（比如 3 个 Nginx 副本）。如果这 3 个副本都被调度到了同一台物理机上，一旦这台物理机宕机，服务就全线崩溃了。通过<strong>反亲和性硬策略</strong>，可以强制这 3 个副本分别落到不同的节点上。</li>
+<li><strong>强占资源避让</strong>：两个极其消耗 CPU/内存的大型大数据处理任务，不希望在一台机器上互相抢占资源。</li>
+</ul>
+</li>
+</ul>
+<h4 id="关键概念什么是拓扑域-topologykey"><a href="#%e5%85%b3%e9%94%ae%e6%a6%82%e5%bf%b5%e4%bb%80%e4%b9%88%e6%98%af%e6%8b%93%e6%89%91%e5%9f%9f-topologykey" class="header-anchor"></a>关键概念：什么是“拓扑域” (topologyKey)？
+</h4><p>在配置 Pod 亲和性/反亲和性时，有一个必填参数叫 <strong><code>topologyKey</code></strong>。这是理解 Pod 亲和性的灵魂。</p>
+<p>K8s 怎么定义“住在一起”或“不准住在一起”？</p>
+<ul>
+<li>如果 <code>topologyKey: kubernetes.io/hostname</code>：这意味着<strong>以单个“节点（Node）”为边界</strong>。反亲和性代表不能在同一个 Node 上。</li>
+<li>如果 <code>topologyKey: topology.kubernetes.io/zone</code>：这意味着<strong>以“可用区（Zone/机房）”为边界</strong>。反亲和性代表不能在同一个机房里，从而实现跨机房容灾。</li>
+</ul>
+<h4 id="对比总结表格"><a href="#%e5%af%b9%e6%af%94%e6%80%bb%e7%bb%93%e8%a1%a8%e6%a0%bc" class="header-anchor"></a>对比总结表格
+</h4><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th><strong>维度</strong></th>
+          <th><strong>节点亲和性 (Node Affinity)</strong></th>
+          <th><strong>Pod 亲和性 (Pod Affinity)</strong></th>
+          <th><strong>Pod 反亲和性 (Pod Anti-Affinity)</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>关注对象</strong></td>
+          <td>关注 <strong>Node</strong> 的标签</td>
+          <td>关注 <strong>邻居 Pod</strong> 的标签</td>
+          <td>关注 <strong>邻居 Pod</strong> 的标签</td>
+      </tr>
+      <tr>
+          <td><strong>核心目的</strong></td>
+          <td>把 Pod 调度到匹配的硬件/环境上。</td>
+          <td>让有紧密通信关系的 Pod 挨在一起，降低网络时延。</td>
+          <td>让相同服务的不同副本分散开，实现高可用；或避免资源竞争。</td>
+      </tr>
+      <tr>
+          <td><strong>常用匹配表达</strong></td>
+          <td><code>In</code>, <code>NotIn</code>, <code>Exists</code>, <code>DoesNotExist</code>, <code>Gt</code>, <code>Lt</code></td>
+          <td><code>In</code>, <code>NotIn</code>, <code>Exists</code>, <code>DoesNotExist</code></td>
+          <td><code>In</code>, <code>NotIn</code>, <code>Exists</code>, <code>DoesNotExist</code></td>
+      </tr>
+      <tr>
+          <td><strong>拓扑域限制</strong></td>
+          <td>不需要（直接面向 Node）</td>
+          <td><strong>必须</strong>指定 <code>topologyKey</code></td>
+          <td><strong>必须</strong>指定 <code>topologyKey</code></td>
+      </tr>
+      <tr>
+          <td><strong>性能消耗</strong></td>
+          <td>极低（直接匹配 Node 属性）</td>
+          <td><strong>较高</strong>。在大规模集群中，计算“谁和谁住一起”需要大量内存和 CPU，建议少用复杂的软策略。</td>
+          <td><strong>较高</strong>。在大规模集群中计算成本大。</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>在实际编写部署架构时，通常会组合使用。比如：通过 <strong>Node 亲和性</strong> 让业务落到生产环境节点，再通过 <strong>Pod 反亲和性</strong> 让服务的 3 个副本分散在不同的机架上，以此达到完美的合规性与高可用性。</p>
+<h3 id="污点与容忍度"><a href="#%e6%b1%a1%e7%82%b9%e4%b8%8e%e5%ae%b9%e5%bf%8d%e5%ba%a6" class="header-anchor"></a>污点与容忍度
+</h3><p>如果说亲和性（Affinity）是 Pod 表达它的“喜爱”（我想去哪儿，我想和谁住一起），那么污点（Taint）和容忍度（Toleration）则是节点和 Pod 之间表达“排斥”与“接纳”的硬核机制。</p>
+<p>它们的配合可以形象地理解为：</p>
+<ul>
+<li><strong>污点 (Taint)</strong>：<strong>节点</strong>对 Pod 说：“我很特殊/我有某种问题，身上有‘恶臭’，一般人别来沾边！”</li>
+<li><strong>容忍度 (Toleration)</strong>：<strong>Pod</strong> 对节点说：“没关系，我带了防毒面具，我能‘容忍’你身上的味道，让我进去！”</li>
+</ul>
+<h4 id="污点-taint--属于节点-node"><a href="#%e6%b1%a1%e7%82%b9-taint--%e5%b1%9e%e4%ba%8e%e8%8a%82%e7%82%b9-node" class="header-anchor"></a>污点 (Taint) —— 属于节点 (Node)
+</h4><p>污点是人为或系统自动打在 <strong>Node</strong> 上的一个标签。一旦节点有了污点，除非 Pod 明确声明自己能够“容忍”这个污点，否则 K8s 调度器<strong>绝对不会</strong>把 Pod 调度到这个节点上。</p>
+<p>一个污点由三个部分组成：<code>key=value:effect</code>。其中最核心的是 <strong>效果（Effect）</strong>，它决定了排斥的严厉程度，共有三种：</p>
+<ol>
+<li><strong><code>NoSchedule</code>（强排斥，影响调度）</strong>
+<ul>
+<li><strong>含义</strong>：如果 Pod 没有容忍度，<strong>新 Pod</strong> 绝不可能调度到该节点上。</li>
+<li><strong>注意</strong>：但如果节点打污点之前，上面已经运行了一些没有容忍度的老 Pod，这些老 Pod <strong>不会</strong>被赶走，会继续运行。</li>
+</ul>
+</li>
+<li><strong><code>PreferNoSchedule</code>（软排斥，尽量别来）</strong>
+<ul>
+<li><strong>含义</strong>：K8s 会尽量避免把新 Pod 调度到这个节点上。但如果集群里其他节点资源全满了，实在没地方去，调度器最终还是可能会妥协，把 Pod 放过来。</li>
+</ul>
+</li>
+<li><strong><code>NoExecute</code>（驱逐排斥，格杀勿论）</strong>
+<ul>
+<li><strong>含义</strong>：不仅<strong>新 Pod</strong> 无法调度上来，如果节点上<strong>已经运行着的老 Pod</strong> 没有配置相应的容忍度，会立刻被<strong>无情地驱逐（驱逐到别的节点上重建）</strong>。</li>
+</ul>
+</li>
+</ol>
+<h4 id="容忍度-toleration--属于-pod"><a href="#%e5%ae%b9%e5%bf%8d%e5%ba%a6-toleration--%e5%b1%9e%e4%ba%8e-pod" class="header-anchor"></a>容忍度 (Toleration) —— 属于 Pod
+</h4><p>容忍度是配置在 <strong>Pod Spec</strong> 中的属性。它赋予了 Pod 免疫特定污点的能力。</p>
+<p><strong>语法结构</strong></p>
+<p>在 Pod 的 YAML 中，容忍度的配置通常长这样：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln">1</span><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w">  </span><span class="nt">tolerations</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w">    </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;key1&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="w">      </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Equal&#34;</span><span class="w">   </span><span class="c"># 精确匹配：键和值必须完全相等</span><span class="w">
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="w">      </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;value1&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="w">      </span><span class="nt">effect</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;NoSchedule&#34;</span><span class="w">
+</span></span></span></code></pre></div><p>或者使用 <code>Exists</code> 运算符（只要键存在即可，不在乎值是什么，相当于通配符）：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln">1</span><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w">  </span><span class="nt">tolerations</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w">    </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;key2&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="w">      </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Exists&#34;</span><span class="w">  </span><span class="c"># 只要节点带有 key2 这个污点键，管它值是多少，我都容忍</span><span class="w">
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="w">      </span><span class="nt">effect</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;NoExecute&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="w">      </span><span class="nt">tolerationSeconds</span><span class="p">:</span><span class="w"> </span><span class="m">3600</span><span class="w"> </span><span class="c"># 遭遇 NoExecute 污点时，允许我在被赶走前继续苟活 1 小时</span><span class="w">
+</span></span></span></code></pre></div><h4 id="典型生产应用场景"><a href="#%e5%85%b8%e5%9e%8b%e7%94%9f%e4%ba%a7%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af" class="header-anchor"></a>典型生产应用场景
+</h4><p>污点和容忍度在 K8s 集群运维中扮演着非常关键的底层角色：</p>
+<ol>
+<li><strong>独占节点 / 专用节点 (Dedicated Nodes)</strong></li>
+</ol>
+<p>如果你在集群里买了几台带 GPU 的高配机器，专门给大数据分析或 AI 团队用，不希望普通的小 Web 微服务跑过来抢占资源。</p>
+<ul>
+<li><strong>做法</strong>：给 GPU 节点打上污点：<code>kubectl taint nodes node-gpu hardware=gpu:NoSchedule</code>。</li>
+<li><strong>结果</strong>：普通的 Pod 全被挡在门外。只有大数据团队的 Pod 在 YAML 里写了 <code>tolerations</code> 容忍了这个污点，才能调度上去。</li>
+</ul>
+<ol start="2">
+<li><strong>控制平面节点的自我保护 (Master / Control Plane Isolation)</strong></li>
+</ol>
+<p>你之前用 <code>kubectl get nodes</code> 看到过 <code>k8s-master</code> 节点。你有没有发现，平时你随便创建一个 Pod，它<strong>从来不会</strong>被调度到 Master 节点上？</p>
+<ul>
+<li><strong>底层原理</strong>：K8s 部署成功后，默认就会给控制平面节点打上一个内置污点：<code>node-role.kubernetes.io/control-plane:NoSchedule</code>。</li>
+<li><strong>目的</strong>：确保大脑的安全，防止普通的业务 Pod 把 Master 节点的 CPU 或内存撑爆导致整个集群瘫痪。</li>
+</ul>
+<ol start="3">
+<li><strong>基于节点状态的自动驱逐 (Taint-based Eviction)</strong></li>
+</ol>
+<p>这是 K8s 极度智能的一面。当某个 Worker 节点突然断网（NotReady）、或者磁盘快满了（DiskPressure）时，K8s 的控制平面（Node Controller）会自动、动态地给这个节点打上特定的污点，例如 <code>node.kubernetes.io/unreachable:NoExecute</code>。</p>
+<ul>
+<li><strong>结果</strong>：节点上一旦被打上这个内置污点，原本运行在上面的 Pod 就会被<strong>立刻驱逐</strong>，并在其他健康的正常节点上重新创建，从而实现了集群的<strong>故障自愈</strong>。</li>
+</ul>
+<h4 id="亲和性与污点容忍度的选择"><a href="#%e4%ba%b2%e5%92%8c%e6%80%a7%e4%b8%8e%e6%b1%a1%e7%82%b9%e5%ae%b9%e5%bf%8d%e5%ba%a6%e7%9a%84%e9%80%89%e6%8b%a9" class="header-anchor"></a>亲和性与污点/容忍度的选择
+</h4><ul>
+<li><strong>亲和性 (Affinity)</strong>：是 <strong>Pod 的主动选择</strong>。Pod 说：“我喜欢什么样的节点/我想去哪儿。”（属于<strong>引力</strong>）</li>
+<li><strong>污点与容忍度 (Taints and Tolerations)</strong>：是 <strong>节点的单向拒绝</strong>。节点说：“不符合我要求的 Pod，通通给我滚开。”（属于<strong>斥力</strong>）</li>
+</ul>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th><strong>特性</strong></th>
+          <th><strong>亲和性 (Affinity)</strong></th>
+          <th><strong>污点与容忍度 (Taints/Tolerations)</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>配置主体</strong></td>
+          <td>全部写在 <strong>Pod</strong> 上。</td>
+          <td>污点写在 <strong>Node</strong> 上，容忍度写在 <strong>Pod</strong> 上。</td>
+      </tr>
+      <tr>
+          <td><strong>目的</strong></td>
+          <td>引导 Pod 倾向于去某个地方。</td>
+          <td>让节点能够排斥、宣告拒绝某些 Pod。</td>
+      </tr>
+      <tr>
+          <td><strong>运行期影响</strong></td>
+          <td><code>IgnoredDuringExecution</code>（运行后不追溯）。</td>
+          <td><code>NoExecute</code> 效果可以在运行期<strong>直接驱逐</strong>已有 Pod。</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>在复杂的企业集群里，它们经常组合使用。例如：先用污点把普通 Pod 挡在 GPU 节点之外，再给 AI 业务的 Pod 加上容忍度以及 Node 亲和性，这样既保证了 GPU 节点不被污染，又确保了 AI 业务一定能精准命中 GPU 机器。</p>
+
+</section>
+
+
+    <footer class="article-meta article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/k8s/">K8s</a>
+        
+            <a href="/tags/test/">Test</a>
+        
+    </section>
+
+
+    
+<section class="article-share">
+    <span class="share-label">分享</span>
+    <a href="https://twitter.com/intent/tweet?url=https://wyww7.github.io/p/k8s%E4%B8%AD%E6%9C%80%E5%B0%8F%E5%8D%95%E5%85%83pod/&text=k8s%e4%b8%ad%e6%9c%80%e5%b0%8f%e5%8d%95%e5%85%83pod"
+       target="_blank" rel="noopener" title="分享到 Twitter" class="share-btn twitter">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+    </a>
+    <button class="share-btn wechat" title="分享到微信" id="share-wechat">
+        <img src="/img/wechat.svg" width="14" height="14" alt="微信">
+    </button>
+    <a href="https://connect.qq.com/widget/shareqq/index.html?url=https://wyww7.github.io/p/k8s%E4%B8%AD%E6%9C%80%E5%B0%8F%E5%8D%95%E5%85%83pod/&title=k8s%e4%b8%ad%e6%9c%80%e5%b0%8f%e5%8d%95%e5%85%83pod"
+       target="_blank" rel="noopener" title="分享到 QQ" class="share-btn qq">
+        <img src="/img/qq.svg" width="14" height="14" alt="QQ">
+    </a>
+    <button class="share-btn copy-link" title="复制链接" id="share-copy-btn">链接</button>
+</section>
+
+<script>
+(function() {
+    var wechatBtn = document.getElementById('share-wechat');
+    if (wechatBtn) {
+        var wechatOrig = wechatBtn.innerHTML;
+        var wechatTxt = wechatBtn.textContent;
+        wechatBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(location.href).then(function() {
+                wechatBtn.textContent = '已复制';
+                wechatBtn.style.color = '#fff';
+                wechatBtn.style.background = '#07c160';
+                setTimeout(function() {
+                    wechatBtn.innerHTML = wechatOrig;
+                    wechatBtn.style.color = '';
+                    wechatBtn.style.background = '';
+                }, 2000);
+            });
+        });
+    }
+
+    var copyBtn = document.getElementById('share-copy-btn');
+    if (copyBtn) {
+        var origText = copyBtn.textContent;
+        copyBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(location.href).then(function() {
+                copyBtn.textContent = '已复制';
+                copyBtn.style.background = 'var(--accent-color)';
+                copyBtn.style.color = '#fff';
+                setTimeout(function() {
+                    copyBtn.textContent = origText;
+                    copyBtn.style.background = '';
+                    copyBtn.style.color = '';
+                }, 1500);
+            });
+        });
+    }
+})();
+</script>
+
+
+    
+    <section class="article-copyright inline-meta">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span><a class="link" href="https://wyww7.github.io/"  target="_blank" rel="noopener"
+    >Wuwei&rsquo;s Blog</a></span>
+    </section>
+    
+</footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside>
+    <h2 class="section-title">相关文章</h2>
+    <div class="subsection-list">
+        <div class="article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/mall-swarm-k8s-%E5%AE%8C%E6%95%B4%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8D%97/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">mall-swarm K8S 完整部署指南</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/k8s%E9%9B%86%E7%BE%A4%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">K8s集群本地部署</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/k8s%E4%B8%AD%E9%83%A8%E7%BD%B2%E8%8B%A5%E4%BE%9D%E5%BE%AE%E6%9C%8D%E5%8A%A1/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">K8s中部署若依微服务</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="has-image">
+    <a href="/p/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7-ansible/">
+        
+        <div class="article-image">
+            <img alt="Featured image of post 自动化运维工具 - Ansible" height="150" loading="lazy" src="/p/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7-ansible/ScreenShot_2026-05-19_201246_361_hu_920458fd756d4bc6.png" srcset="/p/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7-ansible/ScreenShot_2026-05-19_201246_361_hu_920458fd756d4bc6.png 1x, /p/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7-ansible/ScreenShot_2026-05-19_201246_361_hu_7ab5084ed11ec15e.png 2x" width="250">
+
+        </div>
+        
+
+        <div class="article-details"style="background: linear-gradient(0deg, #51a8b780 0%, #fbfbfbC0 100%);">
+            <h2 class="article-title">自动化运维工具 - Ansible</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="has-image">
+    <a href="/p/%E5%8D%9A%E5%AE%A2%E5%8A%9F%E8%83%BD%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90-%E4%BB%8E%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8%E5%88%B0%E5%8A%A8%E6%80%81%E8%83%8C%E6%99%AF/">
+        
+        <div class="article-image">
+            <img alt="Featured image of post 博客功能技术解析 — 从音乐播放器到动态背景" loading="lazy" src="/img/River Flows in You.jpg">
+
+        </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">博客功能技术解析 — 从音乐播放器到动态背景</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+
+        <script
+    src="https://giscus.app/client.js"
+    data-repo="wyww7/wyww7.github.io"
+    data-repo-id="R_kgDOSnUB8Q"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOSnUB8c4C-Ay_"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="light"
+    data-lang="zh-CN"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('light');
+            } else {
+                setGiscusTheme('dark_dimmed');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 Wuwei1
+    </section>
+    
+	
+     <section class="powerby">
+        
+            记录技术与生活 <br/>
+        
+    </section>
+	
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+
+    
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.d88cf3a6d6de09e604bc00078d6c7b48e2ff198def996e81394857ca0bf28bd1.js" defer></script>
+<div id="particles-js"></div>
+<script src="/background/particles.min.js"></script>
+<script>
+  particlesJS.load('particles-js', '\/background\/particlesjs-config.json', function() {
+    console.log('particles.js loaded - callback');
+  });
+</script>
+<style>
+  #particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+  }
+   
+  body {
+    background: rgba(245, 245, 250, 0.85) !important;
+  }
+  [data-scheme="dark"] body {
+    background: rgba(48, 48, 48, 0.85) !important;
+  }
+   
+  #dark-mode-toggle {
+    width: auto !important;
+    align-self: flex-start !important;
+  }
+
+  
+   
+  #reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    z-index: 10000;
+    background: linear-gradient(90deg, var(--accent-color), #e91e63);
+    pointer-events: none;
+  }
+
+  #reading-progress.visible {
+    opacity: 1;
+  }
+
+  [data-scheme="dark"] #reading-progress {
+    background: rgba(255,255,255,0.7);
+  }
+  
+
+   
+  #TableOfContents ol ol {
+    display: none;
+  }
+  #TableOfContents ol ol.open {
+    display: block;
+  }
+
+   
+  #back-to-top {
+    position: fixed;
+    bottom: 90px;
+    right: 24px;
+    z-index: 997;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--card-background);
+    border: 1px solid var(--card-separator-color);
+    box-shadow: var(--shadow-l1);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+  }
+  #back-to-top.visible {
+    opacity: 0.85;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  #back-to-top:hover {
+    opacity: 1;
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+  }
+  #back-to-top::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-left: 2px solid var(--body-text-color);
+    border-top: 2px solid var(--body-text-color);
+    transform: rotate(45deg) translate(2px, 2px);
+  }
+  #back-to-top:hover::before {
+    border-color: #fff;
+  }
+
+   
+  .highlight .copyCodeButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    border: none !important;
+    border-radius: 0 4px 0 4px !important;
+    padding: 1px 8px !important;
+    min-width: 58px !important;
+    width: 58px !important;
+    max-width: 58px !important;
+    font-size: 1.05rem !important;
+    font-family: inherit !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.02em !important;
+    white-space: nowrap !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+    line-height: 1.8 !important;
+    cursor: pointer !important;
+    overflow: hidden !important;
+    background: rgba(128,128,128,0.08) !important;
+    color: rgba(0,0,0,0.35) !important;
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+    transition: all 0.25s ease !important;
+  }
+  .highlight .copyCodeButton:hover {
+    background: rgba(128,128,128,0.16) !important;
+    color: rgba(0,0,0,0.6) !important;
+  }
+  .highlight .copyCodeButton.copied {
+    background: var(--accent-color) !important;
+    color: #fff !important;
+  }
+  [data-scheme="dark"] .highlight .copyCodeButton {
+    background: rgba(255,255,255,0.06) !important;
+    color: rgba(255,255,255,0.35) !important;
+  }
+  [data-scheme="dark"] .highlight .copyCodeButton:hover {
+    background: rgba(255,255,255,0.12) !important;
+    color: rgba(255,255,255,0.7) !important;
+  }
+  [data-scheme="dark"] .highlight .copyCodeButton.copied {
+    background: var(--accent-color) !important;
+    color: #000 !important;
+    font-weight: 500 !important;
+  }
+
+   
+  [data-scheme="dark"] #back-to-top::before {
+    border-color: rgba(255,255,255,0.7);
+  }
+  [data-scheme="dark"] #back-to-top:hover {
+    background: rgba(255,255,255,0.15);
+  }
+  [data-scheme="dark"] #back-to-top:hover::before {
+    border-color: #fff;
+  }
+</style>
+
+<script src="/js/blog-extras.js"></script>
+
+
+<script>
+
+
+(function() {
+    var bar = document.getElementById('reading-progress');
+    if (bar) return;
+
+    bar = document.createElement('div');
+    bar.id = 'reading-progress';
+    bar.style.opacity = '0';
+    document.body.prepend(bar);
+
+    var hideTimer = null;
+
+    function update() {
+        var scrollTop = window.scrollY || document.documentElement.scrollTop;
+        var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        if (docHeight > 0) {
+            bar.style.width = Math.min((scrollTop / docHeight) * 100, 100) + '%';
+        }
+    }
+
+    function show() {
+        bar.style.opacity = '1';
+        if (hideTimer) clearTimeout(hideTimer);
+        hideTimer = setTimeout(function() {
+            bar.style.opacity = '0';
+        }, 1500);
+    }
+
+    window.addEventListener('scroll', function() {
+        update();
+        show();
+    }, { passive: true });
+
+    update();
+})();
+</script>
+
+
+<script>
+
+(function() {
+    'use strict';
+    var MAIN_SELECTOR = 'main.main';
+
+    
+    function shouldIntercept(link) {
+        var href = link.getAttribute('href');
+        if (!href) return false;
+        if (!href.startsWith('/') || href.startsWith('//')) return false;
+        if (href.startsWith('#')) return false;
+        if (link.target || link.hasAttribute('download')) return false;
+        if (link.getAttribute('rel') === 'external') return false;
+        
+        if (link.closest('.aplayer')) return false;
+        
+        if (link.closest('#i18n-switch')) return false;
+        return true;
+    }
+
+    
+    function executeScripts(container) {
+        var scripts = container.querySelectorAll('script');
+        scripts.forEach(function(oldScript) {
+            var s = document.createElement('script');
+            for (var i = 0; i < oldScript.attributes.length; i++) {
+                var attr = oldScript.attributes[i];
+                s.setAttribute(attr.name, attr.value);
+            }
+            s.textContent = oldScript.textContent;
+            oldScript.parentNode.replaceChild(s, oldScript);
+        });
+    }
+
+    function navigate(url, addToHistory) {
+        
+        document.documentElement.classList.add('pjax-loading');
+
+        fetch(url)
+            .then(function(res) {
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                return res.text();
+            })
+            .then(function(html) {
+                var parser = new DOMParser();
+                var doc = parser.parseFromString(html, 'text/html');
+
+                var newMain = doc.querySelector(MAIN_SELECTOR);
+                var oldMain = document.querySelector(MAIN_SELECTOR);
+                if (!newMain || !oldMain) throw new Error('Missing main content');
+
+                
+                oldMain.innerHTML = newMain.innerHTML;
+
+                
+                var oldSidebar = document.querySelector('aside.right-sidebar');
+                var newSidebar = doc.querySelector('aside.right-sidebar');
+                if (newSidebar) {
+                    if (oldSidebar) {
+                        oldSidebar.innerHTML = newSidebar.innerHTML;
+                    } else {
+                        
+                        var container = document.querySelector('.main-container');
+                        var refNode = container.querySelector('main.main');
+                        if (container && refNode) {
+                            var sidebar = document.createElement('aside');
+                            sidebar.className = newSidebar.className;
+                            sidebar.innerHTML = newSidebar.innerHTML;
+                            container.insertBefore(sidebar, refNode);
+                        }
+                    }
+                } else if (oldSidebar) {
+                    
+                    oldSidebar.remove();
+                }
+
+                
+                document.body.className = doc.body.className;
+                document.title = doc.title;
+
+                
+                executeScripts(oldMain);
+
+                
+                
+                
+                var savedScheme = document.documentElement.getAttribute('data-scheme');
+                function reinitTOC() {
+                    window.Stack.init();
+                    
+                    if (savedScheme) {
+                        document.documentElement.setAttribute('data-scheme', savedScheme);
+                    }
+                    
+                    if (window.__TOC__ && window.__TOC__.init) {
+                        window.__TOC__.init();
+                    }
+                }
+                if (window.Stack && typeof window.Stack.init === 'function') {
+                    setTimeout(reinitTOC, 100);
+                } else {
+                    
+                    
+                    setTimeout(function() {
+                        if (window.__TOC__ && window.__TOC__.init) {
+                            window.__TOC__.init();
+                        }
+                    }, 100);
+                }
+
+                
+                if (addToHistory !== false) {
+                    history.pushState({ url: url }, doc.title, url);
+                }
+                window.scrollTo({ top: 0, behavior: 'instant' });
+
+                
+                document.dispatchEvent(new CustomEvent('pjax:complete', { detail: { url: url } }));
+            })
+            .catch(function() {
+                
+                window.location.href = url;
+            })
+            .finally(function() {
+                document.documentElement.classList.remove('pjax-loading');
+            });
+    }
+
+    function onReady() {
+        document.addEventListener('click', function(e) {
+            var link = e.target.closest('a');
+            if (!link || !shouldIntercept(link)) return;
+            if (e.ctrlKey || e.metaKey || e.shiftKey) return;
+            e.preventDefault();
+            navigate(link.getAttribute('href'));
+        });
+
+        
+        history.replaceState({ url: window.location.href }, document.title, window.location.href);
+
+        window.addEventListener('popstate', function(e) {
+            var targetUrl = (e.state && e.state.url) ? e.state.url : window.location.href;
+            navigate(targetUrl, false);
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', onReady);
+    } else {
+        onReady();
+    }
+})();
+</script>
+
+<script>
+(function() {
+    var dropdown = document.querySelector('.i18n-dropdown');
+    if (!dropdown) return;
+
+    var toggleBtn = dropdown.querySelector('[data-toggle]');
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            dropdown.classList.toggle('open');
+        });
+    }
+
+    
+    document.addEventListener('click', function(e) {
+        if (!dropdown.contains(e.target)) {
+            dropdown.classList.remove('open');
+        }
+    });
+
+    
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            dropdown.classList.remove('open');
+        }
+    });
+})();
+</script>
+
+<div id="aplayer"></div>
+
+<div id="custom-lrc">
+    <p id="custom-lrc-line"></p>
+    <p id="custom-lrc-next"></p>
+</div>
+<script src="/lib/aplayer/APlayer.min.js"></script>
+<script>
+(function() {
+    
+    var STORAGE_KEY = 'aplayer_state_v2';
+    function saveState() {
+        try {
+            if (!ap || !ap.list || !ap.audio) return;
+            var state = {
+                index: ap.list.index,
+                currentTime: ap.audio ? ap.audio.currentTime : 0,
+                isPlaying: !!(ap.audio && !ap.audio.paused)
+            };
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } catch(e) {}
+    }
+    function loadState() {
+        try {
+            var raw = localStorage.getItem(STORAGE_KEY);
+            return raw ? JSON.parse(raw) : null;
+        } catch(e) { return null; }
+    }
+
+    
+    var musicList = [{"artist":"RADWIMPS","cover":"/img/kiminonaha_jk_tsujo_tw-1.jpg","name":"三葉のテーマ","url":"https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/三葉のテーマ - RADWIMPS.mp3"},{"artist":"RADWIMPS","cover":"/img/kiminonaha_jk_tsujo_tw-1.jpg","name":"奥寺先輩のテーマ","url":"https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/奥寺先輩のテーマ - RADWIMPS.mp3"},{"artist":"RADWIMPS","cover":"/img/kiminonaha_jk_tsujo_tw-1.jpg","name":"かたわれ時","url":"https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/かたわれ時 - RADWIMPS.mp3"},{"artist":"dylanf","cover":"/img/Canon.jpg","name":"卡农 (Canon)","url":"https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/卡农（经典钢琴版） - dylanf.mp3"},{"artist":"Yiruma","cover":"/img/River Flows in You.jpg","name":"River Flows in You","url":"https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/River Flows in You (你的心河) - 李闰珉.mp3"},{"artist":"陈奕迅","cover":"/img/K歌之王.jpg","lrc":"/music/K歌之王 - 陈奕迅.lrc","name":"K歌之王","url":"https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/K歌之王 - 陈奕迅.mp3"},{"artist":"天門","cover":"/img/想い出は遠くの日々.jpg","name":"想い出は遠くの日々","url":"https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/想い出は遠くの日々 - 天門.mp3"},{"artist":"坂本龍一","cover":"/img/Merry Christmas Mr. Lawrence.jpg","name":"Merry Christmas Mr. Lawrence","url":"https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/Merry Christmas Mr. Lawrence - 坂本龍一.mp3"},{"artist":"DJ OKAWARI","cover":"/img/Flower Dance.jpg","name":"Flower Dance","url":"https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/Flower Dance - DJ OKAWARI.mp3"},{"artist":"岸部眞明","cover":"/img/流れ行く云.jpg","name":"流れ行く云","url":"https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/流れ行く云 (Nagareyuku Kumo) - 岸部眞明.mp3"},{"artist":"岸部眞明","cover":"/img/流れ行く云.jpg","name":"奇迹の山","url":"https://wyww7-music.oss-cn-hangzhou.aliyuncs.com/奇迹の山 (Kisekino Yama) - 岸部眞明.mp3"}];
+
+    
+    musicList = musicList.filter(function(item) {
+        return item.url && item.url.trim() !== '';
+    });
+    if (musicList.length === 0) return;
+
+    
+    
+    var lrcMap = {};
+    musicList = musicList.map(function(item) {
+        if (item.url && item.url.trim() !== '') {
+            
+            if (item.url.indexOf('http') !== 0) {
+                item.url = encodeURI(item.url);
+            }
+        }
+        if (item.cover && item.cover.trim() !== '') {
+            if (item.cover.indexOf('http') !== 0) {
+                item.cover = encodeURI(item.cover);
+            }
+        }
+        if (item.lrc && typeof item.lrc === 'string' && item.lrc.trim() !== '') {
+            if (item.lrc.indexOf('http') === 0) {
+                lrcMap[item.name] = item.lrc;
+            } else {
+                lrcMap[item.name] = encodeURI(item.lrc.trim());
+            }
+        }
+        
+        delete item.lrc;
+        return item;
+    });
+
+    
+    var ap = new APlayer({
+        container: document.getElementById('aplayer'),
+        fixed: true,
+        autoplay: false,
+        preload: 'metadata',
+        theme: '#b7daff',
+        loop: 'all',
+        order: 'list',
+        listFolded: true,
+        lrcType: 0,
+        audio: musicList
+    });
+
+    
+    var lrcContainer = document.getElementById('custom-lrc');
+    var lrcLineEl = document.getElementById('custom-lrc-line');
+    var lrcNextEl = document.getElementById('custom-lrc-next');
+    if (!lrcContainer || !lrcLineEl || !lrcNextEl) return;
+
+    
+    
+    function parseLRC(lrcText) {
+        var lines = lrcText.split('\n');
+        var result = [];
+        var seenTimes = {};  
+        var tagRe = /\[(\d{2}):(\d{2})(?:[.:](\d{2,3}))?\]/;
+        for (var i = 0; i < lines.length; i++) {
+            var match = tagRe.exec(lines[i]);
+            if (!match) continue;
+            var min = parseInt(match[1], 10);
+            var sec = parseInt(match[2], 10);
+            var ms = match[3] ? parseInt(match[3], 10) : 0;
+            if (match[3] && match[3].length === 2) ms = ms * 10;
+            var time = min * 60 + sec + ms / 1000;
+            var text = lines[i].replace(tagRe, '').replace(/^\s+/, '').trim();
+            if (text.length > 0 && !seenTimes[time.toFixed(3)]) {
+                seenTimes[time.toFixed(3)] = true;
+                result.push({time: time, text: text});
+            }
+        }
+        result.sort(function(a, b) { return a.time - b.time; });
+        return result;
+    }
+
+    
+    
+    
+    function getCurrentSongName() {
+        try {
+            return ap.list.audios[ap.list.index].name;
+        } catch(e) { return null; }
+    }
+
+    
+    var currentLrc = null;
+    var lastCurrentText = '';
+    var lastNextText = '';
+
+    
+    var lrcData = {};
+    Object.keys(lrcMap).forEach(function(name) {
+        fetch(lrcMap[name])
+            .then(function(res) { return res.text(); })
+            .then(function(text) {
+                lrcData[name] = parseLRC(text);
+                
+                var curName = getCurrentSongName();
+                if (curName === name) {
+                    currentLrc = lrcData[name];
+                    lastCurrentText = '';
+                    lastNextText = '';
+                    lrcLineEl.textContent = '';
+                    lrcNextEl.textContent = '';
+                    if (!lrcManuallyHidden && ap.audio && !ap.audio.paused) {
+                        lrcContainer.style.display = 'block';
+                    }
+                }
+            })
+            .catch(function(){   });
+    });
+
+    
+    function findCurrentAndNext(lyrics, currentTime) {
+        if (!lyrics || lyrics.length === 0) return { current: null, next: null };
+        var idx = 0;
+        for (var i = 0; i < lyrics.length; i++) {
+            if (currentTime >= lyrics[i].time) {
+                idx = i;
+            } else {
+                break;
+            }
+        }
+        var next = (idx + 1 < lyrics.length) ? lyrics[idx + 1] : null;
+        return { current: lyrics[idx], next: next };
+    }
+
+    
+    function switchLrc() {
+        var name = getCurrentSongName();
+        if (!name) return;
+        currentLrc = lrcData[name] || null;
+        lastCurrentText = '';
+        lastNextText = '';
+        lrcLineEl.textContent = '';
+        lrcNextEl.textContent = '';
+        
+        if (!lrcManuallyHidden && currentLrc && currentLrc.length > 0 && ap.audio && !ap.audio.paused) {
+            lrcContainer.style.display = 'block';
+        } else {
+            lrcContainer.style.display = 'none';
+        }
+    }
+
+    
+    var lrcManuallyHidden = false;
+
+    
+    function bindLrcButton() {
+        var lrcBtn = document.querySelector('.aplayer-icon-lrc');
+        if (!lrcBtn) {
+            
+            setTimeout(bindLrcButton, 300);
+            return;
+        }
+        lrcBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            lrcManuallyHidden = !lrcManuallyHidden;
+            if (lrcManuallyHidden) {
+                lrcContainer.style.display = 'none';
+            } else {
+                
+                var name = getCurrentSongName();
+                if (name && lrcData[name] && lrcData[name].length > 0 && ap.audio && !ap.audio.paused) {
+                    currentLrc = lrcData[name];
+                    lrcContainer.style.display = 'block';
+                }
+            }
+        });
+    }
+    bindLrcButton();
+
+    
+    function shouldShowLrc() {
+        if (lrcManuallyHidden) return false;
+        var name = getCurrentSongName();
+        return name && lrcData[name] && lrcData[name].length > 0;
+    }
+
+    
+    ap.on('play', function() {
+        if (shouldShowLrc()) {
+            var name = getCurrentSongName();
+            currentLrc = lrcData[name];
+            lrcContainer.style.display = 'block';
+        }
+        saveState();
+    });
+    ap.on('pause', function() {
+        lrcContainer.style.display = 'none';
+        saveState();
+    });
+    ap.on('ended', function() {
+        lrcContainer.style.display = 'none';
+        saveState();
+    });
+    
+    ap.on('listswitch', function() {
+        setTimeout(function() {
+            switchLrc();
+        }, 150);
+        saveState();
+    });
+    ap.on('seeked', function() {
+        saveState();
+    });
+
+    
+    function flashFade(el) {
+        el.classList.add('fade');
+        clearTimeout(el._fadeTimer);
+        el._fadeTimer = setTimeout(function() {
+            el.classList.remove('fade');
+        }, 350);
+    }
+
+    
+    function tick() {
+        try {
+            if (ap.audio) {
+                var audio = ap.audio;
+                if (!audio.paused && !lrcManuallyHidden) {
+                    
+                    var songName = getCurrentSongName();
+                    if (songName && lrcData[songName] && lrcData[songName].length > 0) {
+                        if (currentLrc !== lrcData[songName]) {
+                            currentLrc = lrcData[songName];
+                            lastCurrentText = '';
+                            lastNextText = '';
+                        }
+                        var lines = findCurrentAndNext(currentLrc, audio.currentTime);
+                        if (lines.current && lines.current.text !== lastCurrentText) {
+                            lastCurrentText = lines.current.text;
+                            lrcLineEl.textContent = lines.current.text;
+                            flashFade(lrcLineEl);
+                        }
+                        var nextText = lines.next ? lines.next.text : '';
+                        if (nextText !== lastNextText) {
+                            lastNextText = nextText;
+                            lrcNextEl.textContent = nextText;
+                            if (nextText) flashFade(lrcNextEl);
+                        }
+                        if (lrcContainer.style.display !== 'block') {
+                            lrcContainer.style.display = 'block';
+                        }
+                    } else if (!songName || !lrcData[songName]) {
+                        if (lrcContainer.style.display !== 'none') {
+                            lrcContainer.style.display = 'none';
+                        }
+                    }
+                }
+            }
+        } catch(e) {}
+        requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+
+    
+    var saved = loadState();
+    if (saved && saved.index >= 0 && saved.index < ap.list.audios.length) {
+        
+        ap.list.switch(saved.index);
+        if (ap.audio) {
+            ap.audio.preload = 'auto'; 
+        }
+
+        if (saved.currentTime > 0 || saved.isPlaying) {
+            var restored = false;
+            function restorePlayback() {
+                if (restored) return;
+                restored = true;
+                try {
+                    if (saved.currentTime > 1) {
+                        ap.seek(saved.currentTime);
+                    }
+                    if (saved.isPlaying) {
+                        ap.play();
+                    }
+                } catch(e) {}
+            }
+            
+            if (ap.audio) {
+                ap.audio.addEventListener('loadedmetadata', restorePlayback, { once: true });
+            }
+            ap.on('canplay', restorePlayback);
+            
+            setTimeout(function() {
+                if (!restored) {
+                    try {
+                        if (saved.currentTime > 1) ap.seek(saved.currentTime);
+                        if (saved.isPlaying) ap.play();
+                    } catch(e) {}
+                    restored = true;
+                }
+            }, 1500);
+        }
+    }
+
+    
+    window.addEventListener('beforeunload', saveState);
+    
+    setInterval(saveState, 3000);
+    
+    var lastSavedTime = 0;
+    ap.on('timeupdate', function() {
+        try {
+            if (ap.audio && Math.abs(ap.audio.currentTime - lastSavedTime) > 5) {
+                lastSavedTime = ap.audio.currentTime;
+                saveState();
+            }
+        } catch(e) {}
+    });
+
+    
+    switchLrc();
+})();
+</script>
+
+
+    </body>
+</html>
